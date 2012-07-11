@@ -4,7 +4,7 @@
  * @fileoverview jQuery plugin that creates hover tooltips.
  * @link https://github.com/stevenbenner/jquery-powertip
  * @author Steven Benner
- * @version 1.0
+ * @version 1.0.1
  * @requires jQuery 1.7 or later
  * @license jQuery PowerTip Plugin
  * <https://github.com/stevenbenner/jquery-powertip>
@@ -28,14 +28,14 @@
 	var session = {
 		isPopOpen: false,
 		isFixedPopOpen: false,
-		isMouseConstatnlyTracked: false,
 		popOpenImminent: false,
 		activeHover: null,
 		mouseTarget: null,
 		currentX: 0,
 		currentY: 0,
 		previousX: 0,
-		previousY: 0
+		previousY: 0,
+		desyncTimeout: null
 	};
 
 	/**
@@ -53,6 +53,9 @@
 		// extend options
 		var options = $.extend({}, $.fn.powerTip.defaults, opts);
 
+		// hook mouse tracking, once
+		hookOnMoveOnce();
+
 		// build and append popup div if it does not already exist
 		var tipElement = $('#' + options.popupId);
 		if (tipElement.length === 0) {
@@ -60,14 +63,12 @@
 			$body.append(tipElement);
 		}
 
-		// because of the intent delay we need to constantly track the cursor
-		// position for mouse-follow powertips
+		// hook mousemove for cursor follow tooltips
 		if (options.followMouse) {
 			// only one movePop hook per popup element, please
 			if (!tipElement.data('hasMouseMove')) {
 				$window.on('mousemove', movePop);
 			}
-			session.isMouseConstatnlyTracked = true;
 			tipElement.data('hasMouseMove', true);
 		}
 
@@ -116,9 +117,6 @@
 				session.mouseTarget = element;
 				session.previousX = event.pageX;
 				session.previousY = event.pageY;
-				if (!session.isMouseConstatnlyTracked) {
-					element.on('mousemove', trackMouse);
-				}
 				if (!element.data('hasActiveHover')) {
 					session.popOpenImminent = true;
 					setHoverTimer(element, 'show');
@@ -128,9 +126,6 @@
 				var element = $(this);
 				cancelHoverTimer(element);
 				session.mouseTarget = null;
-				if (!session.isMouseConstatnlyTracked) {
-					element.off('mousemove', trackMouse);
-				}
 				session.popOpenImminent = false;
 				if (element.data('hasActiveHover')) {
 					setHoverTimer(element, 'hide');
@@ -155,9 +150,6 @@
 
 			// check if difference has passed the sensitivity threshold
 			if (totalDifference < options.intentSensitivity) {
-				if (!session.isMouseConstatnlyTracked) {
-					element.off('mousemove', trackMouse);
-				}
 				element.data('hasActiveHover', true);
 				// show popup, asap
 				showTip(element);
@@ -215,7 +207,12 @@
 			tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
 
 			// fadein
-			tipElement.stop(true, true).fadeIn(options.fadeInTime);
+			tipElement.stop(true, true).fadeIn(options.fadeInTime, function() {
+				// start desync polling
+				if (!session.desyncTimeout) {
+					session.desyncTimeout = setInterval(closeDesyncedTip, 500);
+				}
+			});
 		}
 
 		/**
@@ -234,7 +231,52 @@
 				// after it is hidden
 				tipElement.css('left', session.currentX + options.offset + 'px');
 				tipElement.css('top', session.currentY + options.offset + 'px');
+				// stop desync polling
+				session.desyncTimeout = clearInterval(session.desyncTimeout);
 			});
+		}
+
+		/**
+		 * Checks for a tooltip desync and closes the tooltip if one occurs.
+		 * @private
+		 */
+		function closeDesyncedTip() {
+			// It is possible for the mouse cursor to leave an element without
+			// firing the mouseleave event. This seems to happen (in FF) if the
+			// element is disabled under mouse cursor, the element is moved out
+			// from under the mouse cursor (such as a slideDown() occurring
+			// above it), or if the browser is resized by code moving the
+			// element from under the mouse cursor. If this happens it will
+			// result in a desynced tooltip because we wait for any exiting
+			// open tooltips to close before opening a new one. So we should
+			// periodically check for a desync situation and close the tip if
+			// such a situation arises.
+			if (session.isPopOpen) {
+				var isDesynced = false;
+
+				// case 1: user already moused onto another tip - easy test
+				if (session.activeHover.data('hasActiveHover') === false) {
+					isDesynced = true;
+				} else {
+					// case 2: hanging tip - have to test if mouse position is
+					// not over the active hover and not over a tooltip set to
+					// let the user interact with it
+					if (!isMouseOver(session.activeHover)) {
+						if (tipElement.data('mouseOnToPopup')) {
+							if (!isMouseOver(tipElement)) {
+								isDesynced = true;
+							}
+						} else {
+							isDesynced = true;
+						}
+					}
+				}
+
+				if (isDesynced) {
+					// close the desynced tip
+					hideTip(session.activeHover);
+				}
+			}
 		}
 
 		/**
@@ -249,7 +291,6 @@
 			// but we should only set the pop location if a fixed pop is not
 			// currently open, a pop open is imminent or active, and the popup
 			// element in question does have a mouse-follow using it.
-			trackMouse(event);
 			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
 				// grab measurements
 				var scrollTop = $window.scrollTop(),
@@ -364,6 +405,19 @@
 		mouseOnToPopup: false
 	};
 
+	var onMoveHooked = false;
+	/**
+	 * Hooks the trackMouse() function to the window's mousemove event.
+	 * Prevents attaching the event more than once.
+	 * @private
+	 */
+	function hookOnMoveOnce() {
+		if (!onMoveHooked) {
+			onMoveHooked = true;
+			$window.on('mousemove', trackMouse);
+		}
+	}
+
 	/**
 	 * Saves the current mouse coordinates to the powerTip session object.
 	 * @private
@@ -384,6 +438,20 @@
 			clearTimeout(element.data('hoverTimer'));
 			element.data('hoverTimer', null);
 		}
+	}
+
+	/**
+	 * Tests if the mouse is currently over the specified element.
+	 * @private
+	 * @param {Object} element The element to check for hover.
+	 * @return {Boolean}
+	 */
+	function isMouseOver(element) {
+		var elementPosition = element.offset();
+		return session.currentX >= elementPosition.left &&
+			session.currentX <= elementPosition.left + element.outerWidth() &&
+			session.currentY >= elementPosition.top &&
+			session.currentY <= elementPosition.top + element.outerHeight();
 	}
 
 }(jQuery));
