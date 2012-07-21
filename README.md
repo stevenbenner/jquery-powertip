@@ -4,18 +4,19 @@ A jQuery plugin that creates hover tooltips.
 
 ## Summary
 
-This plugin will create tooltips. Of course there are already about 5 million jQuery plugins that can create tooltips, but none of them had all of the features I wanted, so I created my own. Here is yet another tooltip plugin for jQuery.
+This plugin will create tooltips for you. Of course there are already about 5 million jQuery plugins that can create tooltips, but none of them had all of the features I wanted and worked the way I wanted, so I created my own. Here is yet another tooltip plugin for jQuery.
 
 PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
 
 ### Features
 
-* Simple implementation (include JavaScript, a few lines of CSS and call `powerTip()`)
-* Easy configuration
-* Supports static tooltips as well as tooltips that follow the mouse.
+* Straightforward implementation (just include script, a few lines of CSS and call `powerTip()`)
+* Simple configuration
+* Supports static tooltips as well as tooltips that follow the mouse
 * Ability to let users mouse on to the tooltips and interact with their content
-* Test for hover intent (users have to focus their cursor on the element before the tooltip will open)
+* Tests for hover intent (users have to hold the mouse cursor on the element before the tooltip will open)
 * Mouse follow tooltips are constrained to the browser viewport
+* Easy customization
 
 ### Requirements
 
@@ -31,7 +32,7 @@ Where `options` is an object with the various settings you want to override (all
 
 ### Setting tooltip content
 
-Generally, you probably want to set your tooltip text with the HTML `title` attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
+Generally, you probably want to set your tooltip text with the HTML title attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
 
 #### Title attribute
 
@@ -57,44 +58,45 @@ $('#element').data('powertip', 'This will be the tooltip text.');
 
 #### data-powertipjq
 
-This is a data interface that will accept a jQuery object. You can create complex markup and events on a jQuery object and set them via `.data` at any time.
+This is a data interface that will accept a jQuery object. You can create a jQuery object containing complex markup (and even events) and attach it to the element via jQuery's `.data()` method at any time.
 
 ```javascript
 var tooltip = $('<div>This will be the tooltip text.</div>');
 tooltip.on('click', function() { /* ... */ });
 
-$('#element').data('powertip', tooltip);
+$('#element').data('powertipjq', tooltip);
 ```
 
 #### data-powertiptarget
 
-Here you can specify the ID of an element in the dom to pull the content from. It will replicate the markup in the tooltip without destroying the original.
+You can specify the ID of an element in the DOM to pull the content from. PowerTip will replicate the markup inside of that element in the tooltip without modifying or destroying the original.
 
 ```html
 <div id="myToolTip">
 	<p><b>Some Title</b></p>
 	<p>This will be the tooltip text.</p>
+	<p><a href="#">This link will be in the tooltip as well.</a></p>
 </div>
 ```
 
 ```javascript
-$('#element').data(powertiptarget, 'myToolTip');
+$('#element').data('powertiptarget', 'myToolTip');
 ```
 
 ## Options
 
 | Name | Default | Type | Description |
 | ----- | ----- | ----- | ----- |
-| followMouse | false | Boolean | Should the pop follow the users mouse. |
-| mouseOnToPopup | false | Boolean | Allow the mouse to hover on the popup (fixed placement only). |
-| placement | 's' | String | Fixed placement location (n, e, s, w) |
-| popupId | 'powerTip' | String | HTML id attribute for the popup div. |
-| offset | 10 | Number | Pixel offset of popup (from mouse if followMouse is true or from object if fixed). |
-| fadeInTime | 200 | Number | Pop fade-in time. |
-| fadeOutTime | 200 | Number | Pop fade-out time. |
-| closeDelay | 200 | Number | Time after user leaves the hover zone before closing the pop. |
-| intentSensitivity | 7 | Number | Hover intent sensitivity. |
-| intentPollInterval | 100 | Number | Hover intent polling interval. |
+| `followMouse` | `false` | Boolean | If set to `true` the tooltip will follow the users mouse cursor. |
+| `mouseOnToPopup` | `false` | Boolean | Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only works if `followMouse` is set to `false`. |
+| `placement` | `'s'` | String | Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, or `w` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
+| `popupId` | `'powerTip'` | String | HTML id attribute for the tooltip div. |
+| `offset` | `10` | Number | Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
+| `fadeInTime` | `200` | Number | Tooltip fade-in time in milliseconds. |
+| `fadeOutTime` | `200` | Number | Tooltip fade-out time in milliseconds. |
+| `closeDelay` | `200` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. |
+| `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
+| `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 
 ## License
 
