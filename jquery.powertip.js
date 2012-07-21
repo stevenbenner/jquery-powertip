@@ -226,6 +226,7 @@
 				session.activeHover = null;
 				session.isPopOpen = false;
 				session.isFixedPopOpen = false;
+				tipElement.removeClass(options.placement);
 				// support mouse-follow and fixed position pops at the same
 				// time by moving the popup to the last known cursor location
 				// after it is hidden
@@ -354,6 +355,8 @@
 				y = (objectOffset.top + (objectHeight / 2)) - (popHeight / 2);
 				break;
 			}
+
+			tipElement.addClass(options.placement);
 
 			// set the css position
 			tipElement.css('left', Math.round(x) + 'px');
