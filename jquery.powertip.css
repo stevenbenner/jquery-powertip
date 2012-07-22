@@ -14,30 +14,30 @@
 	position: absolute;
 }
 #powerTip.n:before, #powerTip.s:before {
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
-    left: 50%;
-    margin-left: -5px;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	left: 50%;
+	margin-left: -5px;
 }
 #powerTip.e:before, #powerTip.w:before {
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-    margin-top: -5px;
-    top: 50%;
+	border-bottom: 5px solid transparent;
+	border-top: 5px solid transparent;
+	margin-top: -5px;
+	top: 50%;
 }
 #powerTip.n:before {
-    border-top: 5px solid rgba(0, 0, 0, 0.8);
-    bottom: -5px;
+	border-top: 5px solid rgba(0, 0, 0, 0.8);
+	bottom: -5px;
 }
 #powerTip.e:before {
-    border-right: 5px solid rgba(0, 0, 0, 0.8);
-    left: -5px;
+	border-right: 5px solid rgba(0, 0, 0, 0.8);
+	left: -5px;
 }
 #powerTip.s:before {
-    border-bottom: 5px solid rgba(0, 0, 0, 0.8);
-    top: -5px;
+	border-bottom: 5px solid rgba(0, 0, 0, 0.8);
+	top: -5px;
 }
 #powerTip.w:before {
-    border-left: 5px solid rgba(0, 0, 0, 0.8);
-    right: -5px;
+	border-left: 5px solid rgba(0, 0, 0, 0.8);
+	right: -5px;
 }
