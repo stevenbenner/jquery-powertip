@@ -9,7 +9,8 @@
 	position: absolute;
 	z-index: 2;
 }
-#powerTip.n:before, #powerTip.e:before, #powerTip.s:before, #powerTip.w:before {
+#powerTip.n:before, #powerTip.e:before, #powerTip.s:before, #powerTip.w:before,
+#powerTip.ne:before, #powerTip.nw:before, #powerTip.se:before, #powerTip.sw:before {
 	content: "";
 	position: absolute;
 }
@@ -40,4 +41,22 @@
 #powerTip.w:before {
 	border-left: 5px solid rgba(0, 0, 0, 0.8);
 	right: -5px;
+}
+#powerTip.ne:before, #powerTip.se:before {
+	border-right: 10px solid transparent;
+	border-left: 0;
+	left: 10px;
+}
+#powerTip.nw:before, #powerTip.sw:before {
+	border-left: 10px solid transparent;
+	border-right: 0;
+	right: 10px;
+}
+#powerTip.ne:before, #powerTip.nw:before {
+	border-top: 10px solid rgba(0, 0, 0, 0.8);
+	bottom: -10px;
+}
+#powerTip.se:before, #powerTip.sw:before {
+	border-bottom: 10px solid rgba(0, 0, 0, 0.8);
+	top: -10px;
 }

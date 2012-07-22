@@ -48,6 +48,9 @@
 			margin: 10px;
 			padding: 10px 30px;
 		}
+		#placement-examples #east {
+			margin-left: 200px;
+		}
 
 		#mousefollow-examples div {
 			background-color: #EEE;
@@ -78,10 +81,14 @@
 	<div id="placement-examples">
 		<h2>Placement examples</h2>
 		<div>
-			<input type="button" id="north" value="North" title="North placement {placement: 'n'}" /><br />
+			<input type="button" id="north-west" value="North West" title="North west placement {placement: 'nw'}" />
+			<input type="button" id="north" value="North" title="North placement {placement: 'n'}" />
+			<input type="button" id="north-east" value="North East" title="North east placement {placement: 'ne'}" /><br />
 			<input type="button" id="west" value="West" title="West placement {placement: 'w'}" />
 			<input type="button" id="east" value="East" title="East placement {placement: 'e'}" /><br />
-			<input type="button" id="south" value="South" title="South placement {placement: 's'}" /><br />
+			<input type="button" id="south-west" value="South West" title="South west placement {placement: 'sw'}" />
+			<input type="button" id="south" value="South" title="South placement {placement: 's'}" />
+			<input type="button" id="south-east" value="South East" title="South east placement {placement: 'se'}" />
 		</div>
 	</div>
 	<div id="mousefollow-examples">
@@ -105,6 +112,10 @@
 			$('#east').powerTip({placement: 'e'});
 			$('#south').powerTip({placement: 's'});
 			$('#west').powerTip({placement: 'w'});
+			$('#north-west').powerTip({placement: 'nw'});
+			$('#north-east').powerTip({placement: 'ne'});
+			$('#south-west').powerTip({placement: 'sw'});
+			$('#south-east').powerTip({placement: 'se'});
 
 			// mouse follow examples
 			$('#mousefollow-examples div').powerTip({followMouse: true});

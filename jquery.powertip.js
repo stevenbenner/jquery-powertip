@@ -356,6 +356,22 @@
 				x = objectOffset.left - popWidth - options.offset;
 				y = (objectOffset.top + (objectHeight / 2)) - (popHeight / 2);
 				break;
+			case 'nw':
+				x = (objectOffset.left - popWidth) + 20;
+				y = objectOffset.top - popHeight - options.offset;
+				break;
+			case 'ne':
+				x = (objectOffset.left + objectWidth) - 20;
+				y = objectOffset.top - popHeight - options.offset;
+				break;
+			case 'sw':
+				x = (objectOffset.left - popWidth) + 20;
+				y = objectOffset.top + objectHeight + options.offset;
+				break;
+			case 'se':
+				x = (objectOffset.left + objectWidth) - 20;
+				y = objectOffset.top + objectHeight + options.offset;
+				break;
 			}
 
 			tipElement.addClass(options.placement);
