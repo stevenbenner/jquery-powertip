@@ -152,7 +152,9 @@
 			if (totalDifference < options.intentSensitivity) {
 				element.data('hasActiveHover', true);
 				// show popup, asap
-				showTip(element);
+				tipElement.queue(function() {
+					showTip(element);
+				});
 			} else {
 				// try again
 				session.previousX = session.currentX;
@@ -170,9 +172,9 @@
 			// if the popup is open and we got asked to open another one then
 			// the old one is still in its fadeOut cycle, so wait and try again
 			if (session.isPopOpen) {
-				setTimeout(function() {
+				tipElement.queue(function() {
 					showTip(element);
-				}, options.closeDelay);
+				});
 				return;
 			}
 
@@ -222,7 +224,7 @@
 		 */
 		function hideTip(element) {
 			element.data('hasActiveHover', false);
-			tipElement.fadeOut(options.fadeOutTime, function() {
+			tipElement.stop(true, true).fadeOut(options.fadeOutTime, function() {
 				session.activeHover = null;
 				session.isPopOpen = false;
 				session.isFixedPopOpen = false;
