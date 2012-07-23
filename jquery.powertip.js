@@ -152,8 +152,9 @@
 			if (totalDifference < options.intentSensitivity) {
 				element.data('hasActiveHover', true);
 				// show popup, asap
-				tipElement.queue(function() {
+				tipElement.queue(function(next) {
 					showTip(element);
+					next();
 				});
 			} else {
 				// try again
@@ -172,8 +173,9 @@
 			// if the popup is open and we got asked to open another one then
 			// the old one is still in its fadeOut cycle, so wait and try again
 			if (session.isPopOpen) {
-				tipElement.queue(function() {
+				tipElement.delay(100).queue(function(next) {
 					showTip(element);
+					next();
 				});
 				return;
 			}
@@ -209,7 +211,7 @@
 			tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
 
 			// fadein
-			tipElement.stop(true, true).fadeIn(options.fadeInTime, function() {
+			tipElement.fadeIn(options.fadeInTime, function() {
 				// start desync polling
 				if (!session.desyncTimeout) {
 					session.desyncTimeout = setInterval(closeDesyncedTip, 500);
@@ -224,7 +226,7 @@
 		 */
 		function hideTip(element) {
 			element.data('hasActiveHover', false);
-			tipElement.stop(true, true).fadeOut(options.fadeOutTime, function() {
+			tipElement.fadeOut(options.fadeOutTime, function() {
 				session.activeHover = null;
 				session.isPopOpen = false;
 				session.isFixedPopOpen = false;
