@@ -101,8 +101,12 @@
 				},
 				mouseleave: function() {
 					if (tipElement.data('mouseOnToPopup')) {
-						cancelHoverTimer(session.activeHover);
-						setHoverTimer(session.activeHover, 'hide');
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							cancelHoverTimer(session.activeHover);
+							setHoverTimer(session.activeHover, 'hide');
+						}
 						session.mouseTarget = null;
 					}
 				}
