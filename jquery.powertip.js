@@ -422,7 +422,7 @@
 		popupId: 'powerTip',
 		intentSensitivity: 7,
 		intentPollInterval: 100,
-		closeDelay: 200,
+		closeDelay: 100,
 		placement: 's',
 		offset: 10,
 		mouseOnToPopup: false
