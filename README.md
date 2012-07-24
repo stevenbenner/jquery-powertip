@@ -89,7 +89,7 @@ $('#element').data('powertiptarget', 'myToolTip');
 | ----- | ----- | ----- | ----- |
 | `followMouse` | `false` | Boolean | If set to `true` the tooltip will follow the users mouse cursor. |
 | `mouseOnToPopup` | `false` | Boolean | Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only works if `followMouse` is set to `false`. |
-| `placement` | `'s'` | String | Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, or `se` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
+| `placement` | `'n'` | String | Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, or `se` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
 | `popupId` | `'powerTip'` | String | HTML id attribute for the tooltip div. |
 | `offset` | `10` | Number | Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
 | `fadeInTime` | `200` | Number | Tooltip fade-in time in milliseconds. |

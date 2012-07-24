@@ -423,7 +423,7 @@
 		intentSensitivity: 7,
 		intentPollInterval: 100,
 		closeDelay: 100,
-		placement: 's',
+		placement: 'n',
 		offset: 10,
 		mouseOnToPopup: false
 	};
