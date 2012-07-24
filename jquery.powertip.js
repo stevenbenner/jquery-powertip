@@ -188,10 +188,10 @@
 			// set popup content
 			if (tipText) {
 				tipElement.html(tipText);
-			} else if (tipElem.length > 0) {
+			} else if (tipElem && tipElem.length > 0) {
 				tipElement.empty();
 				tipElem.clone(true, true).appendTo(tipElement);
-			} else if (tipContent.length > 0) {
+			} else if (tipContent && tipContent.length > 0) {
 				tipElement.html($('#' + tipTarget).html());
 			} else {
 				// we have no content to display, give up
