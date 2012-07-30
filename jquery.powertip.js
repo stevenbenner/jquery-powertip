@@ -35,7 +35,8 @@
 		currentY: 0,
 		previousX: 0,
 		previousY: 0,
-		desyncTimeout: null
+		desyncTimeout: null,
+		mouseTrackingActive: false
 	};
 
 	/**
@@ -437,7 +438,6 @@
 		mouseOnToPopup: false
 	};
 
-	var onMoveHooked = false;
 	/**
 	 * Hooks the trackMouse() function to the window's mousemove event.
 	 * Prevents attaching the event more than once.
@@ -447,8 +447,8 @@
 		var lastScrollX = 0,
 			lastScrollY = 0;
 
-		if (!onMoveHooked) {
-			onMoveHooked = true;
+		if (!session.mouseTrackingActive) {
+			session.mouseTrackingActive = true;
 
 			// grab the current scroll position on load
 			$(function() {
