@@ -54,8 +54,8 @@
 		// extend options
 		var options = $.extend({}, $.fn.powerTip.defaults, opts);
 
-		// hook mouse tracking, once
-		hookOnMoveOnce();
+		// hook mouse tracking
+		initMouseTracking();
 
 		// build and append popup div if it does not already exist
 		var tipElement = $('#' + options.popupId);
@@ -439,11 +439,11 @@
 	};
 
 	/**
-	 * Hooks the trackMouse() function to the window's mousemove event.
-	 * Prevents attaching the event more than once.
+	 * Hooks mouse position tracking to mousemove and scroll events.
+	 * Prevents attaching the events more than once.
 	 * @private
 	 */
-	function hookOnMoveOnce() {
+	function initMouseTracking() {
 		var lastScrollX = 0,
 			lastScrollY = 0;
 
