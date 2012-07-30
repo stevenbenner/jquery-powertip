@@ -67,7 +67,10 @@
 		if (options.followMouse) {
 			// only one movePop hook per popup element, please
 			if (!tipElement.data('hasMouseMove')) {
-				$window.on('mousemove', movePop);
+				$window.on({
+					mousemove: movePop,
+					scroll: movePop
+				});
 			}
 			tipElement.data('hasMouseMove', true);
 		}
@@ -116,6 +119,7 @@
 		// attach hover events to all matched elements
 		return this.on({
 			mouseenter: function(event) {
+				trackMouse(event);
 				var element = $(this);
 				cancelHoverTimer(element);
 				session.mouseTarget = element;
@@ -205,14 +209,16 @@
 			session.activeHover = element;
 			session.isPopOpen = true;
 
+			tipElement.data('followMouse', options.followMouse);
+			tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
+
 			// set popup position
 			if (!options.followMouse) {
 				setPopPosition(element);
 				session.isFixedPopOpen = true;
+			} else {
+				movePop();
 			}
-
-			tipElement.data('followMouse', options.followMouse);
-			tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
 
 			// fadein
 			tipElement.fadeIn(options.fadeInTime, function() {
@@ -291,9 +297,8 @@
 		/**
 		 * Moves the tooltip popup to the users mouse cursor.
 		 * @private
-		 * @param {Object} event The window or document mousemove event.
 		 */
-		function movePop(event) {
+		function movePop() {
 			// to support having fixed powertips on the same page as cursor
 			// powertips, where both instances are referencing the same popup
 			// element, we need to keep track of the mouse position constantly,
@@ -311,13 +316,13 @@
 					y = 0;
 
 				// constrain pop to browser viewport
-				if ((popWidth + event.pageX + options.offset) < windowWidth) {
-					x = event.pageX + options.offset;
+				if ((popWidth + session.currentX + options.offset) < windowWidth) {
+					x = session.currentX + options.offset;
 				} else {
 					x = windowWidth - popWidth;
 				}
-				if ((popHeight + event.pageY + options.offset) < (scrollTop + windowHeight)) {
-					y = event.pageY + options.offset;
+				if ((popHeight + session.currentY + options.offset) < (scrollTop + windowHeight)) {
+					y = session.currentY + options.offset;
 				} else {
 					y = scrollTop + windowHeight - popHeight;
 				}
@@ -439,9 +444,34 @@
 	 * @private
 	 */
 	function hookOnMoveOnce() {
+		var lastScrollX = 0,
+			lastScrollY = 0;
+
 		if (!onMoveHooked) {
 			onMoveHooked = true;
-			$window.on('mousemove', trackMouse);
+
+			// grab the current scroll position on load
+			$(function() {
+				lastScrollX = $window.scrollLeft();
+				lastScrollY = $window.scrollTop();
+			})
+
+			// hook mouse position tracking
+			$window.on({
+				mousemove: trackMouse,
+				scroll: function() {
+					var x = $window.scrollLeft(),
+						y = $window.scrollTop();
+					if (x !== lastScrollX) {
+						session.currentX += x - lastScrollX;
+						lastScrollX = x;
+					}
+					if (y !== lastScrollY) {
+						session.currentY += y - lastScrollY;
+						lastScrollY = y;
+					}
+				}
+			});
 		}
 	}
 
