@@ -66,11 +66,11 @@
 
 		// hook mousemove for cursor follow tooltips
 		if (options.followMouse) {
-			// only one movePop hook per popup element, please
+			// only one positionTipOnCursor hook per popup element, please
 			if (!tipElement.data('hasMouseMove')) {
 				$window.on({
-					mousemove: movePop,
-					scroll: movePop
+					mousemove: positionTipOnCursor,
+					scroll: positionTipOnCursor
 				});
 			}
 			tipElement.data('hasMouseMove', true);
@@ -218,7 +218,7 @@
 				positionTipOnElement(element);
 				session.isFixedPopOpen = true;
 			} else {
-				movePop();
+				positionTipOnCursor();
 			}
 
 			// fadein
@@ -299,7 +299,7 @@
 		 * Moves the tooltip popup to the users mouse cursor.
 		 * @private
 		 */
-		function movePop() {
+		function positionTipOnCursor() {
 			// to support having fixed powertips on the same page as cursor
 			// powertips, where both instances are referencing the same popup
 			// element, we need to keep track of the mouse position constantly,
