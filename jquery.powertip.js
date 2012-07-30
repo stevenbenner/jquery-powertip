@@ -245,8 +245,10 @@
 				// support mouse-follow and fixed position pops at the same
 				// time by moving the popup to the last known cursor location
 				// after it is hidden
-				tipElement.css('left', session.currentX + options.offset + 'px');
-				tipElement.css('top', session.currentY + options.offset + 'px');
+				setTipPosition(
+					session.currentX + options.offset,
+					session.currentY + options.offset
+				);
 				// stop desync polling
 				session.desyncTimeout = clearInterval(session.desyncTimeout);
 			});
@@ -328,9 +330,8 @@
 					y = scrollTop + windowHeight - popHeight;
 				}
 
-				// set the css
-				tipElement.css('left', x + 'px');
-				tipElement.css('top', y + 'px');
+				// position the tooltip
+				setTipPosition(x, y);
 			}
 		}
 
@@ -388,9 +389,19 @@
 
 			tipElement.addClass(options.placement);
 
-			// set the css position
-			tipElement.css('left', Math.round(x) + 'px');
-			tipElement.css('top', Math.round(y) + 'px');
+			// position the tooltip
+			setTipPosition(Math.round(x), Math.round(y));
+		}
+
+		/**
+		 * Sets the tooltip CSS position on the document.
+		 * @private
+		 * @param {Number} x Left position in pixels.
+		 * @param {Number} y Top position in pixels.
+		 */
+		function setTipPosition(x, y) {
+			tipElement.css('left', x + 'px');
+			tipElement.css('top', y + 'px');
 		}
 
 		/**
