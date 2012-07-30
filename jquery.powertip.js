@@ -215,7 +215,7 @@
 
 			// set popup position
 			if (!options.followMouse) {
-				setPopPosition(element);
+				positionTipOnElement(element);
 				session.isFixedPopOpen = true;
 			} else {
 				movePop();
@@ -340,7 +340,7 @@
 		 * @private
 		 * @param {Object} element The element that the popup should target.
 		 */
-		function setPopPosition(element) {
+		function positionTipOnElement(element) {
 			// grab measurements
 			var objectOffset = element.offset(),
 				objectWidth = element.outerWidth(),
