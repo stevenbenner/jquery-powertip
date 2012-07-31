@@ -17,7 +17,7 @@
 	'use strict';
 
 	// useful private variables
-	var $window = $(window),
+	var $document = $(document),
 		$body = $('body');
 
 	/**
@@ -68,7 +68,7 @@
 		if (options.followMouse) {
 			// only one positionTipOnCursor hook per popup element, please
 			if (!tipElement.data('hasMouseMove')) {
-				$window.on({
+				$document.on({
 					mousemove: positionTipOnCursor,
 					scroll: positionTipOnCursor
 				});
@@ -312,24 +312,24 @@
 			// element in question does have a mouse-follow using it.
 			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
 				// grab measurements
-				var scrollTop = $window.scrollTop(),
-					windowWidth = $window.width(),
-					windowHeight = $window.height(),
+				var scrollTop = $document.scrollTop(),
+					documentWidth = $document.width(),
+					documentHeight = $document.height(),
 					popWidth = tipElement.outerWidth(),
 					popHeight = tipElement.outerHeight(),
 					x = 0,
 					y = 0;
 
 				// constrain pop to browser viewport
-				if ((popWidth + session.currentX + options.offset) < windowWidth) {
+				if ((popWidth + session.currentX + options.offset) < documentWidth) {
 					x = session.currentX + options.offset;
 				} else {
-					x = windowWidth - popWidth;
+					x = documentWidth - popWidth;
 				}
-				if ((popHeight + session.currentY + options.offset) < (scrollTop + windowHeight)) {
+				if ((popHeight + session.currentY + options.offset) < (scrollTop + documentHeight)) {
 					y = session.currentY + options.offset;
 				} else {
-					y = scrollTop + windowHeight - popHeight;
+					y = scrollTop + documentHeight - popHeight;
 				}
 
 				// position the tooltip
@@ -465,16 +465,16 @@
 
 			// grab the current scroll position on load
 			$(function() {
-				lastScrollX = $window.scrollLeft();
-				lastScrollY = $window.scrollTop();
+				lastScrollX = $document.scrollLeft();
+				lastScrollY = $document.scrollTop();
 			})
 
 			// hook mouse position tracking
-			$window.on({
+			$document.on({
 				mousemove: trackMouse,
 				scroll: function() {
-					var x = $window.scrollLeft(),
-						y = $window.scrollTop();
+					var x = $document.scrollLeft(),
+						y = $document.scrollTop();
 					if (x !== lastScrollX) {
 						session.currentX += x - lastScrollX;
 						lastScrollX = x;
