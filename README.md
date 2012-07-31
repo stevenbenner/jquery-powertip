@@ -4,35 +4,49 @@ A jQuery plugin that creates hover tooltips.
 
 ## Summary
 
-This plugin will create tooltips for you. Of course there are already about 5 million jQuery plugins that can create tooltips, but none of them had all of the features I wanted and worked the way I wanted, so I created my own. Here is yet another tooltip plugin for jQuery.
-
 PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
 
 ### Features
 
-* Straightforward implementation (just include script, a few lines of CSS and call `powerTip()`)
+* Straightforward implementation
 * Simple configuration
 * Supports static tooltips as well as tooltips that follow the mouse
 * Ability to let users mouse on to the tooltips and interact with their content
-* Tests for hover intent (users have to hold the mouse cursor on the element before the tooltip will open)
+* Tests for hover intent
 * Mouse follow tooltips are constrained to the browser viewport
 * Easy customization
+* Smooth fade-ins and fade-outs
+* Multiple instances
+* Works on any type of element
+* Supports complex content (markup with behavior & events)
+* Small footprint (only 3kb minified)
+* Actively maintained
 
 ### Requirements
 
-* jQuery core, version 1.7 or later.
+* jQuery 1.7 or later
 
 ## Usage
 
 Running the plugin is about as standard as it gets.
+
 ```javascript
 $('.tooltips').powerTip(options)
 ```
+
 Where `options` is an object with the various settings you want to override (all defined below).
+
+For example, if you want to attach tootips to all elements with the "info" class, and have those tooltip appear above and to the right of those elements you would use the following code:
+
+```javascript
+$('.info').powerTip({
+	placement: 'ne' // north-east tooltip position
+});
+```
 
 ### Setting tooltip content
 
-Generally, you probably want to set your tooltip text with the HTML title attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
+Generally, if your tooltips are just plain text then you probably want to set your tooltip text with the HTML title attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
 
 #### Title attribute
 
@@ -44,16 +58,16 @@ The simplest method, as well as the only one that will continue to work for user
 
 #### data-powertip
 
-Basically the same as tooltip, but an HTML5 data attribute. You can set this in the markup or with JavaScript at an time. It only accepts a simple string.
+Basically the same as setting the title attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup.
 
-```html
-<a href="/some/link" data-powertip="This will be the tooltip text.">Some Link</a>
+```javascript
+$('#element').data('powertip', 'This will be the <b>tooltip text</b>.');
 ```
 
 or
 
-```javascript
-$('#element').data('powertip', 'This will be the tooltip text.');
+```html
+<a href="/some/link" data-powertip="This will be the &lt;b&gt;tooltip text&lt;/b&gt;.">Some Link</a>
 ```
 
 #### data-powertipjq
@@ -61,7 +75,7 @@ $('#element').data('powertip', 'This will be the tooltip text.');
 This is a data interface that will accept a jQuery object. You can create a jQuery object containing complex markup (and even events) and attach it to the element via jQuery's `.data()` method at any time.
 
 ```javascript
-var tooltip = $('<div>This will be the tooltip text.</div>');
+var tooltip = $('<div>This will be the tooltip text. It even has an onclick event!</div>');
 tooltip.on('click', function() { /* ... */ });
 
 $('#element').data('powertipjq', tooltip);
@@ -69,7 +83,7 @@ $('#element').data('powertipjq', tooltip);
 
 #### data-powertiptarget
 
-You can specify the ID of an element in the DOM to pull the content from. PowerTip will replicate the markup inside of that element in the tooltip without modifying or destroying the original.
+You can specify the ID of an element in the DOM to pull the content from. PowerTip will replicate the markup of that element in the tooltip without modifying or destroying the original.
 
 ```html
 <div id="myToolTip">
@@ -85,6 +99,37 @@ $('#element').data('powertiptarget', 'myToolTip');
 
 ## Options
 
+The tooltip behavior is determined by a series of options that you can override. You can pass the options as an object directly to the plugin as an argument when you call it. For example:
+
+```javascript
+$('.tips').powerTip({
+	option1: 'value',
+	option2: 'value',
+	option3: 'value'
+});
+```
+
+The settings will only apply to those tooltips matched in the selector. This means that you can have different sets of tooltips on the same page with different options. For example:
+
+```javascript
+$('.tips').powerTip(/** options for regular tooltips **/);
+
+$('.specialTips').powerTip(/** options for special tooltips **/);
+```
+
+You can change the default options for all tooltips by setting their values in the `$.fn.powerTip.defaults` object before you call `powerTip()`. For example:
+
+```javascript
+// change the default tooltip placement to south
+$.fn.powerTip.defaults.placement = 's';
+
+$('.tips').powerTip(); // these tips will appear underneath the element
+```
+
+Of course those defaults will be overridden with any options you pass directly to the `powerTip()` call.
+
+### List of options
+
 | Name | Default | Type | Description |
 | ----- | ----- | ----- | ----- |
 | `followMouse` | `false` | Boolean | If set to `true` the tooltip will follow the users mouse cursor. |
@@ -99,8 +144,10 @@ $('#element').data('powertiptarget', 'myToolTip');
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 
 ## Similar Projects
-There are (countless) other JavaScript tooltip projects that are worth taking a look at and may better suit your needs. Here are some of my favorites.
 
+There are many other great JavaScript tooltip projects that are worth taking a look at and may better suit your needs. Here is a list of some of my favorite jQuery tooltip plugins:
+
+* [tipsy](https://github.com/jaz303/tipsy/)
 * [qTip2](https://github.com/Craga89/qTip2)
 * [TipTip](https://github.com/drewwilson/TipTip)
 * [clueTip](https://github.com/kswedberg/jquery-cluetip)
