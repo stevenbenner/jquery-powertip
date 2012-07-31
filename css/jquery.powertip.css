@@ -1,6 +1,7 @@
 /* PowerTip Plugin */
 #powerTip {
 	cursor: default;
+	background-color: #333; /* fallback for browsers that dont support rgba */
 	background-color: rgba(0, 0, 0, 0.8);
 	border-radius: 6px;
 	color: #FFF;
