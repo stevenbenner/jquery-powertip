@@ -237,9 +237,13 @@
 		 */
 		function hideTip(element) {
 			element.data('hasActiveHover', false);
+			// reset session
+			session.activeHover = null;
+			session.isPopOpen = false;
+			// stop desync polling
+			session.desyncTimeout = clearInterval(session.desyncTimeout);
+			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function() {
-				session.activeHover = null;
-				session.isPopOpen = false;
 				session.isFixedPopOpen = false;
 				tipElement.removeClass();
 				// support mouse-follow and fixed position pops at the same
@@ -249,8 +253,6 @@
 					session.currentX + options.offset,
 					session.currentY + options.offset
 				);
-				// stop desync polling
-				session.desyncTimeout = clearInterval(session.desyncTimeout);
 			});
 		}
 
