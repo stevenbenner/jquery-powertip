@@ -4,9 +4,9 @@
  * @fileoverview jQuery plugin that creates hover tooltips.
  * @link https://github.com/stevenbenner/jquery-powertip
  * @author Steven Benner
- * @version 1.0.3
+ * @version 1.0.4
  * @requires jQuery 1.7 or later
- * @license jQuery PowerTip Plugin v1.0.3
+ * @license jQuery PowerTip Plugin v1.0.4
  * <https://github.com/stevenbenner/jquery-powertip>
  * Copyright (c) 2012 Steven Benner, http://stevenbenner.com/
  * Released under the MIT license.
