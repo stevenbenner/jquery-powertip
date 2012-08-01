@@ -351,17 +351,88 @@
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function positionTipOnElement(element) {
+			var tipWidth = tipElement.outerWidth(),
+				tipHeight = tipElement.outerHeight(),
+				priorityList,
+				placementCoords,
+				finalPlacement,
+				collisions;
+
+			// with smart placement we will try a series of placement
+			// options and use the first one that does not collide with the
+			// browser view port boundaries.
+			if (options.smartPlacement) {
+
+				// grab the placement priority list
+				priorityList = $.fn.powerTip.smartPlacementLists[options.placement];
+
+				// iterate over the priority list and use the first placement
+				// option that does not collide with the viewport. if they all
+				// collide then the last placement in the list will be used.
+				$.each(priorityList, function(idx, pos) {
+					// get placement coordinates
+					placementCoords = computePlacementCoords(
+						element,
+						pos,
+						tipWidth,
+						tipHeight
+					);
+					finalPlacement = pos;
+
+					// find collisions
+					collisions = getViewportCollisions(
+						placementCoords,
+						tipWidth,
+						tipHeight
+					);
+
+					// break if there were no collisions
+					if (collisions.length === 0) {
+						return false;
+					}
+				});
+
+			} else {
+
+				// if we're not going to use the smart placement feature then
+				// just compute the coordinates and do it
+				placementCoords = computePlacementCoords(
+					element,
+					options.placement,
+					tipWidth,
+					tipHeight
+				);
+				finalPlacement = options.placement;
+
+			}
+
+			// add placement as class for CSS arrows
+			tipElement.addClass(finalPlacement);
+
+			// position the tooltip
+			setTipPosition(placementCoords.x, placementCoords.y);
+		}
+
+		/**
+		 * Compute the top/left coordinates to display the tooltip at the
+		 * specified placement relative to the specified element.
+		 * @private
+		 * @param {Object} element The element that the tooltip should target.
+		 * @param {String} placement The placement for the tooltip.
+		 * @param {Number} popWidth Width of the tooltip element in pixels.
+		 * @param {Number} popHeight Height of the tooltip element in pixels.
+		 * @retun {Object} An object with the x and y coordinates.
+		 */
+		function computePlacementCoords(element, placement, popWidth, popHeight) {
 			// grab measurements
 			var objectOffset = element.offset(),
 				objectWidth = element.outerWidth(),
 				objectHeight = element.outerHeight(),
-				popWidth = tipElement.outerWidth(),
-				popHeight = tipElement.outerHeight(),
 				x = 0,
 				y = 0;
 
 			// calculate the appropriate x and y position in the document
-			switch (options.placement) {
+			switch (placement) {
 			case 'n':
 				x = (objectOffset.left + (objectWidth / 2)) - (popWidth / 2);
 				y = objectOffset.top - popHeight - options.offset;
@@ -396,10 +467,10 @@
 				break;
 			}
 
-			tipElement.addClass(options.placement);
-
-			// position the tooltip
-			setTipPosition(Math.round(x), Math.round(y));
+			return {
+				x: Math.round(x),
+				y: Math.round(y)
+			};
 		}
 
 		/**
@@ -454,8 +525,27 @@
 		intentPollInterval: 100,
 		closeDelay: 100,
 		placement: 'n',
+		smartPlacement: false,
 		offset: 10,
 		mouseOnToPopup: false
+	};
+
+	/**
+	 * Default smart placement priority lists.
+	 * The first item in the array is the highest priority, the last is the
+	 * lowest. The last item is also the default, which will be used if all
+	 * previous options do not fit.
+	 * @type Object
+	 */
+	$.fn.powerTip.smartPlacementLists = {
+		n: ['n', 'ne', 'nw', 's'],
+		e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
+		s: ['s', 'se', 'sw', 'n'],
+		w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
+		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
+		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
+		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
+		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
 	};
 
 	/**
@@ -529,6 +619,38 @@
 			session.currentX <= elementPosition.left + element.outerWidth() &&
 			session.currentY >= elementPosition.top &&
 			session.currentY <= elementPosition.top + element.outerHeight();
+	}
+
+	/**
+	 * Finds any viewport collisions that an element (the tooltip) would have
+	 * if it were absolutely positioned at the specified coordinates.
+	 * @private
+	 * @param {Object} coords Coordinates for the element. (e.g. {x: 123, y: 123})
+	 * @param {Number} elementWidth Width of the element in pixels.
+	 * @param {Number} elementHeight Height of the element in pixels.
+	 * @return {Array} Array of words representing directional collisions.
+	 */
+	function getViewportCollisions(coords, elementWidth, elementHeight) {
+		var scrollLeft = $window.scrollLeft(),
+			scrollTop = $window.scrollTop(),
+			windowWidth = $window.width(),
+			windowHeight = $window.height(),
+			collisions = [];
+
+		if (coords.y < scrollTop) {
+			collisions.push('top');
+		}
+		if (coords.y + elementHeight > scrollTop + windowHeight) {
+			collisions.push('bottom');
+		}
+		if (coords.x < scrollLeft) {
+			collisions.push('left');
+		}
+		if (coords.x + elementWidth > scrollLeft + windowWidth) {
+			collisions.push('right');
+		};
+
+		return collisions;
 	}
 
 }(jQuery));
