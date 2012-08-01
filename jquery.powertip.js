@@ -61,6 +61,11 @@
 		var tipElement = $('#' + options.popupId);
 		if (tipElement.length === 0) {
 			tipElement = $('<div></div>', { id: options.popupId });
+			// grab body element if it was not populated when the script loaded
+			// this hack exists solely for jsfiddle support
+			if ($body.length === 0) {
+				$body = $('body');
+			}
 			$body.append(tipElement);
 		}
 
