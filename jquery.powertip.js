@@ -18,6 +18,7 @@
 
 	// useful private variables
 	var $document = $(document),
+		$window = $(window),
 		$body = $('body');
 
 	/**
@@ -317,24 +318,24 @@
 			// element in question does have a mouse-follow using it.
 			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
 				// grab measurements
-				var scrollTop = $document.scrollTop(),
-					documentWidth = $document.width(),
-					documentHeight = $document.height(),
+				var scrollTop = $window.scrollTop(),
+					windowWidth = $window.width(),
+					windowHeight = $window.height(),
 					popWidth = tipElement.outerWidth(),
 					popHeight = tipElement.outerHeight(),
 					x = 0,
 					y = 0;
 
 				// constrain pop to browser viewport
-				if ((popWidth + session.currentX + options.offset) < documentWidth) {
+				if ((popWidth + session.currentX + options.offset) < windowWidth) {
 					x = session.currentX + options.offset;
 				} else {
-					x = documentWidth - popWidth;
+					x = windowWidth - popWidth;
 				}
-				if ((popHeight + session.currentY + options.offset) < (scrollTop + documentHeight)) {
+				if ((popHeight + session.currentY + options.offset) < (scrollTop + windowHeight)) {
 					y = session.currentY + options.offset;
 				} else {
-					y = scrollTop + documentHeight - popHeight;
+					y = scrollTop + windowHeight - popHeight;
 				}
 
 				// position the tooltip
