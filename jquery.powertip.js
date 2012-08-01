@@ -151,7 +151,8 @@
 		///////////// PRIVATE FUNCTIONS /////////////
 
 		/**
-		 * Checks mouse position to make sure
+		 * Checks mouse position to make sure that the user intended to hover
+		 * on the specified element before showing the tooltip.
 		 * @private
 		 * @param {Object} element The element that the popup should target.
 		 */
