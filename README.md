@@ -15,6 +15,7 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 * Tests for hover intent
 * Mouse follow tooltips are constrained to the browser viewport
 * Easy customization
+* Works with keyboard navigation
 * Smooth fade-ins and fade-outs
 * Smart placement that (when enabled) will try to keep tooltips inside of the view port
 * Multiple instances

@@ -29,6 +29,7 @@
 	var session = {
 		isPopOpen: false,
 		isFixedPopOpen: false,
+		isClosing: false,
 		popOpenImminent: false,
 		activeHover: null,
 		mouseTarget: null,
@@ -125,6 +126,7 @@
 
 		// attach hover events to all matched elements
 		return this.on({
+			// mouse events
 			mouseenter: function(event) {
 				trackMouse(event);
 				var element = $(this);
@@ -144,6 +146,22 @@
 				session.popOpenImminent = false;
 				if (element.data('hasActiveHover')) {
 					setHoverTimer(element, 'hide');
+				}
+			},
+
+			// keyboard events
+			focus: function() {
+				var element = $(this);
+				session.mouseTarget = element;
+				if (!isMouseOver(element) && !element.data('hasActiveHover')) {
+					beginShowTip(element);
+				}
+			},
+			blur: function() {
+				var element = $(this);
+				session.mouseTarget = null;
+				if (element.data('hasActiveHover')) {
+					hideTip(element);
 				}
 			}
 		});
@@ -166,12 +184,7 @@
 
 			// check if difference has passed the sensitivity threshold
 			if (totalDifference < options.intentSensitivity) {
-				element.data('hasActiveHover', true);
-				// show popup, asap
-				tipElement.queue(function(next) {
-					showTip(element);
-					next();
-				});
+				beginShowTip(element);
 			} else {
 				// try again
 				session.previousX = session.currentX;
@@ -181,14 +194,41 @@
 		}
 
 		/**
+		 * Gives the specified element the active-hover state and queues up
+		 * the showTip function.
+		 * @private
+		 * @param {Object} element The element that the tooltip should target.
+		 */
+		function beginShowTip(element) {
+			element.data('hasActiveHover', true);
+			// show popup, asap
+			tipElement.queue(function(next) {
+				showTip(element);
+				next();
+			});
+		}
+
+		/**
 		 * Shows the tooltip popup, as soon as possible.
 		 * @private
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function showTip(element) {
+			// it is possible, especially with keyboard navigation, to move on
+			// to another element with a tooltip during the queue to get to
+			// this point in the code. if that happens then we need to not
+			// proceed or we may have the fadeout callback for the last tooltip
+			// execute immediately after this code runs, causing bugs.
+			if (!element.data('hasActiveHover')) {
+				return;
+			}
+
 			// if the popup is open and we got asked to open another one then
 			// the old one is still in its fadeOut cycle, so wait and try again
 			if (session.isPopOpen) {
+				if (!session.isClosing) {
+					hideTip(session.activeHover);
+				}
 				tipElement.delay(100).queue(function(next) {
 					showTip(element);
 					next();
@@ -252,6 +292,7 @@
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function hideTip(element) {
+			session.isClosing = true;
 			element.data('hasActiveHover', false);
 			// reset session
 			session.activeHover = null;
@@ -260,6 +301,7 @@
 			session.desyncTimeout = clearInterval(session.desyncTimeout);
 			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function() {
+				session.isClosing = false;
 				session.isFixedPopOpen = false;
 				tipElement.removeClass();
 				// support mouse-follow and fixed position pops at the same
@@ -290,7 +332,7 @@
 			// open tooltips to close before opening a new one. So we should
 			// periodically check for a desync situation and close the tip if
 			// such a situation arises.
-			if (session.isPopOpen) {
+			if (session.isPopOpen && !session.isClosing) {
 				var isDesynced = false;
 
 				// case 1: user already moused onto another tip - easy test
@@ -299,8 +341,10 @@
 				} else {
 					// case 2: hanging tip - have to test if mouse position is
 					// not over the active hover and not over a tooltip set to
-					// let the user interact with it
-					if (!isMouseOver(session.activeHover)) {
+					// let the user interact with it.
+					// for keyboard navigation, this only counts if the element
+					// does not have focus.
+					if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus")) {
 						if (tipElement.data('mouseOnToPopup')) {
 							if (!isMouseOver(tipElement)) {
 								isDesynced = true;
