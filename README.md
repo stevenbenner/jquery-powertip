@@ -145,6 +145,54 @@ Of course those defaults will be overridden with any options you pass directly t
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 
+## PowerTip Events
+
+PowerTip will trigger several events during operation that you can bind custom code to. These events make it much easier to extend the plugin and work with tooltips during their life cycle. Using events should not be needed in most cases, they are provided for developers who need a deeper level of integration with the tooltip system.
+
+### List of events
+
+| Event Name | Description |
+| ----- | ----- |
+| `powerTipPreRender` | The pre-render event happens before PowerTip fills the content of the tooltip. This is a good opporotunity to set the tooltip content data (e.g. data-powertip, data-powertipjq). |
+| `powerTipRender` | Render happens after the content has been placed into the tooltip, but before the tooltip has been displayed. Here you can modify the tooltip content manually or attach events. |
+| `powerTipOpen` | This happens after the tooltip has completed its fade-in cycle and is fully open. You might want to use this event to do animations or add other bits of visual sugar. |
+| `powerTipClose` | Occurs after the tooltip has completed its fade-out cycle and fully closed, but the tooltip content is still in place. This event is useful do doing cleanup work after the user is done with the tooltip. |
+
+### Using events
+
+You can use these events by binding to them on the element(s) that you ran `powerTip()` on, the recommended way to do that is with the jQuery `on()` method. For example:
+
+```javascript
+$('.tips').on({
+	powerTipPreRender: function() {
+		console.log('powerTipRender', this);
+
+		// generate some dynamic content
+		$(this).data('data-powertip' , '<h3 class="title">Default title</h3><p>Default content</p>');
+	},
+	powerTipRender: function() {
+		console.log('powerTipRender', this);
+
+		// change some content dynamically
+		$('#powerTip').find('.title').text('This is a dynamic title.').
+	},
+	powerTipOpen: function() {
+		console.log('powerTipOpen', this);
+
+		// animate something when the tooltip opens
+		$('#powerTip').find('.title').animate({ opacity: .1 }, 1000).animate({ opacity: 1 }, 1000);
+	},
+	powerTipClose: function() {
+		console.log('powerTipClose', this);
+
+		// cleanup the animation
+		$('#powerTip').find('.title').stop(true, true);
+	}
+});
+```
+
+The context (the `this` keyword) of these functions will be the element that the tooltip is open for.
+
 ## About smart placement
 
 Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser view port. When it is enabled PowerTip will automatically change the placement of any tooltip that would appear outside of the view port, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.

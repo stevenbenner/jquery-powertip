@@ -196,6 +196,9 @@
 				return;
 			}
 
+			// trigger powerTipPreRender event
+			element.trigger('powerTipPreRender');
+
 			var tipText = element.data('powertip'),
 				tipTarget = element.data('powertiptarget'),
 				tipElem = element.data('powertipjq'),
@@ -213,6 +216,9 @@
 				// we have no content to display, give up
 				return;
 			}
+
+			// trigger powerTipRender event
+			element.trigger('powerTipRender');
 
 			session.activeHover = element;
 			session.isPopOpen = true;
@@ -234,6 +240,9 @@
 				if (!session.desyncTimeout) {
 					session.desyncTimeout = setInterval(closeDesyncedTip, 500);
 				}
+
+				// trigger powerTipOpen event
+				element.trigger('powerTipOpen');
 			});
 		}
 
@@ -260,6 +269,9 @@
 					session.currentX + options.offset,
 					session.currentY + options.offset
 				);
+
+				// trigger powerTipClose event
+				element.trigger('powerTipClose');
 			});
 		}
 
