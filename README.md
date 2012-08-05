@@ -154,7 +154,7 @@ PowerTip will trigger several events during operation that you can bind custom c
 
 | Event Name | Description |
 | ----- | ----- |
-| `powerTipPreRender` | The pre-render event happens before PowerTip fills the content of the tooltip. This is a good opporotunity to set the tooltip content data (e.g. data-powertip, data-powertipjq). |
+| `powerTipPreRender` | The pre-render event happens before PowerTip fills the content of the tooltip. This is a good opportunity to set the tooltip content data (e.g. data-powertip, data-powertipjq). |
 | `powerTipRender` | Render happens after the content has been placed into the tooltip, but before the tooltip has been displayed. Here you can modify the tooltip content manually or attach events. |
 | `powerTipOpen` | This happens after the tooltip has completed its fade-in cycle and is fully open. You might want to use this event to do animations or add other bits of visual sugar. |
 | `powerTipClose` | Occurs after the tooltip has completed its fade-out cycle and fully closed, but the tooltip content is still in place. This event is useful do doing cleanup work after the user is done with the tooltip. |
