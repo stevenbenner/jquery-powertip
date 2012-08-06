@@ -146,6 +146,33 @@ Of course those defaults will be overridden with any options you pass directly t
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 
+## API
+
+There are times when you may need to open or close a tooltip manually. To make this possible PowerTip exposes a couple of API methods on the `$.powerTip` object.
+
+| Method | Description |
+| ----- | ----- |
+| `showTip(element)` | This function will force the tooltip for the specified element to open. You pass it a jQuery object with the element that you want to show the tooltip for. If the jQuery object you pass to this function has more than one matched elements then only the first element will show its tooltip. |
+| `closeTip()` | Closes any open tooltip. You do not need to specify which tooltip you would like to close (because there can be only one). |
+
+### Examples
+
+```javascript
+// run powertip on submit button
+$('#submit').powerTip();
+
+// open tooltip for submit button
+$.powerTip.showTip($('#submit'));
+
+// close (any open) tooltip
+$.powerTip.closeTip();
+```
+
+### Notes
+
+* Remember that one of the rules for PowerTip is that only one tooltip will be visible at a time, so any open tooltips will be closed before a new tooltip is shown.
+* Forcing a tooltip to open via the `showTip()` method does not disable the normal hover tooltips for any other elements. If the user moves their cursor to another element with a tooltip after you call `showTip()` then the tooltip you opened will be closed so that the tooltip for the user's current hover target can open.
+
 ## PowerTip Events
 
 PowerTip will trigger several events during operation that you can bind custom code to. These events make it much easier to extend the plugin and work with tooltips during their life cycle. Using events should not be needed in most cases, they are provided for developers who need a deeper level of integration with the tooltip system.

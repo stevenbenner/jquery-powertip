@@ -70,6 +70,12 @@
 		#powerTip a {
 			color: #00F;
 		}
+
+		#api-examples input {
+			background-color: #EEE;
+			margin: 10px;
+			padding: 10px 30px;
+		}
 	</style>
 	<link rel="stylesheet" type="text/css" href="jquery.powertip.css" />
 </head>
@@ -103,6 +109,11 @@
 			The PowerTip for this box will appear on the right and you will be able to interact with its content.
 		</div>
 	</div>
+	<div id="api-examples">
+		<h2>API examples</h2>
+		<input id="api-open" type="button" value="Show mouse-on tooltip" />
+		<input id="api-close" type="button" value="Close any open tooltips" />
+	</div>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 	<script type="text/javascript" src="jquery.powertip.js"></script>
 	<script type="text/javascript">
@@ -129,6 +140,14 @@
 			$('#mouseon-examples div').powerTip({
 				placement: 'e',
 				mouseOnToPopup: true
+			});
+
+			// api examples
+			$('#api-open').on('click', function() {
+				$.powerTip.showTip($('#mouseon-examples div'));
+			});
+			$('#api-close').on('click', function() {
+				$.powerTip.closeTip();
 			});
 		});
 	</script>

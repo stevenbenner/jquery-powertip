@@ -163,6 +163,23 @@
 				if (element.data('hasActiveHover')) {
 					hideTip(element);
 				}
+			},
+
+			// api events
+			showPowerTip: function() {
+				var element = $(this);
+				session.mouseTarget = element;
+				if (!isMouseOver(element) && !element.data('hasActiveHover')) {
+					element.data('forcedOpen', true);
+					beginShowTip(element);
+				}
+			},
+			hidePowerTip: function() {
+				var element = $(this);
+				session.mouseTarget = null;
+				if (element.data('hasActiveHover')) {
+					hideTip(element);
+				}
 			}
 		});
 
@@ -260,6 +277,11 @@
 			// trigger powerTipRender event
 			element.trigger('powerTipRender');
 
+			// hook close event for triggering from the api
+			$window.on('closePowerTip', function() {
+				element.trigger('hidePowerTip');
+			});
+
 			session.activeHover = element;
 			session.isPopOpen = true;
 
@@ -294,11 +316,14 @@
 		function hideTip(element) {
 			session.isClosing = true;
 			element.data('hasActiveHover', false);
+			element.data('forcedOpen', false);
 			// reset session
 			session.activeHover = null;
 			session.isPopOpen = false;
 			// stop desync polling
 			session.desyncTimeout = clearInterval(session.desyncTimeout);
+			// unhook close event api listener
+			$window.off('closePowerTip');
 			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function() {
 				session.isClosing = false;
@@ -344,7 +369,9 @@
 					// let the user interact with it.
 					// for keyboard navigation, this only counts if the element
 					// does not have focus.
-					if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus")) {
+					// for tooltips opened via the api we need to check if it
+					// has the forcedOpen flag.
+					if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data('forcedOpen')) {
 						if (tipElement.data('mouseOnToPopup')) {
 							if (!isMouseOver(tipElement)) {
 								isDesynced = true;
@@ -602,6 +629,35 @@
 		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
 		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
 		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
+	};
+
+	/**
+	 * Public API
+	 * @type Object
+	 */
+	$.powerTip = {
+
+		/**
+		 * Attempts to show the tooltip for the specified element.
+		 * @public
+		 * @param {Object} element The element that the tooltip should for.
+		 */
+		showTip: function(element) {
+			// close any open tooltip
+			$.powerTip.closeTip();
+			// grab only the first matched element and ask it to show its tip
+			element = element.first();
+			element.trigger('showPowerTip');
+		},
+
+		/**
+		 * Attempts to close any open tooltips.
+		 * @public
+		 */
+		closeTip: function() {
+			$window.triggerHandler('closePowerTip')
+		}
+
 	};
 
 	/**
