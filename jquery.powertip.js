@@ -106,7 +106,11 @@
 			tipElement.on({
 				mouseenter: function() {
 					if (tipElement.data('followMouse') || tipElement.data('mouseOnToPopup')) {
-						cancelHoverTimer(session.activeHover);
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							cancelHoverTimer(session.activeHover);
+						}
 						session.mouseTarget = session.activeHover;
 					}
 				},
