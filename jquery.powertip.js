@@ -278,7 +278,7 @@
 			element.trigger('powerTipRender');
 
 			// hook close event for triggering from the api
-			$window.on('closePowerTip', function() {
+			$document.on('closePowerTip', function() {
 				element.trigger('hidePowerTip');
 			});
 
@@ -323,7 +323,7 @@
 			// stop desync polling
 			session.desyncTimeout = clearInterval(session.desyncTimeout);
 			// unhook close event api listener
-			$window.off('closePowerTip');
+			$document.off('closePowerTip');
 			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function() {
 				session.isClosing = false;
@@ -655,7 +655,7 @@
 		 * @public
 		 */
 		closeTip: function() {
-			$window.triggerHandler('closePowerTip')
+			$document.triggerHandler('closePowerTip')
 		}
 
 	};
