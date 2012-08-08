@@ -83,9 +83,7 @@
 			tipElement.data('hasMouseMove', true);
 		}
 
-		// attempt to use title attribute text if there is no data-powertip,
-		// data-powertipjq or data-powertiptarget. If we do use the title
-		// attribute, delete the attribute so the browser will not show it
+		// setup the elements
 		this.each(function() {
 			var $this = $(this),
 				dataPowertip = $this.data('powertip'),
@@ -93,10 +91,17 @@
 				dataTarget = $this.data('powertiptarget'),
 				title = $this.attr('title');
 
+
+			// attempt to use title attribute text if there is no data-powertip,
+			// data-powertipjq or data-powertiptarget. If we do use the title
+			// attribute, delete the attribute so the browser will not show it
 			if (!dataPowertip && !dataTarget && !dataElem && title) {
 				$this.data('powertip', title);
 				$this.removeAttr('title');
 			}
+
+			// create hover controllers for each element
+			$this.data('displayController', new DisplayController($this, options));
 		});
 
 		// if we want to be able to mouse onto the popup then we need to attach
@@ -109,9 +114,8 @@
 						// check activeHover in case the mouse cursor entered
 						// the tooltip during the fadeOut and close cycle
 						if (session.activeHover) {
-							cancelHoverTimer(session.activeHover);
+							session.activeHover.data('displayController').cancel();
 						}
-						session.mouseTarget = session.activeHover;
 					}
 				},
 				mouseleave: function() {
@@ -119,10 +123,8 @@
 						// check activeHover in case the mouse cursor entered
 						// the tooltip during the fadeOut and close cycle
 						if (session.activeHover) {
-							cancelHoverTimer(session.activeHover);
-							setHoverTimer(session.activeHover, 'hide');
+							session.activeHover.data('displayController').hide();
 						}
-						session.mouseTarget = null;
 					}
 				}
 			});
@@ -133,85 +135,128 @@
 			// mouse events
 			mouseenter: function(event) {
 				trackMouse(event);
-				var element = $(this);
-				cancelHoverTimer(element);
-				session.mouseTarget = element;
 				session.previousX = event.pageX;
 				session.previousY = event.pageY;
-				if (!element.data('hasActiveHover')) {
-					session.popOpenImminent = true;
-					setHoverTimer(element, 'show');
-				}
+				$(this).data('displayController').show();
 			},
 			mouseleave: function() {
-				var element = $(this);
-				cancelHoverTimer(element);
-				session.mouseTarget = null;
-				session.popOpenImminent = false;
-				if (element.data('hasActiveHover')) {
-					setHoverTimer(element, 'hide');
-				}
+				$(this).data('displayController').hide();
 			},
 
 			// keyboard events
 			focus: function() {
 				var element = $(this);
-				session.mouseTarget = element;
-				if (!isMouseOver(element) && !element.data('hasActiveHover')) {
-					beginShowTip(element);
+				if (!isMouseOver(element)) {
+					element.data('displayController').show(true);
 				}
 			},
 			blur: function() {
-				var element = $(this);
-				session.mouseTarget = null;
-				if (element.data('hasActiveHover')) {
-					hideTip(element);
-				}
-			},
-
-			// api events
-			showPowerTip: function() {
-				var element = $(this);
-				session.mouseTarget = element;
-				if (!isMouseOver(element) && !element.data('hasActiveHover')) {
-					element.data('forcedOpen', true);
-					beginShowTip(element);
-				}
-			},
-			hidePowerTip: function() {
-				var element = $(this);
-				session.mouseTarget = null;
-				if (element.data('hasActiveHover')) {
-					hideTip(element);
-				}
+				$(this).data('displayController').hide(true);
 			}
 		});
 
 		///////////// PRIVATE FUNCTIONS /////////////
 
 		/**
-		 * Checks mouse position to make sure that the user intended to hover
-		 * on the specified element before showing the tooltip.
+		 * Creates a new tooltip display controller.
 		 * @private
-		 * @param {Object} element The element that the popup should target.
+		 * @constructor
+		 * @param {Object} element The element that this controller will handle.
+		 * @param {Object} options Options object containing settings.
 		 */
-		function checkForIntent(element) {
-			cancelHoverTimer(element);
+		function DisplayController(element, options) {
+			var hoverTimer = null;
 
-			// calculate mouse position difference
-			var xDifference = Math.abs(session.previousX - session.currentX),
-				yDifference = Math.abs(session.previousY - session.currentY),
-				totalDifference = xDifference + yDifference;
-
-			// check if difference has passed the sensitivity threshold
-			if (totalDifference < options.intentSensitivity) {
-				beginShowTip(element);
-			} else {
-				// try again
-				session.previousX = session.currentX;
-				session.previousY = session.currentY;
-				setHoverTimer(element, 'show');
+			/**
+			 * Begins the process of showing a tooltip.
+			 * @private
+			 * @param {Boolean=} immediate Skip intent testing (optional).
+			 * @param {Boolean=} forceOpen Ignore cursor position and force tooltip to open (optional).
+			 */
+			function openTooltip(immediate, forceOpen) {
+				cancelTimer();
+				session.mouseTarget = element;
+				if (!element.data('hasActiveHover')) {
+					if (!immediate) {
+						session.popOpenImminent = true;
+						hoverTimer = setTimeout(
+							function() {
+								hoverTimer = null;
+								checkForIntent(element);
+							},
+							options.intentPollInterval
+						);
+					} else {
+						if (forceOpen) {
+							element.data('forcedOpen', true);
+						}
+						beginShowTip(element);
+					}
+				}
 			}
+
+			/**
+			 * Checks mouse position to make sure that the user intended to hover
+			 * on the specified element before showing the tooltip.
+			 * @private
+			 * @param {Boolean=} disableDelay Enable hover intent testing (optional).
+			 */
+			function closeTooltip(disableDelay) {
+				cancelTimer();
+				session.mouseTarget = null;
+				if (element.data('hasActiveHover')) {
+					session.popOpenImminent = false;
+					element.data('forcedOpen', false);
+					if (!disableDelay) {
+						hoverTimer = setTimeout(
+							function() {
+								hoverTimer = null;
+								hideTip(element);
+							},
+							options.closeDelay
+						);
+					} else {
+						hideTip(element);
+					}
+				}
+			}
+
+			/**
+			 * Checks mouse position to make sure that the user intended to hover
+			 * on the specified element before showing the tooltip.
+			 * @private
+			 */
+			function checkForIntent() {
+				// calculate mouse position difference
+				var xDifference = Math.abs(session.previousX - session.currentX),
+					yDifference = Math.abs(session.previousY - session.currentY),
+					totalDifference = xDifference + yDifference;
+
+				// check if difference has passed the sensitivity threshold
+				if (totalDifference < options.intentSensitivity) {
+					beginShowTip(element);
+				} else {
+					// try again
+					session.previousX = session.currentX;
+					session.previousY = session.currentY;
+					openTooltip();
+				}
+			}
+
+			/**
+			 * Cancels active hover timer.
+			 * @private
+			 */
+			function cancelTimer() {
+				hoverTimer = clearTimeout(hoverTimer);
+			}
+
+			// expose the methods
+			return {
+				show: openTooltip,
+				hide: closeTooltip,
+				cancel: cancelTimer
+			};
 		}
 
 		/**
@@ -283,7 +328,7 @@
 
 			// hook close event for triggering from the api
 			$document.on('closePowerTip', function() {
-				element.trigger('hidePowerTip');
+				element.data('displayController').hide(true);
 			});
 
 			session.activeHover = element;
@@ -571,32 +616,6 @@
 			tipElement.css('top', y + 'px');
 		}
 
-		/**
-		 * Sets up a hover timer on the specified element.
-		 * @private
-		 * @param {Object} element The element that the popup should target.
-		 * @param {String} action The hover timer action ('show' or 'hide').
-		 */
-		function setHoverTimer(element, action) {
-			if (action === 'show') {
-				element.data('hoverTimer', setTimeout(
-					function() {
-						element.data('hoverTimer', null);
-						checkForIntent(element);
-					},
-					options.intentPollInterval
-				));
-			} else if (action === 'hide') {
-				element.data('hoverTimer', setTimeout(
-					function() {
-						element.data('hoverTimer', null);
-						hideTip(element);
-					},
-					options.closeDelay
-				));
-			}
-		}
-
 	};
 
 	/**
@@ -651,7 +670,9 @@
 			$.powerTip.closeTip();
 			// grab only the first matched element and ask it to show its tip
 			element = element.first();
-			element.trigger('showPowerTip');
+			if (!isMouseOver(element)) {
+				element.data('displayController').show(true, true);
+			}
 		},
 
 		/**
@@ -659,7 +680,7 @@
 		 * @public
 		 */
 		closeTip: function() {
-			$document.triggerHandler('closePowerTip')
+			$document.triggerHandler('closePowerTip');
 		}
 
 	};
@@ -680,7 +701,7 @@
 			$(function() {
 				lastScrollX = $document.scrollLeft();
 				lastScrollY = $document.scrollTop();
-			})
+			});
 
 			// hook mouse position tracking
 			$document.on({
@@ -709,18 +730,6 @@
 	function trackMouse(event) {
 		session.currentX = event.pageX;
 		session.currentY = event.pageY;
-	}
-
-	/**
-	 * Cancels active hover timer.
-	 * @private
-	 * @param {Object} element The element that the popup should target.
-	 */
-	function cancelHoverTimer(element) {
-		if (element.data('hoverTimer')) {
-			clearTimeout(element.data('hoverTimer'));
-			element.data('hoverTimer', null);
-		}
 	}
 
 	/**
@@ -764,7 +773,7 @@
 		}
 		if (coords.x + elementWidth > scrollLeft + windowWidth) {
 			collisions.push('right');
-		};
+		}
 
 		return collisions;
 	}
