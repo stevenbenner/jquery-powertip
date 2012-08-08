@@ -1,14 +1,15 @@
 /**
- * jQuery PowerTip Plugin
+ * PowerTip
  *
- * @fileoverview jQuery plugin that creates hover tooltips.
- * @link https://github.com/stevenbenner/jquery-powertip
- * @author Steven Benner
- * @version 1.0.4
- * @requires jQuery 1.7 or later
- * @license jQuery PowerTip Plugin v1.0.4
- * <https://github.com/stevenbenner/jquery-powertip>
- * Copyright (c) 2012 Steven Benner, http://stevenbenner.com/
+ * @fileoverview  jQuery plugin that creates hover tooltips.
+ * @link          http://stevenbenner.github.com/jquery-powertip/
+ * @author        Steven Benner (http://stevenbenner.com/)
+ * @version       1.1.0
+ * @requires      jQuery 1.7+
+ *
+ * @license jQuery PowerTip Plugin v1.1.0
+ * http://stevenbenner.github.com/jquery-powertip/
+ * Copyright 2012 Steven Benner (http://stevenbenner.com/)
  * Released under the MIT license.
  * <https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt>
  */
@@ -18,6 +19,7 @@
 
 	// useful private variables
 	var $document = $(document),
+		$window = $(window),
 		$body = $('body');
 
 	/**
@@ -28,9 +30,9 @@
 	var session = {
 		isPopOpen: false,
 		isFixedPopOpen: false,
+		isClosing: false,
 		popOpenImminent: false,
 		activeHover: null,
-		mouseTarget: null,
 		currentX: 0,
 		currentY: 0,
 		previousX: 0,
@@ -52,15 +54,247 @@
 		}
 
 		// extend options
-		var options = $.extend({}, $.fn.powerTip.defaults, opts);
+		var options = $.extend({}, $.fn.powerTip.defaults, opts),
+			tipController = new TooltipController(options);
 
 		// hook mouse tracking
 		initMouseTracking();
+
+		// setup the elements
+		this.each(function() {
+			var $this = $(this),
+				dataPowertip = $this.data('powertip'),
+				dataElem = $this.data('powertipjq'),
+				dataTarget = $this.data('powertiptarget'),
+				title = $this.attr('title');
+
+
+			// attempt to use title attribute text if there is no data-powertip,
+			// data-powertipjq or data-powertiptarget. If we do use the title
+			// attribute, delete the attribute so the browser will not show it
+			if (!dataPowertip && !dataTarget && !dataElem && title) {
+				$this.data('powertip', title);
+				$this.removeAttr('title');
+			}
+
+			// create hover controllers for each element
+			$this.data(
+				'displayController',
+				new DisplayController($this, options, tipController)
+			);
+		});
+
+		// attach hover events to all matched elements
+		return this.on({
+			// mouse events
+			mouseenter: function(event) {
+				trackMouse(event);
+				session.previousX = event.pageX;
+				session.previousY = event.pageY;
+				$(this).data('displayController').show();
+			},
+			mouseleave: function() {
+				$(this).data('displayController').hide();
+			},
+
+			// keyboard events
+			focus: function() {
+				var element = $(this);
+				if (!isMouseOver(element)) {
+					element.data('displayController').show(true);
+				}
+			},
+			blur: function() {
+				$(this).data('displayController').hide(true);
+			}
+		});
+
+	};
+
+	/**
+	 * Default options for the powerTip plugin.
+	 * @type Object
+	 */
+	$.fn.powerTip.defaults = {
+		fadeInTime: 200,
+		fadeOutTime: 100,
+		followMouse: false,
+		popupId: 'powerTip',
+		intentSensitivity: 7,
+		intentPollInterval: 100,
+		closeDelay: 100,
+		placement: 'n',
+		smartPlacement: false,
+		offset: 10,
+		mouseOnToPopup: false
+	};
+
+	/**
+	 * Default smart placement priority lists.
+	 * The first item in the array is the highest priority, the last is the
+	 * lowest. The last item is also the default, which will be used if all
+	 * previous options do not fit.
+	 * @type Object
+	 */
+	$.fn.powerTip.smartPlacementLists = {
+		n: ['n', 'ne', 'nw', 's'],
+		e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
+		s: ['s', 'se', 'sw', 'n'],
+		w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
+		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
+		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
+		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
+		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
+	};
+
+	/**
+	 * Public API
+	 * @type Object
+	 */
+	$.powerTip = {
+
+		/**
+		 * Attempts to show the tooltip for the specified element.
+		 * @public
+		 * @param {Object} element The element that the tooltip should for.
+		 */
+		showTip: function(element) {
+			// close any open tooltip
+			$.powerTip.closeTip();
+			// grab only the first matched element and ask it to show its tip
+			element = element.first();
+			if (!isMouseOver(element)) {
+				element.data('displayController').show(true, true);
+			}
+		},
+
+		/**
+		 * Attempts to close any open tooltips.
+		 * @public
+		 */
+		closeTip: function() {
+			$document.triggerHandler('closePowerTip');
+		}
+
+	};
+
+	/**
+	 * Creates a new tooltip display controller.
+	 * @private
+	 * @constructor
+	 * @param {Object} element The element that this controller will handle.
+	 * @param {Object} options Options object containing settings.
+	 * @param {TooltipController} tipController The TooltipController for this instance.
+	 */
+	function DisplayController(element, options, tipController) {
+		var hoverTimer = null;
+
+		/**
+		 * Begins the process of showing a tooltip.
+		 * @private
+		 * @param {Boolean=} immediate Skip intent testing (optional).
+		 * @param {Boolean=} forceOpen Ignore cursor position and force tooltip to open (optional).
+		 */
+		function openTooltip(immediate, forceOpen) {
+			cancelTimer();
+			if (!element.data('hasActiveHover')) {
+				if (!immediate) {
+					session.popOpenImminent = true;
+					hoverTimer = setTimeout(
+						function() {
+							hoverTimer = null;
+							checkForIntent(element);
+						},
+						options.intentPollInterval
+					);
+				} else {
+					if (forceOpen) {
+						element.data('forcedOpen', true);
+					}
+					tipController.showTip(element);
+				}
+			}
+		}
+
+		/**
+		 * Begins the process of closing a tooltip.
+		 * @private
+		 * @param {Boolean=} disableDelay Disable close delay (optional).
+		 */
+		function closeTooltip(disableDelay) {
+			cancelTimer();
+			if (element.data('hasActiveHover')) {
+				session.popOpenImminent = false;
+				element.data('forcedOpen', false);
+				if (!disableDelay) {
+					hoverTimer = setTimeout(
+						function() {
+							hoverTimer = null;
+							tipController.hideTip(element);
+						},
+						options.closeDelay
+					);
+				} else {
+					tipController.hideTip(element);
+				}
+			}
+		}
+
+		/**
+		 * Checks mouse position to make sure that the user intended to hover
+		 * on the specified element before showing the tooltip.
+		 * @private
+		 */
+		function checkForIntent() {
+			// calculate mouse position difference
+			var xDifference = Math.abs(session.previousX - session.currentX),
+				yDifference = Math.abs(session.previousY - session.currentY),
+				totalDifference = xDifference + yDifference;
+
+			// check if difference has passed the sensitivity threshold
+			if (totalDifference < options.intentSensitivity) {
+				tipController.showTip(element);
+			} else {
+				// try again
+				session.previousX = session.currentX;
+				session.previousY = session.currentY;
+				openTooltip();
+			}
+		}
+
+		/**
+		 * Cancels active hover timer.
+		 * @private
+		 */
+		function cancelTimer() {
+			hoverTimer = clearTimeout(hoverTimer);
+		}
+
+		// expose the methods
+		return {
+			show: openTooltip,
+			hide: closeTooltip,
+			cancel: cancelTimer
+		};
+	}
+
+	/**
+	 * Creates a new tooltip controller.
+	 * @private
+	 * @constructor
+	 * @param {Object} options Options object containing settings.
+	 */
+	function TooltipController(options) {
 
 		// build and append popup div if it does not already exist
 		var tipElement = $('#' + options.popupId);
 		if (tipElement.length === 0) {
 			tipElement = $('<div></div>', { id: options.popupId });
+			// grab body element if it was not populated when the script loaded
+			// this hack exists solely for jsfiddle support
+			if ($body.length === 0) {
+				$body = $('body');
+			}
 			$body.append(tipElement);
 		}
 
@@ -76,22 +310,6 @@
 			tipElement.data('hasMouseMove', true);
 		}
 
-		// attempt to use title attribute text if there is no data-powertip,
-		// data-powertipjq or data-powertiptarget. If we do use the title
-		// attribute, delete the attribute so the browser will not show it
-		this.each(function() {
-			var $this = $(this),
-				dataPowertip = $this.data('powertip'),
-				dataElem = $this.data('powertipjq'),
-				dataTarget = $this.data('powertiptarget'),
-				title = $this.attr('title');
-
-			if (!dataPowertip && !dataTarget && !dataElem && title) {
-				$this.data('powertip', title);
-				$this.removeAttr('title');
-			}
-		});
-
 		// if we want to be able to mouse onto the popup then we need to attach
 		// hover events to the popup that will cancel a close request on hover
 		// and start a new close request on mouseleave
@@ -99,8 +317,11 @@
 			tipElement.on({
 				mouseenter: function() {
 					if (tipElement.data('followMouse') || tipElement.data('mouseOnToPopup')) {
-						cancelHoverTimer(session.activeHover);
-						session.mouseTarget = session.activeHover;
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							session.activeHover.data('displayController').cancel();
+						}
 					}
 				},
 				mouseleave: function() {
@@ -108,69 +329,26 @@
 						// check activeHover in case the mouse cursor entered
 						// the tooltip during the fadeOut and close cycle
 						if (session.activeHover) {
-							cancelHoverTimer(session.activeHover);
-							setHoverTimer(session.activeHover, 'hide');
+							session.activeHover.data('displayController').hide();
 						}
-						session.mouseTarget = null;
 					}
 				}
 			});
 		}
 
-		// attach hover events to all matched elements
-		return this.on({
-			mouseenter: function(event) {
-				trackMouse(event);
-				var element = $(this);
-				cancelHoverTimer(element);
-				session.mouseTarget = element;
-				session.previousX = event.pageX;
-				session.previousY = event.pageY;
-				if (!element.data('hasActiveHover')) {
-					session.popOpenImminent = true;
-					setHoverTimer(element, 'show');
-				}
-			},
-			mouseleave: function() {
-				var element = $(this);
-				cancelHoverTimer(element);
-				session.mouseTarget = null;
-				session.popOpenImminent = false;
-				if (element.data('hasActiveHover')) {
-					setHoverTimer(element, 'hide');
-				}
-			}
-		});
-
-		///////////// PRIVATE FUNCTIONS /////////////
-
 		/**
-		 * Checks mouse position to make sure
+		 * Gives the specified element the active-hover state and queues up
+		 * the showTip function.
 		 * @private
-		 * @param {Object} element The element that the popup should target.
+		 * @param {Object} element The element that the tooltip should target.
 		 */
-		function checkForIntent(element) {
-			cancelHoverTimer(element);
-
-			// calculate mouse position difference
-			var xDifference = Math.abs(session.previousX - session.currentX),
-				yDifference = Math.abs(session.previousY - session.currentY),
-				totalDifference = xDifference + yDifference;
-
-			// check if difference has passed the sensitivity threshold
-			if (totalDifference < options.intentSensitivity) {
-				element.data('hasActiveHover', true);
-				// show popup, asap
-				tipElement.queue(function(next) {
-					showTip(element);
-					next();
-				});
-			} else {
-				// try again
-				session.previousX = session.currentX;
-				session.previousY = session.currentY;
-				setHoverTimer(element, 'show');
-			}
+		function beginShowTip(element) {
+			element.data('hasActiveHover', true);
+			// show popup, asap
+			tipElement.queue(function(next) {
+				showTip(element);
+				next();
+			});
 		}
 
 		/**
@@ -179,15 +357,30 @@
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function showTip(element) {
+			// it is possible, especially with keyboard navigation, to move on
+			// to another element with a tooltip during the queue to get to
+			// this point in the code. if that happens then we need to not
+			// proceed or we may have the fadeout callback for the last tooltip
+			// execute immediately after this code runs, causing bugs.
+			if (!element.data('hasActiveHover')) {
+				return;
+			}
+
 			// if the popup is open and we got asked to open another one then
 			// the old one is still in its fadeOut cycle, so wait and try again
 			if (session.isPopOpen) {
+				if (!session.isClosing) {
+					hideTip(session.activeHover);
+				}
 				tipElement.delay(100).queue(function(next) {
 					showTip(element);
 					next();
 				});
 				return;
 			}
+
+			// trigger powerTipPreRender event
+			element.trigger('powerTipPreRender');
 
 			var tipText = element.data('powertip'),
 				tipTarget = element.data('powertiptarget'),
@@ -206,6 +399,14 @@
 				// we have no content to display, give up
 				return;
 			}
+
+			// trigger powerTipRender event
+			element.trigger('powerTipRender');
+
+			// hook close event for triggering from the api
+			$document.on('closePowerTip', function() {
+				element.data('displayController').hide(true);
+			});
 
 			session.activeHover = element;
 			session.isPopOpen = true;
@@ -227,6 +428,9 @@
 				if (!session.desyncTimeout) {
 					session.desyncTimeout = setInterval(closeDesyncedTip, 500);
 				}
+
+				// trigger powerTipOpen event
+				element.trigger('powerTipOpen');
 			});
 		}
 
@@ -236,14 +440,19 @@
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function hideTip(element) {
+			session.isClosing = true;
 			element.data('hasActiveHover', false);
+			element.data('forcedOpen', false);
 			// reset session
 			session.activeHover = null;
 			session.isPopOpen = false;
 			// stop desync polling
 			session.desyncTimeout = clearInterval(session.desyncTimeout);
+			// unhook close event api listener
+			$document.off('closePowerTip');
 			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function() {
+				session.isClosing = false;
 				session.isFixedPopOpen = false;
 				tipElement.removeClass();
 				// support mouse-follow and fixed position pops at the same
@@ -253,6 +462,9 @@
 					session.currentX + options.offset,
 					session.currentY + options.offset
 				);
+
+				// trigger powerTipClose event
+				element.trigger('powerTipClose');
 			});
 		}
 
@@ -271,7 +483,7 @@
 			// open tooltips to close before opening a new one. So we should
 			// periodically check for a desync situation and close the tip if
 			// such a situation arises.
-			if (session.isPopOpen) {
+			if (session.isPopOpen && !session.isClosing) {
 				var isDesynced = false;
 
 				// case 1: user already moused onto another tip - easy test
@@ -280,8 +492,12 @@
 				} else {
 					// case 2: hanging tip - have to test if mouse position is
 					// not over the active hover and not over a tooltip set to
-					// let the user interact with it
-					if (!isMouseOver(session.activeHover)) {
+					// let the user interact with it.
+					// for keyboard navigation, this only counts if the element
+					// does not have focus.
+					// for tooltips opened via the api we need to check if it
+					// has the forcedOpen flag.
+					if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data('forcedOpen')) {
 						if (tipElement.data('mouseOnToPopup')) {
 							if (!isMouseOver(tipElement)) {
 								isDesynced = true;
@@ -312,24 +528,24 @@
 			// element in question does have a mouse-follow using it.
 			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
 				// grab measurements
-				var scrollTop = $document.scrollTop(),
-					documentWidth = $document.width(),
-					documentHeight = $document.height(),
+				var scrollTop = $window.scrollTop(),
+					windowWidth = $window.width(),
+					windowHeight = $window.height(),
 					popWidth = tipElement.outerWidth(),
 					popHeight = tipElement.outerHeight(),
 					x = 0,
 					y = 0;
 
 				// constrain pop to browser viewport
-				if ((popWidth + session.currentX + options.offset) < documentWidth) {
+				if ((popWidth + session.currentX + options.offset) < windowWidth) {
 					x = session.currentX + options.offset;
 				} else {
-					x = documentWidth - popWidth;
+					x = windowWidth - popWidth;
 				}
-				if ((popHeight + session.currentY + options.offset) < (scrollTop + documentHeight)) {
+				if ((popHeight + session.currentY + options.offset) < (scrollTop + windowHeight)) {
 					y = session.currentY + options.offset;
 				} else {
-					y = scrollTop + documentHeight - popHeight;
+					y = scrollTop + windowHeight - popHeight;
 				}
 
 				// position the tooltip
@@ -344,17 +560,88 @@
 		 * @param {Object} element The element that the popup should target.
 		 */
 		function positionTipOnElement(element) {
+			var tipWidth = tipElement.outerWidth(),
+				tipHeight = tipElement.outerHeight(),
+				priorityList,
+				placementCoords,
+				finalPlacement,
+				collisions;
+
+			// with smart placement we will try a series of placement
+			// options and use the first one that does not collide with the
+			// browser view port boundaries.
+			if (options.smartPlacement) {
+
+				// grab the placement priority list
+				priorityList = $.fn.powerTip.smartPlacementLists[options.placement];
+
+				// iterate over the priority list and use the first placement
+				// option that does not collide with the viewport. if they all
+				// collide then the last placement in the list will be used.
+				$.each(priorityList, function(idx, pos) {
+					// get placement coordinates
+					placementCoords = computePlacementCoords(
+						element,
+						pos,
+						tipWidth,
+						tipHeight
+					);
+					finalPlacement = pos;
+
+					// find collisions
+					collisions = getViewportCollisions(
+						placementCoords,
+						tipWidth,
+						tipHeight
+					);
+
+					// break if there were no collisions
+					if (collisions.length === 0) {
+						return false;
+					}
+				});
+
+			} else {
+
+				// if we're not going to use the smart placement feature then
+				// just compute the coordinates and do it
+				placementCoords = computePlacementCoords(
+					element,
+					options.placement,
+					tipWidth,
+					tipHeight
+				);
+				finalPlacement = options.placement;
+
+			}
+
+			// add placement as class for CSS arrows
+			tipElement.addClass(finalPlacement);
+
+			// position the tooltip
+			setTipPosition(placementCoords.x, placementCoords.y);
+		}
+
+		/**
+		 * Compute the top/left coordinates to display the tooltip at the
+		 * specified placement relative to the specified element.
+		 * @private
+		 * @param {Object} element The element that the tooltip should target.
+		 * @param {String} placement The placement for the tooltip.
+		 * @param {Number} popWidth Width of the tooltip element in pixels.
+		 * @param {Number} popHeight Height of the tooltip element in pixels.
+		 * @retun {Object} An object with the x and y coordinates.
+		 */
+		function computePlacementCoords(element, placement, popWidth, popHeight) {
 			// grab measurements
 			var objectOffset = element.offset(),
 				objectWidth = element.outerWidth(),
 				objectHeight = element.outerHeight(),
-				popWidth = tipElement.outerWidth(),
-				popHeight = tipElement.outerHeight(),
 				x = 0,
 				y = 0;
 
 			// calculate the appropriate x and y position in the document
-			switch (options.placement) {
+			switch (placement) {
 			case 'n':
 				x = (objectOffset.left + (objectWidth / 2)) - (popWidth / 2);
 				y = objectOffset.top - popHeight - options.offset;
@@ -389,10 +676,10 @@
 				break;
 			}
 
-			tipElement.addClass(options.placement);
-
-			// position the tooltip
-			setTipPosition(Math.round(x), Math.round(y));
+			return {
+				x: Math.round(x),
+				y: Math.round(y)
+			};
 		}
 
 		/**
@@ -406,50 +693,12 @@
 			tipElement.css('top', y + 'px');
 		}
 
-		/**
-		 * Sets up a hover timer on the specified element.
-		 * @private
-		 * @param {Object} element The element that the popup should target.
-		 * @param {String} action The hover timer action ('show' or 'hide').
-		 */
-		function setHoverTimer(element, action) {
-			if (action === 'show') {
-				element.data('hoverTimer', setTimeout(
-					function() {
-						element.data('hoverTimer', null);
-						checkForIntent(element);
-					},
-					options.intentPollInterval
-				));
-			} else if (action === 'hide') {
-				element.data('hoverTimer', setTimeout(
-					function() {
-						element.data('hoverTimer', null);
-						hideTip(element);
-					},
-					options.closeDelay
-				));
-			}
-		}
-
-	};
-
-	/**
-	 * Default options for the powerTip plugin.
-	 * @type Object
-	 */
-	$.fn.powerTip.defaults = {
-		fadeInTime: 200,
-		fadeOutTime: 100,
-		followMouse: false,
-		popupId: 'powerTip',
-		intentSensitivity: 7,
-		intentPollInterval: 100,
-		closeDelay: 100,
-		placement: 'n',
-		offset: 10,
-		mouseOnToPopup: false
-	};
+		// expose methods
+		return {
+			showTip: beginShowTip,
+			hideTip: hideTip
+		};
+	}
 
 	/**
 	 * Hooks mouse position tracking to mousemove and scroll events.
@@ -467,7 +716,7 @@
 			$(function() {
 				lastScrollX = $document.scrollLeft();
 				lastScrollY = $document.scrollTop();
-			})
+			});
 
 			// hook mouse position tracking
 			$document.on({
@@ -499,18 +748,6 @@
 	}
 
 	/**
-	 * Cancels active hover timer.
-	 * @private
-	 * @param {Object} element The element that the popup should target.
-	 */
-	function cancelHoverTimer(element) {
-		if (element.data('hoverTimer')) {
-			clearTimeout(element.data('hoverTimer'));
-			element.data('hoverTimer', null);
-		}
-	}
-
-	/**
 	 * Tests if the mouse is currently over the specified element.
 	 * @private
 	 * @param {Object} element The element to check for hover.
@@ -522,6 +759,38 @@
 			session.currentX <= elementPosition.left + element.outerWidth() &&
 			session.currentY >= elementPosition.top &&
 			session.currentY <= elementPosition.top + element.outerHeight();
+	}
+
+	/**
+	 * Finds any viewport collisions that an element (the tooltip) would have
+	 * if it were absolutely positioned at the specified coordinates.
+	 * @private
+	 * @param {Object} coords Coordinates for the element. (e.g. {x: 123, y: 123})
+	 * @param {Number} elementWidth Width of the element in pixels.
+	 * @param {Number} elementHeight Height of the element in pixels.
+	 * @return {Array} Array of words representing directional collisions.
+	 */
+	function getViewportCollisions(coords, elementWidth, elementHeight) {
+		var scrollLeft = $window.scrollLeft(),
+			scrollTop = $window.scrollTop(),
+			windowWidth = $window.width(),
+			windowHeight = $window.height(),
+			collisions = [];
+
+		if (coords.y < scrollTop) {
+			collisions.push('top');
+		}
+		if (coords.y + elementHeight > scrollTop + windowHeight) {
+			collisions.push('bottom');
+		}
+		if (coords.x < scrollLeft) {
+			collisions.push('left');
+		}
+		if (coords.x + elementWidth > scrollLeft + windowWidth) {
+			collisions.push('right');
+		}
+
+		return collisions;
 	}
 
 }(jQuery));
