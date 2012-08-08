@@ -18,6 +18,9 @@ a:hover {
 	color: #C00;
 	text-decoration: underline;
 }
+code {
+	white-space: nowrap;
+}
 
 #wrapper {
 	width: 790px;
