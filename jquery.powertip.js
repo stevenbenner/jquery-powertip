@@ -33,7 +33,6 @@
 		isClosing: false,
 		popOpenImminent: false,
 		activeHover: null,
-		mouseTarget: null,
 		currentX: 0,
 		currentY: 0,
 		previousX: 0,
@@ -198,7 +197,6 @@
 		 */
 		function openTooltip(immediate, forceOpen) {
 			cancelTimer();
-			session.mouseTarget = element;
 			if (!element.data('hasActiveHover')) {
 				if (!immediate) {
 					session.popOpenImminent = true;
@@ -225,7 +223,6 @@
 		 */
 		function closeTooltip(disableDelay) {
 			cancelTimer();
-			session.mouseTarget = null;
 			if (element.data('hasActiveHover')) {
 				session.popOpenImminent = false;
 				element.data('forcedOpen', false);
