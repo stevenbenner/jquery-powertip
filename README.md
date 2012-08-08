@@ -21,7 +21,7 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 * Multiple instances
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
-* Small footprint (only 3kb minified)
+* Small footprint (only 6kb minified)
 * Actively maintained
 
 ### Requirements
@@ -262,7 +262,7 @@ $.fn.powerTip.smartPlacementLists.n = ['n', 's', 'e', 'w'];
 $('.tips').powerTip({
 	placement: 'n',
 	smartPlacement: true
-})
+});
 ```
 
 Smart placement is **disabled** by default because I believe that the world would be a better place if features that override explicit configuration values were disabled by default.
