@@ -54,34 +54,11 @@
 		}
 
 		// extend options
-		var options = $.extend({}, $.fn.powerTip.defaults, opts);
+		var options = $.extend({}, $.fn.powerTip.defaults, opts),
+			tipController = new TooltipController(options);
 
 		// hook mouse tracking
 		initMouseTracking();
-
-		// build and append popup div if it does not already exist
-		var tipElement = $('#' + options.popupId);
-		if (tipElement.length === 0) {
-			tipElement = $('<div></div>', { id: options.popupId });
-			// grab body element if it was not populated when the script loaded
-			// this hack exists solely for jsfiddle support
-			if ($body.length === 0) {
-				$body = $('body');
-			}
-			$body.append(tipElement);
-		}
-
-		// hook mousemove for cursor follow tooltips
-		if (options.followMouse) {
-			// only one positionTipOnCursor hook per popup element, please
-			if (!tipElement.data('hasMouseMove')) {
-				$document.on({
-					mousemove: positionTipOnCursor,
-					scroll: positionTipOnCursor
-				});
-			}
-			tipElement.data('hasMouseMove', true);
-		}
 
 		// setup the elements
 		this.each(function() {
@@ -101,34 +78,11 @@
 			}
 
 			// create hover controllers for each element
-			$this.data('displayController', new DisplayController($this, options));
+			$this.data(
+				'displayController',
+				new DisplayController($this, options, tipController)
+			);
 		});
-
-		// if we want to be able to mouse onto the popup then we need to attach
-		// hover events to the popup that will cancel a close request on hover
-		// and start a new close request on mouseleave
-		if (options.followMouse || options.mouseOnToPopup) {
-			tipElement.on({
-				mouseenter: function() {
-					if (tipElement.data('followMouse') || tipElement.data('mouseOnToPopup')) {
-						// check activeHover in case the mouse cursor entered
-						// the tooltip during the fadeOut and close cycle
-						if (session.activeHover) {
-							session.activeHover.data('displayController').cancel();
-						}
-					}
-				},
-				mouseleave: function() {
-					if (tipElement.data('mouseOnToPopup')) {
-						// check activeHover in case the mouse cursor entered
-						// the tooltip during the fadeOut and close cycle
-						if (session.activeHover) {
-							session.activeHover.data('displayController').hide();
-						}
-					}
-				}
-			});
-		}
 
 		// attach hover events to all matched elements
 		return this.on({
@@ -163,8 +117,9 @@
 		 * @constructor
 		 * @param {Object} element The element that this controller will handle.
 		 * @param {Object} options Options object containing settings.
+		 * @param {TooltipController} tipController The TooltipController for this instance.
 		 */
-		function DisplayController(element, options) {
+		function DisplayController(element, options, tipController) {
 			var hoverTimer = null;
 
 			/**
@@ -190,7 +145,7 @@
 						if (forceOpen) {
 							element.data('forcedOpen', true);
 						}
-						beginShowTip(element);
+						tipController.showTip(element);
 					}
 				}
 			}
@@ -211,12 +166,12 @@
 						hoverTimer = setTimeout(
 							function() {
 								hoverTimer = null;
-								hideTip(element);
+								tipController.hideTip(element);
 							},
 							options.closeDelay
 						);
 					} else {
-						hideTip(element);
+						tipController.hideTip(element);
 					}
 				}
 			}
@@ -234,7 +189,7 @@
 
 				// check if difference has passed the sensitivity threshold
 				if (totalDifference < options.intentSensitivity) {
-					beginShowTip(element);
+					tipController.showTip(element);
 				} else {
 					// try again
 					session.previousX = session.currentX;
@@ -257,6 +212,133 @@
 				hide: closeTooltip,
 				cancel: cancelTimer
 			};
+		}
+
+	};
+
+	/**
+	 * Default options for the powerTip plugin.
+	 * @type Object
+	 */
+	$.fn.powerTip.defaults = {
+		fadeInTime: 200,
+		fadeOutTime: 100,
+		followMouse: false,
+		popupId: 'powerTip',
+		intentSensitivity: 7,
+		intentPollInterval: 100,
+		closeDelay: 100,
+		placement: 'n',
+		smartPlacement: false,
+		offset: 10,
+		mouseOnToPopup: false
+	};
+
+	/**
+	 * Default smart placement priority lists.
+	 * The first item in the array is the highest priority, the last is the
+	 * lowest. The last item is also the default, which will be used if all
+	 * previous options do not fit.
+	 * @type Object
+	 */
+	$.fn.powerTip.smartPlacementLists = {
+		n: ['n', 'ne', 'nw', 's'],
+		e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
+		s: ['s', 'se', 'sw', 'n'],
+		w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
+		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
+		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
+		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
+		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
+	};
+
+	/**
+	 * Public API
+	 * @type Object
+	 */
+	$.powerTip = {
+
+		/**
+		 * Attempts to show the tooltip for the specified element.
+		 * @public
+		 * @param {Object} element The element that the tooltip should for.
+		 */
+		showTip: function(element) {
+			// close any open tooltip
+			$.powerTip.closeTip();
+			// grab only the first matched element and ask it to show its tip
+			element = element.first();
+			if (!isMouseOver(element)) {
+				element.data('displayController').show(true, true);
+			}
+		},
+
+		/**
+		 * Attempts to close any open tooltips.
+		 * @public
+		 */
+		closeTip: function() {
+			$document.triggerHandler('closePowerTip');
+		}
+
+	};
+
+	/**
+	 * Creates a new tooltip controller.
+	 * @private
+	 * @constructor
+	 * @param {Object} options Options object containing settings.
+	 */
+	function TooltipController(options) {
+
+		// build and append popup div if it does not already exist
+		var tipElement = $('#' + options.popupId);
+		if (tipElement.length === 0) {
+			tipElement = $('<div></div>', { id: options.popupId });
+			// grab body element if it was not populated when the script loaded
+			// this hack exists solely for jsfiddle support
+			if ($body.length === 0) {
+				$body = $('body');
+			}
+			$body.append(tipElement);
+		}
+
+		// hook mousemove for cursor follow tooltips
+		if (options.followMouse) {
+			// only one positionTipOnCursor hook per popup element, please
+			if (!tipElement.data('hasMouseMove')) {
+				$document.on({
+					mousemove: positionTipOnCursor,
+					scroll: positionTipOnCursor
+				});
+			}
+			tipElement.data('hasMouseMove', true);
+		}
+
+		// if we want to be able to mouse onto the popup then we need to attach
+		// hover events to the popup that will cancel a close request on hover
+		// and start a new close request on mouseleave
+		if (options.followMouse || options.mouseOnToPopup) {
+			tipElement.on({
+				mouseenter: function() {
+					if (tipElement.data('followMouse') || tipElement.data('mouseOnToPopup')) {
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							session.activeHover.data('displayController').cancel();
+						}
+					}
+				},
+				mouseleave: function() {
+					if (tipElement.data('mouseOnToPopup')) {
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							session.activeHover.data('displayController').hide();
+						}
+					}
+				}
+			});
 		}
 
 		/**
@@ -616,74 +698,12 @@
 			tipElement.css('top', y + 'px');
 		}
 
-	};
-
-	/**
-	 * Default options for the powerTip plugin.
-	 * @type Object
-	 */
-	$.fn.powerTip.defaults = {
-		fadeInTime: 200,
-		fadeOutTime: 100,
-		followMouse: false,
-		popupId: 'powerTip',
-		intentSensitivity: 7,
-		intentPollInterval: 100,
-		closeDelay: 100,
-		placement: 'n',
-		smartPlacement: false,
-		offset: 10,
-		mouseOnToPopup: false
-	};
-
-	/**
-	 * Default smart placement priority lists.
-	 * The first item in the array is the highest priority, the last is the
-	 * lowest. The last item is also the default, which will be used if all
-	 * previous options do not fit.
-	 * @type Object
-	 */
-	$.fn.powerTip.smartPlacementLists = {
-		n: ['n', 'ne', 'nw', 's'],
-		e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
-		s: ['s', 'se', 'sw', 'n'],
-		w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
-		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
-		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
-		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
-	};
-
-	/**
-	 * Public API
-	 * @type Object
-	 */
-	$.powerTip = {
-
-		/**
-		 * Attempts to show the tooltip for the specified element.
-		 * @public
-		 * @param {Object} element The element that the tooltip should for.
-		 */
-		showTip: function(element) {
-			// close any open tooltip
-			$.powerTip.closeTip();
-			// grab only the first matched element and ask it to show its tip
-			element = element.first();
-			if (!isMouseOver(element)) {
-				element.data('displayController').show(true, true);
-			}
-		},
-
-		/**
-		 * Attempts to close any open tooltips.
-		 * @public
-		 */
-		closeTip: function() {
-			$document.triggerHandler('closePowerTip');
-		}
-
-	};
+		// expose methods
+		return {
+			showTip: beginShowTip,
+			hideTip: hideTip
+		};
+	}
 
 	/**
 	 * Hooks mouse position tracking to mousemove and scroll events.
