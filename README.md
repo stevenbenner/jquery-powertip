@@ -299,13 +299,14 @@ Smart placement is **disabled** by default because I believe that the world woul
 
 ## Change Log
 
-**[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...master)** - TBD
+**[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
 
 * Added smart placement feature.
 * Added API with showTip() and closeTip() methods.
 * Added custom events.
 * Added support for keyboard navigation.
 * Added support for jsFiddle.
+* Fixed mouse-follow constraint.
 
 **[v1.0.4](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.3...v1.0.4)** - July 31, 2012
 
