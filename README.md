@@ -6,13 +6,22 @@ A jQuery plugin that creates hover tooltips.
 
 PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
 
+### Unique Features
+
+* **Checks for hover intent**
+
+	Testing for hover intent makes it so that tooltips don't open the moment your mouse happens to cross an element with a tooltip. Users have to hover over the element for a moment before the tooltip will open. This provides a much smoother user experience.
+
+* **Tooltip queuing**
+
+	The tooltip queue makes it a fundamental rule of the system that there will only ever be one tooltip visible on the screen. When the user moves their cursor to another element with a tooltip, the last tooltip will close gracefully before the next tooltip opens.
+
 ### Features
 
 * Straightforward implementation
 * Simple configuration
 * Supports static tooltips as well as tooltips that follow the mouse
 * Ability to let users mouse on to the tooltips and interact with their content
-* Tests for hover intent
 * Mouse follow tooltips are constrained to the browser viewport
 * Easy customization
 * Works with keyboard navigation
