@@ -754,11 +754,7 @@
 	 * @return {Boolean}
 	 */
 	function isMouseOver(element) {
-		var elementPosition = element.offset();
-		return session.currentX >= elementPosition.left &&
-			session.currentX <= elementPosition.left + element.outerWidth() &&
-			session.currentY >= elementPosition.top &&
-			session.currentY <= elementPosition.top + element.outerHeight();
+		return element.closest(session.activeHover).length;
 	}
 
 	/**
