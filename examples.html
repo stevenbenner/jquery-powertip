@@ -109,6 +109,13 @@
 			The PowerTip for this box will appear on the right and you will be able to interact with its content.
 		</div>
 	</div>
+	<div id="mouseout-examples">
+		<h2>mouseout on disabled input examples</h2>
+		<div>
+			<input type="button" value="disable input" class="disabled" disabled title="Foo blood" />
+			<select disabled title="Foo blood" class="disabled" ><option>disabled select</option></select>
+		</div>
+	</div>
 	<div id="api-examples">
 		<h2>API examples</h2>
 		<input id="api-open" type="button" value="Show mouse-on tooltip" />
@@ -141,6 +148,7 @@
 				placement: 'e',
 				mouseOnToPopup: true
 			});
+			$('.disabled').powerTip({placement: 'n'});
 
 			// api examples
 			$('#api-open').on('click', function() {
