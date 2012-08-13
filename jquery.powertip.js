@@ -77,12 +77,20 @@
 
             // mouseenter & mouseleave for disabled element
             if($this.is(':disabled')) {
-                var pos = $this.position();
-                $this = $('<div style="position:absolute; top:' + pos.top + 'px; left:' + pos.left +
-                    'px; width:' + $this.outerWidth() + 'px; height:' + $this.outerHeight() + 'px;opacity:0"/>').insertAfter($this);
-
+                var pos = $this.position(), overlay = $('<div/>');
+                overlay.css({
+                    position: 'absolute',
+                    top: pos.top + 'px',
+                    left: pos.left + 'px',
+                    width: $this.outerWidth() + 'px',
+                    height: $this.outerHeight() + 'px',
+                    opacity: 0
+                })
                 // jQuery 1.4.3+ required
-				$this.data({'powertip': dataPowertip || title, 'powertiptarget': dataTarget, 'powertipjq': dataElem});
+                .data({'powertip': dataPowertip || title, 'powertiptarget': dataTarget, 'powertipjq': dataElem});
+
+                // overlay as fake tooltip trigger
+                $this = overlay.insertAfter($this);
             }
 
 			// create hover controllers for each element
