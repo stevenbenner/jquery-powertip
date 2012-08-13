@@ -110,7 +110,7 @@
                 },
                 mouseup: function() {
                     var $this = $(this);
-                    setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 500)
+                    setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 100)
                 },
 
                 // keyboard events
