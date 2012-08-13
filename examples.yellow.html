@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>jQuery PowerTip Examples</title>
+	<style type="text/css">
+		* {
+			border: 0;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background-color: #FCFCFC;
+			color: #222;
+			font-family: arial,helvetica,sans-serif;
+			font-size: 13px;
+			padding: 20px;
+		}
+		#header {
+			border-bottom: 1px solid #AAA;
+			margin-bottom: 20px;
+			padding-bottom: 20px;
+		}
+		body > div {
+			margin-bottom: 60px;
+		}
+		#footer {
+			border-top: 1px solid #AAA;
+			margin-top: 20px;
+			padding-top: 20px;
+		}
+		h1 {
+			font-size: 40px;
+			font-weight: normal;
+		}
+		h2 {
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-weight: normal;
+		}
+
+		#placement-examples div {
+			text-align: center;
+		}
+		#placement-examples input {
+			background-color: #EEE;
+			margin: 10px;
+			padding: 10px 30px;
+		}
+		#placement-examples #east {
+			margin-left: 200px;
+		}
+
+		#mousefollow-examples div {
+			background-color: #EEE;
+			text-align: center;
+			line-height: 400px;
+			margin: 0 auto;
+			height: 400px;
+			width: 600px;
+		}
+
+		#mouseon-examples div {
+			background-color: #EEE;
+			text-align: center;
+			width: 400px;
+			padding: 40px;
+		}
+		#powerTip a {
+			color: #00F;
+		}
+
+		#api-examples input {
+			background-color: #EEE;
+			margin: 10px;
+			padding: 10px 30px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="jquery.powertip.css" />
+</head>
+<body>
+	<div id="header">
+		<h1>jQuery PowerTip</h1>
+		<p>jQuery plugin that creates hover tooltips.</p>
+	</div>
+	<div id="placement-examples">
+		<h2>Placement examples</h2>
+		<div>
+			<input type="button" id="north-west" value="North West" title="North west placement {placement: 'nw'}" />
+			<input type="button" id="north" value="North" title="North placement {placement: 'n'}" />
+			<input type="button" id="north-east" value="North East" title="North east placement {placement: 'ne'}" /><br />
+			<input type="button" id="west" value="West" title="West placement {placement: 'w'}" />
+			<input type="button" id="east" value="East" title="East placement {placement: 'e'}" /><br />
+			<input type="button" id="south-west" value="South West" title="South west placement {placement: 'sw'}" />
+			<input type="button" id="south" value="South" title="South placement {placement: 's'}" />
+			<input type="button" id="south-east" value="South East" title="South east placement {placement: 'se'}" />
+		</div>
+	</div>
+	<div id="mousefollow-examples">
+		<h2>Mouse follow examples</h2>
+		<div title="Mouse follow {followMouse: true}">
+			The PowerTip for this box will follow the mouse.
+		</div>
+	</div>
+	<div id="mouseon-examples">
+		<h2>Mouse on to popup examples</h2>
+		<div>
+			The PowerTip for this box will appear on the right and you will be able to interact with its content.
+		</div>
+	</div>
+	<div id="api-examples">
+		<h2>API examples</h2>
+		<input id="api-open" type="button" value="Show mouse-on tooltip" />
+		<input id="api-close" type="button" value="Close any open tooltips" />
+	</div>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+	<script type="text/javascript" src="jquery.powertip.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			// placement examples
+			$('#north').powerTip({placement: 'n'});
+			$('#east').powerTip({placement: 'e'});
+			$('#south').powerTip({placement: 's'});
+			$('#west').powerTip({placement: 'w'});
+			$('#north-west').powerTip({placement: 'nw'});
+			$('#north-east').powerTip({placement: 'ne'});
+			$('#south-west').powerTip({placement: 'sw'});
+			$('#south-east').powerTip({placement: 'se'});
+
+			// mouse follow examples
+			$('#mousefollow-examples div').powerTip({followMouse: true});
+
+			// mouse-on examples
+			$('#mouseon-examples div').data('powertipjq', $([
+				'<p><b>Here is some content</b></p>',
+				'<p><a href="http://stevenbenner.com/">Maybe a link</a></p>',
+				'<p><code>{ placement: \'e\', mouseOnToPopup: true }</code></p>'
+			].join('\n')));
+			$('#mouseon-examples div').powerTip({
+				placement: 'e',
+				mouseOnToPopup: true
+			});
+
+			// api examples
+			$('#api-open').on('click', function() {
+				$.powerTip.showTip($('#mouseon-examples div'));
+			});
+			$('#api-close').on('click', function() {
+				$.powerTip.closeTip();
+			});
+		});
+	</script>
+	<div id="footer">
+		<p id="copyright">
+			Copyright &copy; 2012 <a href="http://stevenbenner.com/">Steven Benner</a>.
+		</p>
+		<p id="license">
+			Released under the <a href="https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt">MIT license</a>.
+		</p>
+	</div>
+</body>
+</html>
