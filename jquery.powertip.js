@@ -108,6 +108,12 @@
                 mouseleave: function() {
                     $(this).data('displayController').hide();
                 },
+                mousedown: function() {
+                    $(this).data('displayController').hide(true);
+                },
+                mouseup: function() {
+                    $(this).data('displayController').show(true, true);
+                },
 
                 // keyboard events
                 focus: function() {
