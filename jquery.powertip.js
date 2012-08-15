@@ -75,64 +75,72 @@
 				$this.data('powertip', title).removeAttr('title');
 			}
 
-            // mouseenter & mouseleave for disabled element
-            if($this.is(':disabled')) {
-                var pos = $this.position(), overlay = $('<div/>');
-                overlay.css({
-                    position: 'absolute',
-                    top: pos.top + 'px',
-                    left: pos.left + 'px',
-                    width: $this.outerWidth() + 'px',
-                    height: $this.outerHeight() + 'px',
-                    opacity: 0
-                })
-                // jQuery 1.4.3+ required
-                .data({'powertip': dataPowertip || title, 'powertiptarget': dataTarget, 'powertipjq': dataElem});
+			// create overlay for hover events if the element is disabled
+			if ($this.is(':disabled')) {
+				var pos = $this.position(),
+					overlay = $('<div/>');
 
-                // overlay as fake tooltip trigger
-                $this = overlay.insertAfter($this);
-            }
+				overlay.css({
+					position: 'absolute',
+					top: pos.top + 'px',
+					left: pos.left + 'px',
+					width: $this.outerWidth() + 'px',
+					height: $this.outerHeight() + 'px',
+					opacity: 0
+				});
+
+				overlay.data({
+					powertip: dataPowertip || title,
+					powertiptarget: dataTarget,
+					powertipjq: dataElem
+				});
+
+				// $this element becomes the overlay
+				$this = overlay.insertAfter($this);
+			}
 
 			// create hover controllers for each element
 			$this.data(
 				'displayController',
 				new DisplayController($this, options, tipController)
-			).on({
-                // mouse events
-                mouseenter: function(event) {
-                    trackMouse(event);
-                    session.previousX = event.pageX;
-                    session.previousY = event.pageY;
-                    $(this).data('displayController').show();
-                },
-                mouseleave: function() {
-                    $(this).data('displayController').hide();
-                },
-                mouseup: function() {
-                    autoHide(this)
-                },
+			);
 
-                // keyboard events
-                focus: function() {
-                    var element = $(this);
-                    if (!isMouseOver(element)) {
-                        element.data('displayController').show(true);
-                    }
-                },
-                blur: function() {
-                    $(this).data('displayController').hide(true);
-                },
-                keydown:function(e) {
-                    // Enter or space key
-                    if(e.keyCode === 13 || e.keyCode === 32) {
-                        autoHide(this)
-                    }
-                }
-            });
+			// attach hover events to all matched elements
+			$this.on({
+				// mouse events
+				mouseenter: function(event) {
+					trackMouse(event);
+					session.previousX = event.pageX;
+					session.previousY = event.pageY;
+					$(this).data('displayController').show();
+				},
+				mouseleave: function() {
+					$(this).data('displayController').hide();
+				},
+				mouseup: function() {
+					autoHide($(this));
+				},
+
+				// keyboard events
+				focus: function() {
+					var element = $(this);
+					if (!isMouseOver(element)) {
+						element.data('displayController').show(true);
+					}
+				},
+				blur: function() {
+					$(this).data('displayController').hide(true);
+				},
+				keydown: function(e) {
+					// enter or space key
+					if (e.keyCode === 13 || e.keyCode === 32) {
+						autoHide($(this));
+					}
+				}
+			});
 		});
 
-		// attach hover events to all matched elements
-		return this
+		return this;
 
 	};
 
@@ -714,7 +722,10 @@
 		 * @param {Number} y Top position in pixels.
 		 */
 		function setTipPosition(x, y) {
-			tipElement.css({'left': x + 'px', 'top': y + 'px'});
+			tipElement.css({
+				left: x + 'px',
+				top: y + 'px'
+			});
 		}
 
 		// expose methods
@@ -814,15 +825,16 @@
 	}
 
 	/**
-	 * Hide tooltip on disabled element dynamically by hand
-	 *
+	 * Hide tooltip on disabled element dynamically by hand.
 	 * @private
-	 * @param {element} the element
-	 * @return null
+	 * @param {Object} element The element that should be checked.
 	 */
 	function autoHide(element) {
-        var $this = $(element);
-        setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 100)
+		setTimeout(function() {
+			if (element.is(':disabled')) {
+				element.trigger('blur');
+			}
+		}, 100)
 	}
 
 }(jQuery));
