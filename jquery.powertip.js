@@ -109,8 +109,7 @@
                     $(this).data('displayController').hide();
                 },
                 mouseup: function() {
-                    var $this = $(this);
-                    setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 100)
+                    autoHide(this)
                 },
 
                 // keyboard events
@@ -122,6 +121,12 @@
                 },
                 blur: function() {
                     $(this).data('displayController').hide(true);
+                },
+                keydown:function(e) {
+                    // Enter or space key
+                    if(e.keyCode === 13 || e.keyCode === 32) {
+                        autoHide(this)
+                    }
                 }
             });
 		});
@@ -806,6 +811,18 @@
 		}
 
 		return collisions;
+	}
+
+	/**
+	 * Hide tooltip on disabled element dynamically by hand
+	 *
+	 * @private
+	 * @param {element} the element
+	 * @return null
+	 */
+	function autoHide(element) {
+        var $this = $(element);
+        setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 100)
 	}
 
 }(jQuery));
