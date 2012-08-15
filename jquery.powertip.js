@@ -68,46 +68,71 @@
 				dataTarget = $this.data('powertiptarget'),
 				title = $this.attr('title');
 
-
 			// attempt to use title attribute text if there is no data-powertip,
 			// data-powertipjq or data-powertiptarget. If we do use the title
 			// attribute, delete the attribute so the browser will not show it
 			if (!dataPowertip && !dataTarget && !dataElem && title) {
-				$this.data('powertip', title);
-				$this.removeAttr('title');
+				$this.data('powertip', title).removeAttr('title');
 			}
+
+            // mouseenter & mouseleave for disabled element
+            if($this.is(':disabled')) {
+                var pos = $this.position(), overlay = $('<div/>');
+                overlay.css({
+                    position: 'absolute',
+                    top: pos.top + 'px',
+                    left: pos.left + 'px',
+                    width: $this.outerWidth() + 'px',
+                    height: $this.outerHeight() + 'px',
+                    opacity: 0
+                })
+                // jQuery 1.4.3+ required
+                .data({'powertip': dataPowertip || title, 'powertiptarget': dataTarget, 'powertipjq': dataElem});
+
+                // overlay as fake tooltip trigger
+                $this = overlay.insertAfter($this);
+            }
 
 			// create hover controllers for each element
 			$this.data(
 				'displayController',
 				new DisplayController($this, options, tipController)
-			);
+			).on({
+                // mouse events
+                mouseenter: function(event) {
+                    trackMouse(event);
+                    session.previousX = event.pageX;
+                    session.previousY = event.pageY;
+                    $(this).data('displayController').show();
+                },
+                mouseleave: function() {
+                    $(this).data('displayController').hide();
+                },
+                mouseup: function() {
+                    autoHide(this)
+                },
+
+                // keyboard events
+                focus: function() {
+                    var element = $(this);
+                    if (!isMouseOver(element)) {
+                        element.data('displayController').show(true);
+                    }
+                },
+                blur: function() {
+                    $(this).data('displayController').hide(true);
+                },
+                keydown:function(e) {
+                    // Enter or space key
+                    if(e.keyCode === 13 || e.keyCode === 32) {
+                        autoHide(this)
+                    }
+                }
+            });
 		});
 
 		// attach hover events to all matched elements
-		return this.on({
-			// mouse events
-			mouseenter: function(event) {
-				trackMouse(event);
-				session.previousX = event.pageX;
-				session.previousY = event.pageY;
-				$(this).data('displayController').show();
-			},
-			mouseleave: function() {
-				$(this).data('displayController').hide();
-			},
-
-			// keyboard events
-			focus: function() {
-				var element = $(this);
-				if (!isMouseOver(element)) {
-					element.data('displayController').show(true);
-				}
-			},
-			blur: function() {
-				$(this).data('displayController').hide(true);
-			}
-		});
+		return this
 
 	};
 
@@ -289,7 +314,7 @@
 		// build and append popup div if it does not already exist
 		var tipElement = $('#' + options.popupId);
 		if (tipElement.length === 0) {
-			tipElement = $('<div></div>', { id: options.popupId });
+			tipElement = $('<div/>', { id: options.popupId });
 			// grab body element if it was not populated when the script loaded
 			// this hack exists solely for jsfiddle support
 			if ($body.length === 0) {
@@ -306,8 +331,8 @@
 					mousemove: positionTipOnCursor,
 					scroll: positionTipOnCursor
 				});
+				tipElement.data('hasMouseMove', true);
 			}
-			tipElement.data('hasMouseMove', true);
 		}
 
 		// if we want to be able to mouse onto the popup then we need to attach
@@ -689,8 +714,7 @@
 		 * @param {Number} y Top position in pixels.
 		 */
 		function setTipPosition(x, y) {
-			tipElement.css('left', x + 'px');
-			tipElement.css('top', y + 'px');
+			tipElement.css({'left': x + 'px', 'top': y + 'px'});
 		}
 
 		// expose methods
@@ -754,11 +778,7 @@
 	 * @return {Boolean}
 	 */
 	function isMouseOver(element) {
-		var elementPosition = element.offset();
-		return session.currentX >= elementPosition.left &&
-			session.currentX <= elementPosition.left + element.outerWidth() &&
-			session.currentY >= elementPosition.top &&
-			session.currentY <= elementPosition.top + element.outerHeight();
+		return element.closest(session.activeHover).length;
 	}
 
 	/**
@@ -791,6 +811,18 @@
 		}
 
 		return collisions;
+	}
+
+	/**
+	 * Hide tooltip on disabled element dynamically by hand
+	 *
+	 * @private
+	 * @param {element} the element
+	 * @return null
+	 */
+	function autoHide(element) {
+        var $this = $(element);
+        setTimeout(function(){ $this.is(':disabled') && $this.trigger('blur') }, 100)
 	}
 
 }(jQuery));
