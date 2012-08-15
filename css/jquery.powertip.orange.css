@@ -1,11 +1,11 @@
 /* PowerTip Plugin */
 #powerTip {
 	cursor: default;
-	background-color: #ffc8c3;
-	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #ffb9aa inset;
-	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #ffb9aa inset;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #ffb9aa inset;
-	border: 1px solid #eb5037;
+	background-color: #ffcdaf;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #fab482 inset;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #fab482 inset;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #fab482 inset;
+	border: 1px solid #f5a550;
 	border-radius: 6px;
 	color: #000000;
 	display: none;
@@ -32,19 +32,19 @@
 	top: 50%;
 }
 #powerTip.n:before {
-	border-top: 10px solid rgba(235, 80, 55, 0.8);
+	border-top: 10px solid rgba(245, 165, 80, 0.8);
 	bottom: -10px;
 }
 #powerTip.e:before {
-	border-right: 10px solid rgba(235, 80, 55, 0.8);
+	border-right: 10px solid rgba(245, 165, 80, 0.8);
 	left: -10px;
 }
 #powerTip.s:before {
-	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+	border-bottom: 10px solid rgba(245, 165, 80, 0.8);
 	top: -10px;
 }
 #powerTip.w:before {
-	border-left: 10px solid rgba(235, 80, 55, 0.8);
+	border-left: 10px solid rgba(245, 165, 80, 0.8);
 	right: -10px;
 }
 #powerTip.ne:before, #powerTip.se:before {
@@ -58,10 +58,10 @@
 	right: 10px;
 }
 #powerTip.ne:before, #powerTip.nw:before {
-	border-top: 10px solid rgba(235, 80, 55, 0.8);
+	border-top: 10px solid rgba(245, 165, 80, 0.8);
 	bottom: -10px;
 }
 #powerTip.se:before, #powerTip.sw:before {
-	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+	border-bottom: 10px solid rgba(245, 165, 80, 0.8);
 	top: -10px;
 }
