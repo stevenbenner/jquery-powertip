@@ -350,6 +350,13 @@ Smart placement is **disabled** by default because I believe that the world woul
 
 * Initial release.
 
+## Acknowledgments
+
+A very special thanks to the people who have invested their time and effort into improving this project!
+
+* [Yahasana](https://github.com/Yahasana)
+* [skt84](https://github.com/skt84)
+
 ## Similar Projects
 
 There are many other great JavaScript tooltip projects that are worth taking a look at and may better suit your needs. Here is a list of some of my favorite jQuery tooltip plugins:
