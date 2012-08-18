@@ -346,10 +346,12 @@
 		// if we want to be able to mouse onto the popup then we need to attach
 		// hover events to the popup that will cancel a close request on hover
 		// and start a new close request on mouseleave
-		if (options.followMouse || options.mouseOnToPopup) {
+		if (options.mouseOnToPopup) {
 			tipElement.on({
 				mouseenter: function() {
-					if (tipElement.data('followMouse') || tipElement.data('mouseOnToPopup')) {
+					// we only let the mouse stay on the tooltip if it is set
+					// to let users interact with it
+					if (tipElement.data('mouseOnToPopup')) {
 						// check activeHover in case the mouse cursor entered
 						// the tooltip during the fadeOut and close cycle
 						if (session.activeHover) {
@@ -358,12 +360,10 @@
 					}
 				},
 				mouseleave: function() {
-					if (tipElement.data('mouseOnToPopup')) {
-						// check activeHover in case the mouse cursor entered
-						// the tooltip during the fadeOut and close cycle
-						if (session.activeHover) {
-							session.activeHover.data('displayController').hide();
-						}
+					// check activeHover in case the mouse cursor entered
+					// the tooltip during the fadeOut and close cycle
+					if (session.activeHover) {
+						session.activeHover.data('displayController').hide();
 					}
 				}
 			});
@@ -560,25 +560,35 @@
 			// currently open, a pop open is imminent or active, and the popup
 			// element in question does have a mouse-follow using it.
 			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
-				// grab measurements
-				var scrollTop = $window.scrollTop(),
-					windowWidth = $window.width(),
-					windowHeight = $window.height(),
-					popWidth = tipElement.outerWidth(),
-					popHeight = tipElement.outerHeight(),
-					x = 0,
-					y = 0;
+				// grab measurements and collisions
+				var tipWidth = tipElement.outerWidth(),
+					tipHeight = tipElement.outerHeight(),
+					x = session.currentX + options.offset,
+					y = session.currentY + options.offset,
+					collisions = getViewportCollisions(
+						{ x: x, y: y },
+						tipWidth,
+						tipHeight
+					),
+					collisionCount = collisions.length;
 
-				// constrain pop to browser viewport
-				if ((popWidth + session.currentX + options.offset) < windowWidth) {
-					x = session.currentX + options.offset;
-				} else {
-					x = windowWidth - popWidth;
-				}
-				if ((popHeight + session.currentY + options.offset) < (scrollTop + windowHeight)) {
-					y = session.currentY + options.offset;
-				} else {
-					y = scrollTop + windowHeight - popHeight;
+				// handle tooltip view port collisions
+				if (collisionCount > 0) {
+					if (collisionCount === 1) {
+						// if there is only one collision (bottom or right) then
+						// simply constrain the tooltip to the view port
+						if (collisions[0] === 'right') {
+							x = $window.width() - tipWidth;
+						} else if (collisions[0] === 'bottom') {
+							y = $window.scrollTop() + $window.height() - tipHeight;
+						}
+					} else {
+						// if the tooltip has more than one collision then it
+						// is trapped in the corner and should be flipped to
+						// get it out of the users way
+						x = session.currentX - tipWidth - options.offset;
+						y = session.currentY - tipHeight - options.offset;
+					}
 				}
 
 				// position the tooltip
@@ -834,7 +844,7 @@
 			if (element.is(':disabled')) {
 				element.trigger('blur');
 			}
-		}, 100)
+		}, 100);
 	}
 
 }(jQuery));
