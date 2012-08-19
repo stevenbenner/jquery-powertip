@@ -61,7 +61,7 @@
 		initMouseTracking();
 
 		// setup the elements
-		this.each(function() {
+		this.each(function elementSetup() {
 			var $this = $(this),
 				dataPowertip = $this.data('powertip'),
 				dataElem = $this.data('powertipjq'),
@@ -85,21 +85,21 @@
 		// attach hover events to all matched elements
 		this.on({
 			// mouse events
-			mouseenter: function(event) {
+			mouseenter: function elementMouseEnter(event) {
 				trackMouse(event);
 				session.previousX = event.pageX;
 				session.previousY = event.pageY;
 				$(this).data('displayController').show();
 			},
-			mouseleave: function() {
+			mouseleave: function elementMouseLeave() {
 				$(this).data('displayController').hide();
 			},
 
 			// keyboard events
-			focus: function() {
+			focus: function elementFocus() {
 				$(this).data('displayController').show(true);
 			},
-			blur: function() {
+			blur: function elementBlur() {
 				$(this).data('displayController').hide(true);
 			}
 		});
@@ -155,7 +155,7 @@
 		 * @public
 		 * @param {Object} element The element that the tooltip should for.
 		 */
-		showTip: function(element) {
+		showTip: function apiShowTip(element) {
 			// grab only the first matched element and ask it to show its tip
 			element = element.first();
 			element.data('displayController').show(true, true);
@@ -165,7 +165,7 @@
 		 * Attempts to close any open tooltips.
 		 * @public
 		 */
-		closeTip: function() {
+		closeTip: function apiCloseTip() {
 			$document.triggerHandler('closePowerTip');
 		}
 
@@ -194,7 +194,7 @@
 				if (!immediate) {
 					session.popOpenImminent = true;
 					hoverTimer = setTimeout(
-						function() {
+						function intentDelay() {
 							hoverTimer = null;
 							checkForIntent(element);
 						},
@@ -221,7 +221,7 @@
 				element.data('forcedOpen', false);
 				if (!disableDelay) {
 					hoverTimer = setTimeout(
-						function() {
+						function closeDelay() {
 							hoverTimer = null;
 							tipController.hideTip(element);
 						},
@@ -308,7 +308,7 @@
 		// and start a new close request on mouseleave
 		if (options.mouseOnToPopup) {
 			tipElement.on({
-				mouseenter: function() {
+				mouseenter: function tipMouseEnter() {
 					// we only let the mouse stay on the tooltip if it is set
 					// to let users interact with it
 					if (tipElement.data('mouseOnToPopup')) {
@@ -319,7 +319,7 @@
 						}
 					}
 				},
-				mouseleave: function() {
+				mouseleave: function tipMouseLeave() {
 					// check activeHover in case the mouse cursor entered
 					// the tooltip during the fadeOut and close cycle
 					if (session.activeHover) {
@@ -338,7 +338,7 @@
 		function beginShowTip(element) {
 			element.data('hasActiveHover', true);
 			// show popup, asap
-			tipElement.queue(function(next) {
+			tipElement.queue(function queueTipInit(next) {
 				showTip(element);
 				next();
 			});
@@ -365,7 +365,7 @@
 				if (!session.isClosing) {
 					hideTip(session.activeHover);
 				}
-				tipElement.delay(100).queue(function(next) {
+				tipElement.delay(100).queue(function queueTipAgain(next) {
 					showTip(element);
 					next();
 				});
@@ -397,7 +397,7 @@
 			element.trigger('powerTipRender');
 
 			// hook close event for triggering from the api
-			$document.on('closePowerTip', function() {
+			$document.on('closePowerTip', function closePowerTipEvent() {
 				element.data('displayController').hide(true);
 			});
 
@@ -416,7 +416,7 @@
 			}
 
 			// fadein
-			tipElement.fadeIn(options.fadeInTime, function() {
+			tipElement.fadeIn(options.fadeInTime, function fadeInCallback() {
 				// start desync polling
 				if (!session.desyncTimeout) {
 					session.desyncTimeout = setInterval(closeDesyncedTip, 500);
@@ -444,7 +444,7 @@
 			// unhook close event api listener
 			$document.off('closePowerTip');
 			// fade out
-			tipElement.fadeOut(options.fadeOutTime, function() {
+			tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
 				session.isClosing = false;
 				session.isFixedPopOpen = false;
 				tipElement.removeClass();
@@ -713,7 +713,7 @@
 			session.mouseTrackingActive = true;
 
 			// grab the current scroll position on load
-			$(function() {
+			$(function getScrollPos() {
 				lastScrollX = $document.scrollLeft();
 				lastScrollY = $document.scrollTop();
 			});
@@ -721,7 +721,7 @@
 			// hook mouse position tracking
 			$document.on({
 				mousemove: trackMouse,
-				scroll: function() {
+				scroll: function trackScroll() {
 					var x = $document.scrollLeft(),
 						y = $document.scrollTop();
 					if (x !== lastScrollX) {
