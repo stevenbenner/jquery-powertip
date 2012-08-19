@@ -100,10 +100,7 @@
 
 			// keyboard events
 			focus: function() {
-				var element = $(this);
-				if (!isMouseOver(element)) {
-					element.data('displayController').show(true);
-				}
+				$(this).data('displayController').show(true);
 			},
 			blur: function() {
 				$(this).data('displayController').hide(true);
@@ -172,9 +169,7 @@
 			$.powerTip.closeTip();
 			// grab only the first matched element and ask it to show its tip
 			element = element.first();
-			if (!isMouseOver(element)) {
-				element.data('displayController').show(true, true);
-			}
+			element.data('displayController').show(true, true);
 		},
 
 		/**
