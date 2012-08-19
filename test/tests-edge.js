@@ -11,9 +11,6 @@ $(function() {
 	});
 	$('#disable-button input').powerTip({ placement: 'e' });
 
-	// Disabled input
-	$('#disabled-input input').powerTip({ placement: 'e' });
-
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
 

@@ -75,69 +75,45 @@
 				$this.data('powertip', title).removeAttr('title');
 			}
 
-			// create overlay for hover events if the element is disabled
-			if ($this.is(':disabled')) {
-				var pos = $this.position(),
-					overlay = $('<div/>');
-
-				overlay.css({
-					position: 'absolute',
-					top: pos.top + 'px',
-					left: pos.left + 'px',
-					width: $this.outerWidth() + 'px',
-					height: $this.outerHeight() + 'px',
-					opacity: 0
-				});
-
-				overlay.data({
-					powertip: dataPowertip || title,
-					powertiptarget: dataTarget,
-					powertipjq: dataElem
-				});
-
-				// $this element becomes the overlay
-				$this = overlay.insertAfter($this);
-			}
-
 			// create hover controllers for each element
 			$this.data(
 				'displayController',
 				new DisplayController($this, options, tipController)
 			);
+		});
 
-			// attach hover events to all matched elements
-			$this.on({
-				// mouse events
-				mouseenter: function(event) {
-					trackMouse(event);
-					session.previousX = event.pageX;
-					session.previousY = event.pageY;
-					$(this).data('displayController').show();
-				},
-				mouseleave: function() {
-					$(this).data('displayController').hide();
-				},
-				mouseup: function() {
-					autoHide($(this));
-				},
+		// attach hover events to all matched elements
+		this.on({
+			// mouse events
+			mouseenter: function(event) {
+				trackMouse(event);
+				session.previousX = event.pageX;
+				session.previousY = event.pageY;
+				$(this).data('displayController').show();
+			},
+			mouseleave: function() {
+				$(this).data('displayController').hide();
+			},
+			mouseup: function() {
+				autoHide($(this));
+			},
 
-				// keyboard events
-				focus: function() {
-					var element = $(this);
-					if (!isMouseOver(element)) {
-						element.data('displayController').show(true);
-					}
-				},
-				blur: function() {
-					$(this).data('displayController').hide(true);
-				},
-				keydown: function(e) {
-					// enter or space key
-					if (e.keyCode === 13 || e.keyCode === 32) {
-						autoHide($(this));
-					}
+			// keyboard events
+			focus: function() {
+				var element = $(this);
+				if (!isMouseOver(element)) {
+					element.data('displayController').show(true);
 				}
-			});
+			},
+			blur: function() {
+				$(this).data('displayController').hide(true);
+			},
+			keydown: function(e) {
+				// enter or space key
+				if (e.keyCode === 13 || e.keyCode === 32) {
+					autoHide($(this));
+				}
+			}
 		});
 
 		return this;
