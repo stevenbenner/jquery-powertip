@@ -94,9 +94,6 @@
 			mouseleave: function() {
 				$(this).data('displayController').hide();
 			},
-			mouseup: function() {
-				autoHide($(this));
-			},
 
 			// keyboard events
 			focus: function() {
@@ -104,12 +101,6 @@
 			},
 			blur: function() {
 				$(this).data('displayController').hide(true);
-			},
-			keydown: function(e) {
-				// enter or space key
-				if (e.keyCode === 13 || e.keyCode === 32) {
-					autoHide($(this));
-				}
 			}
 		});
 
@@ -476,28 +467,23 @@
 		 */
 		function closeDesyncedTip() {
 			// It is possible for the mouse cursor to leave an element without
-			// firing the mouseleave event. This seems to happen (in FF) if the
-			// element is disabled under mouse cursor, the element is moved out
-			// from under the mouse cursor (such as a slideDown() occurring
-			// above it), or if the browser is resized by code moving the
-			// element from under the mouse cursor. If this happens it will
-			// result in a desynced tooltip because we wait for any exiting
-			// open tooltips to close before opening a new one. So we should
-			// periodically check for a desync situation and close the tip if
-			// such a situation arises.
+			// firing the mouseleave or blur event. This most commonly happens
+			// when the element is disabled under mouse cursor. If this happens
+			// it will result in a desynced tooltip because the tooltip was
+			// never asked to close. So we should periodically check for a
+			// desync situation and close the tip if such a situation arises.
 			if (session.isPopOpen && !session.isClosing) {
 				var isDesynced = false;
-
-				// case 1: user already moused onto another tip - easy test
-				if (session.activeHover.data('hasActiveHover') === false) {
+				// user moused onto another tip or active hover is disabled
+				if (session.activeHover.data('hasActiveHover') === false || session.activeHover.is(':disabled')) {
 					isDesynced = true;
 				} else {
-					// case 2: hanging tip - have to test if mouse position is
-					// not over the active hover and not over a tooltip set to
-					// let the user interact with it.
-					// for keyboard navigation, this only counts if the element
+					// hanging tip - have to test if mouse position is not over
+					// the active hover and not over a tooltip set to let the
+					// user interact with it.
+					// for keyboard navigation: this only counts if the element
 					// does not have focus.
-					// for tooltips opened via the api we need to check if it
+					// for tooltips opened via the api: we need to check if it
 					// has the forcedOpen flag.
 					if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data('forcedOpen')) {
 						if (tipElement.data('mouseOnToPopup')) {
@@ -768,7 +754,11 @@
 	 * @return {Boolean}
 	 */
 	function isMouseOver(element) {
-		return element.closest(session.activeHover).length;
+		var elementPosition = element.offset();
+		return session.currentX >= elementPosition.left &&
+			session.currentX <= elementPosition.left + element.outerWidth() &&
+			session.currentY >= elementPosition.top &&
+			session.currentY <= elementPosition.top + element.outerHeight();
 	}
 
 	/**
@@ -801,19 +791,6 @@
 		}
 
 		return collisions;
-	}
-
-	/**
-	 * Hide tooltip on disabled element dynamically by hand.
-	 * @private
-	 * @param {Object} element The element that should be checked.
-	 */
-	function autoHide(element) {
-		setTimeout(function() {
-			if (element.is(':disabled')) {
-				element.trigger('blur');
-			}
-		}, 100);
 	}
 
 }(jQuery));
