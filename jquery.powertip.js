@@ -165,8 +165,6 @@
 		 * @param {Object} element The element that the tooltip should for.
 		 */
 		showTip: function(element) {
-			// close any open tooltip
-			$.powerTip.closeTip();
 			// grab only the first matched element and ask it to show its tip
 			element = element.first();
 			element.data('displayController').show(true, true);
