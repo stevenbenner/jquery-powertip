@@ -216,8 +216,8 @@
 		 */
 		function closeTooltip(disableDelay) {
 			cancelTimer();
+			session.tipOpenImminent = false;
 			if (element.data('hasActiveHover')) {
-				session.tipOpenImminent = false;
 				element.data('forcedOpen', false);
 				if (!disableDelay) {
 					hoverTimer = setTimeout(
