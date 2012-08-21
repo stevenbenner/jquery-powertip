@@ -28,10 +28,10 @@
 	 * @type Object
 	 */
 	var session = {
-		isPopOpen: false,
-		isFixedPopOpen: false,
+		isTipOpen: false,
+		isFixedTipOpen: false,
 		isClosing: false,
-		popOpenImminent: false,
+		tipOpenImminent: false,
 		activeHover: null,
 		currentX: 0,
 		currentY: 0,
@@ -192,7 +192,7 @@
 			cancelTimer();
 			if (!element.data('hasActiveHover')) {
 				if (!immediate) {
-					session.popOpenImminent = true;
+					session.tipOpenImminent = true;
 					hoverTimer = setTimeout(
 						function intentDelay() {
 							hoverTimer = null;
@@ -217,7 +217,7 @@
 		function closeTooltip(disableDelay) {
 			cancelTimer();
 			if (element.data('hasActiveHover')) {
-				session.popOpenImminent = false;
+				session.tipOpenImminent = false;
 				element.data('forcedOpen', false);
 				if (!disableDelay) {
 					hoverTimer = setTimeout(
@@ -279,7 +279,7 @@
 	 */
 	function TooltipController(options) {
 
-		// build and append popup div if it does not already exist
+		// build and append tooltip div if it does not already exist
 		var tipElement = $('#' + options.popupId);
 		if (tipElement.length === 0) {
 			tipElement = $('<div/>', { id: options.popupId });
@@ -293,7 +293,7 @@
 
 		// hook mousemove for cursor follow tooltips
 		if (options.followMouse) {
-			// only one positionTipOnCursor hook per popup element, please
+			// only one positionTipOnCursor hook per tooltip element, please
 			if (!tipElement.data('hasMouseMove')) {
 				$document.on({
 					mousemove: positionTipOnCursor,
@@ -303,9 +303,9 @@
 			}
 		}
 
-		// if we want to be able to mouse onto the popup then we need to attach
-		// hover events to the popup that will cancel a close request on hover
-		// and start a new close request on mouseleave
+		// if we want to be able to mouse onto the tooltip then we need to
+		// attach hover events to the tooltip that will cancel a close request
+		// on hover and start a new close request on mouseleave
 		if (options.mouseOnToPopup) {
 			tipElement.on({
 				mouseenter: function tipMouseEnter() {
@@ -337,7 +337,7 @@
 		 */
 		function beginShowTip(element) {
 			element.data('hasActiveHover', true);
-			// show popup, asap
+			// show tooltip, asap
 			tipElement.queue(function queueTipInit(next) {
 				showTip(element);
 				next();
@@ -345,9 +345,9 @@
 		}
 
 		/**
-		 * Shows the tooltip popup, as soon as possible.
+		 * Shows the tooltip, as soon as possible.
 		 * @private
-		 * @param {Object} element The element that the popup should target.
+		 * @param {Object} element The element that the tooltip should target.
 		 */
 		function showTip(element) {
 			// it is possible, especially with keyboard navigation, to move on
@@ -359,9 +359,9 @@
 				return;
 			}
 
-			// if the popup is open and we got asked to open another one then
+			// if the tooltip is open and we got asked to open another one then
 			// the old one is still in its fadeOut cycle, so wait and try again
-			if (session.isPopOpen) {
+			if (session.isTipOpen) {
 				if (!session.isClosing) {
 					hideTip(session.activeHover);
 				}
@@ -380,7 +380,7 @@
 				tipElem = element.data('powertipjq'),
 				tipContent = tipTarget ? $('#' + tipTarget) : [];
 
-			// set popup content
+			// set tooltip content
 			if (tipText) {
 				tipElement.html(tipText);
 			} else if (tipElem && tipElem.length > 0) {
@@ -402,15 +402,15 @@
 			});
 
 			session.activeHover = element;
-			session.isPopOpen = true;
+			session.isTipOpen = true;
 
 			tipElement.data('followMouse', options.followMouse);
 			tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
 
-			// set popup position
+			// set tooltip position
 			if (!options.followMouse) {
 				positionTipOnElement(element);
-				session.isFixedPopOpen = true;
+				session.isFixedTipOpen = true;
 			} else {
 				positionTipOnCursor();
 			}
@@ -428,9 +428,9 @@
 		}
 
 		/**
-		 * Hides the tooltip popup, immediately.
+		 * Hides the tooltip.
 		 * @private
-		 * @param {Object} element The element that the popup should target.
+		 * @param {Object} element The element that the tooltip should target.
 		 */
 		function hideTip(element) {
 			session.isClosing = true;
@@ -438,7 +438,7 @@
 			element.data('forcedOpen', false);
 			// reset session
 			session.activeHover = null;
-			session.isPopOpen = false;
+			session.isTipOpen = false;
 			// stop desync polling
 			session.desyncTimeout = clearInterval(session.desyncTimeout);
 			// unhook close event api listener
@@ -446,10 +446,10 @@
 			// fade out
 			tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
 				session.isClosing = false;
-				session.isFixedPopOpen = false;
+				session.isFixedTipOpen = false;
 				tipElement.removeClass();
-				// support mouse-follow and fixed position pops at the same
-				// time by moving the popup to the last known cursor location
+				// support mouse-follow and fixed position tips at the same
+				// time by moving the tooltip to the last known cursor location
 				// after it is hidden
 				setTipPosition(
 					session.currentX + options.offset,
@@ -472,7 +472,7 @@
 			// it will result in a desynced tooltip because the tooltip was
 			// never asked to close. So we should periodically check for a
 			// desync situation and close the tip if such a situation arises.
-			if (session.isPopOpen && !session.isClosing) {
+			if (session.isTipOpen && !session.isClosing) {
 				var isDesynced = false;
 				// user moused onto another tip or active hover is disabled
 				if (session.activeHover.data('hasActiveHover') === false || session.activeHover.is(':disabled')) {
@@ -504,17 +504,17 @@
 		}
 
 		/**
-		 * Moves the tooltip popup to the users mouse cursor.
+		 * Moves the tooltip to the users mouse cursor.
 		 * @private
 		 */
 		function positionTipOnCursor() {
-			// to support having fixed powertips on the same page as cursor
-			// powertips, where both instances are referencing the same popup
+			// to support having fixed tooltips on the same page as cursor
+			// tooltips, where both instances are referencing the same tooltip
 			// element, we need to keep track of the mouse position constantly,
-			// but we should only set the pop location if a fixed pop is not
-			// currently open, a pop open is imminent or active, and the popup
-			// element in question does have a mouse-follow using it.
-			if ((session.isPopOpen && !session.isFixedPopOpen) || (session.popOpenImminent && !session.isFixedPopOpen && tipElement.data('hasMouseMove'))) {
+			// but we should only set the tip location if a fixed tip is not
+			// currently open, a tip open is imminent or active, and the
+			// tooltip element in question does have a mouse-follow using it.
+			if ((session.isTipOpen && !session.isFixedTipOpen) || (session.tipOpenImminent && !session.isFixedTipOpen && tipElement.data('hasMouseMove'))) {
 				// grab measurements and collisions
 				var tipWidth = tipElement.outerWidth(),
 					tipHeight = tipElement.outerHeight(),
@@ -552,10 +552,10 @@
 		}
 
 		/**
-		 * Sets the tooltip popup too the correct position relative to the
-		 * specified target element. Based on options settings.
+		 * Sets the tooltip to the correct position relative to the specified
+		 * target element. Based on options settings.
 		 * @private
-		 * @param {Object} element The element that the popup should target.
+		 * @param {Object} element The element that the tooltip should target.
 		 */
 		function positionTipOnElement(element) {
 			var tipWidth = tipElement.outerWidth(),
@@ -626,11 +626,11 @@
 		 * @private
 		 * @param {Object} element The element that the tooltip should target.
 		 * @param {String} placement The placement for the tooltip.
-		 * @param {Number} popWidth Width of the tooltip element in pixels.
-		 * @param {Number} popHeight Height of the tooltip element in pixels.
+		 * @param {Number} tipWidth Width of the tooltip element in pixels.
+		 * @param {Number} tipHeight Height of the tooltip element in pixels.
 		 * @retun {Object} An object with the x and y coordinates.
 		 */
-		function computePlacementCoords(element, placement, popWidth, popHeight) {
+		function computePlacementCoords(element, placement, tipWidth, tipHeight) {
 			// grab measurements
 			var objectOffset = element.offset(),
 				objectWidth = element.outerWidth(),
@@ -641,31 +641,31 @@
 			// calculate the appropriate x and y position in the document
 			switch (placement) {
 			case 'n':
-				x = (objectOffset.left + (objectWidth / 2)) - (popWidth / 2);
-				y = objectOffset.top - popHeight - options.offset;
+				x = (objectOffset.left + (objectWidth / 2)) - (tipWidth / 2);
+				y = objectOffset.top - tipHeight - options.offset;
 				break;
 			case 'e':
 				x = objectOffset.left + objectWidth + options.offset;
-				y = (objectOffset.top + (objectHeight / 2)) - (popHeight / 2);
+				y = (objectOffset.top + (objectHeight / 2)) - (tipHeight / 2);
 				break;
 			case 's':
-				x = (objectOffset.left + (objectWidth / 2)) - (popWidth / 2);
+				x = (objectOffset.left + (objectWidth / 2)) - (tipWidth / 2);
 				y = objectOffset.top + objectHeight + options.offset;
 				break;
 			case 'w':
-				x = objectOffset.left - popWidth - options.offset;
-				y = (objectOffset.top + (objectHeight / 2)) - (popHeight / 2);
+				x = objectOffset.left - tipWidth - options.offset;
+				y = (objectOffset.top + (objectHeight / 2)) - (tipHeight / 2);
 				break;
 			case 'nw':
-				x = (objectOffset.left - popWidth) + 20;
-				y = objectOffset.top - popHeight - options.offset;
+				x = (objectOffset.left - tipWidth) + 20;
+				y = objectOffset.top - tipHeight - options.offset;
 				break;
 			case 'ne':
 				x = (objectOffset.left + objectWidth) - 20;
-				y = objectOffset.top - popHeight - options.offset;
+				y = objectOffset.top - tipHeight - options.offset;
 				break;
 			case 'sw':
-				x = (objectOffset.left - popWidth) + 20;
+				x = (objectOffset.left - tipWidth) + 20;
 				y = objectOffset.top + objectHeight + options.offset;
 				break;
 			case 'se':
@@ -738,7 +738,7 @@
 	}
 
 	/**
-	 * Saves the current mouse coordinates to the powerTip session object.
+	 * Saves the current mouse coordinates to the session object.
 	 * @private
 	 * @param {Object} event The mousemove event for the document.
 	 */
