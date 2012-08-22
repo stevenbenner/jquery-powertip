@@ -11,8 +11,7 @@
 	white-space: nowrap;
 	z-index: 2;
 }
-#powerTip.n:before, #powerTip.e:before, #powerTip.s:before, #powerTip.w:before,
-#powerTip.ne:before, #powerTip.nw:before, #powerTip.se:before, #powerTip.sw:before {
+#powerTip:before {
 	content: "";
 	position: absolute;
 }
