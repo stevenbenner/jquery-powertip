@@ -558,27 +558,24 @@
 		 * @param {Object} element The element that the tooltip should target.
 		 */
 		function positionTipOnElement(element) {
-			var finalPlacement;
+			var priorityList,
+				finalPlacement;
 
-			// with smart placement we will try a series of placement
-			// options and use the first one that does not collide with the
-			// browser view port boundaries.
 			if (options.smartPlacement) {
-
-				// grab the placement priority list
-				var priorityList = $.fn.powerTip.smartPlacementLists[options.placement];
+				priorityList = $.fn.powerTip.smartPlacementLists[options.placement];
 
 				// iterate over the priority list and use the first placement
 				// option that does not collide with the view port. if they all
 				// collide then the last placement in the list will be used.
 				$.each(priorityList, function(idx, pos) {
-					// find collisions
+					// place tooltip and find collisions
 					var collisions = getViewportCollisions(
 						placeTooltip(element, pos),
 						tipElement.outerWidth(),
 						tipElement.outerHeight()
 					);
 
+					// update the final placement variable
 					finalPlacement = pos;
 
 					// break if there were no collisions
@@ -586,14 +583,11 @@
 						return false;
 					}
 				});
-
 			} else {
-
 				// if we're not going to use the smart placement feature then
 				// just compute the coordinates and do it
 				placeTooltip(element, options.placement);
 				finalPlacement = options.placement;
-
 			}
 
 			// add placement as class for CSS arrows
