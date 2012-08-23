@@ -16,6 +16,12 @@
 			margin: 20px;
 			padding: 20px;
 		}
+		#powerTip {
+			white-space: normal;
+		}
+		#huge-text div, #huge-text-smart div { text-align: center; }
+		#huge-text input, #huge-text-smart input { margin: 10px; padding: 10px 30px; }
+		#huge-text .east, #huge-text-smart .east { margin-left: 200px; }
 	</style>
 </head>
 <body>
@@ -31,6 +37,34 @@
 		<h2>Auto-disabling button</h2>
 		<p>The button below will disable itself 2 seconds after you hover or focus on it. The tooltip should close.</p>
 		<input type="button" value="Hover over me" title="This is the tooltip text." />
+	</section>
+	<section id="huge-text">
+		<h2>Huge Text</h2>
+		<p>The tooltips for the buttons below have a lot of text. The tooltip div is completely elastic for this demo. The tooltips should be properly placed when they render.</p>
+		<div>
+			<input type="button" class="north-west" value="North West" />
+			<input type="button" class="north" value="North" />
+			<input type="button" class="north-east" value="North East" /><br />
+			<input type="button" class="west" value="West" />
+			<input type="button" class="east" value="East" /><br />
+			<input type="button" class="south-west" value="South West" />
+			<input type="button" class="south" value="South" />
+			<input type="button" class="south-east" value="South East" />
+		</div>
+	</section>
+	<section id="huge-text-smart">
+		<h2>Huge Text with Smart Placement</h2>
+		<p>The tooltips for the buttons below have a lot of text. The tooltip div is completely elastic for this demo. The tooltips should be properly placed when they render.</p>
+		<div>
+			<input type="button" class="north-west" value="North West" />
+			<input type="button" class="north" value="North" />
+			<input type="button" class="north-east" value="North East" /><br />
+			<input type="button" class="west" value="West" />
+			<input type="button" class="east" value="East" /><br />
+			<input type="button" class="south-west" value="South West" />
+			<input type="button" class="south" value="South" />
+			<input type="button" class="south-east" value="South East" />
+		</div>
 	</section>
 	<section id="trapped-mousefollow" data-powertip="This is the tooltip text.&lt;br /&gt;It is tall so you can test the padding.">
 		<h2>Trapped mouse following tooltip</h2>
