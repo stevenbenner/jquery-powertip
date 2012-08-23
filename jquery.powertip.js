@@ -815,10 +815,10 @@
 		if (coords.top + elementHeight > scrollTop + windowHeight) {
 			collisions.push('bottom');
 		}
-		if (coords.left < scrollLeft || (coords.right && coords.right - elementWidth < scrollLeft)) {
+		if (coords.left < scrollLeft || coords.right + elementWidth > scrollLeft + windowWidth) {
 			collisions.push('left');
 		}
-		if (coords.left + elementWidth > scrollLeft + windowWidth || (coords.right && coords.right > scrollLeft + windowWidth)) {
+		if (coords.left + elementWidth > scrollLeft + windowWidth || coords.right < scrollLeft) {
 			collisions.push('right');
 		}
 
