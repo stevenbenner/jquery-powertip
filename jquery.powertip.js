@@ -101,6 +101,12 @@
 			},
 			blur: function elementBlur() {
 				$(this).data('displayController').hide(true);
+			},
+			keydown: function elementKeyDown(event) {
+				// close tooltip when the escape key is pressed
+				if (event.keyCode === 27) {
+					$(this).data('displayController').hide(true);
+				}
 			}
 		});
 
