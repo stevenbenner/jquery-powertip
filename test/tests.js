@@ -305,6 +305,37 @@ $(function() {
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
+	asyncTest('tooltip should close when escape key is pressed', function() {
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+
+		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
+
+		$.powerTip.showTip(element);
+
+		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+
+		setTimeout(function() {
+			ok($('#powerTip').css('opacity') != '1', 'tooltip is not faded in');
+		}, $.fn.powerTip.defaults.fadeInTime - 50);
+
+		setTimeout(function() {
+			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+
+			$(element).trigger($.Event('keydown', { keyCode: 27 }));
+
+			setTimeout(function() {
+				ok($('#powerTip').css('opacity') != '0', 'tooltip is not faded out');
+			}, $.fn.powerTip.defaults.fadeOutTime - 50);
+
+			setTimeout(function() {
+				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				start();
+			}, $.fn.powerTip.defaults.fadeOutTime + 50);
+
+		}, $.fn.powerTip.defaults.fadeInTime + 50);
+
+	});
+
 
 	//////////////////// EVENT TESTS ////////////////////
 
