@@ -685,6 +685,30 @@
 		}
 
 		/**
+		 * Compute the width and height of an HTML or SVG element
+		 * @private
+		 * @param {Object} element The element to measure
+		 * @return {Object} An object with width and height values
+		 */
+		function computeElementSize(element) {
+			var el = element[0],
+				width, height, bbox, scale;
+			if (typeof SVGElement !== 'undefined' && el instanceof SVGElement) {
+				bbox = el.getBBox(),
+				scale = el.getCTM().a;
+				width = bbox.width * ctm.a;
+				height = bbox.height * ctm.a;
+			} else {
+				width = element.outerWidth();
+				height = element.outerHeight();
+			}
+			return {
+				width: width,
+				height: height
+			};
+		}
+
+		/**
 		 * Compute the top/left/right CSS position to display the tooltip at the
 		 * specified placement relative to the specified element.
 		 * @private
@@ -692,13 +716,14 @@
 		 * @param {String} placement The placement for the tooltip.
 		 * @param {Number} tipWidth Width of the tooltip element in pixels.
 		 * @param {Number} tipHeight Height of the tooltip element in pixels.
-		 * @retun {Object} An object with the top, left, and right position values.
+		 * @return {Object} An object with the top, left, and right position values.
 		 */
 		function computePlacementCoords(element, placement, tipWidth, tipHeight) {
 			// grab measurements
 			var objectOffset = element.offset(),
-				objectWidth = element.outerWidth(),
-				objectHeight = element.outerHeight(),
+				objectSize = computeElementSize(element),
+				objectWidth = objectSize.width,
+				objectHeight = objectSize.height,
 				left = 'auto',
 				top = 'auto',
 				right = 'auto';
@@ -841,11 +866,12 @@
 	 * @return {Boolean}
 	 */
 	function isMouseOver(element) {
-		var elementPosition = element.offset();
+		var elementPosition = element.offset(),
+			elementSize = computeElementSize(element);
 		return session.currentX >= elementPosition.left &&
-			session.currentX <= elementPosition.left + element.outerWidth() &&
+			session.currentX <= elementPosition.left + elementSize.width &&
 			session.currentY >= elementPosition.top &&
-			session.currentY <= elementPosition.top + element.outerHeight();
+			session.currentY <= elementPosition.top + elementSize.height;
 	}
 
 	/**
