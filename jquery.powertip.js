@@ -394,7 +394,7 @@
 				tipElement.html(tipText);
 			} else if (tipElem) {
 				if (typeof tipElem == 'function') {
-					tipElem = tipElem..call(element[0]);
+					tipElem = tipElem.call(element[0]);
 				}
 				if (tipElem.length > 0) {
 					tipElem = tipElem.clone(true, true);
