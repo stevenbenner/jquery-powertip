@@ -685,30 +685,6 @@
 		}
 
 		/**
-		 * Compute the width and height of an HTML or SVG element
-		 * @private
-		 * @param {Object} element The element to measure
-		 * @return {Object} An object with width and height values
-		 */
-		function computeElementSize(element) {
-			var el = element[0],
-				width, height, bbox, scale;
-			if (typeof SVGElement !== 'undefined' && el instanceof SVGElement) {
-				bbox = el.getBBox(),
-				scale = el.getCTM().a;
-				width = bbox.width * ctm.a;
-				height = bbox.height * ctm.a;
-			} else {
-				width = element.outerWidth();
-				height = element.outerHeight();
-			}
-			return {
-				width: width,
-				height: height
-			};
-		}
-
-		/**
 		 * Compute the top/left/right CSS position to display the tooltip at the
 		 * specified placement relative to the specified element.
 		 * @private
@@ -809,6 +785,30 @@
 			showTip: beginShowTip,
 			hideTip: hideTip,
 			resetPosition: positionTipOnElement
+		};
+	}
+
+	/**
+	 * Compute the width and height of an HTML or SVG element
+	 * @private
+	 * @param {Object} element The element to measure
+	 * @return {Object} An object with width and height values
+	 */
+	function computeElementSize(element) {
+		var el = element[0],
+			width, height, bbox, scale;
+		if (typeof SVGElement !== 'undefined' && el instanceof SVGElement) {
+			bbox = el.getBBox(),
+			scale = el.getCTM().a;
+			width = bbox.width * scale;
+			height = bbox.height * scale;
+		} else {
+			width = element.outerWidth();
+			height = element.outerHeight();
+		}
+		return {
+			width: width,
+			height: height
 		};
 	}
 
