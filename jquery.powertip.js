@@ -388,6 +388,9 @@
 
 			// set tooltip content
 			if (tipText) {
+				if (typeof tipText == 'function') {
+					tipText = tipText.call(element[0]);
+				}
 				tipElement.html(tipText);
 			} else if (tipElem && tipElem.length > 0) {
 				tipElement.empty();
