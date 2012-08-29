@@ -167,6 +167,12 @@
 			element.data('displayController').show(true, true);
 		},
 
+		resetPosition: function resetPosition(element) {
+			// grab only the first matched element and ask it to show its tip
+			element = element.first();
+			element.data('displayController').resetPosition();
+		},
+
 		/**
 		 * Attempts to close any open tooltips.
 		 * @public
@@ -273,7 +279,10 @@
 		return {
 			show: openTooltip,
 			hide: closeTooltip,
-			cancel: cancelTimer
+			cancel: cancelTimer,
+			resetPosition: function () {
+				tipController.resetPosition(element);
+			}
 		};
 	}
 
@@ -728,7 +737,8 @@
 		// expose methods
 		return {
 			showTip: beginShowTip,
-			hideTip: hideTip
+			hideTip: hideTip,
+			resetPosition: positionTipOnElement
 		};
 	}
 
