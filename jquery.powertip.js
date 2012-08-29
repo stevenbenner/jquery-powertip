@@ -706,18 +706,34 @@
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
 				right = Math.round($window.width() - objectOffset.left - 20);
 				break;
+			case 'nw-alt':
+				left = Math.round(objectOffset.left);
+				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				break;
 			case 'ne':
 				left = Math.round((objectOffset.left + objectWidth) - 20);
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				break;
+			case 'ne-alt':
+				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				left = Math.round(objectOffset.left - tipWidth + objectWidth);
 				break;
 			case 'sw':
 				//left = (objectOffset.left - tipWidth) + 20;
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
 				right = Math.round($window.width() - objectOffset.left - 20);
 				break;
+			case 'sw-alt':
+				left = Math.round(objectOffset.left);
+				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				break;
 			case 'se':
 				left = Math.round((objectOffset.left + objectWidth) - 20);
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				break;
+			case 'se-alt':
+				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				left = Math.round(objectOffset.left - tipWidth + objectWidth);
 				break;
 			}
 
