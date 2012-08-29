@@ -388,10 +388,18 @@
 
 			// set tooltip content
 			if (tipText) {
+				if (typeof tipText == 'function') {
+					tipText = tipText.call(element[0]);
+				}
 				tipElement.html(tipText);
-			} else if (tipElem && tipElem.length > 0) {
-				tipElement.empty();
-				tipElem.clone(true, true).appendTo(tipElement);
+			} else if (tipElem) {
+				if (typeof tipElem == 'function') {
+					tipElem = tipElem.call(element[0]);
+				}
+				if (tipElem.length > 0) {
+					tipElem = tipElem.clone(true, true);
+					tipElement.empty().append(tipElem);
+				}
 			} else if (tipContent && tipContent.length > 0) {
 				tipElement.html($('#' + tipTarget).html());
 			} else {
