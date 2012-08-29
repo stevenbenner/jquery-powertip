@@ -65,13 +65,12 @@
 			return this.off('.powertip').each(function destroy() {
 				var $this = $(this);
 
-				if (!$this.attr('title')) {
+				if (!$this.attr('originalTitle')) {
 					$this.attr('title', $this.data('originalTitle'));
 				}
 
 				$this.removeData([
-					'powertip',
-					'powertipjq',
+					'originalTitle',
 					'powertiptarget',
 					'displayController'
 				]);
