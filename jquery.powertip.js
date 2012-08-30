@@ -60,6 +60,23 @@
 		// hook mouse tracking
 		initMouseTracking();
 
+		// destroy associated powertips
+		if ('destroy' === opts) {
+			return this.off('.powertip').each(function destroy() {
+				var $this = $(this);
+
+				if ($this.data('originalTitle')) {
+					$this.attr('title', $this.data('originalTitle'));
+				}
+
+				$this.removeData([
+					'originalTitle',
+					'powertiptarget',
+					'displayController'
+				]);
+			});
+		}
+
 		// setup the elements
 		this.each(function elementSetup() {
 			var $this = $(this),
@@ -72,7 +89,7 @@
 			// data-powertipjq or data-powertiptarget. If we do use the title
 			// attribute, delete the attribute so the browser will not show it
 			if (!dataPowertip && !dataTarget && !dataElem && title) {
-				$this.data('powertip', title).removeAttr('title');
+				$this.data({powertip: title, originalTitle: title}).removeAttr('title');
 			}
 
 			// create hover controllers for each element
@@ -85,24 +102,24 @@
 		// attach hover events to all matched elements
 		this.on({
 			// mouse events
-			mouseenter: function elementMouseEnter(event) {
+			'mouseenter.powertip': function elementMouseEnter(event) {
 				trackMouse(event);
 				session.previousX = event.pageX;
 				session.previousY = event.pageY;
 				$(this).data('displayController').show();
 			},
-			mouseleave: function elementMouseLeave() {
+			'mouseleave.powertip': function elementMouseLeave() {
 				$(this).data('displayController').hide();
 			},
 
 			// keyboard events
-			focus: function elementFocus() {
+			'focus.powertip': function elementFocus() {
 				$(this).data('displayController').show(true);
 			},
-			blur: function elementBlur() {
+			'blur.powertip': function elementBlur() {
 				$(this).data('displayController').hide(true);
 			},
-			keydown: function elementKeyDown(event) {
+			'keydown.powertip': function elementKeyDown(event) {
 				// close tooltip when the escape key is pressed
 				if (event.keyCode === 27) {
 					$(this).data('displayController').hide(true);
