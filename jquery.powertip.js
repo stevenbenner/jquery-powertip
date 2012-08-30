@@ -65,7 +65,7 @@
 			return this.off('.powertip').each(function destroy() {
 				var $this = $(this);
 
-				if (!$this.attr('originalTitle')) {
+				if ($this.data('originalTitle')) {
 					$this.attr('title', $this.data('originalTitle'));
 				}
 
