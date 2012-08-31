@@ -136,6 +136,18 @@ $(function() {
 		});
 	});
 
+	asyncTest('handle powertip data with function source', function() {
+		var element = $('<a href="#"></a>')
+			.data('powertip', function() {
+				return 'This is the tooltip text';
+			})
+			.powerTip();
+
+		openExecCloseAndContinue(element, function() {
+			deepEqual($('#powerTip').text(), 'This is the tooltip text', 'powertip text used in tooltip');
+		});
+	});
+
 	asyncTest('handle powertipjq jQuery data', function() {
 		var element = $('<a href="#"></a>');
 		element.data('powertipjq', $('<b>This is the tooltip text</b>'));
@@ -143,6 +155,18 @@ $(function() {
 
 		openExecCloseAndContinue(element, function() {
 			deepEqual($('#powerTip b').text(), 'This is the tooltip text', 'powertipjq text used in tooltip');
+		});
+	});
+
+	asyncTest('handle powertipjq data with function source', function() {
+		var element = $('<a href="#"></a>')
+			.data('powertipjq', function() {
+				return $('<b>This is the tooltip text</b>');
+			})
+			.powerTip();
+
+		openExecCloseAndContinue(element, function() {
+			deepEqual($('#powerTip b').text(), 'This is the tooltip text', 'powertip text used in tooltip');
 		});
 	});
 
