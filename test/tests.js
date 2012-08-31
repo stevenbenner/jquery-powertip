@@ -51,6 +51,12 @@ $(function() {
 		ok(!element.attr('title'), 'title attribute was removed');
 	});
 
+	test('destroy rolls back title', function() {
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		ok(!element.attr('title'), 'title attribute was removed');
+		element.powerTip('destroy');
+		deepEqual(element.attr('title'), 'This is the tooltip text', 'title attribute was added back');
+	});
 
 	//////////////////// API TESTS ////////////////////
 
