@@ -684,6 +684,135 @@
 			return coords;
 		}
 
+
+		/**
+		 * Compute the top,left position of the specified placement for an HTML element
+		 * @private
+		 * @param {Object} element The element that the tooltip should target.
+		 * @param {String} placement The placement for the tooltip.
+		 * @return {Object} An object with the top,left position values.
+		 */
+		function getHtmlPlacement(element, placement) {
+			// grab measurements
+			var objectOffset = element.offset(),
+				objectLeft = objectOffset.left,
+				objectTop = objectOffset.top,
+				objectWidth = element.outerWidth(),
+				objectHeight = element.outerHeight(),
+				halfWidth = objectWidth / 2,
+				halfHeight = objectHeight / 2,
+				left, top;
+
+			// calculate the appropriate x and y position in the document
+			switch (placement) {
+			case 'n':
+				left = objectLeft + halfWidth;
+				top = objectTop;
+				break;
+			case 'e':
+				left = objectLeft + objectWidth;
+				top = objectTop + halfHeight;
+				break;
+			case 's':
+				left = objectLeft + halfWidth;
+				top = objectTop + objectHeight;
+				break;
+			case 'w':
+				left = objectLeft;
+				top = objectTop + halfHeight;
+				break;
+			case 'nw':
+				left = objectLeft;
+				top = objectTop;
+				break;
+			case 'ne':
+				left = objectLeft + objectWidth;
+				top = objectTop;
+				break;
+			case 'sw':
+				left = objectLeft;
+				top = objectTop + objectHeight;
+				break;
+			case 'se':
+				left = objectLeft + objectWidth;
+				top = objectTop + objectHeight;
+				break;
+			}
+
+			return {
+				top: top,
+				left: left
+			}
+		}
+
+		/**
+		 * Compute the top,left position of the specified placement for a SVG element
+		 * @private
+		 * @param {Object} element The element that the tooltip should target.
+		 * @param {String} placement The placement for the tooltip.
+		 * @return {Object} An object with the top,left position values.
+		 */
+		function getSvgPlacement(element, placement) {
+			var RAD2DEG = 180 / Math.PI,
+				svg = element.closest('svg')[0],
+				el = element[0],
+				pt = svg.createSVGPoint(),
+				// get the bounding box and matrix
+				bbox = el.getBBox(),
+				matrix = el.getScreenCTM(),
+				halfWidth = bbox.width / 2,
+				halfHeight = bbox.height / 2,
+				placements = [],
+				placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
+				placement, rotation, steps, x;
+			
+			function pushPlacement() {
+				placements.push(pt.matrixTransform(matrix));
+			}
+			
+			// get bbox corners and midpoints
+			pt.x = bbox.x;
+			pt.y = bbox.y;
+			pushPlacement();
+			pt.x += halfWidth;
+			pushPlacement();
+			pt.x += halfWidth;
+			pushPlacement();
+			pt.y += halfHeight;
+			pushPlacement();
+			pt.y += halfHeight;
+			pushPlacement();
+			pt.x -= halfWidth;
+			pushPlacement();
+			pt.x -= halfWidth;
+			pushPlacement();
+			pt.y -= halfHeight;
+			pushPlacement();
+			
+			// determine rotation
+			if (placements[0].y != placements[1].y || placements[0].x != placements[7].x) {
+				rotation = Math.atan2( matrix.b, matrix.a ) * RAD2DEG;
+				steps = Math.ceil(((rotation % 360) - 22.5) / 45);
+				if (steps < 1) steps += 8
+				while (steps--) {
+					placementKeys.push(placementKeys.shift());
+				}
+			}
+			
+			// find placement
+			for (x=0; x<placements.length; x++) {
+				if (placementKeys[x] === placement) {
+					placement = placements[x];
+					break;
+				}
+			}
+
+			return {
+				top: placement.y + $window.scrollTop(),
+				left: placement.x + $window.scrollLeft()
+			}
+		}
+
 		/**
 		 * Compute the top/left/right CSS position to display the tooltip at the
 		 * specified placement relative to the specified element.
@@ -695,63 +824,61 @@
 		 * @return {Object} An object with the top, left, and right position values.
 		 */
 		function computePlacementCoords(element, placement, tipWidth, tipHeight) {
-			// grab measurements
-			var objectOffset = element.offset(),
-				objectSize = computeElementSize(element),
-				objectWidth = objectSize.width,
-				objectHeight = objectSize.height,
+			var pos = isSvgElement(element) ?
+					getSvgPlacement(element, placement) :
+					getHtmlPlacement(element, placement),
+				pLeft = pos.left,
+				pTop = pos.top,
 				left = 'auto',
 				top = 'auto',
 				right = 'auto';
 
 			// calculate the appropriate x and y position in the document
+			// ~~ here is a shorthand for Math.floor
 			switch (placement) {
 			case 'n':
-				left = Math.round((objectOffset.left + (objectWidth / 2)) - (tipWidth / 2));
-				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				left = ~~(pLeft - (tipWidth / 2));
+				top = ~~(pTop - tipHeight - options.offset);
 				break;
 			case 'e':
-				left = Math.round(objectOffset.left + objectWidth + options.offset);
-				top = Math.round((objectOffset.top + (objectHeight / 2)) - (tipHeight / 2));
+				left = ~~(pLeft + options.offset);
+				top = ~~(pTop - (tipHeight / 2));
 				break;
 			case 's':
-				left = Math.round((objectOffset.left + (objectWidth / 2)) - (tipWidth / 2));
-				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				left = ~~(pLeft - (tipWidth / 2));
+				top = ~~(pTop + options.offset);
 				break;
 			case 'w':
-				//left = objectOffset.left - tipWidth - options.offset;
-				top = Math.round((objectOffset.top + (objectHeight / 2)) - (tipHeight / 2));
-				right = Math.round($window.width() - objectOffset.left + options.offset);
+				top = ~~(pTop - (tipHeight / 2));
+				right = ~~($window.width() - pLeft + options.offset);
 				break;
 			case 'nw':
-				//left = (objectOffset.left - tipWidth) + 20;
-				top = Math.round(objectOffset.top - tipHeight - options.offset);
-				right = Math.round($window.width() - objectOffset.left - 20);
+				top = ~~(pTop - tipHeight - options.offset);
+				right = ~~($window.width() - pLeft - 20);
 				break;
 			case 'nw-alt':
 				left = Math.round(objectOffset.left);
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
 				break;
 			case 'ne':
-				left = Math.round((objectOffset.left + objectWidth) - 20);
-				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				left = ~~(pLeft - 20);
+				top = ~~(pTop - tipHeight - options.offset);
 				break;
 			case 'ne-alt':
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
 				right = Math.round($window.width() - objectOffset.left - objectWidth);
 				break;
 			case 'sw':
-				//left = (objectOffset.left - tipWidth) + 20;
-				top = Math.round(objectOffset.top + objectHeight + options.offset);
-				right = Math.round($window.width() - objectOffset.left - 20);
+				top = ~~(pTop + options.offset);
+				right = ~~($window.width() - pLeft - 20);
 				break;
 			case 'sw-alt':
 				left = Math.round(objectOffset.left);
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
 				break;
 			case 'se':
-				left = Math.round((objectOffset.left + objectWidth) - 20);
-				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				left = ~~(pLeft - 20);
+				top = ~~(pTop + options.offset);
 				break;
 			case 'se-alt':
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
@@ -789,26 +916,28 @@
 	}
 
 	/**
-	 * Compute the width and height of an HTML or SVG element
+	 * Determine whether a jQuery object is an SVG element
+	 * @private
+	 * @param {Object} element The element to check
+	 * @return {Boolean} Whether this is an SVG element
+	 */
+	function isSvgElement(element) {
+		return typeof SVGElement !== 'undefined' && element[0] instanceof SVGElement;
+	}
+
+	/**
+	 * Compute the width and height of an HTML or SVG element.
 	 * @private
 	 * @param {Object} element The element to measure
 	 * @return {Object} An object with width and height values
 	 */
 	function computeElementSize(element) {
 		var el = element[0],
-			width, height, bbox, scale;
-		if (typeof SVGElement !== 'undefined' && el instanceof SVGElement) {
-			bbox = el.getBBox(),
-			scale = el.getCTM().a;
-			width = bbox.width * scale;
-			height = bbox.height * scale;
-		} else {
-			width = element.outerWidth();
-			height = element.outerHeight();
-		}
+			rect = el.getBoundingClientRect();
+		// return width/height, ensuring integers
 		return {
-			width: width,
-			height: height
+			width: ~~rect.width,
+			height: ~~rect.height
 		};
 	}
 
