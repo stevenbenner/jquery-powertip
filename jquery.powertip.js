@@ -147,7 +147,11 @@
 		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
 		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
 		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
+		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
+		'nw-alt': ['nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'w', 'sw-alt', 's', 'se-alt', 'sw', 'se', 'e'],
+		'ne-alt': ['ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'e', 'se-alt', 's', 'sw-alt', 'se', 'sw', 'w'],
+		'sw-alt': ['sw-alt', 's', 'se-alt', 'sw', 'se', 'w', 'nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'e'],
+		'se-alt': ['se-alt', 's', 'sw-alt', 'se', 'sw', 'e', 'ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'w']
 	};
 
 	/**
