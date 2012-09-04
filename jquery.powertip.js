@@ -164,7 +164,11 @@
 		nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
 		ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
 		sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se']
+		se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
+		'nw-alt': ['nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'w', 'sw-alt', 's', 'se-alt', 'sw', 'se', 'e'],
+		'ne-alt': ['ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'e', 'se-alt', 's', 'sw-alt', 'se', 'sw', 'w'],
+		'sw-alt': ['sw-alt', 's', 'se-alt', 'sw', 'se', 'w', 'nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'e'],
+		'se-alt': ['se-alt', 's', 'sw-alt', 'se', 'sw', 'e', 'ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'w']
 	};
 
 	/**
@@ -723,18 +727,34 @@
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
 				right = Math.round($window.width() - objectOffset.left - 20);
 				break;
+			case 'nw-alt':
+				left = Math.round(objectOffset.left);
+				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				break;
 			case 'ne':
 				left = Math.round((objectOffset.left + objectWidth) - 20);
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				break;
+			case 'ne-alt':
+				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				left = Math.round(objectOffset.left - tipWidth + objectWidth);
 				break;
 			case 'sw':
 				//left = (objectOffset.left - tipWidth) + 20;
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
 				right = Math.round($window.width() - objectOffset.left - 20);
 				break;
+			case 'sw-alt':
+				left = Math.round(objectOffset.left);
+				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				break;
 			case 'se':
 				left = Math.round((objectOffset.left + objectWidth) - 20);
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				break;
+			case 'se-alt':
+				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				left = Math.round(objectOffset.left - tipWidth + objectWidth);
 				break;
 			}
 

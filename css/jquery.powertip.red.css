@@ -64,3 +64,27 @@
 	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
 	top: -10px;
 }
+
+
+#powerTip.nw-alt:before, #powerTip.ne-alt:before,
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+	border-top: 10px solid rgba(235, 80, 55, 0.8);
+  bottom: -10px;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	left: 10px;
+}
+#powerTip.ne-alt:before {
+	left: auto;
+	right: 10px;
+}
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+	border-top: none;
+	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+  bottom: auto;
+  top: -10px;
+}
+#powerTip.se-alt:before {
+	left: auto;
+	right: 10px;
+}
