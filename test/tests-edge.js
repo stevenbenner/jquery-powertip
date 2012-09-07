@@ -24,7 +24,7 @@ $(function() {
 	});
 	$('#auto-disable-button input').powerTip({ placement: 'e' });
 
-	// Huge text
+	// setup huge text tooltips
 	var hugeText = [
 		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed',
 		'volutpat tellus. Fusce mollis iaculis est at sodales. Proin aliquam',
@@ -39,8 +39,27 @@ $(function() {
 		'Quisque commodo ultrices orci ut cursus. Aliquam in dolor orci. Nunc',
 		'pretium euismod odio.'
 	].join(' ');
-	$('.north, .east, .south, .west, .north-west, .north-east, .south-west, .south-east')
-		.data('powertip', hugeText);
+	$.each(
+		[
+			'north',
+			'east',
+			'south',
+			'west',
+			'north-west',
+			'north-east',
+			'south-west',
+			'south-east',
+			'north-west-alt',
+			'north-east-alt',
+			'south-west-alt',
+			'south-east-alt'
+		],
+		function(i, val) {
+			$('.' + val).data('powertip', hugeText);
+		}
+	);
+
+	// Huge text
 	$('#huge-text .north').powerTip({placement: 'n'});
 	$('#huge-text .east').powerTip({placement: 'e'});
 	$('#huge-text .south').powerTip({placement: 's'});
@@ -49,6 +68,10 @@ $(function() {
 	$('#huge-text .north-east').powerTip({placement: 'ne'});
 	$('#huge-text .south-west').powerTip({placement: 'sw'});
 	$('#huge-text .south-east').powerTip({placement: 'se'});
+	$('#huge-text .north-west-alt').powerTip({placement: 'nw-alt'});
+	$('#huge-text .north-east-alt').powerTip({placement: 'ne-alt'});
+	$('#huge-text .south-west-alt').powerTip({placement: 'sw-alt'});
+	$('#huge-text .south-east-alt').powerTip({placement: 'se-alt'});
 
 	// Huge text with smart placement
 	$('#huge-text-smart .north').powerTip({placement: 'n', smartPlacement: true});
@@ -59,6 +82,10 @@ $(function() {
 	$('#huge-text-smart .north-east').powerTip({placement: 'ne', smartPlacement: true});
 	$('#huge-text-smart .south-west').powerTip({placement: 'sw', smartPlacement: true});
 	$('#huge-text-smart .south-east').powerTip({placement: 'se', smartPlacement: true});
+	$('#huge-text-smart .north-west-alt').powerTip({placement: 'nw-alt', smartPlacement: true});
+	$('#huge-text-smart .north-east-alt').powerTip({placement: 'ne-alt', smartPlacement: true});
+	$('#huge-text-smart .south-west-alt').powerTip({placement: 'sw-alt', smartPlacement: true});
+	$('#huge-text-smart .south-east-alt').powerTip({placement: 'se-alt', smartPlacement: true});
 
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
