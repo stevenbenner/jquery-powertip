@@ -824,9 +824,10 @@
 		 * @return {Object} An object with the top, left, and right position values.
 		 */
 		function computePlacementCoords(element, placement, tipWidth, tipHeight) {
-			var pos = isSvgElement(element) ?
-					getSvgPlacement(element, placement) :
-					getHtmlPlacement(element, placement),
+			var placementBase = placement.split('-')[0], // ignore 'alt' for corners
+				pos = isSvgElement(element) ?
+					getSvgPlacement(element, placementBase) :
+					getHtmlPlacement(element, placementBase),
 				pLeft = pos.left,
 				pTop = pos.top,
 				left = 'auto',
@@ -857,32 +858,32 @@
 				right = ~~($window.width() - pLeft - 20);
 				break;
 			case 'nw-alt':
-				left = Math.round(objectOffset.left);
-				top = Math.round(objectOffset.top - tipHeight - options.offset);
+				left = ~~pLeft;
+				top = ~~(pTop - tipHeight - options.offset);
 				break;
 			case 'ne':
 				left = ~~(pLeft - 20);
 				top = ~~(pTop - tipHeight - options.offset);
 				break;
 			case 'ne-alt':
-				top = Math.round(objectOffset.top - tipHeight - options.offset);
-				right = Math.round($window.width() - objectOffset.left - objectWidth);
+				top = ~~(pTop - tipHeight - options.offset);
+				right = ~~($window.width() - pLeft);
 				break;
 			case 'sw':
 				top = ~~(pTop + options.offset);
 				right = ~~($window.width() - pLeft - 20);
 				break;
 			case 'sw-alt':
-				left = Math.round(objectOffset.left);
-				top = Math.round(objectOffset.top + objectHeight + options.offset);
+				left = ~~pLeft;
+				top = ~~(pTop + options.offset);
 				break;
 			case 'se':
 				left = ~~(pLeft - 20);
 				top = ~~(pTop + options.offset);
 				break;
 			case 'se-alt':
-				top = Math.round(objectOffset.top + objectHeight + options.offset);
-				right = Math.round($window.width() - objectOffset.left - objectWidth);
+				top = ~~(pTop + options.offset);
+				right = ~~($window.width() - pLeft);
 				break;
 			}
 
