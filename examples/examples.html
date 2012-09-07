@@ -5,8 +5,8 @@
 	<title>PowerTip Examples</title>
 	<style type="text/css">
 		#placement-examples div { text-align: center; }
-		#placement-examples input { margin: 10px; padding: 10px 30px; }
-		#placement-examples #east { margin-left: 200px; }
+		#placement-examples input { margin: 10px; padding: 10px; }
+		#placement-examples #east { margin-left: 450px; }
 		#mousefollow-examples div { background-color: #EEE; text-align: center; line-height: 400px; margin: 0 auto; height: 400px; width: 100%; }
 		#mouseon-examples div { background-color: #EEE; text-align: center; width: 400px; padding: 40px; }
 		#api-examples input { margin: 10px; padding: 10px 30px; }
@@ -24,14 +24,18 @@
 	<div id="placement-examples">
 		<h2>Placement examples</h2>
 		<div>
+			<input type="button" id="north-west-alt" value="North West Alt" title="North west alt placement {placement: 'nw-alt'}" />
 			<input type="button" id="north-west" value="North West" title="North west placement {placement: 'nw'}" />
 			<input type="button" id="north" value="North" title="North placement {placement: 'n'}" />
-			<input type="button" id="north-east" value="North East" title="North east placement {placement: 'ne'}" /><br />
+			<input type="button" id="north-east" value="North East" title="North east placement {placement: 'ne'}" />
+			<input type="button" id="north-east-alt" value="North East Alt" title="North east alt placement {placement: 'ne-alt'}" /><br />
 			<input type="button" id="west" value="West" title="West placement {placement: 'w'}" />
 			<input type="button" id="east" value="East" title="East placement {placement: 'e'}" /><br />
+			<input type="button" id="south-west-alt" value="South West Alt" title="South west alt placement {placement: 'sw-alt'}" />
 			<input type="button" id="south-west" value="South West" title="South west placement {placement: 'sw'}" />
 			<input type="button" id="south" value="South" title="South placement {placement: 's'}" />
 			<input type="button" id="south-east" value="South East" title="South east placement {placement: 'se'}" />
+			<input type="button" id="south-east-alt" value="South East Alt" title="South east alt placement {placement: 'se-alt'}" />
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -45,6 +49,10 @@
 			$('#north-east').powerTip({placement: 'ne'});
 			$('#south-west').powerTip({placement: 'sw'});
 			$('#south-east').powerTip({placement: 'se'});
+			$('#north-west-alt').powerTip({placement: 'nw-alt'});
+			$('#north-east-alt').powerTip({placement: 'ne-alt'});
+			$('#south-west-alt').powerTip({placement: 'sw-alt'});
+			$('#south-east-alt').powerTip({placement: 'se-alt'});
 		});
 	</script>
 
