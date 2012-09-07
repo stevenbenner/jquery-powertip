@@ -737,7 +737,7 @@
 				break;
 			case 'ne-alt':
 				top = Math.round(objectOffset.top - tipHeight - options.offset);
-				left = Math.round(objectOffset.left - tipWidth + objectWidth);
+				right = Math.round($window.width() - objectOffset.left - objectWidth);
 				break;
 			case 'sw':
 				//left = (objectOffset.left - tipWidth) + 20;
@@ -754,7 +754,7 @@
 				break;
 			case 'se-alt':
 				top = Math.round(objectOffset.top + objectHeight + options.offset);
-				left = Math.round(objectOffset.left - tipWidth + objectWidth);
+				right = Math.round($window.width() - objectOffset.left - objectWidth);
 				break;
 			}
 
