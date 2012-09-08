@@ -15,12 +15,12 @@ I recommend that you either adapt one of the base stylesheets to suit your needs
 
 The bare minimum that PowerTip requires to work is that the `#powerTip` element be given absolute positioning and set to not display. For example:
 
-```css
+{% highlight css %}
 #powerTip {
 	position: absolute;
 	display: none;
 }
-```
+{% endhighlight %}
 
 ### CSS recommendations
 
@@ -28,11 +28,11 @@ The bare minimum that PowerTip requires to work is that the `#powerTip` element 
 
 You will want your tooltips to display over all other elements on your web page. This is done by setting the z-index value to a number greater than the z-index of any other elements on the page. It's probably a good idea to just set the z-index for the tooltip element to the maximum integer value (2147483647). For example:
 
-```css
+{% highlight css %}
 #powerTip {
 	z-index: 2147483647;
 }
-```
+{% endhighlight %}
 
 #### CSS arrows
 
@@ -44,16 +44,16 @@ CSS arrows are created by using borders of a specific color and transparent bord
 
 It is recommend, but not required, that tooltips have a static width. PowerTip is designed to work with elastic tooltips, but it can look odd if you have huge tooltips so it is probably best for you to set a width on the tooltip element or (if you have short tooltip text) disable text wrapping. For example:
 
-```css
+{% highlight css %}
 #powerTip {
 	width: 300px;
 }
-```
+{% endhighlight %}
 
 or
 
-```css
+{% highlight css %}
 #powerTip {
 	white-space: nowrap;
 }
-```
+{% endhighlight %}
