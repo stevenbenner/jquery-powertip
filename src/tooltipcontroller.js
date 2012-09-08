@@ -465,7 +465,7 @@ function TooltipController(options) {
 			halfHeight = bbox.height / 2,
 			placements = [],
 			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
-			placement, rotation, steps, x;
+			coords, rotation, steps, x;
 
 		function pushPlacement() {
 			placements.push(pt.matrixTransform(matrix));
@@ -503,14 +503,14 @@ function TooltipController(options) {
 		// find placement
 		for (x=0; x<placements.length; x++) {
 			if (placementKeys[x] === placement) {
-				placement = placements[x];
+				coords = placements[x];
 				break;
 			}
 		}
 
 		return {
-			top: placement.y + $window.scrollTop(),
-			left: placement.x + $window.scrollLeft()
+			top: coords.y + $window.scrollTop(),
+			left: coords.x + $window.scrollLeft()
 		}
 	}
 
