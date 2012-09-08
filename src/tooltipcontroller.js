@@ -443,7 +443,7 @@ function TooltipController(options) {
 		return {
 			top: top,
 			left: left
-		}
+		};
 	}
 
 	/**
@@ -494,7 +494,9 @@ function TooltipController(options) {
 		if (placements[0].y != placements[1].y || placements[0].x != placements[7].x) {
 			rotation = Math.atan2(matrix.b, matrix.a) * RAD2DEG;
 			steps = Math.ceil(((rotation % 360) - 22.5) / 45);
-			if (steps < 1) steps += 8
+			if (steps < 1) {
+				steps += 8;
+			}
 			while (steps--) {
 				placementKeys.push(placementKeys.shift());
 			}
@@ -511,7 +513,7 @@ function TooltipController(options) {
 		return {
 			top: coords.y + $window.scrollTop(),
 			left: coords.x + $window.scrollLeft()
-		}
+		};
 	}
 
 	/**

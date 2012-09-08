@@ -231,7 +231,7 @@ $(function() {
 		setTimeout(function() {
 			deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
 			start();
-		}, $.fn.powerTip.defaults.intentPollInterval + 50)
+		}, $.fn.powerTip.defaults.intentPollInterval + 50);
 	});
 
 	asyncTest('should not show tooltip if the mouse keeps moving', function() {
