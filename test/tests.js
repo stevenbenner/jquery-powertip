@@ -70,6 +70,8 @@ $(function() {
 		ok($.powerTip, 'API is defined');
 		ok($.powerTip.showTip, 'showTip method is defined');
 		deepEqual(typeof $.powerTip.showTip, 'function', 'showTip is a function');
+		ok($.powerTip.resetPosition, 'resetPosition method is defined');
+		deepEqual(typeof $.powerTip.resetPosition, 'function', 'resetPosition is a function');
 		ok($.powerTip.closeTip, 'closeTip method is defined');
 		deepEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is a function');
 	});
