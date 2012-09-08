@@ -356,6 +356,9 @@ A very special thanks to the people who have invested their time and effort into
 
 * [Yahasana](https://github.com/Yahasana)
 * [skt84](https://github.com/skt84)
+* [mdarens](https://github.com/mdarens)
+* [nrabinowitz](https://github.com/nrabinowitz)
+* [ixti](https://github.com/ixti)
 
 ## Similar Projects
 
