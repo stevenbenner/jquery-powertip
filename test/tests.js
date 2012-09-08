@@ -37,6 +37,10 @@ $(function() {
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw'), 'nw exists');
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se'), 'se exists');
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw'), 'sw exists');
+		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('ne-alt'), 'ne-alt exists');
+		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw-alt'), 'nw-alt exists');
+		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se-alt'), 'se-alt exists');
+		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw-alt'), 'sw-alt exists');
 	});
 
 	test('return original jQuery object', function() {
