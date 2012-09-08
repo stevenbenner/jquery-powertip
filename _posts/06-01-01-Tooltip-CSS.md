@@ -42,7 +42,7 @@ CSS arrows are created by using borders of a specific color and transparent bord
 
 #### Fixed width
 
-It is recommend, but not required, that tooltips have a static width. PowerTip is designed to work with elastic tooltips, but it can look odd if you have huge tooltips so it is probably best for you to set a width on the tooltip element or (if you have short tooltip text) disable text wrapping. For example:
+It is recommend that tooltips have a static width. You should set a width on the tooltip element or (if you have short tooltip text) disable text wrapping. For example:
 
 {% highlight css %}
 #powerTip {
