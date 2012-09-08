@@ -9,7 +9,7 @@
 	padding: 10px;
 	position: absolute;
 	white-space: nowrap;
-	z-index: 2;
+	z-index: 2147483647;
 }
 #powerTip:before {
 	content: "";
