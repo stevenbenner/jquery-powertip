@@ -179,8 +179,12 @@ $.powerTip = {
 		element.data('displayController').show(true, true);
 	},
 
+	/**
+	 * Repositions the tooltip on the element.
+	 * @public
+	 * @param {Object} element The element that the tooltip is shown for.
+	 */
 	resetPosition: function resetPosition(element) {
-		// grab only the first matched element and ask it to show its tip
 		element = element.first();
 		element.data('displayController').resetPosition();
 	},
