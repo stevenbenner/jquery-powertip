@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 				'<config:lint.tests>',
 				'src/**/*.js'
 			],
-			tasks: 'lint:grunt lint:tests concat lint:dist min'
+			tasks: 'lint:grunt lint:tests concat lint:dist'
 		},
 		jshint: {
 			options: {
