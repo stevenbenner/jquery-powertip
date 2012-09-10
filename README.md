@@ -373,6 +373,20 @@ Smart placement is **disabled** by default because I believe that the world woul
 
 ## Change Log
 
+**[v1.2.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...master)** - TBD
+
+* Mouse-follow tooltips will now flip out of the way if they become trapped in the bottom-right corner.
+* Escape key will now close tooltip for selected element.
+* Added several alternative tooltip CSS themes.
+* Added support for elastic tooltips.
+* Added resetPosition() method to the API.
+* Added destroy option to powerTip().
+* Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
+* Added support for SVG elements.
+* Changed default z-index in CSS themes to int max.
+* Data attributes powertip and powertipjq now accept a function.
+* Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
+
 **[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
 
 * Added smart placement feature.
