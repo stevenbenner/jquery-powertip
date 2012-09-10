@@ -88,7 +88,7 @@ $(function() {
 		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') != '1', 'tooltip is not faded in');
+			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
@@ -97,7 +97,7 @@ $(function() {
 			$.powerTip.closeTip();
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') != '0', 'tooltip is not faded out');
+				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
@@ -321,7 +321,7 @@ $(function() {
 		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') != '1', 'tooltip is not faded in');
+			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
@@ -330,7 +330,7 @@ $(function() {
 			element.trigger('blur');
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') != '0', 'tooltip is not faded out');
+				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
@@ -351,7 +351,7 @@ $(function() {
 		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') != '1', 'tooltip is not faded in');
+			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
@@ -360,7 +360,7 @@ $(function() {
 			$(element).trigger($.Event('keydown', { keyCode: 27 }));
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') != '0', 'tooltip is not faded out');
+				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {

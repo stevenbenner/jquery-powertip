@@ -119,12 +119,12 @@ function TooltipController(options) {
 
 		// set tooltip content
 		if (tipText) {
-			if (typeof tipText == 'function') {
+			if (typeof tipText === 'function') {
 				tipText = tipText.call(element[0]);
 			}
 			tipElement.html(tipText);
 		} else if (tipElem) {
-			if (typeof tipElem == 'function') {
+			if (typeof tipElem === 'function') {
 				tipElem = tipElem.call(element[0]);
 			}
 			if (tipElem.length > 0) {
@@ -491,7 +491,7 @@ function TooltipController(options) {
 		pushPlacement();
 
 		// determine rotation
-		if (placements[0].y != placements[1].y || placements[0].x != placements[7].x) {
+		if (placements[0].y !== placements[1].y || placements[0].x !== placements[7].x) {
 			rotation = Math.atan2(matrix.b, matrix.a) * RAD2DEG;
 			steps = Math.ceil(((rotation % 360) - 22.5) / 45);
 			if (steps < 1) {
