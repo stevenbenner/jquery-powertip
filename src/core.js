@@ -11,7 +11,8 @@
 // useful private variables
 var $document = $(document),
 	$window = $(window),
-	$body = $('body');
+	$body = $('body'),
+	RAD2DEG = 180 / Math.PI;
 
 /**
  * Session data

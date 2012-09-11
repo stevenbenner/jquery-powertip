@@ -454,8 +454,7 @@ function TooltipController(options) {
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getSvgPlacement(element, placement) {
-		var RAD2DEG = 180 / Math.PI,
-			svg = element.closest('svg')[0],
+		var svg = element.closest('svg')[0],
 			el = element[0],
 			pt = svg.createSVGPoint(),
 			// get the bounding box and matrix
