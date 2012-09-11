@@ -346,7 +346,7 @@ function TooltipController(options) {
 	 * @private
 	 * @param {Object} element The element that the tooltip should target.
 	 * @param {String} placement The placement for the tooltip.
-	 * @retun {Object} An object with the top, left, and right position values.
+	 * @return {Object} An object with the top, left, and right position values.
 	 */
 	function placeTooltip(element, placement) {
 		var iterationCount = 0,
@@ -354,8 +354,8 @@ function TooltipController(options) {
 			tipHeight,
 			coords;
 
-		// for the first iteration: set the tip to 0,0 to get the full
-		// expanded width and set the iterationCount to 0
+		// for the first iteration set the tip to 0,0 to get the full
+		// expanded width
 		setTipPosition(0, 0);
 
 		// to support elastic tooltips we need to check for a change in
