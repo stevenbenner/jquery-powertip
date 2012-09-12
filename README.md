@@ -104,10 +104,19 @@ The simplest method, as well as the only one that will continue to work for user
 
 #### data-powertip
 
-Basically the same as setting the title attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup.
+Basically the same as setting the title attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup. This will also accept a function that returns a string.
 
 ```javascript
 $('#element').data('powertip', 'This will be the <b>tooltip text</b>.');
+```
+
+or
+
+
+```javascript
+$('#element').data('powertip', function() {
+	return 'This will be the <b>tooltip text</b>.';
+});
 ```
 
 or
@@ -118,13 +127,23 @@ or
 
 #### data-powertipjq
 
-This is a data interface that will accept a jQuery object. You can create a jQuery object containing complex markup (and even events) and attach it to the element via jQuery's `.data()` method at any time.
+This is a data interface that will accept a jQuery object. You can create a jQuery object containing complex markup (and even events) and attach it to the element via jQuery's `.data()` method at any time. This will also accept a function that returns a jQuery object.
 
 ```javascript
 var tooltip = $('<div>This will be the tooltip text. It even has an onclick event!</div>');
 tooltip.on('click', function() { /* ... */ });
 
 $('#element').data('powertipjq', tooltip);
+```
+
+or
+
+```javascript
+$('#element').data('powertipjq', function() {
+	var tooltip = $('<div>This will be the tooltip text. It even has an onclick event!</div>');
+	tooltip.on('click', function() { /* ... */ });
+	return tooltip;
+});
 ```
 
 #### data-powertiptarget
