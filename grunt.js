@@ -55,12 +55,66 @@ module.exports = function(grunt) {
 			tasks: 'lint:grunt lint:tests concat lint:dist'
 		},
 		jshint: {
-			options: {
-				browser: true,
-				smarttabs: true
+			dist: {
+				options: {
+					curly: true,
+					eqeqeq: true,
+					immed: true,
+					newcap: true,
+					noarg: true,
+					sub: true,
+					undef: true,
+					boss: true,
+					eqnull: true,
+					browser: true,
+					smarttabs: true
+				},
+				globals: {
+					jQuery: true
+				}
 			},
-			globals: {
-				jQuery: true
+			tests: {
+				options: {
+					curly: true,
+					eqeqeq: true,
+					immed: true,
+					latedef: true,
+					newcap: true,
+					noarg: true,
+					sub: true,
+					undef: true,
+					boss: true,
+					eqnull: true,
+					browser: true,
+					smarttabs: true
+				},
+				globals: {
+					$: true,
+					module: true,
+					expect: true,
+					test: true,
+					asyncTest: true,
+					ok: true,
+					deepEqual: true,
+					start: true
+				}
+			},
+			grunt: {
+				options: {
+					curly: true,
+					eqeqeq: true,
+					immed: true,
+					latedef: true,
+					newcap: true,
+					noarg: true,
+					sub: true,
+					undef: true,
+					boss: true,
+					eqnull: true
+				},
+				globals: {
+					module: true
+				}
 			}
 		},
 		uglify: {}
