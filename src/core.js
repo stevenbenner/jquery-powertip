@@ -46,7 +46,7 @@ $.fn.powerTip = function(opts) {
 	}
 
 	// destroy associated powertips
-	if ('destroy' === opts) {
+	if (opts === 'destroy') {
 		return this.off('.powertip').each(function destroy() {
 			var $this = $(this);
 
