@@ -100,13 +100,19 @@ function DisplayController(element, options, tipController) {
 		hoverTimer = clearTimeout(hoverTimer);
 	}
 
+	/**
+	 * Repositions the tooltip on this element.
+	 * @private
+	 */
+	function repositionTooltip() {
+		tipController.resetPosition(element);
+	}
+
 	// expose the methods
 	return {
 		show: openTooltip,
 		hide: closeTooltip,
 		cancel: cancelTimer,
-		resetPosition: function () {
-			tipController.resetPosition(element);
-		}
+		resetPosition: repositionTooltip
 	};
 }
