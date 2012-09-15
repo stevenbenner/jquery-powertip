@@ -56,7 +56,6 @@ $.fn.powerTip = function(opts) {
 
 			$this.removeData([
 				'originalTitle',
-				'powertiptarget',
 				'displayController'
 			]);
 		});
