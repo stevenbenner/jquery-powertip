@@ -45,13 +45,6 @@ $.fn.powerTip = function(opts) {
 		return this;
 	}
 
-	// extend options
-	var options = $.extend({}, $.fn.powerTip.defaults, opts),
-		tipController = new TooltipController(options);
-
-	// hook mouse tracking
-	initMouseTracking();
-
 	// destroy associated powertips
 	if ('destroy' === opts) {
 		return this.off('.powertip').each(function destroy() {
@@ -68,6 +61,13 @@ $.fn.powerTip = function(opts) {
 			]);
 		});
 	}
+
+	// extend options
+	var options = $.extend({}, $.fn.powerTip.defaults, opts),
+		tipController = new TooltipController(options);
+
+	// hook mouse tracking
+	initMouseTracking();
 
 	// setup the elements
 	this.each(function elementSetup() {
