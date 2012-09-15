@@ -56,7 +56,9 @@ $.fn.powerTip = function(opts) {
 
 			$this.removeData([
 				'originalTitle',
-				'displayController'
+				'displayController',
+				'hasActiveHover',
+				'forcedOpen'
 			]);
 		});
 	}
