@@ -30,6 +30,6 @@
 	},
 	"scripts": {
 		"test": "grunt travis --verbose"
-	}
+	},
 	"keywords": []
 }
