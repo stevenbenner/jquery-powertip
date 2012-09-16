@@ -122,4 +122,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', 'lint:grunt lint:tests concat lint:dist qunit min');
 
+	grunt.registerTask('travis', 'lint:grunt lint:tests concat lint:dist qunit');
+
 };
