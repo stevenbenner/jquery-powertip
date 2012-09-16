@@ -120,6 +120,6 @@ module.exports = function(grunt) {
 		uglify: {}
 	});
 
-	grunt.registerTask('default', 'lint:grunt lint:tests qunit concat lint:dist min');
+	grunt.registerTask('default', 'lint:grunt lint:tests concat lint:dist qunit min');
 
 };
