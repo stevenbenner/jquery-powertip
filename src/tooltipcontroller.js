@@ -385,7 +385,6 @@ function TooltipController(options) {
 		return coords;
 	}
 
-
 	/**
 	 * Compute the top,left position of the specified placement for an HTML element
 	 * @private
@@ -502,7 +501,7 @@ function TooltipController(options) {
 		}
 
 		// find placement
-		for (x=0; x<placements.length; x++) {
+		for (x = 0; x < placements.length; x++) {
 			if (placementKeys[x] === placement) {
 				coords = placements[x];
 				break;
