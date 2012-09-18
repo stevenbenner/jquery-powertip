@@ -64,8 +64,11 @@ $.fn.powerTip = function(opts, arg) {
 	if (opts === 'show') {
 		return this.first().each(function() {
 			// accept an event argument
-			if (arg) showAndTrack(this, arg);
-			else show(this, true, true);
+			if (arg) {
+				showAndTrack(this, arg);
+			} else {
+				show(this, true, true);
+			}
 		});
 	}
 
