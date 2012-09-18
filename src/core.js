@@ -35,14 +35,46 @@ var session = {
 
 /**
  * Display hover tooltips on the matched elements.
- * @param {Object} opts The options object to use for the plugin.
+ * @param {Object} opts The options object to use for the plugin, or the name
+ *                      of a method to invoke on the first matched element
+ * @param {mixed...} [args] Optional arguments for an invoked method
  * @return {Object} jQuery object for the matched selectors.
  */
-$.fn.powerTip = function(opts) {
+$.fn.powerTip = function(opts, arg) {
 
 	// don't do any work if there were no matched elements
 	if (!this.length) {
 		return this;
+	}
+
+	function show(el, immediate, forcedOpen) {
+		$(el).data('displayController').show(immediate, forcedOpen);
+	}
+	function showAndTrack(el, event) {
+		trackMouse(event);
+		session.previousX = event.pageX;
+		session.previousY = event.pageY;
+		show(el);
+	}
+	function hide(el, immediate) {
+		$(el).data('displayController').hide(immediate);
+	}
+
+	// show tip for the first matching element
+	if (opts === 'show') {
+		return this.first().each(function() {
+			// accept an event argument
+			if (arg) showAndTrack(this, arg);
+			else show(this, true, true);
+		});
+	}
+
+	// hide tip for the first matching element
+	if (opts === 'hide') {
+		// accept immediate argument
+		return this.first().each(function() {
+			hide(this, arg);
+		});
 	}
 
 	// destroy associated powertips
@@ -92,33 +124,32 @@ $.fn.powerTip = function(opts) {
 		);
 	});
 
-	// attach hover events to all matched elements
-	this.on({
-		// mouse events
-		'mouseenter.powertip': function elementMouseEnter(event) {
-			trackMouse(event);
-			session.previousX = event.pageX;
-			session.previousY = event.pageY;
-			$(this).data('displayController').show();
-		},
-		'mouseleave.powertip': function elementMouseLeave() {
-			$(this).data('displayController').hide();
-		},
+	if (!options.manual) {
+		// attach hover events to all matched elements
+		this.on({
+			// mouse events
+			'mouseenter.powertip': function elementMouseEnter(event) {
+				showAndTrack(this, event);
+			},
+			'mouseleave.powertip': function elementMouseLeave() {
+				hide(this);
+			},
 
-		// keyboard events
-		'focus.powertip': function elementFocus() {
-			$(this).data('displayController').show(true);
-		},
-		'blur.powertip': function elementBlur() {
-			$(this).data('displayController').hide(true);
-		},
-		'keydown.powertip': function elementKeyDown(event) {
-			// close tooltip when the escape key is pressed
-			if (event.keyCode === 27) {
-				$(this).data('displayController').hide(true);
+			// keyboard events
+			'focus.powertip': function elementFocus() {
+				show(this, true);
+			},
+			'blur.powertip': function elementBlur() {
+				hide(this, true);
+			},
+			'keydown.powertip': function elementKeyDown(event) {
+				// close tooltip when the escape key is pressed
+				if (event.keyCode === 27) {
+					hide(this, trackMouse);
+				}
 			}
-		}
-	});
+		});
+	}
 
 	return this;
 
