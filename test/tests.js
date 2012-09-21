@@ -108,6 +108,38 @@ $(function() {
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
+	asyncTest('.powerTip("show") should open a tooltip and .powerTip("hide", true) should close it immediately', function() {
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+
+		// tell powertip that the mouse isn't over the element
+		// which will appear to be at 0,0 to jQuery
+		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
+
+		element.powerTip('show');
+
+		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+
+		setTimeout(function() {
+			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+		}, $.fn.powerTip.defaults.fadeInTime - 50);
+
+		setTimeout(function() {
+			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+
+			element.powerTip('hide', true);
+
+			setTimeout(function() {
+				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+			}, $.fn.powerTip.defaults.fadeOutTime - 50);
+
+			setTimeout(function() {
+				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				start();
+			}, $.fn.powerTip.defaults.fadeOutTime + 50);
+
+		}, $.fn.powerTip.defaults.fadeInTime + 50);
+	});
+
 
 	//////////////////// CONTENT SUPPORT TESTS ////////////////////
 

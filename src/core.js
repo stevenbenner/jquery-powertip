@@ -35,14 +35,33 @@ var session = {
 
 /**
  * Display hover tooltips on the matched elements.
- * @param {Object} opts The options object to use for the plugin.
+ * @param {Object} opts The options object to use for the plugin, or the name
+ *                      of a method to invoke on the first matched element
+ * @param {mixed...} [arg] Optional argument for an invoked method
  * @return {Object} jQuery object for the matched selectors.
  */
-$.fn.powerTip = function(opts) {
+$.fn.powerTip = function(opts, arg) {
 
 	// don't do any work if there were no matched elements
 	if (!this.length) {
 		return this;
+	}
+
+	// show tip for the first matching element
+	if (opts === 'show') {
+		// arg, if provided, is an event
+		return apiShowTip(this, arg);
+	}
+
+	// hide tip for the first matching element
+	if (opts === 'hide') {
+		// arg, if provided, indicates whether to close this immediately
+		return apiCloseTip(this, arg);
+	}
+
+	// reset tip position for the first matching element
+	if (opts === 'resetPosition') {
+		return apiResetPosition(this);
 	}
 
 	// destroy associated powertips
@@ -92,33 +111,32 @@ $.fn.powerTip = function(opts) {
 		);
 	});
 
-	// attach hover events to all matched elements
-	this.on({
-		// mouse events
-		'mouseenter.powertip': function elementMouseEnter(event) {
-			trackMouse(event);
-			session.previousX = event.pageX;
-			session.previousY = event.pageY;
-			$(this).data('displayController').show();
-		},
-		'mouseleave.powertip': function elementMouseLeave() {
-			$(this).data('displayController').hide();
-		},
+	if (!options.manual) {
+		// attach hover events to all matched elements
+		this.on({
+			// mouse events
+			'mouseenter.powertip': function elementMouseEnter(event) {
+				elementShowAndTrack(this, event);
+			},
+			'mouseleave.powertip': function elementMouseLeave() {
+				elementHideTip(this);
+			},
 
-		// keyboard events
-		'focus.powertip': function elementFocus() {
-			$(this).data('displayController').show(true);
-		},
-		'blur.powertip': function elementBlur() {
-			$(this).data('displayController').hide(true);
-		},
-		'keydown.powertip': function elementKeyDown(event) {
-			// close tooltip when the escape key is pressed
-			if (event.keyCode === 27) {
-				$(this).data('displayController').hide(true);
+			// keyboard events
+			'focus.powertip': function elementFocus() {
+				elementShowTip(this, true);
+			},
+			'blur.powertip': function elementBlur() {
+				elementHideTip(this, true);
+			},
+			'keydown.powertip': function elementKeyDown(event) {
+				// close tooltip when the escape key is pressed
+				if (event.keyCode === 27) {
+					elementHideTip(this, trackMouse);
+				}
 			}
-		}
-	});
+		});
+	}
 
 	return this;
 
@@ -164,6 +182,7 @@ $.fn.powerTip.smartPlacementLists = {
 	'se-alt': ['se-alt', 's', 'sw-alt', 'se', 'sw', 'e', 'ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'w']
 };
 
+
 /**
  * Public API
  * @type Object
@@ -174,29 +193,66 @@ $.powerTip = {
 	 * Attempts to show the tooltip for the specified element.
 	 * @public
 	 * @param {Object} element The element that the tooltip should for.
+	 * @param {Event} [event] Optional DOM event for hover intent and mouse tracking
 	 */
-	showTip: function apiShowTip(element) {
-		// grab only the first matched element and ask it to show its tip
-		element = element.first();
-		element.data('displayController').show(true, true);
-	},
+	showTip: apiShowTip,
 
 	/**
 	 * Repositions the tooltip on the element.
 	 * @public
 	 * @param {Object} element The element that the tooltip is shown for.
 	 */
-	resetPosition: function resetPosition(element) {
-		element = element.first();
-		element.data('displayController').resetPosition();
-	},
+	resetPosition: apiResetPosition,
 
 	/**
 	 * Attempts to close any open tooltips.
 	 * @public
+	 * @param {Object} [element] A specific element whose tip should be closed.
 	 */
-	closeTip: function apiCloseTip() {
-		$document.triggerHandler('closePowerTip');
-	}
+	closeTip: apiCloseTip
 
 };
+
+// Common utility functions
+
+function elementShowTip(el, immediate, forcedOpen) {
+	$(el).data('displayController').show(immediate, forcedOpen);
+}
+
+function elementShowAndTrack(el, event) {
+	trackMouse(event);
+	session.previousX = event.pageX;
+	session.previousY = event.pageY;
+	elementShowTip(el);
+}
+
+function elementHideTip(el, immediate) {
+	$(el).data('displayController').hide(immediate);
+}
+
+// API functions, accessible either through $.powerTip or .powerTip()
+
+function apiShowTip($element, event) {
+	// grab only the first matched element and ask it to show its tip
+	$element.first().each(function() {
+		if (event) {
+			elementShowAndTrack(this, event);
+		} else {
+			elementShowTip(this, true, true);
+		}
+	});
+}
+
+function apiResetPosition($element) {
+	$element.first().data('displayController').resetPosition();
+}
+
+function apiCloseTip($element, immediate) {
+	if ($element) {
+		$element.first().each(function() {
+			elementHideTip(this, immediate);
+		});
+	} else {
+		$document.triggerHandler('closePowerTip');
+	}
+}
