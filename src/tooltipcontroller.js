@@ -87,6 +87,8 @@ function TooltipController(options) {
 	 * @param {Object} element The element that the tooltip should target.
 	 */
 	function showTip(element) {
+		var tipContent;
+
 		// it is possible, especially with keyboard navigation, to move on
 		// to another element with a tooltip during the queue to get to
 		// this point in the code. if that happens then we need to not
@@ -112,27 +114,10 @@ function TooltipController(options) {
 		// trigger powerTipPreRender event
 		element.trigger('powerTipPreRender');
 
-		var tipText = element.data('powertip'),
-			tipTarget = element.data('powertiptarget'),
-			tipElem = element.data('powertipjq'),
-			tipContent = tipTarget ? $('#' + tipTarget) : [];
-
 		// set tooltip content
-		if (tipText) {
-			if (typeof tipText === 'function') {
-				tipText = tipText.call(element[0]);
-			}
-			tipElement.html(tipText);
-		} else if (tipElem) {
-			if (typeof tipElem === 'function') {
-				tipElem = tipElem.call(element[0]);
-			}
-			if (tipElem.length > 0) {
-				tipElem = tipElem.clone(true, true);
-				tipElement.empty().append(tipElem);
-			}
-		} else if (tipContent && tipContent.length > 0) {
-			tipElement.html($('#' + tipTarget).html());
+		tipContent = getTooltipContent(element);
+		if (tipContent) {
+			tipElement.empty().append(tipContent);
 		} else {
 			// we have no content to display, give up
 			return;
@@ -593,6 +578,41 @@ function TooltipController(options) {
 			top: top,
 			right: right
 		};
+	}
+
+	/**
+	 * Fetches the tooltip content from the specified element's data attributes.
+	 * @private
+	 * @param {Object} element The element to get the tooltip content for.
+	 * @return {String|Object|undefined} The text/HTML string, jQuery object, or
+	 *     undefined if there was no tooltip content for the element.
+	 */
+	function getTooltipContent(element) {
+		var tipText = element.data('powertip'),
+			tipObject = element.data('powertipjq'),
+			tipTarget = element.data('powertiptarget'),
+			content;
+
+		if (tipText) {
+			if (typeof tipText === 'function') {
+				tipText = tipText.call(element[0]);
+			}
+			content = tipText;
+		} else if (tipObject) {
+			if (typeof tipElem === 'function') {
+				tipObject = tipObject.call(element[0]);
+			}
+			if (tipObject.length > 0) {
+				content = tipObject.clone(true, true);
+			}
+		} else if (tipTarget) {
+			var targetElement = $('#' + tipTarget);
+			if (targetElement.length > 0) {
+				content = $('#' + tipTarget).html();
+			}
+		}
+
+		return content;
 	}
 
 	/**
