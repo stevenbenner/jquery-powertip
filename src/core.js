@@ -84,6 +84,13 @@ $.fn.powerTip = function(opts, arg) {
 			dataTarget = $this.data('powertiptarget'),
 			title = $this.attr('title');
 
+		// handle repeated powerTip calls on the same element by destroying
+		// the original instance hooked to it and replacing it with this call
+		if ($this.data('displayController')) {
+			apiDestroy($this);
+			title = $this.attr('title');
+		}
+
 		// attempt to use title attribute text if there is no data-powertip,
 		// data-powertipjq or data-powertiptarget. If we do use the title
 		// attribute, delete the attribute so the browser will not show it
