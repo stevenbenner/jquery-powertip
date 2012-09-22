@@ -378,49 +378,44 @@ function TooltipController(options) {
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getHtmlPlacement(element, placement) {
-		// grab measurements
 		var objectOffset = element.offset(),
-			objectLeft = objectOffset.left,
-			objectTop = objectOffset.top,
 			objectWidth = element.outerWidth(),
 			objectHeight = element.outerHeight(),
-			halfWidth = objectWidth / 2,
-			halfHeight = objectHeight / 2,
 			left, top;
 
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
 		case 'n':
-			left = objectLeft + halfWidth;
-			top = objectTop;
+			left = objectOffset.left + objectWidth / 2;
+			top = objectOffset.top;
 			break;
 		case 'e':
-			left = objectLeft + objectWidth;
-			top = objectTop + halfHeight;
+			left = objectOffset.left + objectWidth;
+			top = objectOffset.top + objectHeight / 2;
 			break;
 		case 's':
-			left = objectLeft + halfWidth;
-			top = objectTop + objectHeight;
+			left = objectOffset.left + objectWidth / 2;
+			top = objectOffset.top + objectHeight;
 			break;
 		case 'w':
-			left = objectLeft;
-			top = objectTop + halfHeight;
+			left = objectOffset.left;
+			top = objectOffset.top + objectHeight / 2;
 			break;
 		case 'nw':
-			left = objectLeft;
-			top = objectTop;
+			left = objectOffset.left;
+			top = objectOffset.top;
 			break;
 		case 'ne':
-			left = objectLeft + objectWidth;
-			top = objectTop;
+			left = objectOffset.left + objectWidth;
+			top = objectOffset.top;
 			break;
 		case 'sw':
-			left = objectLeft;
-			top = objectTop + objectHeight;
+			left = objectOffset.left;
+			top = objectOffset.top + objectHeight;
 			break;
 		case 'se':
-			left = objectLeft + objectWidth;
-			top = objectTop + objectHeight;
+			left = objectOffset.left + objectWidth;
+			top = objectOffset.top + objectHeight;
 			break;
 		}
 
@@ -438,39 +433,38 @@ function TooltipController(options) {
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getSvgPlacement(element, placement) {
-		var svg = element.closest('svg')[0],
-			el = element[0],
-			pt = svg.createSVGPoint(),
-			// get the bounding box and matrix
-			bbox = el.getBBox(),
-			matrix = el.getScreenCTM(),
-			halfWidth = bbox.width / 2,
-			halfHeight = bbox.height / 2,
+		var svgElement = element.closest('svg')[0],
+			domElement = element[0],
+			point = svgElement.createSVGPoint(),
+			boundingBox = domElement.getBBox(),
+			matrix = domElement.getScreenCTM(),
+			halfWidth = boundingBox.width / 2,
+			halfHeight = boundingBox.height / 2,
 			placements = [],
 			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
 			coords, rotation, steps, x;
 
 		function pushPlacement() {
-			placements.push(pt.matrixTransform(matrix));
+			placements.push(point.matrixTransform(matrix));
 		}
 
-		// get bbox corners and midpoints
-		pt.x = bbox.x;
-		pt.y = bbox.y;
+		// get bounding box corners and midpoints
+		point.x = boundingBox.x;
+		point.y = boundingBox.y;
 		pushPlacement();
-		pt.x += halfWidth;
+		point.x += halfWidth;
 		pushPlacement();
-		pt.x += halfWidth;
+		point.x += halfWidth;
 		pushPlacement();
-		pt.y += halfHeight;
+		point.y += halfHeight;
 		pushPlacement();
-		pt.y += halfHeight;
+		point.y += halfHeight;
 		pushPlacement();
-		pt.x -= halfWidth;
+		point.x -= halfWidth;
 		pushPlacement();
-		pt.x -= halfWidth;
+		point.x -= halfWidth;
 		pushPlacement();
-		pt.y -= halfHeight;
+		point.y -= halfHeight;
 		pushPlacement();
 
 		// determine rotation
@@ -511,65 +505,67 @@ function TooltipController(options) {
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
-			pos = isSvgElement(element) ?
-				getSvgPlacement(element, placementBase) :
-				getHtmlPlacement(element, placementBase),
-			pLeft = pos.left,
-			pTop = pos.top,
 			left = 'auto',
 			top = 'auto',
-			right = 'auto';
+			right = 'auto',
+			position;
+
+		if (isSvgElement(element)) {
+			position = getSvgPlacement(element, placementBase);
+		} else {
+			position = getHtmlPlacement(element, placementBase);
+		}
 
 		// calculate the appropriate x and y position in the document
 		// ~~ here is a shorthand for Math.floor
 		switch (placement) {
 		case 'n':
-			left = ~~(pLeft - (tipWidth / 2));
-			top = ~~(pTop - tipHeight - options.offset);
+			left = ~~(position.left - (tipWidth / 2));
+			top = ~~(position.top - tipHeight - options.offset);
 			break;
 		case 'e':
-			left = ~~(pLeft + options.offset);
-			top = ~~(pTop - (tipHeight / 2));
+			left = ~~(position.left + options.offset);
+			top = ~~(position.top - (tipHeight / 2));
 			break;
 		case 's':
-			left = ~~(pLeft - (tipWidth / 2));
-			top = ~~(pTop + options.offset);
+			left = ~~(position.left - (tipWidth / 2));
+			top = ~~(position.top + options.offset);
 			break;
 		case 'w':
-			top = ~~(pTop - (tipHeight / 2));
-			right = ~~($window.width() - pLeft + options.offset);
+			top = ~~(position.top - (tipHeight / 2));
+			right = ~~($window.width() - position.left + options.offset);
 			break;
 		case 'nw':
-			top = ~~(pTop - tipHeight - options.offset);
-			right = ~~($window.width() - pLeft - 20);
+			top = ~~(position.top - tipHeight - options.offset);
+			right = ~~($window.width() - position.left - 20);
 			break;
 		case 'nw-alt':
-			left = ~~pLeft;
-			top = ~~(pTop - tipHeight - options.offset);
+			left = ~~position.left;
+			top = ~~(position.top - tipHeight - options.offset);
 			break;
 		case 'ne':
-			left = ~~(pLeft - 20);
-			top = ~~(pTop - tipHeight - options.offset);
+			left = ~~(position.left - 20);
+			top = ~~(position.top - tipHeight - options.offset);
 			break;
 		case 'ne-alt':
-			top = ~~(pTop - tipHeight - options.offset);
-			right = ~~($window.width() - pLeft);
+			top = ~~(position.top - tipHeight - options.offset);
+			right = ~~($window.width() - position.left);
 			break;
 		case 'sw':
-			top = ~~(pTop + options.offset);
-			right = ~~($window.width() - pLeft - 20);
+			top = ~~(position.top + options.offset);
+			right = ~~($window.width() - position.left - 20);
 			break;
 		case 'sw-alt':
-			left = ~~pLeft;
-			top = ~~(pTop + options.offset);
+			left = ~~position.left;
+			top = ~~(position.top + options.offset);
 			break;
 		case 'se':
-			left = ~~(pLeft - 20);
-			top = ~~(pTop + options.offset);
+			left = ~~(position.left - 20);
+			top = ~~(position.top + options.offset);
 			break;
 		case 'se-alt':
-			top = ~~(pTop + options.offset);
-			right = ~~($window.width() - pLeft);
+			top = ~~(position.top + options.offset);
+			right = ~~($window.width() - position.left);
 			break;
 		}
 
