@@ -66,20 +66,7 @@ $.fn.powerTip = function(opts, arg) {
 
 	// destroy associated powertips
 	if (opts === 'destroy') {
-		return this.off('.powertip').each(function destroy() {
-			var $this = $(this);
-
-			if ($this.data('originalTitle')) {
-				$this.attr('title', $this.data('originalTitle'));
-			}
-
-			$this.removeData([
-				'originalTitle',
-				'displayController',
-				'hasActiveHover',
-				'forcedOpen'
-			]);
-		});
+		return apiDestroy(this);
 	}
 
 	// extend options
@@ -256,4 +243,21 @@ function apiCloseTip($element, immediate) {
 	} else {
 		$document.triggerHandler('closePowerTip');
 	}
+}
+
+function apiDestroy(element) {
+	return element.off('.powertip').each(function destroy() {
+		var $this = $(this);
+
+		if ($this.data('originalTitle')) {
+			$this.attr('title', $this.data('originalTitle'));
+		}
+
+		$this.removeData([
+			'originalTitle',
+			'displayController',
+			'hasActiveHover',
+			'forcedOpen'
+		]);
+	});
 }
