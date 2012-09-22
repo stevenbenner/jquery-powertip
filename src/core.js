@@ -157,7 +157,8 @@ $.fn.powerTip.defaults = {
 	placement: 'n',
 	smartPlacement: false,
 	offset: 10,
-	mouseOnToPopup: false
+	mouseOnToPopup: false,
+	manual: false
 };
 
 /**
