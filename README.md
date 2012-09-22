@@ -407,6 +407,7 @@ Smart placement is **disabled** by default because I believe that the world woul
 * Added support for SVG elements.
 * Changed default z-index in CSS themes to int max.
 * Data attributes powertip and powertipjq now accept a function.
+* powerTip() will now overwrite any previous powerTip() calls on an element.
 * Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
 
 **[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
