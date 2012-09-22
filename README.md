@@ -208,6 +208,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `closeDelay` | `100` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. |
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
+| `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
 
 ## Tooltip CSS
 
@@ -401,6 +402,7 @@ Smart placement is **disabled** by default because I believe that the world woul
 * Added support for elastic tooltips.
 * Added resetPosition() method to the API.
 * Added destroy option to powerTip().
+* Added manual option to disable the built-in event listeners.
 * Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
 * Added support for SVG elements.
 * Changed default z-index in CSS themes to int max.
