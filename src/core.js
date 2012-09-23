@@ -209,10 +209,24 @@ $.powerTip = {
 
 // Common utility functions
 
+/**
+ * Asks the DisplayController for the specified element to show() its tooltip.
+ * @private
+ * @param {Object} el The element that the tooltip should be shown for.
+ * @param {Boolean=} immediate Skip intent testing (optional).
+ * @param {Boolean=} forcedOpen Ignore cursor position and force tooltip to open (optional).
+ */
 function elementShowTip(el, immediate, forcedOpen) {
 	$(el).data('displayController').show(immediate, forcedOpen);
 }
 
+/**
+ * Tracks the mouse cursor position specified in the event and attempts to open
+ * the tooltip for the specified element.
+ * @private
+ * @param {Object} el The element that the tooltip should be shown for.
+ * @param {$.Event} event The event with pageX and pageY info.
+ */
 function elementShowAndTrack(el, event) {
 	trackMouse(event);
 	session.previousX = event.pageX;
@@ -220,6 +234,12 @@ function elementShowAndTrack(el, event) {
 	elementShowTip(el);
 }
 
+/**
+ * Asks the DisplayController for the specified element to hide() its tooltip.
+ * @private
+ * @param {Object} el The element that the tooltip should be shown for.
+ * @param {Boolean=} immediate Disable close delay (optional).
+ */
 function elementHideTip(el, immediate) {
 	$(el).data('displayController').hide(immediate);
 }
