@@ -1,6 +1,6 @@
-# jQuery PowerTip [![Build Status](https://secure.travis-ci.org/stevenbenner/jquery-powertip.png)](http://travis-ci.org/stevenbenner/jquery-powertip)
+# PowerTip [![Build Status](https://secure.travis-ci.org/stevenbenner/jquery-powertip.png)](http://travis-ci.org/stevenbenner/jquery-powertip)
 
-A jQuery plugin that creates hover tooltips.
+*A jQuery plugin that creates hover tooltips.*
 
 ## Summary
 
