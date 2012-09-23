@@ -235,10 +235,12 @@ function apiShowTip($element, event) {
 			elementShowTip(this, true, true);
 		}
 	});
+	return $element;
 }
 
 function apiResetPosition($element) {
 	$element.first().data('displayController').resetPosition();
+	return $element;
 }
 
 function apiCloseTip($element, immediate) {
@@ -249,6 +251,7 @@ function apiCloseTip($element, immediate) {
 	} else {
 		$document.triggerHandler('closePowerTip');
 	}
+	return $element;
 }
 
 function apiDestroy(element) {
