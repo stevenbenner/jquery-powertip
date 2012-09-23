@@ -34,9 +34,9 @@ var session = {
 
 /**
  * Display hover tooltips on the matched elements.
- * @param {Object} opts The options object to use for the plugin, or the name
- *                      of a method to invoke on the first matched element
- * @param {mixed...} [arg] Optional argument for an invoked method
+ * @param {(Object|string)} opts The options object to use for the plugin, or the
+ *     name of a method to invoke on the first matched element.
+ * @param {*=} [arg] Argument for an invoked method (optional).
  * @return {Object} jQuery object for the matched selectors.
  */
 $.fn.powerTip = function(opts, arg) {
