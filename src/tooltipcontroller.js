@@ -4,7 +4,6 @@
  * @fileoverview  TooltipController object that manages tooltips for an instance.
  * @link          http://stevenbenner.github.com/jquery-powertip/
  * @author        Steven Benner (http://stevenbenner.com/)
- * @version       1.1.0
  * @requires      jQuery 1.7+
  */
 
