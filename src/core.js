@@ -105,8 +105,8 @@ $.fn.powerTip = function(opts, arg) {
 		);
 	});
 
+	// attach events to matched elements if the manual options is not enabled
 	if (!options.manual) {
-		// attach hover events to all matched elements
 		this.on({
 			// mouse events
 			'mouseenter.powertip': function elementMouseEnter(event) {
