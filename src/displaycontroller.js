@@ -32,7 +32,7 @@ function DisplayController(element, options, tipController) {
 				hoverTimer = setTimeout(
 					function intentDelay() {
 						hoverTimer = null;
-						checkForIntent(element);
+						checkForIntent();
 					},
 					options.intentPollInterval
 				);
