@@ -125,7 +125,7 @@ $.fn.powerTip = function(opts, arg) {
 			'keydown.powertip': function elementKeyDown(event) {
 				// close tooltip when the escape key is pressed
 				if (event.keyCode === 27) {
-					elementHideTip(this, trackMouse);
+					elementHideTip(this, true);
 				}
 			}
 		});
