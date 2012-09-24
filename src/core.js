@@ -49,23 +49,23 @@ $.fn.powerTip = function(opts, arg) {
 	// show tip for the first matching element
 	if (opts === 'show') {
 		// arg, if provided, is an event
-		return apiShowTip(this, arg);
+		return $.powerTip.showTip(this, arg);
 	}
 
 	// hide tip for the first matching element
 	if (opts === 'hide') {
 		// arg, if provided, indicates whether to close this immediately
-		return apiCloseTip(this, arg);
+		return $.powerTip.closeTip(this, arg);
 	}
 
 	// reset tip position for the first matching element
 	if (opts === 'resetPosition') {
-		return apiResetPosition(this);
+		return $.powerTip.resetPosition(this);
 	}
 
 	// destroy associated powertips
 	if (opts === 'destroy') {
-		return apiDestroy(this);
+		return $.powerTip.destroy(this);
 	}
 
 	// extend options
@@ -86,7 +86,7 @@ $.fn.powerTip = function(opts, arg) {
 		// handle repeated powerTip calls on the same element by destroying
 		// the original instance hooked to it and replacing it with this call
 		if ($this.data('displayController')) {
-			apiDestroy($this);
+			$.powerTip.destroy($this);
 			title = $this.attr('title');
 		}
 
@@ -187,23 +187,68 @@ $.powerTip = {
 	 * Attempts to show the tooltip for the specified element.
 	 * @public
 	 * @param {Object} element The element that the tooltip should for.
-	 * @param {Event} [event] Optional DOM event for hover intent and mouse tracking
+	 * @param {$.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
-	showTip: apiShowTip,
+	showTip: function apiShowTip(element, event) {
+		// grab only the first matched element and ask it to show its tip
+		element.first().each(function() {
+			if (event) {
+				elementShowAndTrack(this, event);
+			} else {
+				elementShowTip(this, true, true);
+			}
+		});
+		return element;
+	},
 
 	/**
 	 * Repositions the tooltip on the element.
 	 * @public
 	 * @param {Object} element The element that the tooltip is shown for.
 	 */
-	resetPosition: apiResetPosition,
+	resetPosition: function apiResetPosition(element) {
+		element.first().data('displayController').resetPosition();
+		return element;
+	},
 
 	/**
 	 * Attempts to close any open tooltips.
 	 * @public
-	 * @param {Object} [element] A specific element whose tip should be closed.
+	 * @param {Object=} element A specific element whose tip should be closed (optional).
+	 * @param {Boolean=} immediate Disable close delay (optional).
 	 */
-	closeTip: apiCloseTip
+	closeTip: function apiCloseTip(element, immediate) {
+		if (element) {
+			element.first().each(function() {
+				elementHideTip(this, immediate);
+			});
+		} else {
+			$document.triggerHandler('closePowerTip');
+		}
+		return element;
+	},
+
+	/**
+	 * Destroy and roll back any powerTip() instance on the specified element.
+	 * @public
+	 * @param {Object} element The element with the powerTip instance.
+	 */
+	destroy: function apiDestroy(element) {
+		return element.off('.powertip').each(function destroy() {
+			var $this = $(this);
+
+			if ($this.data('originalTitle')) {
+				$this.attr('title', $this.data('originalTitle'));
+			}
+
+			$this.removeData([
+				'originalTitle',
+				'displayController',
+				'hasActiveHover',
+				'forcedOpen'
+			]);
+		});
+	}
 
 };
 
@@ -242,51 +287,4 @@ function elementShowAndTrack(el, event) {
  */
 function elementHideTip(el, immediate) {
 	$(el).data('displayController').hide(immediate);
-}
-
-// API functions, accessible either through $.powerTip or .powerTip()
-
-function apiShowTip($element, event) {
-	// grab only the first matched element and ask it to show its tip
-	$element.first().each(function() {
-		if (event) {
-			elementShowAndTrack(this, event);
-		} else {
-			elementShowTip(this, true, true);
-		}
-	});
-	return $element;
-}
-
-function apiResetPosition($element) {
-	$element.first().data('displayController').resetPosition();
-	return $element;
-}
-
-function apiCloseTip($element, immediate) {
-	if ($element) {
-		$element.first().each(function() {
-			elementHideTip(this, immediate);
-		});
-	} else {
-		$document.triggerHandler('closePowerTip');
-	}
-	return $element;
-}
-
-function apiDestroy(element) {
-	return element.off('.powertip').each(function destroy() {
-		var $this = $(this);
-
-		if ($this.data('originalTitle')) {
-			$this.attr('title', $this.data('originalTitle'));
-		}
-
-		$this.removeData([
-			'originalTitle',
-			'displayController',
-			'hasActiveHover',
-			'forcedOpen'
-		]);
-	});
 }
