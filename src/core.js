@@ -46,26 +46,9 @@ $.fn.powerTip = function(opts, arg) {
 		return this;
 	}
 
-	// show tip for the first matching element
-	if (opts === 'show') {
-		// arg, if provided, is an event
-		return $.powerTip.showTip(this, arg);
-	}
-
-	// hide tip for the first matching element
-	if (opts === 'hide') {
-		// arg, if provided, indicates whether to close this immediately
-		return $.powerTip.closeTip(this, arg);
-	}
-
-	// reset tip position for the first matching element
-	if (opts === 'resetPosition') {
-		return $.powerTip.resetPosition(this);
-	}
-
-	// destroy associated powertips
-	if (opts === 'destroy') {
-		return $.powerTip.destroy(this);
+	// handle api method calls on the plugin, e.g. powerTip('hide')
+	if (typeof opts === 'string' && $.powerTip[opts]) {
+		return $.powerTip[opts].call(this, this, arg);
 	}
 
 	// extend options
@@ -251,6 +234,10 @@ $.powerTip = {
 	}
 
 };
+
+// API aliasing
+$.powerTip.show = $.powerTip.showTip;
+$.powerTip.hide = $.powerTip.closeTip;
 
 // Common utility functions
 
