@@ -108,10 +108,8 @@ function DisplayController(element, options, tipController) {
 	}
 
 	// expose the methods
-	return {
-		show: openTooltip,
-		hide: closeTooltip,
-		cancel: cancelTimer,
-		resetPosition: repositionTooltip
-	};
+	this.show = openTooltip;
+	this.hide = closeTooltip;
+	this.cancel = cancelTimer;
+	this.resetPosition = repositionTooltip;
 }

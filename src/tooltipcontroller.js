@@ -625,9 +625,7 @@ function TooltipController(options) {
 	}
 
 	// expose methods
-	return {
-		showTip: beginShowTip,
-		hideTip: hideTip,
-		resetPosition: positionTipOnElement
-	};
+	this.showTip = beginShowTip;
+	this.hideTip = hideTip;
+	this.resetPosition = positionTipOnElement;
 }
