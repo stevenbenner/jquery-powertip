@@ -69,7 +69,7 @@ function TooltipController(options) {
 	 * Gives the specified element the active-hover state and queues up
 	 * the showTip function.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
+	 * @param {$} element The element that the tooltip should target.
 	 */
 	function beginShowTip(element) {
 		element.data('hasActiveHover', true);
@@ -83,7 +83,7 @@ function TooltipController(options) {
 	/**
 	 * Shows the tooltip, as soon as possible.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
+	 * @param {$} element The element that the tooltip should target.
 	 */
 	function showTip(element) {
 		var tipContent;
@@ -159,7 +159,7 @@ function TooltipController(options) {
 	/**
 	 * Hides the tooltip.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
+	 * @param {$} element The element that the tooltip should target.
 	 */
 	function hideTip(element) {
 		session.isClosing = true;
@@ -284,7 +284,7 @@ function TooltipController(options) {
 	 * Sets the tooltip to the correct position relative to the specified
 	 * target element. Based on options settings.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
+	 * @param {$} element The element that the tooltip should target.
 	 */
 	function positionTipOnElement(element) {
 		var priorityList,
@@ -328,8 +328,8 @@ function TooltipController(options) {
 	 * at the specified placement. This function will iterate and test the
 	 * tooltip to support elastic tooltips.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
-	 * @param {String} placement The placement for the tooltip.
+	 * @param {$} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
 	 * @return {Object} An object with the top, left, and right position values.
 	 */
 	function placeTooltip(element, placement) {
@@ -372,8 +372,8 @@ function TooltipController(options) {
 	/**
 	 * Compute the top,left position of the specified placement for an HTML element
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
-	 * @param {String} placement The placement for the tooltip.
+	 * @param {$} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getHtmlPlacement(element, placement) {
@@ -427,8 +427,8 @@ function TooltipController(options) {
 	/**
 	 * Compute the top,left position of the specified placement for a SVG element
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
-	 * @param {String} placement The placement for the tooltip.
+	 * @param {$} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getSvgPlacement(element, placement) {
@@ -496,10 +496,10 @@ function TooltipController(options) {
 	 * Compute the top/left/right CSS position to display the tooltip at the
 	 * specified placement relative to the specified element.
 	 * @private
-	 * @param {Object} element The element that the tooltip should target.
-	 * @param {String} placement The placement for the tooltip.
-	 * @param {Number} tipWidth Width of the tooltip element in pixels.
-	 * @param {Number} tipHeight Height of the tooltip element in pixels.
+	 * @param {$} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
+	 * @param {number} tipWidth Width of the tooltip element in pixels.
+	 * @param {number} tipHeight Height of the tooltip element in pixels.
 	 * @return {Object} An object with the top, left, and right position values.
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight) {
@@ -578,8 +578,8 @@ function TooltipController(options) {
 	/**
 	 * Fetches the tooltip content from the specified element's data attributes.
 	 * @private
-	 * @param {Object} element The element to get the tooltip content for.
-	 * @return {String|Object|undefined} The text/HTML string, jQuery object, or
+	 * @param {$} element The element to get the tooltip content for.
+	 * @return {(string|$|undefined)} The text/HTML string, jQuery object, or
 	 *     undefined if there was no tooltip content for the element.
 	 */
 	function getTooltipContent(element) {
@@ -613,8 +613,8 @@ function TooltipController(options) {
 	/**
 	 * Sets the tooltip CSS position on the document.
 	 * @private
-	 * @param {Number} x Left position in pixels.
-	 * @param {Number} y Top position in pixels.
+	 * @param {number} x Left position in pixels.
+	 * @param {number} y Top position in pixels.
 	 */
 	function setTipPosition(x, y) {
 		tipElement.css({

@@ -11,7 +11,7 @@
  * Creates a new tooltip display controller.
  * @private
  * @constructor
- * @param {Object} element The element that this controller will handle.
+ * @param {$} element The element that this controller will handle.
  * @param {Object} options Options object containing settings.
  * @param {TooltipController} tipController The TooltipController for this instance.
  */
@@ -21,8 +21,8 @@ function DisplayController(element, options, tipController) {
 	/**
 	 * Begins the process of showing a tooltip.
 	 * @private
-	 * @param {Boolean=} immediate Skip intent testing (optional).
-	 * @param {Boolean=} forceOpen Ignore cursor position and force tooltip to open (optional).
+	 * @param {boolean=} immediate Skip intent testing (optional).
+	 * @param {boolean=} forceOpen Ignore cursor position and force tooltip to open (optional).
 	 */
 	function openTooltip(immediate, forceOpen) {
 		cancelTimer();
@@ -48,7 +48,7 @@ function DisplayController(element, options, tipController) {
 	/**
 	 * Begins the process of closing a tooltip.
 	 * @private
-	 * @param {Boolean=} disableDelay Disable close delay (optional).
+	 * @param {boolean=} disableDelay Disable close delay (optional).
 	 */
 	function closeTooltip(disableDelay) {
 		cancelTimer();

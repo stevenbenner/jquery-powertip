@@ -10,8 +10,8 @@
 /**
  * Determine whether a jQuery object is an SVG element
  * @private
- * @param {Object} element The element to check
- * @return {Boolean} Whether this is an SVG element
+ * @param {$} element The element to check
+ * @return {boolean} Whether this is an SVG element
  */
 function isSvgElement(element) {
 	return typeof window.SVGElement !== 'undefined' && element[0] instanceof window.SVGElement;
@@ -20,7 +20,7 @@ function isSvgElement(element) {
 /**
  * Compute the width and height of an HTML or SVG element.
  * @private
- * @param {Object} element The element to measure
+ * @param {$} element The element to measure
  * @return {Object} An object with width and height values
  */
 function computeElementSize(element) {
@@ -73,7 +73,7 @@ function initMouseTracking() {
 /**
  * Saves the current mouse coordinates to the session object.
  * @private
- * @param {Object} event The mousemove event for the document.
+ * @param {$.Event} event The mousemove event for the document.
  */
 function trackMouse(event) {
 	session.currentX = event.pageX;
@@ -83,8 +83,8 @@ function trackMouse(event) {
 /**
  * Tests if the mouse is currently over the specified element.
  * @private
- * @param {Object} element The element to check for hover.
- * @return {Boolean}
+ * @param {$} element The element to check for hover.
+ * @return {boolean}
  */
 function isMouseOver(element) {
 	var elementPosition = element.offset(),
@@ -100,9 +100,9 @@ function isMouseOver(element) {
  * if it were absolutely positioned at the specified coordinates.
  * @private
  * @param {Object} coords Coordinates for the element. (e.g. {top: 123, left: 123})
- * @param {Number} elementWidth Width of the element in pixels.
- * @param {Number} elementHeight Height of the element in pixels.
- * @return {Array} Array of words representing directional collisions.
+ * @param {number} elementWidth Width of the element in pixels.
+ * @param {number} elementHeight Height of the element in pixels.
+ * @return {Array.<string>} Array of words representing directional collisions.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
 	var scrollLeft = $window.scrollLeft(),
