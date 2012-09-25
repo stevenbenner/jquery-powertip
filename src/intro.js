@@ -7,5 +7,5 @@
  * @requires      jQuery 1.7+
  */
 
-(function($) {
+(function($, window) {
 	'use strict';
