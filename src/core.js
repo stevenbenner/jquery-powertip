@@ -8,7 +8,7 @@
  */
 
 // useful private variables
-var $document = $(document),
+var $document = $(window.document),
 	$window = $(window),
 	$body = $('body'),
 	RAD2DEG = 180 / Math.PI;
