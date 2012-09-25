@@ -169,14 +169,11 @@ $.powerTip = {
 	 * @param {$.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
 	showTip: function apiShowTip(element, event) {
-		// grab only the first matched element and ask it to show its tip
-		element.first().each(function() {
-			if (event) {
-				elementShowAndTrack(this, event);
-			} else {
-				elementShowTip(this, true, true);
-			}
-		});
+		if (event) {
+			elementShowAndTrack(element.first(), event);
+		} else {
+			elementShowTip(element.first(), true, true);
+		}
 		return element;
 	},
 
@@ -198,9 +195,7 @@ $.powerTip = {
 	 */
 	closeTip: function apiCloseTip(element, immediate) {
 		if (element) {
-			element.first().each(function() {
-				elementHideTip(this, immediate);
-			});
+			elementHideTip(element.first(), immediate);
 		} else {
 			$document.triggerHandler('closePowerTip');
 		}
