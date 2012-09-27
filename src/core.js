@@ -230,6 +230,32 @@ $.powerTip = {
 $.powerTip.show = $.powerTip.showTip;
 $.powerTip.hide = $.powerTip.closeTip;
 
+/**
+ * Creates a new CSSCordinate object.
+ * @private
+ * @constructor
+ */
+function CSSCordinate() {
+	var me = this;
+
+	// initialize object properties
+	me.top = 'auto';
+	me.left = 'auto';
+	me.right = 'auto';
+
+	/**
+	 * Set a property to a value.
+	 * @private
+	 * @param {string} property The name of the property.
+	 * @param {number} value The value of the property.
+	 */
+	me.set = function(property, value) {
+		if ($.isNumeric(value)) {
+			me[property] = Math.round(value);
+		}
+	};
+}
+
 // Common utility functions
 
 /**

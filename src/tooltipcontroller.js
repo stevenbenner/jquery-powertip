@@ -174,16 +174,19 @@ function TooltipController(options) {
 		$document.off('closePowerTip');
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
+			var coords = new CSSCordinate();
+
+			// reset session and tooltip element
 			session.isClosing = false;
 			session.isFixedTipOpen = false;
 			tipElement.removeClass();
+
 			// support mouse-follow and fixed position tips at the same
 			// time by moving the tooltip to the last known cursor location
 			// after it is hidden
-			setTipPosition(
-				session.currentX + options.offset,
-				session.currentY + options.offset
-			);
+			coords.set('top', session.currentY + options.offset);
+			coords.set('left', session.currentX + options.offset);
+			setTipPosition(coords);
 
 			// trigger powerTipClose event
 			element.trigger('powerTipClose');
@@ -244,17 +247,21 @@ function TooltipController(options) {
 		// currently open, a tip open is imminent or active, and the
 		// tooltip element in question does have a mouse-follow using it.
 		if ((session.isTipOpen && !session.isFixedTipOpen) || (session.tipOpenImminent && !session.isFixedTipOpen && tipElement.data('hasMouseMove'))) {
-			// grab measurements and collisions
+			// grab measurements
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
-				x = session.currentX + options.offset,
-				y = session.currentY + options.offset,
-				collisions = getViewportCollisions(
-					{ left: x, top: y },
-					tipWidth,
-					tipHeight
-				),
-				collisionCount = collisions.length;
+				coords = new CSSCordinate(),
+				collisions, collisionCount;
+
+			// grab collisions
+			coords.set('top', session.currentY + options.offset);
+			coords.set('left', session.currentX + options.offset);
+			collisions = getViewportCollisions(
+				coords,
+				tipWidth,
+				tipHeight
+			);
+			collisionCount = collisions.length;
 
 			// handle tooltip view port collisions
 			if (collisionCount > 0) {
@@ -262,21 +269,21 @@ function TooltipController(options) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
 					if (collisions[0] === 'right') {
-						x = $window.width() - tipWidth;
+						coords.set('left', $window.width() - tipWidth);
 					} else if (collisions[0] === 'bottom') {
-						y = $window.scrollTop() + $window.height() - tipHeight;
+						coords.set('top', $window.scrollTop() + $window.height() - tipHeight);
 					}
 				} else {
 					// if the tooltip has more than one collision then it
 					// is trapped in the corner and should be flipped to
 					// get it out of the users way
-					x = session.currentX - tipWidth - options.offset;
-					y = session.currentY - tipHeight - options.offset;
+					coords.set('left', session.currentX - tipWidth - options.offset);
+					coords.set('top', session.currentY - tipHeight - options.offset);
 				}
 			}
 
 			// position the tooltip
-			setTipPosition(x, y);
+			setTipPosition(coords);
 		}
 	}
 
@@ -330,17 +337,19 @@ function TooltipController(options) {
 	 * @private
 	 * @param {$} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
-	 * @return {Object} An object with the top, left, and right position values.
+	 * @return {CSSCordinate} A CSSCordinate object with the top, left, and right position values.
 	 */
 	function placeTooltip(element, placement) {
 		var iterationCount = 0,
 			tipWidth,
 			tipHeight,
-			coords;
+			coords = new CSSCordinate();
 
 		// for the first iteration set the tip to 0,0 to get the full
 		// expanded width
-		setTipPosition(0, 0);
+		coords.set('top', 0);
+		coords.set('left', 0);
+		setTipPosition(coords);
 
 		// to support elastic tooltips we need to check for a change in
 		// the rendered dimensions after the tooltip has been positioned
@@ -358,7 +367,7 @@ function TooltipController(options) {
 			);
 
 			// place the tooltip
-			tipElement.css(coords);
+			setTipPosition(coords);
 		} while (
 			// sanity check: limit to 5 iterations, and...
 			++iterationCount <= 5 &&
@@ -500,13 +509,11 @@ function TooltipController(options) {
 	 * @param {string} placement The placement for the tooltip.
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
-	 * @return {Object} An object with the top, left, and right position values.
+	 * @return {CSSCordinate} A CSSCordinate object with the top, left, and right position values.
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
-			left = 'auto',
-			top = 'auto',
-			right = 'auto',
+			coords = new CSSCordinate(),
 			position;
 
 		if (isSvgElement(element)) {
@@ -516,63 +523,58 @@ function TooltipController(options) {
 		}
 
 		// calculate the appropriate x and y position in the document
-		// ~~ here is a shorthand for Math.floor
 		switch (placement) {
 		case 'n':
-			left = ~~(position.left - (tipWidth / 2));
-			top = ~~(position.top - tipHeight - options.offset);
+			coords.set('left', position.left - (tipWidth / 2));
+			coords.set('top', position.top - tipHeight - options.offset);
 			break;
 		case 'e':
-			left = ~~(position.left + options.offset);
-			top = ~~(position.top - (tipHeight / 2));
+			coords.set('left', position.left + options.offset);
+			coords.set('top', position.top - (tipHeight / 2));
 			break;
 		case 's':
-			left = ~~(position.left - (tipWidth / 2));
-			top = ~~(position.top + options.offset);
+			coords.set('left', position.left - (tipWidth / 2));
+			coords.set('top', position.top + options.offset);
 			break;
 		case 'w':
-			top = ~~(position.top - (tipHeight / 2));
-			right = ~~($window.width() - position.left + options.offset);
+			coords.set('top', position.top - (tipHeight / 2));
+			coords.set('right', $window.width() - position.left + options.offset);
 			break;
 		case 'nw':
-			top = ~~(position.top - tipHeight - options.offset);
-			right = ~~($window.width() - position.left - 20);
+			coords.set('top', position.top - tipHeight - options.offset);
+			coords.set('right', $window.width() - position.left - 20);
 			break;
 		case 'nw-alt':
-			left = ~~position.left;
-			top = ~~(position.top - tipHeight - options.offset);
+			coords.set('left', position.left);
+			coords.set('top', position.top - tipHeight - options.offset);
 			break;
 		case 'ne':
-			left = ~~(position.left - 20);
-			top = ~~(position.top - tipHeight - options.offset);
+			coords.set('left', position.left - 20);
+			coords.set('top', position.top - tipHeight - options.offset);
 			break;
 		case 'ne-alt':
-			top = ~~(position.top - tipHeight - options.offset);
-			right = ~~($window.width() - position.left);
+			coords.set('top', position.top - tipHeight - options.offset);
+			coords.set('right', $window.width() - position.left);
 			break;
 		case 'sw':
-			top = ~~(position.top + options.offset);
-			right = ~~($window.width() - position.left - 20);
+			coords.set('top', position.top + options.offset);
+			coords.set('right', $window.width() - position.left - 20);
 			break;
 		case 'sw-alt':
-			left = ~~position.left;
-			top = ~~(position.top + options.offset);
+			coords.set('left', position.left);
+			coords.set('top', position.top + options.offset);
 			break;
 		case 'se':
-			left = ~~(position.left - 20);
-			top = ~~(position.top + options.offset);
+			coords.set('left', position.left - 20);
+			coords.set('top', position.top + options.offset);
 			break;
 		case 'se-alt':
-			top = ~~(position.top + options.offset);
-			right = ~~($window.width() - position.left);
+			coords.set('top', position.top + options.offset);
+			coords.set('right', $window.width() - position.left);
 			break;
 		}
 
-		return {
-			left: left,
-			top: top,
-			right: right
-		};
+		return coords;
 	}
 
 	/**
@@ -613,15 +615,10 @@ function TooltipController(options) {
 	/**
 	 * Sets the tooltip CSS position on the document.
 	 * @private
-	 * @param {number} x Left position in pixels.
-	 * @param {number} y Top position in pixels.
+	 * @param {CSSCordinate} coords The CSSCordinate object with the placement info.
 	 */
-	function setTipPosition(x, y) {
-		tipElement.css({
-			left: x + 'px',
-			top: y + 'px',
-			right: 'auto'
-		});
+	function setTipPosition(coords) {
+		tipElement.css(coords);
 	}
 
 	// expose methods
