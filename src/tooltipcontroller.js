@@ -186,7 +186,7 @@ function TooltipController(options) {
 			// after it is hidden
 			coords.set('top', session.currentY + options.offset);
 			coords.set('left', session.currentX + options.offset);
-			setTipPosition(coords);
+			tipElement.css(coords);
 
 			// trigger powerTipClose event
 			element.trigger('powerTipClose');
@@ -283,7 +283,7 @@ function TooltipController(options) {
 			}
 
 			// position the tooltip
-			setTipPosition(coords);
+			tipElement.css(coords);
 		}
 	}
 
@@ -349,7 +349,7 @@ function TooltipController(options) {
 		// expanded width
 		coords.set('top', 0);
 		coords.set('left', 0);
-		setTipPosition(coords);
+		tipElement.css(coords);
 
 		// to support elastic tooltips we need to check for a change in
 		// the rendered dimensions after the tooltip has been positioned
@@ -367,7 +367,7 @@ function TooltipController(options) {
 			);
 
 			// place the tooltip
-			setTipPosition(coords);
+			tipElement.css(coords);
 		} while (
 			// sanity check: limit to 5 iterations, and...
 			++iterationCount <= 5 &&
@@ -610,15 +610,6 @@ function TooltipController(options) {
 		}
 
 		return content;
-	}
-
-	/**
-	 * Sets the tooltip CSS position on the document.
-	 * @private
-	 * @param {CSSCordinate} coords The CSSCordinate object with the placement info.
-	 */
-	function setTipPosition(coords) {
-		tipElement.css(coords);
 	}
 
 	// expose methods
