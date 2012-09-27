@@ -24,12 +24,10 @@ function isSvgElement(element) {
  * @return {Object} An object with width and height values
  */
 function computeElementSize(element) {
-	var el = element[0],
-		rect = el.getBoundingClientRect();
-	// return width/height, ensuring integers
+	var rect = element[0].getBoundingClientRect();
 	return {
-		width: ~~rect.width,
-		height: ~~rect.height
+		width: rect.width,
+		height: rect.height
 	};
 }
 
