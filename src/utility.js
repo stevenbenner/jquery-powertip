@@ -10,7 +10,7 @@
 /**
  * Determine whether a jQuery object is an SVG element
  * @private
- * @param {$} element The element to check
+ * @param {jQuery} element The element to check
  * @return {boolean} Whether this is an SVG element
  */
 function isSvgElement(element) {
@@ -20,7 +20,7 @@ function isSvgElement(element) {
 /**
  * Compute the width and height of an HTML or SVG element.
  * @private
- * @param {$} element The element to measure
+ * @param {jQuery} element The element to measure
  * @return {Object} An object with width and height values
  */
 function computeElementSize(element) {
@@ -73,7 +73,7 @@ function initMouseTracking() {
 /**
  * Saves the current mouse coordinates to the session object.
  * @private
- * @param {$.Event} event The mousemove event for the document.
+ * @param {jQuery.Event} event The mousemove event for the document.
  */
 function trackMouse(event) {
 	session.currentX = event.pageX;
@@ -83,7 +83,7 @@ function trackMouse(event) {
 /**
  * Tests if the mouse is currently over the specified element.
  * @private
- * @param {$} element The element to check for hover.
+ * @param {jQuery} element The element to check for hover.
  * @return {boolean}
  */
 function isMouseOver(element) {

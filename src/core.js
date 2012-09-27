@@ -36,7 +36,7 @@ var session = {
  * @param {(Object|string)} opts The options object to use for the plugin, or the
  *     name of a method to invoke on the first matched element.
  * @param {*=} [arg] Argument for an invoked method (optional).
- * @return {$} jQuery object for the matched selectors.
+ * @return {jQuery} jQuery object for the matched selectors.
  */
 $.fn.powerTip = function(opts, arg) {
 
@@ -156,7 +156,6 @@ $.fn.powerTip.smartPlacementLists = {
 	'se-alt': ['se-alt', 's', 'sw-alt', 'se', 'sw', 'e', 'ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'w']
 };
 
-
 /**
  * Public API
  */
@@ -165,8 +164,8 @@ $.powerTip = {
 	/**
 	 * Attempts to show the tooltip for the specified element.
 	 * @public
-	 * @param {$} element The element that the tooltip should for.
-	 * @param {$.Event=} event jQuery event for hover intent and mouse tracking (optional).
+	 * @param {jQuery} element The element that the tooltip should for.
+	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
 	showTip: function apiShowTip(element, event) {
 		if (event) {
@@ -180,7 +179,7 @@ $.powerTip = {
 	/**
 	 * Repositions the tooltip on the element.
 	 * @public
-	 * @param {$} element The element that the tooltip is shown for.
+	 * @param {jQuery} element The element that the tooltip is shown for.
 	 */
 	resetPosition: function apiResetPosition(element) {
 		element.first().data('displayController').resetPosition();
@@ -190,7 +189,7 @@ $.powerTip = {
 	/**
 	 * Attempts to close any open tooltips.
 	 * @public
-	 * @param {$=} element A specific element whose tip should be closed (optional).
+	 * @param {jQuery=} element A specific element whose tip should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
 	closeTip: function apiCloseTip(element, immediate) {
@@ -205,7 +204,7 @@ $.powerTip = {
 	/**
 	 * Destroy and roll back any powerTip() instance on the specified element.
 	 * @public
-	 * @param {$} element The element with the powerTip instance.
+	 * @param {jQuery} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
 		return element.off('.powertip').each(function destroy() {
@@ -261,7 +260,7 @@ function CSSCordinate() {
 /**
  * Asks the DisplayController for the specified element to show() its tooltip.
  * @private
- * @param {$} el The element that the tooltip should be shown for.
+ * @param {jQuery} el The element that the tooltip should be shown for.
  * @param {boolean=} immediate Skip intent testing (optional).
  * @param {boolean=} forcedOpen Ignore cursor position and force tooltip to open (optional).
  */
@@ -273,8 +272,8 @@ function elementShowTip(el, immediate, forcedOpen) {
  * Tracks the mouse cursor position specified in the event and attempts to open
  * the tooltip for the specified element.
  * @private
- * @param {$} el The element that the tooltip should be shown for.
- * @param {$.Event} event The event with pageX and pageY info.
+ * @param {jQuery} el The element that the tooltip should be shown for.
+ * @param {jQuery.Event} event The event with pageX and pageY info.
  */
 function elementShowAndTrack(el, event) {
 	trackMouse(event);
@@ -286,7 +285,7 @@ function elementShowAndTrack(el, event) {
 /**
  * Asks the DisplayController for the specified element to hide() its tooltip.
  * @private
- * @param {$} el The element that the tooltip should be shown for.
+ * @param {jQuery} el The element that the tooltip should be shown for.
  * @param {boolean=} immediate Disable close delay (optional).
  */
 function elementHideTip(el, immediate) {

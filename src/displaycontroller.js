@@ -11,7 +11,7 @@
  * Creates a new tooltip display controller.
  * @private
  * @constructor
- * @param {$} element The element that this controller will handle.
+ * @param {jQuery} element The element that this controller will handle.
  * @param {Object} options Options object containing settings.
  * @param {TooltipController} tipController The TooltipController for this instance.
  */
