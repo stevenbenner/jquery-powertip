@@ -239,7 +239,7 @@ function TooltipController(options) {
 		// but we should only set the tip location if a fixed tip is not
 		// currently open, a tip open is imminent or active, and the
 		// tooltip element in question does have a mouse-follow using it.
-		if ((session.isTipOpen && !session.isFixedTipOpen) || (session.tipOpenImminent && !session.isFixedTipOpen && tipElement.data('hasMouseMove'))) {
+		if (!session.isFixedTipOpen && (session.isTipOpen || (session.tipOpenImminent && tipElement.data('hasMouseMove')))) {
 			// grab measurements
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
