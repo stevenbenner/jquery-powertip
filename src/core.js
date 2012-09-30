@@ -196,7 +196,9 @@ $.powerTip = {
 		if (element) {
 			elementHideTip(element.first(), immediate);
 		} else {
-			$document.triggerHandler('closePowerTip');
+			if (session.activeHover) {
+				elementHideTip(session.activeHover, true);
+			}
 		}
 		return element;
 	},

@@ -125,11 +125,6 @@ function TooltipController(options) {
 		// trigger powerTipRender event
 		element.trigger('powerTipRender');
 
-		// hook close event for triggering from the api
-		$document.on('closePowerTip', function closePowerTipEvent() {
-			element.data('displayController').hide(true);
-		});
-
 		session.activeHover = element;
 		session.isTipOpen = true;
 
@@ -170,8 +165,6 @@ function TooltipController(options) {
 		session.isTipOpen = false;
 		// stop desync polling
 		session.desyncTimeout = clearInterval(session.desyncTimeout);
-		// unhook close event api listener
-		$document.off('closePowerTip');
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
 			var coords = new CSSCordinate();
