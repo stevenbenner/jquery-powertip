@@ -143,7 +143,7 @@ function TooltipController(options) {
 		tipElement.fadeIn(options.fadeInTime, function fadeInCallback() {
 			// start desync polling
 			if (!session.desyncTimeout) {
-				session.desyncTimeout = setInterval(closeDesyncedTip, 500);
+				session.desyncTimeout = window.setInterval(closeDesyncedTip, 500);
 			}
 
 			// trigger powerTipOpen event
@@ -164,7 +164,7 @@ function TooltipController(options) {
 		session.activeHover = null;
 		session.isTipOpen = false;
 		// stop desync polling
-		session.desyncTimeout = clearInterval(session.desyncTimeout);
+		session.desyncTimeout = window.clearInterval(session.desyncTimeout);
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
 			var coords = new CSSCordinate();
