@@ -128,7 +128,6 @@ function TooltipController(options) {
 		session.activeHover = element;
 		session.isTipOpen = true;
 
-		tipElement.data('followMouse', options.followMouse);
 		tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
 
 		// set tooltip position
