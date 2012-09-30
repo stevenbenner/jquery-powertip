@@ -8,4 +8,3 @@
  */
 
 (function($, window) {
-	'use strict';
