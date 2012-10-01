@@ -11,6 +11,16 @@
 var $document = $(window.document),
 	$window = $(window),
 	$body = $('body'),
+	// constants
+	DATA_DISPLAYCONTROLLER = 'displayController',
+	DATA_HASACTIVEHOVER = 'hasActiveHover',
+	DATA_FORCEDOPEN = 'forcedOpen',
+	DATA_HASMOUSEMOVE = 'hasMouseMove',
+	DATA_MOUSEONTOTIP = 'mouseOnToPopup',
+	DATA_ORIGINALTITLE = 'originalTitle',
+	DATA_POWERTIP = 'powertip',
+	DATA_POWERTIPJQ = 'powertipjq',
+	DATA_POWERTIPTARGET = 'powertiptarget',
 	RAD2DEG = 180 / Math.PI;
 
 /**
@@ -60,14 +70,14 @@ $.fn.powerTip = function(opts, arg) {
 	// setup the elements
 	this.each(function elementSetup() {
 		var $this = $(this),
-			dataPowertip = $this.data('powertip'),
-			dataElem = $this.data('powertipjq'),
-			dataTarget = $this.data('powertiptarget'),
+			dataPowertip = $this.data(DATA_POWERTIP),
+			dataElem = $this.data(DATA_POWERTIPJQ),
+			dataTarget = $this.data(DATA_POWERTIPTARGET),
 			title = $this.attr('title');
 
 		// handle repeated powerTip calls on the same element by destroying
 		// the original instance hooked to it and replacing it with this call
-		if ($this.data('displayController')) {
+		if ($this.data(DATA_DISPLAYCONTROLLER)) {
 			$.powerTip.destroy($this);
 			title = $this.attr('title');
 		}
@@ -76,12 +86,14 @@ $.fn.powerTip = function(opts, arg) {
 		// data-powertipjq or data-powertiptarget. If we do use the title
 		// attribute, delete the attribute so the browser will not show it
 		if (!dataPowertip && !dataTarget && !dataElem && title) {
-			$this.data({powertip: title, originalTitle: title}).removeAttr('title');
+			$this.data(DATA_POWERTIP, title);
+			$this.data(DATA_ORIGINALTITLE, title);
+			$this.removeAttr('title');
 		}
 
 		// create hover controllers for each element
 		$this.data(
-			'displayController',
+			DATA_DISPLAYCONTROLLER,
 			new DisplayController($this, options, tipController)
 		);
 	});
@@ -182,7 +194,7 @@ $.powerTip = {
 	 * @param {jQuery} element The element that the tooltip is shown for.
 	 */
 	resetPosition: function apiResetPosition(element) {
-		element.first().data('displayController').resetPosition();
+		element.first().data(DATA_DISPLAYCONTROLLER).resetPosition();
 		return element;
 	},
 
@@ -212,15 +224,15 @@ $.powerTip = {
 		return element.off('.powertip').each(function destroy() {
 			var $this = $(this);
 
-			if ($this.data('originalTitle')) {
-				$this.attr('title', $this.data('originalTitle'));
+			if ($this.data(DATA_ORIGINALTITLE)) {
+				$this.attr('title', $this.data(DATA_ORIGINALTITLE));
 			}
 
 			$this.removeData([
-				'originalTitle',
-				'displayController',
-				'hasActiveHover',
-				'forcedOpen'
+				DATA_ORIGINALTITLE,
+				DATA_DISPLAYCONTROLLER,
+				DATA_HASACTIVEHOVER,
+				DATA_FORCEDOPEN
 			]);
 		});
 	}
@@ -267,7 +279,7 @@ function CSSCordinate() {
  * @param {boolean=} forcedOpen Ignore cursor position and force tooltip to open (optional).
  */
 function elementShowTip(el, immediate, forcedOpen) {
-	$(el).data('displayController').show(immediate, forcedOpen);
+	$(el).data(DATA_DISPLAYCONTROLLER).show(immediate, forcedOpen);
 }
 
 /**
@@ -291,5 +303,5 @@ function elementShowAndTrack(el, event) {
  * @param {boolean=} immediate Disable close delay (optional).
  */
 function elementHideTip(el, immediate) {
-	$(el).data('displayController').hide(immediate);
+	$(el).data(DATA_DISPLAYCONTROLLER).hide(immediate);
 }

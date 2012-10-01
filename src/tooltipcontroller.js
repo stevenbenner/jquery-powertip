@@ -30,12 +30,12 @@ function TooltipController(options) {
 	// hook mousemove for cursor follow tooltips
 	if (options.followMouse) {
 		// only one positionTipOnCursor hook per tooltip element, please
-		if (!tipElement.data('hasMouseMove')) {
+		if (!tipElement.data(DATA_HASMOUSEMOVE)) {
 			$document.on({
 				mousemove: positionTipOnCursor,
 				scroll: positionTipOnCursor
 			});
-			tipElement.data('hasMouseMove', true);
+			tipElement.data(DATA_HASMOUSEMOVE, true);
 		}
 	}
 
@@ -47,11 +47,11 @@ function TooltipController(options) {
 			mouseenter: function tipMouseEnter() {
 				// we only let the mouse stay on the tooltip if it is set
 				// to let users interact with it
-				if (tipElement.data('mouseOnToPopup')) {
+				if (tipElement.data(DATA_MOUSEONTOTIP)) {
 					// check activeHover in case the mouse cursor entered
 					// the tooltip during the fadeOut and close cycle
 					if (session.activeHover) {
-						session.activeHover.data('displayController').cancel();
+						session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
 					}
 				}
 			},
@@ -59,7 +59,7 @@ function TooltipController(options) {
 				// check activeHover in case the mouse cursor entered
 				// the tooltip during the fadeOut and close cycle
 				if (session.activeHover) {
-					session.activeHover.data('displayController').hide();
+					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
 				}
 			}
 		});
@@ -72,7 +72,7 @@ function TooltipController(options) {
 	 * @param {jQuery} element The element that the tooltip should target.
 	 */
 	function beginShowTip(element) {
-		element.data('hasActiveHover', true);
+		element.data(DATA_HASACTIVEHOVER, true);
 		// show tooltip, asap
 		tipElement.queue(function queueTipInit(next) {
 			showTip(element);
@@ -93,7 +93,7 @@ function TooltipController(options) {
 		// this point in the code. if that happens then we need to not
 		// proceed or we may have the fadeout callback for the last tooltip
 		// execute immediately after this code runs, causing bugs.
-		if (!element.data('hasActiveHover')) {
+		if (!element.data(DATA_HASACTIVEHOVER)) {
 			return;
 		}
 
@@ -128,7 +128,7 @@ function TooltipController(options) {
 		session.activeHover = element;
 		session.isTipOpen = true;
 
-		tipElement.data('mouseOnToPopup', options.mouseOnToPopup);
+		tipElement.data(DATA_MOUSEONTOTIP, options.mouseOnToPopup);
 
 		// set tooltip position
 		if (!options.followMouse) {
@@ -157,8 +157,8 @@ function TooltipController(options) {
 	 */
 	function hideTip(element) {
 		session.isClosing = true;
-		element.data('hasActiveHover', false);
-		element.data('forcedOpen', false);
+		element.data(DATA_HASACTIVEHOVER, false);
+		element.data(DATA_FORCEDOPEN, false);
 		// reset session
 		session.activeHover = null;
 		session.isTipOpen = false;
@@ -199,7 +199,7 @@ function TooltipController(options) {
 		if (session.isTipOpen && !session.isClosing) {
 			var isDesynced = false;
 			// user moused onto another tip or active hover is disabled
-			if (session.activeHover.data('hasActiveHover') === false || session.activeHover.is(':disabled')) {
+			if (session.activeHover.data(DATA_HASACTIVEHOVER) === false || session.activeHover.is(':disabled')) {
 				isDesynced = true;
 			} else {
 				// hanging tip - have to test if mouse position is not over
@@ -209,8 +209,8 @@ function TooltipController(options) {
 				// does not have focus.
 				// for tooltips opened via the api: we need to check if it
 				// has the forcedOpen flag.
-				if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data('forcedOpen')) {
-					if (tipElement.data('mouseOnToPopup')) {
+				if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data(DATA_FORCEDOPEN)) {
+					if (tipElement.data(DATA_MOUSEONTOTIP)) {
 						if (!isMouseOver(tipElement)) {
 							isDesynced = true;
 						}
@@ -238,7 +238,7 @@ function TooltipController(options) {
 		// but we should only set the tip location if a fixed tip is not
 		// currently open, a tip open is imminent or active, and the
 		// tooltip element in question does have a mouse-follow using it.
-		if (!session.isFixedTipOpen && (session.isTipOpen || (session.tipOpenImminent && tipElement.data('hasMouseMove')))) {
+		if (!session.isFixedTipOpen && (session.isTipOpen || (session.tipOpenImminent && tipElement.data(DATA_HASMOUSEMOVE)))) {
 			// grab measurements
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
@@ -577,9 +577,9 @@ function TooltipController(options) {
 	 *     undefined if there was no tooltip content for the element.
 	 */
 	function getTooltipContent(element) {
-		var tipText = element.data('powertip'),
-			tipObject = element.data('powertipjq'),
-			tipTarget = element.data('powertiptarget'),
+		var tipText = element.data(DATA_POWERTIP),
+			tipObject = element.data(DATA_POWERTIPJQ),
+			tipTarget = element.data(DATA_POWERTIPTARGET),
 			content;
 
 		if (tipText) {
