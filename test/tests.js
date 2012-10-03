@@ -1,18 +1,17 @@
 $(function() {
+	'use strict';
+
+	module('Integration');
 
 	//////////////////// CORE TESTS ////////////////////
 
-	module('PowerTip Core');
-
 	test('powerTip defined', function() {
 		var element = $('<a href="#" title="This is the tooltip text"></a>');
-		ok(element.powerTip, 'powerTip method is defined');
-		deepEqual(typeof element.powerTip, 'function', 'powerTip is a function');
+		strictEqual(typeof element.powerTip, 'function', 'powerTip method is defined');
 	});
 
 	test('expose default settings', function() {
 		ok($.fn.powerTip.defaults, 'defaults is defined');
-		// existance check for each property
 		ok($.fn.powerTip.defaults.hasOwnProperty('fadeInTime'), 'fadeInTime exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('fadeOutTime'), 'fadeOutTime exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('followMouse'), 'followMouse exists');
@@ -28,7 +27,6 @@ $(function() {
 
 	test('expose smart placement lists', function() {
 		ok($.fn.powerTip.smartPlacementLists, 'smartPlacementLists is defined');
-		// existance check for each property
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('n'), 'n exists');
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('e'), 'e exists');
 		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('s'), 's exists');
@@ -59,25 +57,21 @@ $(function() {
 		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
 		ok(!element.attr('title'), 'title attribute was removed');
 		element.powerTip('destroy');
-		deepEqual(element.attr('title'), 'This is the tooltip text', 'title attribute was added back');
+		strictEqual(element.attr('title'), 'This is the tooltip text', 'title attribute was added back');
 	});
 
 	//////////////////// API TESTS ////////////////////
 
-	module('PowerTip API');
-
 	test('expose API', function() {
 		ok($.powerTip, 'API is defined');
-		ok($.powerTip.showTip, 'showTip method is defined');
-		deepEqual(typeof $.powerTip.showTip, 'function', 'showTip is a function');
-		ok($.powerTip.resetPosition, 'resetPosition method is defined');
-		deepEqual(typeof $.powerTip.resetPosition, 'function', 'resetPosition is a function');
-		ok($.powerTip.closeTip, 'closeTip method is defined');
-		deepEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is a function');
+		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip method is defined');
+		strictEqual(typeof $.powerTip.resetPosition, 'function', 'resetPosition method is defined');
+		strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip method is defined');
 	});
 
 	asyncTest('showTip should open a tooltip and closeTip should close it', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
 		// which will appear to be at 0,0 to jQuery
@@ -85,23 +79,23 @@ $(function() {
 
 		$.powerTip.showTip(element);
 
-		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+		strictEqual(tipElem.css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+			notStrictEqual(tipElem.css('opacity'), '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
 			$.powerTip.closeTip();
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
 
@@ -109,7 +103,8 @@ $(function() {
 	});
 
 	asyncTest('.powerTip("show") should open a tooltip and .powerTip("hide", true) should close it immediately', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
 		// which will appear to be at 0,0 to jQuery
@@ -117,33 +112,30 @@ $(function() {
 
 		element.powerTip('show');
 
-		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+		strictEqual(tipElem.css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+			notStrictEqual(tipElem.css('opacity'), '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
 			element.powerTip('hide', true);
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
 
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
-
 	//////////////////// CONTENT SUPPORT TESTS ////////////////////
-
-	module('PowerTip Content Support');
 
 	function openExecCloseAndContinue(element, callback) {
 		// tell powertip that the mouse isn't over the element
@@ -165,100 +157,106 @@ $(function() {
 	}
 
 	asyncTest('handle title attribute', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip').text(), 'This is the tooltip text', 'title text used in tooltip');
+			strictEqual(tipElem.text(), 'This is the tooltip text', 'title text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertip data attribute', function() {
-		var element = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip').text(), 'This is the tooltip text', 'data-powertip text used in tooltip');
+			strictEqual(tipElem.text(), 'This is the tooltip text', 'data-powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertip data with function source', function() {
 		var element = $('<a href="#"></a>')
-			.data('powertip', function() {
-				return 'This is the tooltip text';
-			})
-			.powerTip();
+				.data('powertip', function() {
+					return 'This is the tooltip text';
+				})
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip').text(), 'This is the tooltip text', 'powertip text used in tooltip');
+			strictEqual(tipElem.text(), 'This is the tooltip text', 'powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertipjq jQuery data', function() {
-		var element = $('<a href="#"></a>');
-		element.data('powertipjq', $('<b>This is the tooltip text</b>'));
-		element.powerTip();
+		var element = $('<a href="#"></a>')
+				.data('powertipjq', $('<b>This is the tooltip text</b>'))
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip b').text(), 'This is the tooltip text', 'powertipjq text used in tooltip');
+			strictEqual(tipElem.find('b').text(), 'This is the tooltip text', 'powertipjq text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertipjq data with function source', function() {
 		var element = $('<a href="#"></a>')
-			.data('powertipjq', function() {
-				return $('<b>This is the tooltip text</b>');
-			})
-			.powerTip();
+				.data('powertipjq', function() {
+					return $('<b>This is the tooltip text</b>');
+				})
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip b').text(), 'This is the tooltip text', 'powertip text used in tooltip');
+			strictEqual(tipElem.find('b').text(), 'This is the tooltip text', 'powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertiptarget DOM object source data', function() {
+		var element = $('<a href="#" data-powertiptarget="test-target"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
 		$('body').append($('<div id="test-target" style="display:none;">This is the tooltip text</div>'));
-		var element = $('<a href="#" data-powertiptarget="test-target"></a>');
-		element.powerTip();
 
 		openExecCloseAndContinue(element, function() {
-			deepEqual($('#powerTip').text(), 'This is the tooltip text', 'text from the target element used in tooltip');
+			strictEqual(tipElem.text(), 'This is the tooltip text', 'text from the target element used in tooltip');
 		});
 	});
 
 	asyncTest('handle HTML entities in data-powertip', function() {
-		var element = $('<a href="#" data-powertip="This <invalid>is</invalid> the <b>tooltip text</b> and <code>{ some: code }</code>"></a>').powerTip();
+		var element = $('<a href="#"></a>')
+				.data('powertip', 'This <invalid>is</invalid> the <b>tooltip text</b> and <code>{ some: code }</code>')
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			ok($('#powerTip b').length, 'b element was inserted');
-			ok($('#powerTip code').length, 'code element was inserted');
-			ok($('#powerTip invalid').length, 'invalid element was inserted');
+			ok(tipElem.find('b').length, 'b element was inserted');
+			ok(tipElem.find('code').length, 'code element was inserted');
+			ok(tipElem.find('invalid').length, 'invalid element was inserted');
 		});
 	});
 
 	asyncTest('preserve custom events in powertipjq jQuery data', function() {
-		var element = $('<a href="#"></a>'),
-			jqObject = $('<b>This is the tooltip text</b>'),
+		var jqObject = $('<b>This is the tooltip text</b>')
+				.on('click', function() {
+					clickFired = true;
+				}),
+			element = $('<a href="#"></a>')
+				.data('powertipjq', jqObject)
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			clickFired = false;
 
-		jqObject.on('click', function() {
-			clickFired = true;
-		});
-
-		element.data('powertipjq', jqObject);
-		element.powerTip();
-
 		openExecCloseAndContinue(element, function() {
-			$('#powerTip b').trigger('click');
-			deepEqual(clickFired, true, 'click event fired');
+			tipElem.find('b').trigger('click');
+			ok(clickFired, 'click event fired');
 		});
 	});
 
-
 	//////////////////// MOUSE SUPPORT TESTS ////////////////////
 
-	module('PowerTip Mouse Support');
-
 	asyncTest('should not show tooltip if the mouse leaves the element before the intent interval', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		element.trigger('mouseenter');
 
@@ -267,26 +265,24 @@ $(function() {
 		}, $.fn.powerTip.defaults.intentPollInterval - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+			strictEqual(tipElem.css('display'), 'none', 'display set to none');
 			start();
 		}, $.fn.powerTip.defaults.intentPollInterval + 50);
 	});
 
 	asyncTest('should not show tooltip if the mouse keeps moving', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
+			i = 0, x = 0, y = 0;
 
-		element.trigger('mouseenter');
-
-		var i = 0, x = 0, y = 0;
 		var changeMousePosition = function() {
 			if (i < 10) {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 
 				// move the mouse cursor and run the test again
 				x += $.fn.powerTip.defaults.intentSensitivity;
 				y += $.fn.powerTip.defaults.intentSensitivity;
-				var e = $.Event('mousemove', { pageX: x, pageY: y });
-				$(document).trigger(e);
+				$(document).trigger($.Event('mousemove', { pageX: x, pageY: y }));
 				setTimeout(changeMousePosition, $.fn.powerTip.defaults.intentPollInterval);
 			} else {
 				// we're done testing
@@ -297,52 +293,74 @@ $(function() {
 			i++;
 		};
 
+		element.trigger('mouseenter');
+
 		setTimeout(changeMousePosition, $.fn.powerTip.defaults.intentPollInterval);
 	});
 
 	asyncTest('tooltip should open on mouse enter and close on mouse leave', function() {
-		var element = $('<a href="#" title="This is the tooltip text" style="display:block;position:absolute;top:150px;left:150px;">TESTTESTTEST</a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text">TESTTESTTEST</a>')
+				.css({
+					display: 'block',
+					position: 'absolute',
+					top: 150,
+					left: 150
+				})
+				.powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		strictEqual(tipElem.css('display'), 'none', 'display set to none');
 
 		// tell powertip that the mouse is over the element
-		var e = $.Event('mousemove', { pageX: element.offset().top, pageY: element.offset().left });
-		$(document).trigger(e);
+		$(document).trigger(
+			$.Event(
+				'mousemove',
+				{
+					pageX: element.offset().top,
+					pageY: element.offset().left
+				}
+			)
+		);
 
-		deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
-
-		element.trigger($.Event('mouseenter', { pageX: element.offset().top, pageY: element.offset().left }));
+		element.trigger(
+			$.Event(
+				'mouseenter',
+				{
+					pageX: element.offset().top,
+					pageY: element.offset().left
+				}
+			)
+		);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+			strictEqual(tipElem.css('display'), 'block', 'display set to block');
 		}, $.fn.powerTip.defaults.intentPollInterval + 50);
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+			notStrictEqual(tipElem.css('opacity'), '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.intentPollInterval + $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
 			element.trigger('mouseleave');
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.closeDelay + $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 				start();
 			}, $.fn.powerTip.defaults.closeDelay + $.fn.powerTip.defaults.fadeOutTime + 50);
-
 		}, $.fn.powerTip.defaults.intentPollInterval + $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
-
 	//////////////////// KEYBOARD SUPPORT TESTS ////////////////////
 
-	module('PowerTip Keyboard Support');
-
 	asyncTest('tooltips should open when they receive focus and close when they blur', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
 		// which will appear to be at 0,0 to jQuery
@@ -350,87 +368,88 @@ $(function() {
 
 		element.trigger('focus');
 
-		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+		strictEqual(tipElem.css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+			notStrictEqual(tipElem.css('opacity'), '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
 			element.trigger('blur');
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
-
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
 	asyncTest('tooltip should close when escape key is pressed', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
 
 		$.powerTip.showTip(element);
 
-		deepEqual($('#powerTip').css('display'), 'block', 'display set to block');
+		strictEqual(tipElem.css('display'), 'block', 'display set to block');
 
 		setTimeout(function() {
-			ok($('#powerTip').css('opacity') !== '1', 'tooltip is not faded in');
+			notStrictEqual(tipElem.css('opacity'), '1', 'tooltip is not faded in');
 		}, $.fn.powerTip.defaults.fadeInTime - 50);
 
 		setTimeout(function() {
-			deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
 			$(element).trigger($.Event('keydown', { keyCode: 27 }));
 
 			setTimeout(function() {
-				ok($('#powerTip').css('opacity') !== '0', 'tooltip is not faded out');
+				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
 			}, $.fn.powerTip.defaults.fadeOutTime - 50);
 
 			setTimeout(function() {
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
-
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 
 	});
 
-
 	//////////////////// EVENT TESTS ////////////////////
 
-	module('PowerTip Events');
-
 	asyncTest('all events should fire during the tooltip life cycle', function() {
-		expect(9);
+		var element = $('<a href="#" title="UNIQUE TOOLTIP TEXT"></a>').powerTip(),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
+			preRenderFired = false,
+			renderFired = false,
+			openFired = false,
+			closeFired = false;
 
-		var element = $('<a href="#" title="UNIQUE TOOLTIP TEXT"></a>').powerTip();
+		expect(9);
 
 		element.on({
 			powerTipPreRender: function() {
-				ok(true, 'powerTipPreRender fired');
-				ok($('#powerTip').text() !== 'UNIQUE TOOLTIP TEXT', 'tooltip content has not been inserted yet');
+				preRenderFired = true;
+				ok(tipElem.text() !== 'UNIQUE TOOLTIP TEXT', 'tooltip content has not been inserted yet');
 			},
 			powerTipRender: function() {
-				ok(true, 'powerTipRender fired');
-				deepEqual($('#powerTip').text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content has been inserted');
+				renderFired = true;
+				strictEqual(tipElem.text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content has been inserted');
 			},
 			powerTipOpen: function() {
-				ok(true, 'powerTipOpen fired');
-				deepEqual($('#powerTip').css('opacity'), '1', 'tooltip is faded in');
+				openFired = true;
+				strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 			},
 			powerTipClose: function() {
-				ok(true, 'powerTipClose fired');
-				deepEqual($('#powerTip').text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content still exists');
-				deepEqual($('#powerTip').css('display'), 'none', 'display set to none');
+				closeFired = true;
+				strictEqual(tipElem.text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content still exists');
+				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 			}
 		});
 
@@ -444,6 +463,10 @@ $(function() {
 			// ... then let the tooltip fully close
 			$.powerTip.closeTip();
 			setTimeout(function() {
+				ok(preRenderFired, 'powerTipPreRender fired');
+				ok(renderFired, 'powerTipRender fired');
+				ok(openFired, 'powerTipOpen fired');
+				ok(closeFired, 'powerTipClose fired');
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
