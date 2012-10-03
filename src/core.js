@@ -274,34 +274,34 @@ function CSSCordinate() {
 /**
  * Asks the DisplayController for the specified element to show() its tooltip.
  * @private
- * @param {jQuery} el The element that the tooltip should be shown for.
+ * @param {jQuery} element The element that the tooltip should be shown for.
  * @param {boolean=} immediate Skip intent testing (optional).
  * @param {boolean=} forcedOpen Ignore cursor position and force tooltip to open (optional).
  */
-function elementShowTip(el, immediate, forcedOpen) {
-	$(el).data(DATA_DISPLAYCONTROLLER).show(immediate, forcedOpen);
+function elementShowTip(element, immediate, forcedOpen) {
+	$(element).data(DATA_DISPLAYCONTROLLER).show(immediate, forcedOpen);
 }
 
 /**
  * Tracks the mouse cursor position specified in the event and attempts to open
  * the tooltip for the specified element.
  * @private
- * @param {jQuery} el The element that the tooltip should be shown for.
+ * @param {jQuery} element The element that the tooltip should be shown for.
  * @param {jQuery.Event} event The event with pageX and pageY info.
  */
-function elementShowAndTrack(el, event) {
+function elementShowAndTrack(element, event) {
 	trackMouse(event);
 	session.previousX = event.pageX;
 	session.previousY = event.pageY;
-	elementShowTip(el);
+	elementShowTip(element);
 }
 
 /**
  * Asks the DisplayController for the specified element to hide() its tooltip.
  * @private
- * @param {jQuery} el The element that the tooltip should be shown for.
+ * @param {jQuery} element The element that the tooltip should be shown for.
  * @param {boolean=} immediate Disable close delay (optional).
  */
-function elementHideTip(el, immediate) {
-	$(el).data(DATA_DISPLAYCONTROLLER).hide(immediate);
+function elementHideTip(element, immediate) {
+	$(element).data(DATA_DISPLAYCONTROLLER).hide(immediate);
 }
