@@ -97,7 +97,12 @@ module.exports = function(grunt) {
 					test: true,
 					asyncTest: true,
 					ok: true,
+					equal: true,
+					notEqual: true,
 					deepEqual: true,
+					notDeepEqual: true,
+					strictEqual: true,
+					notStrictEqual: true,
 					start: true
 				}
 			},
