@@ -403,14 +403,15 @@ Smart placement is **disabled** by default because I believe that the world woul
 * Escape key will now close tooltip for selected element.
 * Added several alternative tooltip CSS themes.
 * Added support for elastic tooltips.
-* Added resetPosition() method to the API.
-* Added destroy option to powerTip().
+* Added reposition() method to the API.
+* Added destroy() method to the API.
 * Added manual option to disable the built-in event listeners.
 * Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
 * Added support for SVG elements.
 * Changed default z-index in CSS themes to int max.
 * Data attributes powertip and powertipjq now accept a function.
 * powerTip() will now overwrite any previous powerTip() calls on an element.
+* You can now pass API method names as strings to the `powerTip()` function.
 * Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
 
 **[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
