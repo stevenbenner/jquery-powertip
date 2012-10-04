@@ -193,7 +193,7 @@ $.powerTip = {
 	 * @public
 	 * @param {jQuery} element The element that the tooltip is shown for.
 	 */
-	resetPosition: function apiResetPosition(element) {
+	reposition: function apiResetPosition(element) {
 		element.first().data(DATA_DISPLAYCONTROLLER).resetPosition();
 		return element;
 	},
