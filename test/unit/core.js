@@ -118,13 +118,30 @@ $(function() {
 	});
 
 	test('expose API', function() {
-		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip is defined');
-		strictEqual(typeof $.powerTip.resetPosition, 'function', 'resetPosition is defined');
-		strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is defined');
+		strictEqual(typeof $.powerTip.show, 'function', 'show is defined');
+		strictEqual(typeof $.powerTip.reposition, 'function', 'reposition is defined');
+		strictEqual(typeof $.powerTip.hide, 'function', 'hide is defined');
 		strictEqual(typeof $.powerTip.destroy, 'function', 'destroy is defined');
+		// deprecated
+		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip is defined');
+		strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is defined');
 	});
 
-	test('API showTip method should call DisplayController.show', function() {
+	test('API show method should call DisplayController.show', function() {
+		var showCalled = false,
+			element = $('<span />')
+				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
+					function() {
+						showCalled = true;
+					}
+				));
+
+		$.powerTip.show(element);
+
+		ok(showCalled, 'show method was called');
+	});
+
+	test('API showTip (DEPRECATED) method should call DisplayController.show', function() {
 		var showCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
@@ -138,7 +155,7 @@ $(function() {
 		ok(showCalled, 'show method was called');
 	});
 
-	test('API resetPosition method should call DisplayController.resetPosition', function() {
+	test('API reposition method should call DisplayController.resetPosition', function() {
 		var resetCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
@@ -150,12 +167,27 @@ $(function() {
 					}
 				));
 
-		$.powerTip.resetPosition(element);
+		$.powerTip.reposition(element);
 
-		ok(resetCalled, 'resetPosition method was called');
+		ok(resetCalled, 'reposition method was called');
 	});
 
-	test('API closeTip method should call DisplayController.hide', function() {
+	test('API hide method should call DisplayController.hide', function() {
+		var hideCalled = false,
+			element = $('<span />')
+				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
+					null,
+					function() {
+						hideCalled = true;
+					}
+				));
+
+		$.powerTip.hide(element);
+
+		ok(hideCalled, 'hide method was called');
+	});
+
+	test('API closeTip (DEPRECATED) method should call DisplayController.hide', function() {
 		var hideCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(

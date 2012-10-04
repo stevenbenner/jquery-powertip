@@ -64,8 +64,11 @@ $(function() {
 
 	test('expose API', function() {
 		ok($.powerTip, 'API is defined');
+		strictEqual(typeof $.powerTip.show, 'function', 'show method is defined');
+		strictEqual(typeof $.powerTip.reposition, 'function', 'reposition method is defined');
+		strictEqual(typeof $.powerTip.hide, 'function', 'closeTip method is defined');
+		// deprecated
 		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip method is defined');
-		strictEqual(typeof $.powerTip.resetPosition, 'function', 'resetPosition method is defined');
 		strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip method is defined');
 	});
 
