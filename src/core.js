@@ -179,7 +179,7 @@ $.powerTip = {
 	 * @param {jQuery} element The element that the tooltip should for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
-	showTip: function apiShowTip(element, event) {
+	show: function apiShowTip(element, event) {
 		if (event) {
 			elementShowAndTrack(element.first(), event);
 		} else {
@@ -204,7 +204,7 @@ $.powerTip = {
 	 * @param {jQuery=} element A specific element whose tip should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
-	closeTip: function apiCloseTip(element, immediate) {
+	hide: function apiCloseTip(element, immediate) {
 		if (element) {
 			elementHideTip(element.first(), immediate);
 		} else {
@@ -240,8 +240,8 @@ $.powerTip = {
 };
 
 // API aliasing
-$.powerTip.show = $.powerTip.showTip;
-$.powerTip.hide = $.powerTip.closeTip;
+$.powerTip.showTip = $.powerTip.show;
+$.powerTip.closeTip = $.powerTip.hide;
 
 /**
  * Creates a new CSSCordinate object.
