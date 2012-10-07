@@ -49,7 +49,6 @@ var session = {
  * @return {jQuery} jQuery object for the matched selectors.
  */
 $.fn.powerTip = function(opts, arg) {
-
 	// don't do any work if there were no matched elements
 	if (!this.length) {
 		return this;
@@ -108,7 +107,6 @@ $.fn.powerTip = function(opts, arg) {
 			'mouseleave.powertip': function elementMouseLeave() {
 				elementHideTip(this);
 			},
-
 			// keyboard events
 			'focus.powertip': function elementFocus() {
 				elementShowTip(this, true);
@@ -126,7 +124,6 @@ $.fn.powerTip = function(opts, arg) {
 	}
 
 	return this;
-
 };
 
 /**
@@ -172,7 +169,6 @@ $.fn.powerTip.smartPlacementLists = {
  * Public API
  */
 $.powerTip = {
-
 	/**
 	 * Attempts to show the tooltip for the specified element.
 	 * @public
@@ -236,7 +232,6 @@ $.powerTip = {
 			]);
 		});
 	}
-
 };
 
 // API aliasing

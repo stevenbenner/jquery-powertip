@@ -14,7 +14,6 @@
  * @param {Object} options Options object containing settings.
  */
 function TooltipController(options) {
-
 	// build and append tooltip div if it does not already exist
 	var tipElement = $('#' + options.popupId);
 	if (tipElement.length === 0) {
