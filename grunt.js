@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 					'<file_strip_banner:src/intro.js>',
 					'<file_strip_banner:src/core.js>',
 					'<file_strip_banner:src/displaycontroller.js>',
+					'<file_strip_banner:src/placementcalculator.js>',
 					'<file_strip_banner:src/tooltipcontroller.js>',
 					'<file_strip_banner:src/utility.js>',
 					'<file_strip_banner:src/outro.js>'
