@@ -239,11 +239,11 @@ $.powerTip.showTip = $.powerTip.show;
 $.powerTip.closeTip = $.powerTip.hide;
 
 /**
- * Creates a new CSSCordinate object.
+ * Creates a new CSSCoordinates object.
  * @private
  * @constructor
  */
-function CSSCordinate() {
+function CSSCoordinates() {
 	var me = this;
 
 	// initialize object properties

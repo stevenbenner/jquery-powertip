@@ -145,11 +145,11 @@ function PlacementCalculator() {
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
 	 * @param {number} offset Distance to offset tooltips in pixels.
-	 * @return {CSSCordinate} A CSSCordinate object with the top, left, and right position values.
+	 * @return {CSSCoordinates} A CSSCoordinates object with the top, left, and right position values.
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
-			coords = new CSSCordinate(),
+			coords = new CSSCoordinates(),
 			position;
 
 		if (isSvgElement(element)) {

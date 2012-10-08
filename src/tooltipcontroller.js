@@ -167,7 +167,7 @@ function TooltipController(options) {
 		session.desyncTimeout = window.clearInterval(session.desyncTimeout);
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
-			var coords = new CSSCordinate();
+			var coords = new CSSCoordinates();
 
 			// reset session and tooltip element
 			session.isClosing = false;
@@ -243,7 +243,7 @@ function TooltipController(options) {
 			// grab measurements
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
-				coords = new CSSCordinate(),
+				coords = new CSSCoordinates(),
 				collisions, collisionCount;
 
 			// grab collisions
@@ -330,13 +330,13 @@ function TooltipController(options) {
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
-	 * @return {CSSCordinate} A CSSCordinate object with the top, left, and right position values.
+	 * @return {CSSCoordinates} A CSSCoordinates object with the top, left, and right position values.
 	 */
 	function placeTooltip(element, placement) {
 		var iterationCount = 0,
 			tipWidth,
 			tipHeight,
-			coords = new CSSCordinate();
+			coords = new CSSCoordinates();
 
 		// for the first iteration set the tip to 0,0 to get the full
 		// expanded width

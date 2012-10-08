@@ -97,7 +97,7 @@ function isMouseOver(element) {
  * Finds any viewport collisions that an element (the tooltip) would have
  * if it were absolutely positioned at the specified coordinates.
  * @private
- * @param {CSSCordinate} coords Coordinates for the element.
+ * @param {CSSCoordinates} coords Coordinates for the element.
  * @param {number} elementWidth Width of the element in pixels.
  * @param {number} elementHeight Height of the element in pixels.
  * @return {Array.<string>} Array of words representing directional collisions.
