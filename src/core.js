@@ -172,7 +172,7 @@ $.powerTip = {
 	/**
 	 * Attempts to show the tooltip for the specified element.
 	 * @public
-	 * @param {jQuery} element The element that the tooltip should for.
+	 * @param {jQuery|Element} element The element that the tooltip should for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
 	show: function apiShowTip(element, event) {
@@ -190,17 +190,17 @@ $.powerTip = {
 	/**
 	 * Repositions the tooltip on the element.
 	 * @public
-	 * @param {jQuery} element The element that the tooltip is shown for.
+	 * @param {jQuery|Element} element The element that the tooltip is shown for.
 	 */
 	reposition: function apiResetPosition(element) {
-		element.first().data(DATA_DISPLAYCONTROLLER).resetPosition();
+		$(element).first().data(DATA_DISPLAYCONTROLLER).resetPosition();
 		return element;
 	},
 
 	/**
 	 * Attempts to close any open tooltips.
 	 * @public
-	 * @param {jQuery=} element A specific element whose tip should be closed (optional).
+	 * @param {(jQuery|Element)=} element A specific element whose tip should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
 	hide: function apiCloseTip(element, immediate) {
@@ -217,10 +217,10 @@ $.powerTip = {
 	/**
 	 * Destroy and roll back any powerTip() instance on the specified element.
 	 * @public
-	 * @param {jQuery} element The element with the powerTip instance.
+	 * @param {jQuery|Element} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
-		return element.off('.powertip').each(function destroy() {
+		$(element).off('.powertip').each(function destroy() {
 			var $this = $(this);
 
 			if ($this.data(DATA_ORIGINALTITLE)) {
@@ -234,6 +234,7 @@ $.powerTip = {
 				DATA_FORCEDOPEN
 			]);
 		});
+		return element;
 	}
 };
 
