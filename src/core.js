@@ -102,22 +102,22 @@ $.fn.powerTip = function(opts, arg) {
 		this.on({
 			// mouse events
 			'mouseenter.powertip': function elementMouseEnter(event) {
-				elementShowAndTrack(this, event);
+				$.powerTip.show(this, event);
 			},
 			'mouseleave.powertip': function elementMouseLeave() {
-				elementHideTip(this);
+				$.powerTip.hide(this);
 			},
 			// keyboard events
 			'focus.powertip': function elementFocus() {
-				elementShowTip(this, true);
+				$.powerTip.show(this);
 			},
 			'blur.powertip': function elementBlur() {
-				elementHideTip(this, true);
+				$.powerTip.hide(this, true);
 			},
 			'keydown.powertip': function elementKeyDown(event) {
 				// close tooltip when the escape key is pressed
 				if (event.keyCode === 27) {
-					elementHideTip(this, true);
+					$.powerTip.hide(this, true);
 				}
 			}
 		});
@@ -177,9 +177,12 @@ $.powerTip = {
 	 */
 	show: function apiShowTip(element, event) {
 		if (event) {
-			elementShowAndTrack(element.first(), event);
+			trackMouse(event);
+			session.previousX = event.pageX;
+			session.previousY = event.pageY;
+			$(element).data(DATA_DISPLAYCONTROLLER).show();
 		} else {
-			elementShowTip(element.first(), true, true);
+			$(element).first().data(DATA_DISPLAYCONTROLLER).show(true, true);
 		}
 		return element;
 	},
@@ -202,10 +205,10 @@ $.powerTip = {
 	 */
 	hide: function apiCloseTip(element, immediate) {
 		if (element) {
-			elementHideTip(element.first(), immediate);
+			$(element).first().data(DATA_DISPLAYCONTROLLER).hide(immediate);
 		} else {
 			if (session.activeHover) {
-				elementHideTip(session.activeHover, true);
+				session.activeHover.data(DATA_DISPLAYCONTROLLER).hide(true);
 			}
 		}
 		return element;
@@ -262,41 +265,4 @@ function CSSCoordinates() {
 			me[property] = Math.round(value);
 		}
 	};
-}
-
-// Common utility functions
-
-/**
- * Asks the DisplayController for the specified element to show() its tooltip.
- * @private
- * @param {jQuery} element The element that the tooltip should be shown for.
- * @param {boolean=} immediate Skip intent testing (optional).
- * @param {boolean=} forcedOpen Ignore cursor position and force tooltip to open (optional).
- */
-function elementShowTip(element, immediate, forcedOpen) {
-	$(element).data(DATA_DISPLAYCONTROLLER).show(immediate, forcedOpen);
-}
-
-/**
- * Tracks the mouse cursor position specified in the event and attempts to open
- * the tooltip for the specified element.
- * @private
- * @param {jQuery} element The element that the tooltip should be shown for.
- * @param {jQuery.Event} event The event with pageX and pageY info.
- */
-function elementShowAndTrack(element, event) {
-	trackMouse(event);
-	session.previousX = event.pageX;
-	session.previousY = event.pageY;
-	elementShowTip(element);
-}
-
-/**
- * Asks the DisplayController for the specified element to hide() its tooltip.
- * @private
- * @param {jQuery} element The element that the tooltip should be shown for.
- * @param {boolean=} immediate Disable close delay (optional).
- */
-function elementHideTip(element, immediate) {
-	$(element).data(DATA_DISPLAYCONTROLLER).hide(immediate);
 }
