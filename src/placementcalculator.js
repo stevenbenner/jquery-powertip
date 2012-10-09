@@ -14,6 +14,83 @@
  */
 function PlacementCalculator() {
 	/**
+	 * Compute the top/left/right CSS position to display the tooltip at the
+	 * specified placement relative to the specified element.
+	 * @private
+	 * @param {jQuery} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
+	 * @param {number} tipWidth Width of the tooltip element in pixels.
+	 * @param {number} tipHeight Height of the tooltip element in pixels.
+	 * @param {number} offset Distance to offset tooltips in pixels.
+	 * @return {CSSCoordinates} A CSSCoordinates object with the top, left, and right position values.
+	 */
+	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
+		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
+			coords = new CSSCoordinates(),
+			position;
+
+		if (isSvgElement(element)) {
+			position = getSvgPlacement(element, placementBase);
+		} else {
+			position = getHtmlPlacement(element, placementBase);
+		}
+
+		// calculate the appropriate x and y position in the document
+		switch (placement) {
+		case 'n':
+			coords.set('left', position.left - (tipWidth / 2));
+			coords.set('top', position.top - tipHeight - offset);
+			break;
+		case 'e':
+			coords.set('left', position.left + offset);
+			coords.set('top', position.top - (tipHeight / 2));
+			break;
+		case 's':
+			coords.set('left', position.left - (tipWidth / 2));
+			coords.set('top', position.top + offset);
+			break;
+		case 'w':
+			coords.set('top', position.top - (tipHeight / 2));
+			coords.set('right', $window.width() - position.left + offset);
+			break;
+		case 'nw':
+			coords.set('top', position.top - tipHeight - offset);
+			coords.set('right', $window.width() - position.left - 20);
+			break;
+		case 'nw-alt':
+			coords.set('left', position.left);
+			coords.set('top', position.top - tipHeight - offset);
+			break;
+		case 'ne':
+			coords.set('left', position.left - 20);
+			coords.set('top', position.top - tipHeight - offset);
+			break;
+		case 'ne-alt':
+			coords.set('top', position.top - tipHeight - offset);
+			coords.set('right', $window.width() - position.left);
+			break;
+		case 'sw':
+			coords.set('top', position.top + offset);
+			coords.set('right', $window.width() - position.left - 20);
+			break;
+		case 'sw-alt':
+			coords.set('left', position.left);
+			coords.set('top', position.top + offset);
+			break;
+		case 'se':
+			coords.set('left', position.left - 20);
+			coords.set('top', position.top + offset);
+			break;
+		case 'se-alt':
+			coords.set('top', position.top + offset);
+			coords.set('right', $window.width() - position.left);
+			break;
+		}
+
+		return coords;
+	}
+
+	/**
 	 * Compute the top,left position of the specified placement for an HTML element
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
@@ -134,83 +211,6 @@ function PlacementCalculator() {
 			top: coords.y + $window.scrollTop(),
 			left: coords.x + $window.scrollLeft()
 		};
-	}
-
-	/**
-	 * Compute the top/left/right CSS position to display the tooltip at the
-	 * specified placement relative to the specified element.
-	 * @private
-	 * @param {jQuery} element The element that the tooltip should target.
-	 * @param {string} placement The placement for the tooltip.
-	 * @param {number} tipWidth Width of the tooltip element in pixels.
-	 * @param {number} tipHeight Height of the tooltip element in pixels.
-	 * @param {number} offset Distance to offset tooltips in pixels.
-	 * @return {CSSCoordinates} A CSSCoordinates object with the top, left, and right position values.
-	 */
-	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
-		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
-			coords = new CSSCoordinates(),
-			position;
-
-		if (isSvgElement(element)) {
-			position = getSvgPlacement(element, placementBase);
-		} else {
-			position = getHtmlPlacement(element, placementBase);
-		}
-
-		// calculate the appropriate x and y position in the document
-		switch (placement) {
-		case 'n':
-			coords.set('left', position.left - (tipWidth / 2));
-			coords.set('top', position.top - tipHeight - offset);
-			break;
-		case 'e':
-			coords.set('left', position.left + offset);
-			coords.set('top', position.top - (tipHeight / 2));
-			break;
-		case 's':
-			coords.set('left', position.left - (tipWidth / 2));
-			coords.set('top', position.top + offset);
-			break;
-		case 'w':
-			coords.set('top', position.top - (tipHeight / 2));
-			coords.set('right', $window.width() - position.left + offset);
-			break;
-		case 'nw':
-			coords.set('top', position.top - tipHeight - offset);
-			coords.set('right', $window.width() - position.left - 20);
-			break;
-		case 'nw-alt':
-			coords.set('left', position.left);
-			coords.set('top', position.top - tipHeight - offset);
-			break;
-		case 'ne':
-			coords.set('left', position.left - 20);
-			coords.set('top', position.top - tipHeight - offset);
-			break;
-		case 'ne-alt':
-			coords.set('top', position.top - tipHeight - offset);
-			coords.set('right', $window.width() - position.left);
-			break;
-		case 'sw':
-			coords.set('top', position.top + offset);
-			coords.set('right', $window.width() - position.left - 20);
-			break;
-		case 'sw-alt':
-			coords.set('left', position.left);
-			coords.set('top', position.top + offset);
-			break;
-		case 'se':
-			coords.set('left', position.left - 20);
-			coords.set('top', position.top + offset);
-			break;
-		case 'se-alt':
-			coords.set('top', position.top + offset);
-			coords.set('right', $window.width() - position.left);
-			break;
-		}
-
-		return coords;
 	}
 
 	// expose methods
