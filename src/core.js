@@ -241,29 +241,3 @@ $.powerTip = {
 // API aliasing
 $.powerTip.showTip = $.powerTip.show;
 $.powerTip.closeTip = $.powerTip.hide;
-
-/**
- * Creates a new CSSCoordinates object.
- * @private
- * @constructor
- */
-function CSSCoordinates() {
-	var me = this;
-
-	// initialize object properties
-	me.top = 'auto';
-	me.left = 'auto';
-	me.right = 'auto';
-
-	/**
-	 * Set a property to a value.
-	 * @private
-	 * @param {string} property The name of the property.
-	 * @param {number} value The value of the property.
-	 */
-	me.set = function(property, value) {
-		if ($.isNumeric(value)) {
-			me[property] = Math.round(value);
-		}
-	};
-}
