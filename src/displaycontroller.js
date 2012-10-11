@@ -56,10 +56,12 @@ function DisplayController(element, options, tipController) {
 		if (element.data(DATA_HASACTIVEHOVER)) {
 			element.data(DATA_FORCEDOPEN, false);
 			if (!disableDelay) {
+				session.delayInProgress = true;
 				hoverTimer = window.setTimeout(
 					function closeDelay() {
 						hoverTimer = null;
 						tipController.hideTip(element);
+						session.delayInProgress = false;
 					},
 					options.closeDelay
 				);

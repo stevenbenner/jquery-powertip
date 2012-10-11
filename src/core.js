@@ -38,7 +38,8 @@ var session = {
 	previousX: 0,
 	previousY: 0,
 	desyncTimeout: null,
-	mouseTrackingActive: false
+	mouseTrackingActive: false,
+	delayInProgress: false
 };
 
 /**
