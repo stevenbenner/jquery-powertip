@@ -157,14 +157,18 @@ function TooltipController(options) {
 	 * @param {jQuery} element The element that the tooltip should target.
 	 */
 	function hideTip(element) {
-		session.isClosing = true;
-		element.data(DATA_HASACTIVEHOVER, false);
-		element.data(DATA_FORCEDOPEN, false);
 		// reset session
+		session.isClosing = true;
 		session.activeHover = null;
 		session.isTipOpen = false;
+
 		// stop desync polling
 		session.desyncTimeout = window.clearInterval(session.desyncTimeout);
+
+		// reset element state
+		element.data(DATA_HASACTIVEHOVER, false);
+		element.data(DATA_FORCEDOPEN, false);
+
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
 			var coords = new CSSCoordinates();
