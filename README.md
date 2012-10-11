@@ -205,7 +205,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `offset` | `10` | Number | Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
 | `fadeInTime` | `200` | Number | Tooltip fade-in time in milliseconds. |
 | `fadeOutTime` | `100` | Number | Tooltip fade-out time in milliseconds. |
-| `closeDelay` | `100` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. |
+| `closeDelay` | `100` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 | `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
@@ -251,6 +251,8 @@ You will want your tooltips to display over all other elements on your web page.
 You probably want to create some CSS arrows for your tooltips (unless you only use mouse-follow tooltips). This topic would be an article unto itself, so if you want to make your own CSS arrows from scratch you should just Google "css arrows" to see how it's done.
 
 CSS arrows are created by using borders of a specific color and transparent borders. PowerTip adds the arrows by creating an empty `:before` pseudo element and absolutely positioning it around the tooltip.
+
+It is important to note that if you increase the size of the tooltip arrows and want users to be able to interact with the tooltip content via the `mouseOnToPopup` option then you will probably need to increase the `closeDelay` option to provide enough time for the cursor to cross the gap between the element and the tooltip div.
 
 #### Fixed width
 
