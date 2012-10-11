@@ -413,6 +413,7 @@ Smart placement is **disabled** by default because I believe that the world woul
 * powerTip() will now overwrite any previous powerTip() calls on an element.
 * You can now pass API method names as strings to the `powerTip()` function.
 * Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
+* Fixed issue that could cause tooltips to close prematurely during the closeDelay period.
 
 **[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
 
