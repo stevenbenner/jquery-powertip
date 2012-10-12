@@ -110,16 +110,16 @@ function getViewportCollisions(coords, elementWidth, elementHeight) {
 		collisions = Collision.none;
 
 	if (coords.top < scrollTop) {
-		collisions = collisions | Collision.top;
+		collisions |= Collision.top;
 	}
 	if (coords.top + elementHeight > scrollTop + windowHeight) {
-		collisions = collisions | Collision.bottom;
+		collisions |= Collision.bottom;
 	}
 	if (coords.left < scrollLeft || coords.right + elementWidth > scrollLeft + windowWidth) {
-		collisions = collisions | Collision.left;
+		collisions |= Collision.left;
 	}
 	if (coords.left + elementWidth > scrollLeft + windowWidth || coords.right < scrollLeft) {
-		collisions = collisions | Collision.right;
+		collisions |= Collision.right;
 	}
 
 	return collisions;
