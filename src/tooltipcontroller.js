@@ -258,10 +258,10 @@ function TooltipController(options) {
 				tipWidth,
 				tipHeight
 			);
-			collisionCount = countFlags(collisions);
 
 			// handle tooltip view port collisions
-			if (collisionCount > 0) {
+			if (collisions !== Collision.none) {
+				collisionCount = countFlags(collisions);
 				if (collisionCount === 1) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
