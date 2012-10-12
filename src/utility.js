@@ -18,20 +18,6 @@ function isSvgElement(element) {
 }
 
 /**
- * Compute the width and height of an HTML or SVG element.
- * @private
- * @param {jQuery} element The element to measure
- * @return {Object} An object with width and height values
- */
-function computeElementSize(element) {
-	var rect = element[0].getBoundingClientRect();
-	return {
-		width: rect.width,
-		height: rect.height
-	};
-}
-
-/**
  * Hooks mouse position tracking to mousemove and scroll events.
  * Prevents attaching the events more than once.
  * @private
@@ -86,7 +72,7 @@ function trackMouse(event) {
  */
 function isMouseOver(element) {
 	var elementPosition = element.offset(),
-		elementSize = computeElementSize(element);
+		elementSize = element[0].getBoundingClientRect();
 	return session.currentX >= elementPosition.left &&
 		session.currentX <= elementPosition.left + elementSize.width &&
 		session.currentY >= elementPosition.top &&

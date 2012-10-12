@@ -21,16 +21,6 @@ $(function() {
 		ok(!isSvgElement(div), 'div is not an SVG element');
 	});
 
-	test('computeElementSize', function() {
-		var div = $('<div/>').css({ width: '300px', height: '200px' }).appendTo($('body')),
-			divSize = computeElementSize(div);
-
-		strictEqual(divSize.width, 300, 'div width is correct');
-		strictEqual(divSize.height, 200, 'div height is correct');
-
-		div.remove();
-	});
-
 	test('initMouseTracking', function() {
 		session.currentX = 1;
 		session.currentY = 1;
