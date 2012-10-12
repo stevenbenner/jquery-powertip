@@ -14,15 +14,15 @@
  */
 function PlacementCalculator() {
 	/**
-	 * Compute the top/left/right CSS position to display the tooltip at the
-	 * specified placement relative to the specified element.
+	 * Compute the CSS position to display a tooltip at the specified placement
+	 * relative to the specified element.
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
 	 * @param {number} offset Distance to offset tooltips in pixels.
-	 * @return {CSSCoordinates} A CSSCoordinates object with the top, left, and right position values.
+	 * @return {CSSCoordinates} A CSSCoordinates object with the position.
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
@@ -91,7 +91,8 @@ function PlacementCalculator() {
 	}
 
 	/**
-	 * Compute the top,left position of the specified placement for an HTML element
+	 * Finds the tooltip attachment point in the document for a HTML DOM element
+	 * for the specified placement.
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
@@ -146,7 +147,8 @@ function PlacementCalculator() {
 	}
 
 	/**
-	 * Compute the top,left position of the specified placement for a SVG element
+	 * Finds the tooltip attachment point in the document for a SVG element for
+	 * the specified placement.
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
