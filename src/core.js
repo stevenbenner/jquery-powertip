@@ -43,6 +43,18 @@ var session = {
 };
 
 /**
+ * Collision enumeration
+ * @enum {number}
+ */
+var Collision = {
+	none: 0,
+	top: 1,
+	bottom: 2,
+	left: 4,
+	right: 8
+};
+
+/**
  * Display hover tooltips on the matched elements.
  * @param {(Object|string)} opts The options object to use for the plugin, or the
  *     name of a method to invoke on the first matched element.

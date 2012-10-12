@@ -258,16 +258,16 @@ function TooltipController(options) {
 				tipWidth,
 				tipHeight
 			);
-			collisionCount = collisions.length;
+			collisionCount = countFlags(collisions);
 
 			// handle tooltip view port collisions
 			if (collisionCount > 0) {
 				if (collisionCount === 1) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
-					if (collisions[0] === 'right') {
+					if (collisions === Collision.right) {
 						coords.set('left', $window.width() - tipWidth);
-					} else if (collisions[0] === 'bottom') {
+					} else if (collisions === Collision.bottom) {
 						coords.set('top', $window.scrollTop() + $window.height() - tipHeight);
 					}
 				} else {
@@ -312,7 +312,7 @@ function TooltipController(options) {
 				finalPlacement = pos;
 
 				// break if there were no collisions
-				if (collisions.length === 0) {
+				if (collisions === Collision.none) {
 					return false;
 				}
 			});

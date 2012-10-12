@@ -1,11 +1,13 @@
 /*global
 	session:true
+	Collision:true
 	isSvgElement:true
 	computeElementSize:true
 	initMouseTracking:true
 	trackMouse:true
 	isMouseOver:true
-	getViewportCollisions:true*/
+	getViewportCollisions:true
+	countFlags:true*/
 $(function() {
 	'use strict';
 
@@ -91,13 +93,13 @@ $(function() {
 			none, right, bottom, bottomRight, top, left, topLeft;
 
 		function doTests() {
-			ok(none.length === 0, 'no collisions detected');
-			ok(right.length === 1 && $.inArray('right', right) >= 0, 'right collision detected');
-			ok(bottom.length === 1 && $.inArray('bottom', bottom) >= 0, 'bottom collision detected');
-			ok(bottomRight.length === 2 && $.inArray('bottom', bottomRight) >= 0 && $.inArray('right', bottomRight) >= 0, 'bottom right collision detected');
-			ok(top.length === 1 && $.inArray('top', top) >= 0, 'top collision detected');
-			ok(left.length === 1 && $.inArray('left', left) >= 0, 'left collision detected');
-			ok(topLeft.length === 2 && $.inArray('top', topLeft) >= 0 && $.inArray('left', topLeft) >= 0, 'top left collision detected');
+			ok(none === Collision.none, 'no collisions detected');
+			ok(countFlags(right) === 1 && (right & Collision.right) === Collision.right, 'right collision detected');
+			ok(countFlags(bottom) === 1 && (bottom & Collision.bottom) === Collision.bottom, 'bottom collision detected');
+			ok(countFlags(bottomRight) === 2 && (bottomRight & Collision.bottom) === Collision.bottom && (bottomRight & Collision.right) === Collision.right, 'bottom right collision detected');
+			ok(countFlags(top) === 1 && (top & Collision.top) === Collision.top, 'top collision detected');
+			ok(countFlags(left) === 1 && (left & Collision.left) === Collision.left, 'left collision detected');
+			ok(countFlags(topLeft) === 2 && (topLeft & Collision.top) === Collision.top && (topLeft & Collision.left) === Collision.left, 'top left collision detected');
 		}
 
 		// top/left placement

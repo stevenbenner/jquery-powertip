@@ -100,27 +100,41 @@ function isMouseOver(element) {
  * @param {CSSCoordinates} coords Coordinates for the element.
  * @param {number} elementWidth Width of the element in pixels.
  * @param {number} elementHeight Height of the element in pixels.
- * @return {Array.<string>} Array of words representing directional collisions.
+ * @return {number} Value with the collision flags.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
 	var scrollLeft = $window.scrollLeft(),
 		scrollTop = $window.scrollTop(),
 		windowWidth = $window.width(),
 		windowHeight = $window.height(),
-		collisions = [];
+		collisions = Collision.none;
 
 	if (coords.top < scrollTop) {
-		collisions.push('top');
+		collisions = collisions | Collision.top;
 	}
 	if (coords.top + elementHeight > scrollTop + windowHeight) {
-		collisions.push('bottom');
+		collisions = collisions | Collision.bottom;
 	}
 	if (coords.left < scrollLeft || coords.right + elementWidth > scrollLeft + windowWidth) {
-		collisions.push('left');
+		collisions = collisions | Collision.left;
 	}
 	if (coords.left + elementWidth > scrollLeft + windowWidth || coords.right < scrollLeft) {
-		collisions.push('right');
+		collisions = collisions | Collision.right;
 	}
 
 	return collisions;
+}
+
+/**
+ * Counts the number of bits set on a flags value.
+ * @param {number} value The flags value.
+ * @return {number} The number of bits that have been set.
+ */
+function countFlags(value) {
+	var count = 0;
+	while (value) {
+		value = value & (value - 1);
+		count++;
+	}
+	return count;
 }
