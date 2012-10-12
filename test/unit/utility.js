@@ -87,6 +87,20 @@ $(function() {
 		div.remove();
 	});
 
+	test('countFlags', function() {
+		var zero = Collision.none,
+			one = Collision.top,
+			two = Collision.top | Collision.left,
+			three = Collision.top | Collision.left | Collision.right,
+			four = Collision.top | Collision.left | Collision.right | Collision.bottom;
+
+		strictEqual(countFlags(zero), 0, 'Found zero flags.');
+		strictEqual(countFlags(one), 1, 'Found one flag.');
+		strictEqual(countFlags(two), 2, 'Found two flags.');
+		strictEqual(countFlags(three), 3, 'Found three flags.');
+		strictEqual(countFlags(four), 4, 'Found four flags.');
+	});
+
 	test('getViewportCollisions', function() {
 		var windowWidth = $(window).width(),
 			windowHeight = $(window).height(),
