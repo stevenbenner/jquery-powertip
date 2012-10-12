@@ -10,9 +10,10 @@
 // useful private variables
 var $document = $(window.document),
 	$window = $(window),
-	$body = $('body'),
-	// constants
-	DATA_DISPLAYCONTROLLER = 'displayController',
+	$body = $('body');
+
+// constants
+var DATA_DISPLAYCONTROLLER = 'displayController',
 	DATA_HASACTIVEHOVER = 'hasActiveHover',
 	DATA_FORCEDOPEN = 'forcedOpen',
 	DATA_HASMOUSEMOVE = 'hasMouseMove',
