@@ -14,7 +14,8 @@
  * @return {boolean} Whether this is an SVG element
  */
 function isSvgElement(element) {
-	return typeof window.SVGElement !== 'undefined' && element[0] instanceof window.SVGElement;
+	return typeof window.SVGElement !== 'undefined' &&
+		element[0] instanceof window.SVGElement;
 }
 
 /**
