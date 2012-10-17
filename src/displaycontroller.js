@@ -99,6 +99,7 @@ function DisplayController(element, options, tipController) {
 	 */
 	function cancelTimer() {
 		hoverTimer = window.clearTimeout(hoverTimer);
+		session.delayInProgress = false;
 	}
 
 	/**
