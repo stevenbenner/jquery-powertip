@@ -9,10 +9,10 @@ $(function() {
 
 	test('expose methods', function() {
 		var dc = new DisplayController();
-		ok(typeof dc.show === 'function', 'show method is defined');
-		ok(typeof dc.hide === 'function', 'hide method is defined');
-		ok(typeof dc.cancel === 'function', 'cances method is defined');
-		ok(typeof dc.resetPosition === 'function', 'resetPosition method is defined');
+		strictEqual(typeof dc.show, 'function', 'show method is defined');
+		strictEqual(typeof dc.hide, 'function', 'hide method is defined');
+		strictEqual(typeof dc.cancel, 'function', 'cances method is defined');
+		strictEqual(typeof dc.resetPosition, 'function', 'resetPosition method is defined');
 	});
 
 	asyncTest('show method calls TooltipController.showTip', function() {

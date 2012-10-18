@@ -8,9 +8,9 @@ $(function() {
 
 	test('expose methods', function() {
 		var tc = new TooltipController($.fn.powerTip.defaults);
-		ok(typeof tc.showTip === 'function', 'showTip method is defined');
-		ok(typeof tc.hideTip === 'function', 'hideTip method is defined');
-		ok(typeof tc.resetPosition === 'function', 'resetPosition method is defined');
+		strictEqual(typeof tc.showTip, 'function', 'showTip method is defined');
+		strictEqual(typeof tc.hideTip, 'function', 'hideTip method is defined');
+		strictEqual(typeof tc.resetPosition, 'function', 'resetPosition method is defined');
 	});
 
 	asyncTest('showTip opens tooltip and hideTip closes it', function() {
