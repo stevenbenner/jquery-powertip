@@ -25,7 +25,7 @@
 		"jquery": ">=1.7"
 	},
 	"devDependencies": {
-		"grunt": "~0.3.14"
+		"grunt": "~0.3.17"
 	},
 	"scripts": {
 		"test": "grunt travis --verbose"
