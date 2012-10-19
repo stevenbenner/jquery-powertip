@@ -120,7 +120,7 @@ function getViewportCollisions(coords, elementWidth, elementHeight) {
 function countFlags(value) {
 	var count = 0;
 	while (value) {
-		value = value & (value - 1);
+		value &= value - 1;
 		count++;
 	}
 	return count;
