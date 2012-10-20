@@ -395,7 +395,7 @@ function TooltipController(options) {
 			}
 			content = tipText;
 		} else if (tipObject) {
-			if (typeof tipElem === 'function') {
+			if (typeof tipObject === 'function') {
 				tipObject = tipObject.call(element[0]);
 			}
 			if (tipObject.length > 0) {
