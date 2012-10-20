@@ -457,7 +457,7 @@ $(function() {
 		element.on({
 			powerTipPreRender: function() {
 				preRenderFired = true;
-				ok(tipElem.text() !== tipText, 'tooltip content has not been inserted yet');
+				notStrictEqual(tipElem.text(), tipText, 'tooltip content has not been inserted yet');
 			},
 			powerTipRender: function() {
 				renderFired = true;
