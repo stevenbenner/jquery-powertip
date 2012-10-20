@@ -6,7 +6,8 @@ $(function() {
 	//////////////////// CORE TESTS ////////////////////
 
 	test('powerTip defined', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>');
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>');
 		strictEqual(typeof element.powerTip, 'function', 'powerTip method is defined');
 	});
 
@@ -49,15 +50,17 @@ $(function() {
 	});
 
 	test('remove title attribute', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip();
 		ok(!element.attr('title'), 'title attribute was removed');
 	});
 
 	test('destroy rolls back title', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip();
 		ok(!element.attr('title'), 'title attribute was removed');
 		element.powerTip('destroy');
-		strictEqual(element.attr('title'), 'This is the tooltip text', 'title attribute was added back');
+		strictEqual(element.attr('title'), tipText, 'title attribute was added back');
 	});
 
 	//////////////////// API TESTS ////////////////////
@@ -73,7 +76,8 @@ $(function() {
 	});
 
 	asyncTest('showTip should open a tooltip and closeTip should close it', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
@@ -106,7 +110,8 @@ $(function() {
 	});
 
 	asyncTest('.powerTip("show") should open a tooltip and .powerTip("hide", true) should close it immediately', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
@@ -160,68 +165,74 @@ $(function() {
 	}
 
 	asyncTest('handle title attribute', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.text(), 'This is the tooltip text', 'title text used in tooltip');
+			strictEqual(tipElem.text(), tipText, 'title text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertip data attribute', function() {
-		var element = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" data-powertip="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.text(), 'This is the tooltip text', 'data-powertip text used in tooltip');
+			strictEqual(tipElem.text(), tipText, 'data-powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertip data with function source', function() {
-		var element = $('<a href="#"></a>')
+		var tipText = getRandomString(),
+			element = $('<a href="#"></a>')
 				.data('powertip', function() {
-					return 'This is the tooltip text';
+					return tipText;
 				})
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.text(), 'This is the tooltip text', 'powertip text used in tooltip');
+			strictEqual(tipElem.text(), tipText, 'powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertipjq jQuery data', function() {
-		var element = $('<a href="#"></a>')
-				.data('powertipjq', $('<b>This is the tooltip text</b>'))
+		var tipText = getRandomString(),
+			element = $('<a href="#"></a>')
+				.data('powertipjq', $('<b>' + tipText + '</b>'))
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.find('b').text(), 'This is the tooltip text', 'powertipjq text used in tooltip');
+			strictEqual(tipElem.find('b').text(), tipText, 'powertipjq text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertipjq data with function source', function() {
-		var element = $('<a href="#"></a>')
+		var tipText = getRandomString(),
+			element = $('<a href="#"></a>')
 				.data('powertipjq', function() {
-					return $('<b>This is the tooltip text</b>');
+					return $('<b>' + tipText + '</b>');
 				})
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.find('b').text(), 'This is the tooltip text', 'powertip text used in tooltip');
+			strictEqual(tipElem.find('b').text(), tipText, 'powertip text used in tooltip');
 		});
 	});
 
 	asyncTest('handle powertiptarget DOM object source data', function() {
-		var element = $('<a href="#" data-powertiptarget="test-target"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" data-powertiptarget="test-target"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		$('body').append($('<div id="test-target" style="display:none;">This is the tooltip text</div>'));
+		$('body').append($('<div id="test-target" style="display:none;">' + tipText + '</div>'));
 
 		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.text(), 'This is the tooltip text', 'text from the target element used in tooltip');
+			strictEqual(tipElem.text(), tipText, 'text from the target element used in tooltip');
 		});
 	});
 
@@ -239,7 +250,8 @@ $(function() {
 	});
 
 	asyncTest('preserve custom events in powertipjq jQuery data', function() {
-		var jqObject = $('<b>This is the tooltip text</b>')
+		var tipText = getRandomString(),
+			jqObject = $('<b>' + tipText + '</b>')
 				.on('click', function() {
 					clickFired = true;
 				}),
@@ -258,7 +270,8 @@ $(function() {
 	//////////////////// MOUSE SUPPORT TESTS ////////////////////
 
 	asyncTest('should not show tooltip if the mouse leaves the element before the intent interval', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		element.trigger('mouseenter');
@@ -274,7 +287,8 @@ $(function() {
 	});
 
 	asyncTest('should not show tooltip if the mouse keeps moving', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			i = 0, x = 0, y = 0;
 
@@ -302,7 +316,8 @@ $(function() {
 	});
 
 	asyncTest('tooltip should open on mouse enter and close on mouse leave', function() {
-		var element = $('<a href="#" title="This is the tooltip text">TESTTESTTEST</a>')
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '">TESTTESTTEST</a>')
 				.css({
 					display: 'block',
 					position: 'absolute',
@@ -362,7 +377,8 @@ $(function() {
 	//////////////////// KEYBOARD SUPPORT TESTS ////////////////////
 
 	asyncTest('tooltips should open when they receive focus and close when they blur', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		// tell powertip that the mouse isn't over the element
@@ -394,7 +410,8 @@ $(function() {
 	});
 
 	asyncTest('tooltip should close when escape key is pressed', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
@@ -427,7 +444,8 @@ $(function() {
 	//////////////////// EVENT TESTS ////////////////////
 
 	asyncTest('all events should fire during the tooltip life cycle', function() {
-		var element = $('<a href="#" title="UNIQUE TOOLTIP TEXT"></a>').powerTip(),
+		var tipText = getRandomString(),
+			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			preRenderFired = false,
 			renderFired = false,
@@ -439,11 +457,11 @@ $(function() {
 		element.on({
 			powerTipPreRender: function() {
 				preRenderFired = true;
-				ok(tipElem.text() !== 'UNIQUE TOOLTIP TEXT', 'tooltip content has not been inserted yet');
+				ok(tipElem.text() !== tipText, 'tooltip content has not been inserted yet');
 			},
 			powerTipRender: function() {
 				renderFired = true;
-				strictEqual(tipElem.text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content has been inserted');
+				strictEqual(tipElem.text(), tipText, 'tooltip content has been inserted');
 			},
 			powerTipOpen: function() {
 				openFired = true;
@@ -451,7 +469,7 @@ $(function() {
 			},
 			powerTipClose: function() {
 				closeFired = true;
-				strictEqual(tipElem.text(), 'UNIQUE TOOLTIP TEXT', 'tooltip content still exists');
+				strictEqual(tipElem.text(), tipText, 'tooltip content still exists');
 				strictEqual(tipElem.css('display'), 'none', 'display set to none');
 			}
 		});
@@ -475,4 +493,13 @@ $(function() {
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
 	});
 
+	/**
+	 * Returns a random string that can be used as tooltip content.
+	 * This prevents tooltip content tests from colliding with content set in
+	 * previous tests.
+	 * @return {string}
+	 */
+	function getRandomString() {
+		return 'This is the tooltip text. ' + Math.random();
+	}
 });
