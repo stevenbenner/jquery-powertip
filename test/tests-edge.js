@@ -1,4 +1,5 @@
 $(function() {
+	'use strict';
 
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
