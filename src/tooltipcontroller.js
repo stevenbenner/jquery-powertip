@@ -376,41 +376,6 @@ function TooltipController(options) {
 		return coords;
 	}
 
-	/**
-	 * Fetches the tooltip content from the specified element's data attributes.
-	 * @private
-	 * @param {jQuery} element The element to get the tooltip content for.
-	 * @return {(string|jQuery|undefined)} The text/HTML string, jQuery object, or
-	 *     undefined if there was no tooltip content for the element.
-	 */
-	function getTooltipContent(element) {
-		var tipText = element.data(DATA_POWERTIP),
-			tipObject = element.data(DATA_POWERTIPJQ),
-			tipTarget = element.data(DATA_POWERTIPTARGET),
-			content;
-
-		if (tipText) {
-			if (typeof tipText === 'function') {
-				tipText = tipText.call(element[0]);
-			}
-			content = tipText;
-		} else if (tipObject) {
-			if (typeof tipObject === 'function') {
-				tipObject = tipObject.call(element[0]);
-			}
-			if (tipObject.length > 0) {
-				content = tipObject.clone(true, true);
-			}
-		} else if (tipTarget) {
-			var targetElement = $('#' + tipTarget);
-			if (targetElement.length > 0) {
-				content = $('#' + tipTarget).html();
-			}
-		}
-
-		return content;
-	}
-
 	// expose methods
 	this.showTip = beginShowTip;
 	this.hideTip = hideTip;
