@@ -185,7 +185,6 @@ $.fn.powerTip.smartPlacementLists = {
 $.powerTip = {
 	/**
 	 * Attempts to show the tooltip for the specified element.
-	 * @public
 	 * @param {jQuery|Element} element The element that the tooltip should for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse tracking (optional).
 	 */
@@ -203,7 +202,6 @@ $.powerTip = {
 
 	/**
 	 * Repositions the tooltip on the element.
-	 * @public
 	 * @param {jQuery|Element} element The element that the tooltip is shown for.
 	 */
 	reposition: function apiResetPosition(element) {
@@ -213,7 +211,6 @@ $.powerTip = {
 
 	/**
 	 * Attempts to close any open tooltips.
-	 * @public
 	 * @param {(jQuery|Element)=} element A specific element whose tip should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
@@ -230,7 +227,6 @@ $.powerTip = {
 
 	/**
 	 * Destroy and roll back any powerTip() instance on the specified element.
-	 * @public
 	 * @param {jQuery|Element} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
