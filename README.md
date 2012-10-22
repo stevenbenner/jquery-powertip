@@ -2,8 +2,6 @@
 
 PowerTip is a jQuery tooltip plugin with some advanced features like **hover intent testing**, **tooltip queueing**, and **support for complex data**. It also has that rarest of features in jQuery plugins, it's not abandonware.
 
-The current stable release is **version 1.1.0**.
-
 [![Build Status](https://secure.travis-ci.org/stevenbenner/jquery-powertip.png)](http://travis-ci.org/stevenbenner/jquery-powertip)
 
 ## Getting Started
@@ -13,7 +11,7 @@ The current stable release is **version 1.1.0**.
 * Add a title or data-powertip attribute to the elements you want to show tooltips for.
 * Run the `powerTip()` method on those elements.
 
-[download]: https://github.com/downloads/stevenbenner/jquery-powertip/jquery.powertip-1.1.0.zip
+[download]: https://github.com/stevenbenner/jquery-powertip/downloads
 
 ## Documentation
 
