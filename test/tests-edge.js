@@ -1,6 +1,19 @@
 $(function() {
 	'use strict';
 
+	// theme switcher
+	function setTheme() {
+		var theme = $('#theme-switcher').val();
+		if (theme !== '') {
+			theme = '.' + theme;
+		}
+		$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
+	}
+
+	setTheme();
+	// hook theme switcher to select change
+	$('#theme-switcher').on('change', setTheme);
+
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
 		var $this = $(this);
