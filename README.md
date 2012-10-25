@@ -53,7 +53,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 
 * Mouse-follow tooltips will now flip out of the way if they become trapped in the bottom-right corner.
 * Escape key will now close tooltip for selected element.
-* Added several alternative tooltip CSS themes.
+* Added 8 new tooltip CSS themes.
 * Added support for elastic tooltips.
 * Added reposition() method to the API.
 * Added destroy() method to the API.
