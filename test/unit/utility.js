@@ -1,4 +1,7 @@
 /*global
+	DATA_POWERTIP:true
+	DATA_POWERTIPJQ:true
+	DATA_POWERTIPTARGET:true
 	session:true
 	Collision:true
 	isSvgElement:true
@@ -6,6 +9,7 @@
 	initMouseTracking:true
 	trackMouse:true
 	isMouseOver:true
+	getTooltipContent:true
 	getViewportCollisions:true
 	countFlags:true*/
 $(function() {
@@ -75,6 +79,28 @@ $(function() {
 		ok(!isMouseOver(div), 'no hover detected');
 
 		div.remove();
+	});
+
+	test('getTooltipContent', function() {
+		var powertip = $('<div />').data(DATA_POWERTIP, 'powertip'),
+			powertipFunc = $('<div />').data(DATA_POWERTIP, function() { return 'powertipFunc'; }),
+			jqObject = $('<div><b>powertipjq</b></div>'),
+			powertipjq = $('<div />').data(DATA_POWERTIPJQ, jqObject),
+			powertipjqFunc = $('<div />').data(DATA_POWERTIPJQ, function() { return jqObject; }),
+			powertiptarget = $('<div />').data(DATA_POWERTIPTARGET, 'tiptargettest'),
+			targetDiv = $('<div />').attr('id', 'tiptargettest').text('tiptargettest');
+
+		// add powertiptarget to body
+		targetDiv.appendTo($('body'));
+
+		strictEqual(getTooltipContent(powertip), 'powertip', 'data-powertip text parsed');
+		strictEqual(getTooltipContent(powertipFunc), 'powertipFunc', 'data-powertip function parsed');
+		strictEqual(getTooltipContent(powertipjq).find('b').text(), 'powertipjq', 'data-powertipjq object parsed');
+		strictEqual(getTooltipContent(powertipjqFunc).find('b').text(), 'powertipjq', 'data-powertipjq function parsed');
+		strictEqual(getTooltipContent(powertiptarget), 'tiptargettest', 'data-powertiptarget reference parsed');
+
+		// remove target test div
+		targetDiv.remove();
 	});
 
 	test('countFlags', function() {
