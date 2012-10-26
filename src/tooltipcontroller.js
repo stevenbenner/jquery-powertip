@@ -191,48 +191,6 @@ function TooltipController(options) {
 	}
 
 	/**
-	 * Checks for a tooltip desync and closes the tooltip if one occurs.
-	 * @private
-	 */
-	function closeDesyncedTip() {
-		var isDesynced = false;
-		// It is possible for the mouse cursor to leave an element without
-		// firing the mouseleave or blur event. This most commonly happens
-		// when the element is disabled under mouse cursor. If this happens
-		// it will result in a desynced tooltip because the tooltip was
-		// never asked to close. So we should periodically check for a
-		// desync situation and close the tip if such a situation arises.
-		if (session.isTipOpen && !session.isClosing && !session.delayInProgress) {
-			// user moused onto another tip or active hover is disabled
-			if (session.activeHover.data(DATA_HASACTIVEHOVER) === false || session.activeHover.is(':disabled')) {
-				isDesynced = true;
-			} else {
-				// hanging tip - have to test if mouse position is not over
-				// the active hover and not over a tooltip set to let the
-				// user interact with it.
-				// for keyboard navigation: this only counts if the element
-				// does not have focus.
-				// for tooltips opened via the api: we need to check if it
-				// has the forcedOpen flag.
-				if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data(DATA_FORCEDOPEN)) {
-					if (tipElement.data(DATA_MOUSEONTOTIP)) {
-						if (!isMouseOver(tipElement)) {
-							isDesynced = true;
-						}
-					} else {
-						isDesynced = true;
-					}
-				}
-			}
-
-			if (isDesynced) {
-				// close the desynced tip
-				hideTip(session.activeHover);
-			}
-		}
-	}
-
-	/**
 	 * Moves the tooltip to the users mouse cursor.
 	 * @private
 	 */
@@ -374,6 +332,48 @@ function TooltipController(options) {
 		);
 
 		return coords;
+	}
+
+	/**
+	 * Checks for a tooltip desync and closes the tooltip if one occurs.
+	 * @private
+	 */
+	function closeDesyncedTip() {
+		var isDesynced = false;
+		// It is possible for the mouse cursor to leave an element without
+		// firing the mouseleave or blur event. This most commonly happens
+		// when the element is disabled under mouse cursor. If this happens
+		// it will result in a desynced tooltip because the tooltip was
+		// never asked to close. So we should periodically check for a
+		// desync situation and close the tip if such a situation arises.
+		if (session.isTipOpen && !session.isClosing && !session.delayInProgress) {
+			// user moused onto another tip or active hover is disabled
+			if (session.activeHover.data(DATA_HASACTIVEHOVER) === false || session.activeHover.is(':disabled')) {
+				isDesynced = true;
+			} else {
+				// hanging tip - have to test if mouse position is not over
+				// the active hover and not over a tooltip set to let the
+				// user interact with it.
+				// for keyboard navigation: this only counts if the element
+				// does not have focus.
+				// for tooltips opened via the api: we need to check if it
+				// has the forcedOpen flag.
+				if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data(DATA_FORCEDOPEN)) {
+					if (tipElement.data(DATA_MOUSEONTOTIP)) {
+						if (!isMouseOver(tipElement)) {
+							isDesynced = true;
+						}
+					} else {
+						isDesynced = true;
+					}
+				}
+			}
+
+			if (isDesynced) {
+				// close the desynced tip
+				hideTip(session.activeHover);
+			}
+		}
 	}
 
 	// expose methods
