@@ -72,12 +72,19 @@ function trackMouse(event) {
  * @return {boolean}
  */
 function isMouseOver(element) {
+	// use getBoundingClientRect() because jQuery's width() and height()
+	// methods do not work with SVG elements
+	// compute width/height because those properties do not exist on the
+	// object returned by getBoundingClientRect() in older versions of IE
 	var elementPosition = element.offset(),
-		elementSize = element[0].getBoundingClientRect();
+		elementBox = element[0].getBoundingClientRect(),
+		elementWidth = elementBox.right - elementBox.left,
+		elementHeight = elementBox.bottom - elementBox.top;
+
 	return session.currentX >= elementPosition.left &&
-		session.currentX <= elementPosition.left + elementSize.width &&
+		session.currentX <= elementPosition.left + elementWidth &&
 		session.currentY >= elementPosition.top &&
-		session.currentY <= elementPosition.top + elementSize.height;
+		session.currentY <= elementPosition.top + elementHeight;
 }
 
 /**
