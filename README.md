@@ -66,6 +66,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 * You can now pass API method names as strings to the `powerTip()` function.
 * Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
 * Fixed issue that could cause tooltips to close prematurely during the closeDelay period.
+* showTip and hideTip API methods are now aliases of the new show and hide API methods.
 
 **[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
 
