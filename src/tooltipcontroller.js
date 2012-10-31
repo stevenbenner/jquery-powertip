@@ -206,7 +206,8 @@ function TooltipController(options) {
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
 				coords = new CSSCoordinates(),
-				collisions, collisionCount;
+				collisions,
+				collisionCount;
 
 			// grab collisions
 			coords.set('top', session.currentY + options.offset);

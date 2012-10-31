@@ -102,7 +102,8 @@ function PlacementCalculator() {
 		var objectOffset = element.offset(),
 			objectWidth = element.outerWidth(),
 			objectHeight = element.outerHeight(),
-			left, top;
+			left,
+			top;
 
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
@@ -164,7 +165,10 @@ function PlacementCalculator() {
 			halfHeight = boundingBox.height / 2,
 			placements = [],
 			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
-			coords, rotation, steps, x;
+			coords,
+			rotation,
+			steps,
+			x;
 
 		function pushPlacement() {
 			placements.push(point.matrixTransform(matrix));
