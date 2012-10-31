@@ -97,6 +97,7 @@ function getTooltipContent(element) {
 	var tipText = element.data(DATA_POWERTIP),
 		tipObject = element.data(DATA_POWERTIPJQ),
 		tipTarget = element.data(DATA_POWERTIPTARGET),
+		targetElement,
 		content;
 
 	if (tipText) {
@@ -112,7 +113,7 @@ function getTooltipContent(element) {
 			content = tipObject.clone(true, true);
 		}
 	} else if (tipTarget) {
-		var targetElement = $('#' + tipTarget);
+		targetElement = $('#' + tipTarget);
 		if (targetElement.length > 0) {
 			content = $('#' + tipTarget).html();
 		}
