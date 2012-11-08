@@ -5,7 +5,6 @@
 	session:true
 	Collision:true
 	isSvgElement:true
-	computeElementSize:true
 	initMouseTracking:true
 	trackMouse:true
 	isMouseOver:true

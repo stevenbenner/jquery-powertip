@@ -1,6 +1,5 @@
 /*global
 	DATA_HASACTIVEHOVER:true
-	session:true
 	DisplayController:true*/
 $(function() {
 	'use strict';
