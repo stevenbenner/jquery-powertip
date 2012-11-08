@@ -60,72 +60,9 @@ module.exports = function(grunt) {
 			tasks: 'lint:grunt lint:tests concat lint:dist'
 		},
 		jshint: {
-			dist: {
-				options: {
-					curly: true,
-					eqeqeq: true,
-					immed: true,
-					newcap: true,
-					noarg: true,
-					sub: true,
-					undef: true,
-					boss: true,
-					eqnull: true,
-					browser: true,
-					smarttabs: true
-				},
-				globals: {
-					jQuery: true
-				}
-			},
-			tests: {
-				options: {
-					curly: true,
-					eqeqeq: true,
-					immed: true,
-					latedef: true,
-					newcap: true,
-					noarg: true,
-					sub: true,
-					undef: true,
-					boss: true,
-					eqnull: true,
-					browser: true,
-					smarttabs: true
-				},
-				globals: {
-					$: true,
-					module: true,
-					expect: true,
-					test: true,
-					asyncTest: true,
-					ok: true,
-					equal: true,
-					notEqual: true,
-					deepEqual: true,
-					notDeepEqual: true,
-					strictEqual: true,
-					notStrictEqual: true,
-					start: true
-				}
-			},
-			grunt: {
-				options: {
-					curly: true,
-					eqeqeq: true,
-					immed: true,
-					latedef: true,
-					newcap: true,
-					noarg: true,
-					sub: true,
-					undef: true,
-					boss: true,
-					eqnull: true
-				},
-				globals: {
-					module: true
-				}
-			}
+			dist: grunt.file.readJSON('src/.jshintrc'),
+			tests: grunt.file.readJSON('test/.jshintrc'),
+			grunt: grunt.file.readJSON('.jshintrc')
 		},
 		uglify: {}
 	});
