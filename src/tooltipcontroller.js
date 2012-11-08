@@ -359,7 +359,7 @@ function TooltipController(options) {
 				// does not have focus.
 				// for tooltips opened via the api: we need to check if it
 				// has the forcedOpen flag.
-				if (!isMouseOver(session.activeHover) && !session.activeHover.is(":focus") && !session.activeHover.data(DATA_FORCEDOPEN)) {
+				if (!isMouseOver(session.activeHover) && !session.activeHover.is(':focus') && !session.activeHover.data(DATA_FORCEDOPEN)) {
 					if (tipElement.data(DATA_MOUSEONTOTIP)) {
 						if (!isMouseOver(tipElement)) {
 							isDesynced = true;
