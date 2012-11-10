@@ -13,7 +13,8 @@
  * @constructor
  * @param {jQuery} element The element that this controller will handle.
  * @param {Object} options Options object containing settings.
- * @param {TooltipController} tipController The TooltipController for this instance.
+ * @param {TooltipController} tipController The TooltipController object for
+ *     this instance.
  */
 function DisplayController(element, options, tipController) {
 	var hoverTimer = null;
@@ -22,7 +23,8 @@ function DisplayController(element, options, tipController) {
 	 * Begins the process of showing a tooltip.
 	 * @private
 	 * @param {boolean=} immediate Skip intent testing (optional).
-	 * @param {boolean=} forceOpen Ignore cursor position and force tooltip to open (optional).
+	 * @param {boolean=} forceOpen Ignore cursor position and force tooltip to
+	 *     open (optional).
 	 */
 	function openTooltip(immediate, forceOpen) {
 		cancelTimer();
@@ -72,8 +74,8 @@ function DisplayController(element, options, tipController) {
 	}
 
 	/**
-	 * Checks mouse position to make sure that the user intended to hover
-	 * on the specified element before showing the tooltip.
+	 * Checks mouse position to make sure that the user intended to hover on the
+	 * specified element before showing the tooltip.
 	 * @private
 	 */
 	function checkForIntent() {

@@ -73,8 +73,8 @@ function trackMouse(event) {
 function isMouseOver(element) {
 	// use getBoundingClientRect() because jQuery's width() and height()
 	// methods do not work with SVG elements
-	// compute width/height because those properties do not exist on the
-	// object returned by getBoundingClientRect() in older versions of IE
+	// compute width/height because those properties do not exist on the object
+	// returned by getBoundingClientRect() in older versions of IE
 	var elementPosition = element.offset(),
 		elementBox = element[0].getBoundingClientRect(),
 		elementWidth = elementBox.right - elementBox.left,
@@ -123,8 +123,8 @@ function getTooltipContent(element) {
 }
 
 /**
- * Finds any viewport collisions that an element (the tooltip) would have
- * if it were absolutely positioned at the specified coordinates.
+ * Finds any viewport collisions that an element (the tooltip) would have if it
+ * were absolutely positioned at the specified coordinates.
  * @private
  * @param {CSSCoordinates} coords Coordinates for the element.
  * @param {number} elementWidth Width of the element in pixels.

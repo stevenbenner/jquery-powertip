@@ -57,8 +57,8 @@ var Collision = {
 
 /**
  * Display hover tooltips on the matched elements.
- * @param {(Object|string)} opts The options object to use for the plugin, or the
- *     name of a method to invoke on the first matched element.
+ * @param {(Object|string)} opts The options object to use for the plugin, or
+ *     the name of a method to invoke on the first matched element.
  * @param {*=} [arg] Argument for an invoked method (optional).
  * @return {jQuery} jQuery object for the matched selectors.
  */
@@ -88,8 +88,8 @@ $.fn.powerTip = function(opts, arg) {
 			dataTarget = $this.data(DATA_POWERTIPTARGET),
 			title = $this.attr('title');
 
-		// handle repeated powerTip calls on the same element by destroying
-		// the original instance hooked to it and replacing it with this call
+		// handle repeated powerTip calls on the same element by destroying the
+		// original instance hooked to it and replacing it with this call
 		if ($this.data(DATA_DISPLAYCONTROLLER)) {
 			$.powerTip.destroy($this);
 			title = $this.attr('title');
@@ -160,9 +160,9 @@ $.fn.powerTip.defaults = {
 
 /**
  * Default smart placement priority lists.
- * The first item in the array is the highest priority, the last is the
- * lowest. The last item is also the default, which will be used if all
- * previous options do not fit.
+ * The first item in the array is the highest priority, the last is the lowest.
+ * The last item is also the default, which will be used if all previous options
+ * do not fit.
  */
 $.fn.powerTip.smartPlacementLists = {
 	n: ['n', 'ne', 'nw', 's'],
@@ -186,7 +186,8 @@ $.powerTip = {
 	/**
 	 * Attempts to show the tooltip for the specified element.
 	 * @param {jQuery|Element} element The element that the tooltip should for.
-	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse tracking (optional).
+	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
+	 *     tracking (optional).
 	 */
 	show: function apiShowTip(element, event) {
 		if (event) {
@@ -202,7 +203,7 @@ $.powerTip = {
 
 	/**
 	 * Repositions the tooltip on the element.
-	 * @param {jQuery|Element} element The element that the tooltip is shown for.
+	 * @param {jQuery|Element} element The element the tooltip is shown for.
 	 */
 	reposition: function apiResetPosition(element) {
 		$(element).first().data(DATA_DISPLAYCONTROLLER).resetPosition();
@@ -211,7 +212,8 @@ $.powerTip = {
 
 	/**
 	 * Attempts to close any open tooltips.
-	 * @param {(jQuery|Element)=} element A specific element whose tip should be closed (optional).
+	 * @param {(jQuery|Element)=} element A specific element whose tip should be
+	 *     closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
 	hide: function apiCloseTip(element, immediate) {
