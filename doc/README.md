@@ -364,7 +364,7 @@ Smart placement is a feature that will attempt to keep non-mouse-follow tooltips
 
 It does this by detecting that a tooltip would appear outside of the view port, then trying a series of other placement options until it finds one that isn't going to be outside of the view port. You can define the placement fall backs and priorities yourself by overriding them in the `$.fn.powerTip.smartPlacementLists` object.
 
-These are the default smart placement priority lists: 
+These are the default smart placement priority lists:
 
 ```javascript
 $.fn.powerTip.smartPlacementLists = {
@@ -376,10 +376,10 @@ $.fn.powerTip.smartPlacementLists = {
 	ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
 	sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
 	se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
-	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'w', 'sw-alt', 's', 'se-alt', 'sw', 'se', 'e'],
-	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'e', 'se-alt', 's', 'sw-alt', 'se', 'sw', 'w'],
-	'sw-alt': ['sw-alt', 's', 'se-alt', 'sw', 'se', 'w', 'nw-alt', 'n', 'ne-alt', 'nw', 'ne', 'e'],
-	'se-alt': ['se-alt', 's', 'sw-alt', 'se', 'sw', 'e', 'ne-alt', 'n', 'nw-alt', 'ne', 'nw', 'w']
+	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e'],
+	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
+	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
+	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
 };
 ```
 
