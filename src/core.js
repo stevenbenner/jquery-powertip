@@ -185,7 +185,7 @@ $.fn.powerTip.smartPlacementLists = {
 $.powerTip = {
 	/**
 	 * Attempts to show the tooltip for the specified element.
-	 * @param {jQuery|Element} element The element that the tooltip should for.
+	 * @param {jQuery|Element} element The element to open the tooltip for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
 	 *     tracking (optional).
 	 */
@@ -212,8 +212,8 @@ $.powerTip = {
 
 	/**
 	 * Attempts to close any open tooltips.
-	 * @param {(jQuery|Element)=} element A specific element whose tip should be
-	 *     closed (optional).
+	 * @param {(jQuery|Element)=} element The element with the tooltip that
+	 *     should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
 	hide: function apiCloseTip(element, immediate) {
