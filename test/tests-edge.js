@@ -1,7 +1,8 @@
 $(function() {
 	'use strict';
 
-	// theme switcher
+	//////////////////// THEME SWTICHER ////////////////////
+
 	function setTheme() {
 		var theme = $('#theme-switcher').val();
 		if (theme !== '') {
@@ -13,6 +14,8 @@ $(function() {
 	setTheme();
 	// hook theme switcher to select change
 	$('#theme-switcher').on('change', setTheme);
+
+	//////////////////// TESTS ////////////////////
 
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
