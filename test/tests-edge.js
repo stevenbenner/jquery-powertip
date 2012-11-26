@@ -1,20 +1,6 @@
 $(function() {
 	'use strict';
 
-	//////////////////// THEME SWTICHER ////////////////////
-
-	function setTheme() {
-		var theme = $('#theme-switcher').val();
-		if (theme !== '') {
-			theme = '.' + theme;
-		}
-		$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
-	}
-
-	setTheme();
-	// hook theme switcher to select change
-	$('#theme-switcher').on('change', setTheme);
-
 	//////////////////// TESTS ////////////////////
 
 	// Self-disabling button
@@ -106,5 +92,19 @@ $(function() {
 
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
+
+	//////////////////// THEME SWTICHER ////////////////////
+
+	function setTheme() {
+		var theme = $('#theme-switcher').val();
+		if (theme !== '') {
+			theme = '.' + theme;
+		}
+		$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
+	}
+
+	setTheme();
+	// hook theme switcher to select change
+	$('#theme-switcher').on('change', setTheme);
 
 });
