@@ -233,18 +233,20 @@ $.powerTip = {
 	 */
 	destroy: function apiDestroy(element) {
 		$(element).off('.powertip').each(function destroy() {
-			var $this = $(this);
+			var $this = $(this),
+				dataAttributes = [
+					DATA_ORIGINALTITLE,
+					DATA_DISPLAYCONTROLLER,
+					DATA_HASACTIVEHOVER,
+					DATA_FORCEDOPEN
+				];
 
 			if ($this.data(DATA_ORIGINALTITLE)) {
 				$this.attr('title', $this.data(DATA_ORIGINALTITLE));
+				dataAttributes.push(DATA_POWERTIP);
 			}
 
-			$this.removeData([
-				DATA_ORIGINALTITLE,
-				DATA_DISPLAYCONTROLLER,
-				DATA_HASACTIVEHOVER,
-				DATA_FORCEDOPEN
-			]);
+			$this.removeData(dataAttributes);
 		});
 		return element;
 	}
