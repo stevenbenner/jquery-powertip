@@ -1,5 +1,6 @@
 /*global
-	DATA_DISPLAYCONTROLLER:true*/
+	DATA_DISPLAYCONTROLLER:true
+	DATA_POWERTIP:true*/
 $(function() {
 	'use strict';
 
@@ -95,6 +96,7 @@ $(function() {
 		// destroy tests
 		element.powerTip('destroy');
 		strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
+		ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
 
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
 		ok(!showTriggered, 'mouseenter event was unhooked after destroy');
