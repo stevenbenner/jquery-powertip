@@ -181,6 +181,7 @@ $(function() {
 
 	test('API destroy method rolls back PowerTip changes', function() {
 		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			elementDataAttr = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip(),
 			showTriggered = false,
 			hideTriggered = false;
 
@@ -197,10 +198,12 @@ $(function() {
 		);
 
 		element.powerTip('destroy');
+		elementDataAttr.powerTip('destroy');
 
 		// attributes
 		strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
 		ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
+		strictEqual(elementDataAttr.data(DATA_POWERTIP), 'This is the tooltip text', 'destroy method did not remove manually set powertip data attribute');
 
 		// events
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
