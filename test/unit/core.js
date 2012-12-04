@@ -92,31 +92,6 @@ $(function() {
 		element.trigger($.Event('keydown', { keyCode: 27 }));
 		ok(hideTriggered, 'keydown event for key code 27 calls DisplayController.hide');
 		hideTriggered = false;
-
-		// destroy tests
-		element.powerTip('destroy');
-		strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
-		ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
-
-		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
-		ok(!showTriggered, 'mouseenter event was unhooked after destroy');
-		showTriggered = false;
-
-		element.trigger('mouseleave');
-		ok(!hideTriggered, 'mouseleave event was unhooked after destroy');
-		hideTriggered = false;
-
-		element.trigger('focus');
-		ok(!showTriggered, 'focus event was unhooked after destroy');
-		showTriggered = false;
-
-		element.trigger('blur');
-		ok(!hideTriggered, 'blur event was unhooked after destroy');
-		hideTriggered = false;
-
-		element.trigger($.Event('keydown', {keyCode: 27}));
-		ok(!hideTriggered, 'keydown event was unhooked after destroy');
-		hideTriggered = false;
 	});
 
 	test('expose API', function() {
@@ -202,6 +177,51 @@ $(function() {
 		$.powerTip.closeTip(element);
 
 		ok(hideCalled, 'hide method was called');
+	});
+
+	test('API destroy method rolls back PowerTip changes', function() {
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			showTriggered = false,
+			hideTriggered = false;
+
+		element.data(
+			DATA_DISPLAYCONTROLLER,
+			new MockDisplayController(
+				function() {
+					showTriggered = true;
+				},
+				function() {
+					hideTriggered = true;
+				}
+			)
+		);
+
+		element.powerTip('destroy');
+
+		// attributes
+		strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
+		ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
+
+		// events
+		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
+		ok(!showTriggered, 'mouseenter event was unhooked after destroy');
+		showTriggered = false;
+
+		element.trigger('mouseleave');
+		ok(!hideTriggered, 'mouseleave event was unhooked after destroy');
+		hideTriggered = false;
+
+		element.trigger('focus');
+		ok(!showTriggered, 'focus event was unhooked after destroy');
+		showTriggered = false;
+
+		element.trigger('blur');
+		ok(!hideTriggered, 'blur event was unhooked after destroy');
+		hideTriggered = false;
+
+		element.trigger($.Event('keydown', { keyCode: 27 }));
+		ok(!hideTriggered, 'keydown event was unhooked after destroy');
+		hideTriggered = false;
 	});
 
 	function MockDisplayController(show, hide, cancel, resetPosition) {
