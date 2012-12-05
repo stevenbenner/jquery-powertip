@@ -118,20 +118,6 @@ $(function() {
 		ok(showCalled, 'show method was called');
 	});
 
-	test('API showTip (DEPRECATED) method should call DisplayController.show', function() {
-		var showCalled = false,
-			element = $('<span />')
-				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
-					function() {
-						showCalled = true;
-					}
-				));
-
-		$.powerTip.showTip(element);
-
-		ok(showCalled, 'show method was called');
-	});
-
 	test('API reposition method should call DisplayController.resetPosition', function() {
 		var resetCalled = false,
 			element = $('<span />')
@@ -160,21 +146,6 @@ $(function() {
 				));
 
 		$.powerTip.hide(element);
-
-		ok(hideCalled, 'hide method was called');
-	});
-
-	test('API closeTip (DEPRECATED) method should call DisplayController.hide', function() {
-		var hideCalled = false,
-			element = $('<span />')
-				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
-					null,
-					function() {
-						hideCalled = true;
-					}
-				));
-
-		$.powerTip.closeTip(element);
 
 		ok(hideCalled, 'hide method was called');
 	});
