@@ -46,11 +46,8 @@ $(function() {
 	test('powerTip', function() {
 		var div = $('<div />'),
 			empty = $('#thisDoesntExist'),
-			element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
-			showTriggered = false,
-			hideTriggered = false;
+			element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
 
-		// basic tests
 		deepEqual(div.powerTip(), div, 'original jQuery object returned for matched selector');
 		deepEqual(empty.powerTip(), empty, 'original jQuery object returned for empty selector');
 		deepEqual(div.powerTip('show'), div, 'original jQuery object returned for show');
@@ -59,6 +56,12 @@ $(function() {
 		deepEqual(div.powerTip('destroy'), div, 'original jQuery object returned for destroy');
 		ok(!element.attr('title'), 'title attribute was removed');
 		ok(element.data(DATA_DISPLAYCONTROLLER), 'new DisplayController created and added to data');
+	});
+
+	test('powerTip hooks events', function() {
+		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+			showTriggered = false,
+			hideTriggered = false;
 
 		element.data(
 			DATA_DISPLAYCONTROLLER,
@@ -72,7 +75,6 @@ $(function() {
 			)
 		);
 
-		// event tests
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
 		ok(showTriggered, 'mouseenter event calls DisplayController.show');
 		showTriggered = false;
