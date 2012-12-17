@@ -6,12 +6,10 @@ PowerTip is a jQuery tooltip plugin with some advanced features like **hover int
 
 ## Getting Started
 
-* Download the latest [stable release][download].
+* Download the latest stable release from the [PowerTip web site][projectpage].
 * Add the js and css references to your web site.
 * Add a title or data-powertip attribute to the elements you want to show tooltips for.
 * Run the `powerTip()` method on those elements.
-
-[download]: https://github.com/stevenbenner/jquery-powertip/downloads
 
 ## Documentation
 
