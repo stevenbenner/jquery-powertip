@@ -1,8 +1,6 @@
 $(function() {
 	'use strict';
 
-	//////////////////// TESTS ////////////////////
-
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
 		var $this = $(this);
@@ -92,19 +90,5 @@ $(function() {
 
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
-
-	//////////////////// THEME SWTICHER ////////////////////
-
-	function setTheme() {
-		var theme = $('#theme-switcher').val();
-		if (theme !== '') {
-			theme = '.' + theme;
-		}
-		$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
-	}
-
-	setTheme();
-	// hook theme switcher to select change
-	$('#theme-switcher').on('change', setTheme);
 
 });
