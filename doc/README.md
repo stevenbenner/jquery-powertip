@@ -325,7 +325,7 @@ $('.tips').on({
 		console.log('powerTipRender', this);
 
 		// generate some dynamic content
-		$(this).data('data-powertip' , '<h3 class="title">Default title</h3><p>Default content</p>');
+		$(this).data('powertip' , '<h3 class="title">Default title</h3><p>Default content</p>');
 	},
 	powerTipRender: function() {
 		console.log('powerTipRender', this);
