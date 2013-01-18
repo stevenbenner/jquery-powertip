@@ -331,7 +331,7 @@ $('.tips').on({
 		console.log('powerTipRender', this);
 
 		// change some content dynamically
-		$('#powerTip').find('.title').text('This is a dynamic title.').
+		$('#powerTip').find('.title').text('This is a dynamic title.');
 	},
 	powerTipOpen: function() {
 		console.log('powerTipOpen', this);
