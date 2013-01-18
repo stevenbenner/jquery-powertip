@@ -76,7 +76,7 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 Running the plugin is about as standard as it gets.
 
 ```javascript
-$('.tooltips').powerTip(options)
+$('.tooltips').powerTip(options);
 ```
 
 Where `options` is an object with the various settings you want to override (all defined below).
