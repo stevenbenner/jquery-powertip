@@ -59,7 +59,7 @@ $(function() {
 	});
 
 	test('powerTip hooks events', function() {
-		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
+		var element = $('<a href="#" title="This is the tooltip text">TEXT</a>').powerTip(),
 			showTriggered = false,
 			hideTriggered = false;
 
@@ -74,6 +74,11 @@ $(function() {
 				}
 			)
 		);
+
+		// jquery 1.9 will not trigger a focus event on an element that cannot
+		// be focused, so we have to append the test element to the document
+		// before the focus test will work
+		$('body').prepend(element);
 
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
 		ok(showTriggered, 'mouseenter event calls DisplayController.show');
@@ -94,6 +99,9 @@ $(function() {
 		element.trigger($.Event('keydown', { keyCode: 27 }));
 		ok(hideTriggered, 'keydown event for key code 27 calls DisplayController.hide');
 		hideTriggered = false;
+
+		// cleanup test element
+		element.remove();
 	});
 
 	test('expose API', function() {

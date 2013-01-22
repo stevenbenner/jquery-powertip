@@ -378,8 +378,13 @@ $(function() {
 
 	asyncTest('tooltips should open when they receive focus and close when they blur', function() {
 		var tipText = getRandomString(),
-			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
+			element = $('<a href="#" title="' + tipText + '">TEXT</a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		// jquery 1.9 will not trigger a focus event on an element that cannot
+		// be focused, so we have to append the test element to the document
+		// before the focus test will work
+		$('body').prepend(element);
 
 		// tell powertip that the mouse isn't over the element
 		// which will appear to be at 0,0 to jQuery
@@ -404,6 +409,10 @@ $(function() {
 
 			setTimeout(function() {
 				strictEqual(tipElem.css('display'), 'none', 'display set to none');
+
+				// cleanup test element
+				element.remove();
+
 				start();
 			}, $.fn.powerTip.defaults.fadeOutTime + 50);
 		}, $.fn.powerTip.defaults.fadeInTime + 50);
