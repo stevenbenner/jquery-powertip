@@ -101,12 +101,12 @@ function getTooltipContent(element) {
 		content;
 
 	if (tipText) {
-		if (typeof tipText === 'function') {
+		if ($.isFunction(tipText)) {
 			tipText = tipText.call(element[0]);
 		}
 		content = tipText;
 	} else if (tipObject) {
-		if (typeof tipObject === 'function') {
+		if ($.isFunction(tipObject)) {
 			tipObject = tipObject.call(element[0]);
 		}
 		if (tipObject.length > 0) {
