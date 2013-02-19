@@ -27,4 +27,10 @@ $(function() {
 	$('#buttons a').data('powertip', 'Everything you need!');
 	$('#buttons a').powerTip({placement: 'e'});
 	$('#footer a').powerTip();
+
+	// ga download event
+	$('#download-link').on('click', function() {
+		var _gaq = _gaq || [];
+		_gaq.push(['_trackEvent', 'Downloads', 'PowerTip Release Version']);
+	});
 });
