@@ -73,7 +73,7 @@ $.fn.powerTip = function(opts, arg) {
 		return $.powerTip[opts].call(this, this, arg);
 	}
 
-	// extend options
+	// extend options and instantiate TooltipController
 	var options = $.extend({}, $.fn.powerTip.defaults, opts),
 		tipController = new TooltipController(options);
 
