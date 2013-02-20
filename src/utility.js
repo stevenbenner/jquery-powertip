@@ -115,7 +115,7 @@ function getTooltipContent(element) {
 	} else if (tipTarget) {
 		targetElement = $('#' + tipTarget);
 		if (targetElement.length > 0) {
-			content = $('#' + tipTarget).html();
+			content = targetElement.html();
 		}
 	}
 
