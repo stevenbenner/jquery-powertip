@@ -28,7 +28,7 @@ $(function() {
 		setTimeout(function() {
 			strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 
-			tc.hideTip(tipElem);
+			tc.hideTip(element);
 
 			setTimeout(function() {
 				notStrictEqual(tipElem.css('opacity'), '0', 'tooltip is not faded out');
