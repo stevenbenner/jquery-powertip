@@ -82,22 +82,15 @@ $(function() {
 
 		expect(2);
 
-		element.on({
-			powerTipOpen: function() {
+		openExecCloseAndContinue(
+			element,
+			function() {
 				strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
-				$.powerTip.closeTip();
 			},
-			powerTipClose: function() {
+			function() {
 				strictEqual(tipElem.css('display'), 'none', 'display set to none');
-				start();
 			}
-		});
-
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
-		$.powerTip.showTip(element);
+		);
 	});
 
 	asyncTest('.powerTip("show") should open a tooltip and .powerTip("hide", true) should close it immediately', function() {
@@ -421,6 +414,8 @@ $(function() {
 
 		$.powerTip.showTip(element);
 	});
+
+	//////////////////// HELPER FUNCTIONS ////////////////////
 
 	/**
 	 * Performs a tooltip open and close cycle for the specified element,
