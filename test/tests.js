@@ -326,7 +326,8 @@ $(function() {
 					left: 150
 				})
 				.powerTip(),
-			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
+			fauxMouseLocation = { pageX: element.offset().top, pageY: element.offset().left };
 
 		expect(3);
 
@@ -345,25 +346,8 @@ $(function() {
 		strictEqual(tipElem.css('display'), 'none', 'display set to none');
 
 		// tell powertip that the mouse is over the element
-		$(document).trigger(
-			$.Event(
-				'mousemove',
-				{
-					pageX: element.offset().top,
-					pageY: element.offset().left
-				}
-			)
-		);
-
-		element.trigger(
-			$.Event(
-				'mouseenter',
-				{
-					pageX: element.offset().top,
-					pageY: element.offset().left
-				}
-			)
-		);
+		$(document).trigger($.Event('mousemove', fauxMouseLocation));
+		element.trigger($.Event('mouseenter', fauxMouseLocation));
 	});
 
 	//////////////////// KEYBOARD SUPPORT TESTS ////////////////////
