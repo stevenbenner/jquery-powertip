@@ -127,24 +127,6 @@ $(function() {
 
 	//////////////////// CONTENT SUPPORT TESTS ////////////////////
 
-	function openExecCloseAndContinue(element, callback) {
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
-		element.on({
-			powerTipOpen: function() {
-				callback.call();
-				$.powerTip.closeTip();
-			},
-			powerTipClose: function() {
-				start();
-			}
-		});
-
-		$.powerTip.showTip(element);
-	}
-
 	asyncTest('handle title attribute', function() {
 		var tipText = getRandomString(),
 			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
@@ -439,6 +421,24 @@ $(function() {
 
 		$.powerTip.showTip(element);
 	});
+
+	function openExecCloseAndContinue(element, callback) {
+		// tell powertip that the mouse isn't over the element
+		// which will appear to be at 0,0 to jQuery
+		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
+
+		element.on({
+			powerTipOpen: function() {
+				callback.call();
+				$.powerTip.closeTip();
+			},
+			powerTipClose: function() {
+				start();
+			}
+		});
+
+		$.powerTip.showTip(element);
+	}
 
 	/**
 	 * Returns a random string that can be used as tooltip content.
