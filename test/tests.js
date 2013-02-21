@@ -422,17 +422,30 @@ $(function() {
 		$.powerTip.showTip(element);
 	});
 
-	function openExecCloseAndContinue(element, callback) {
+	/**
+	 * Performs a tooltip open and close cycle for the specified element,
+	 * executes the callbacks when the appropriate events fire, then ends the
+	 * test by invoking the start() function.
+	 * @param {jQuery} element The element to open the tooltip for.
+	 * @param {Function=} fnOpen Callback to invoke when the tooltip opens.
+	 * @param {Function=} fnClose Callback to invoke when the tooltip closes.
+	 */
+	function openExecCloseAndContinue(element, fnOpen, fnClose) {
 		// tell powertip that the mouse isn't over the element
 		// which will appear to be at 0,0 to jQuery
 		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
 
 		element.on({
 			powerTipOpen: function() {
-				callback.call();
+				if (fnOpen) {
+					fnOpen.call();
+				}
 				$.powerTip.closeTip();
 			},
 			powerTipClose: function() {
+				if (fnClose) {
+					fnClose.call();
+				}
 				start();
 			}
 		});
