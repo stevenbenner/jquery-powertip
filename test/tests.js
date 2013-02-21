@@ -150,6 +150,8 @@ $(function() {
 			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
+		expect(1);
+
 		openExecCloseAndContinue(element, function() {
 			strictEqual(tipElem.text(), tipText, 'title text used in tooltip');
 		});
@@ -159,6 +161,8 @@ $(function() {
 		var tipText = getRandomString(),
 			element = $('<a href="#" data-powertip="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(1);
 
 		openExecCloseAndContinue(element, function() {
 			strictEqual(tipElem.text(), tipText, 'data-powertip text used in tooltip');
@@ -174,6 +178,8 @@ $(function() {
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
+		expect(1);
+
 		openExecCloseAndContinue(element, function() {
 			strictEqual(tipElem.text(), tipText, 'powertip text used in tooltip');
 		});
@@ -185,6 +191,8 @@ $(function() {
 				.data('powertipjq', $('<b>' + tipText + '</b>'))
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(1);
 
 		openExecCloseAndContinue(element, function() {
 			strictEqual(tipElem.find('b').text(), tipText, 'powertipjq text used in tooltip');
@@ -200,6 +208,8 @@ $(function() {
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
+		expect(1);
+
 		openExecCloseAndContinue(element, function() {
 			strictEqual(tipElem.find('b').text(), tipText, 'powertip text used in tooltip');
 		});
@@ -209,6 +219,8 @@ $(function() {
 		var tipText = getRandomString(),
 			element = $('<a href="#" data-powertiptarget="test-target"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(1);
 
 		$('body').append($('<div id="test-target" style="display:none;">' + tipText + '</div>'));
 
@@ -222,6 +234,8 @@ $(function() {
 				.data('powertip', 'This <invalid>is</invalid> the <b>tooltip text</b> and <code>{ some: code }</code>')
 				.powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(3);
 
 		openExecCloseAndContinue(element, function() {
 			ok(tipElem.find('b').length, 'b element was inserted');
@@ -242,6 +256,8 @@ $(function() {
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			clickFired = false;
 
+		expect(1);
+
 		openExecCloseAndContinue(element, function() {
 			tipElem.find('b').trigger('click');
 			ok(clickFired, 'click event fired');
@@ -254,6 +270,8 @@ $(function() {
 		var tipText = getRandomString(),
 			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(1);
 
 		element.trigger('mouseenter');
 
@@ -272,6 +290,8 @@ $(function() {
 			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			i = 0, x = 0, y = 0;
+
+		expect(10);
 
 		var changeMousePosition = function() {
 			if (i < 10) {

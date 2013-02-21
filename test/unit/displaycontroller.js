@@ -127,6 +127,8 @@ $(function() {
 			showCalled = false,
 			dc;
 
+		expect(1);
+
 		dc = new DisplayController(
 			element,
 			$.fn.powerTip.defaults,
@@ -153,6 +155,8 @@ $(function() {
 		var element = $('<span />'),
 			hideCalled = false,
 			dc;
+
+		expect(1);
 
 		dc = new DisplayController(
 			element,
