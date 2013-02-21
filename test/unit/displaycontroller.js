@@ -16,32 +16,29 @@ $(function() {
 
 	asyncTest('show method calls TooltipController.showTip', function() {
 		var element = $('<span />'),
-			showCalled = false,
 			dc;
+
+		expect(1);
 
 		dc = new DisplayController(
 			element,
 			$.fn.powerTip.defaults,
 			new MockTipController(
 				function(el) {
-					showCalled = true;
 					deepEqual(el, element, 'original element passed');
+					start();
 				}
 			)
 		);
 
 		dc.show();
-
-		setTimeout(function() {
-			ok(showCalled, 'showTip called');
-			start();
-		}, $.fn.powerTip.defaults.intentPollInterval + 10);
 	});
 
 	asyncTest('hide method calls TooltipController.hideTip', function() {
 		var element = $('<span />'),
-			hideCalled = false,
 			dc;
+
+		expect(1);
 
 		dc = new DisplayController(
 			element,
@@ -49,19 +46,14 @@ $(function() {
 			new MockTipController(
 				null,
 				function(el) {
-					hideCalled = true;
 					deepEqual(el, element, 'original element passed');
+					start();
 				}
 			)
 		);
 
 		element.data(DATA_HASACTIVEHOVER, true); // set active hover or hide wont do anything
 		dc.hide();
-
-		setTimeout(function() {
-			ok(hideCalled, 'hideTip called');
-			start();
-		}, $.fn.powerTip.defaults.closeDelay + 10);
 	});
 
 	test('resetPosition method calls TooltipController.resetPosition', function() {
