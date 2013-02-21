@@ -192,16 +192,23 @@ $(function() {
 
 	asyncTest('handle powertiptarget DOM object source data', function() {
 		var tipText = getRandomString(),
+			targetDiv = $('<div id="test-target" style="display:none;">' + tipText + '</div>'),
 			element = $('<a href="#" data-powertiptarget="test-target"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		expect(1);
 
-		$('body').append($('<div id="test-target" style="display:none;">' + tipText + '</div>'));
+		$('body').append(targetDiv);
 
-		openExecCloseAndContinue(element, function() {
-			strictEqual(tipElem.text(), tipText, 'text from the target element used in tooltip');
-		});
+		openExecCloseAndContinue(
+			element,
+			function() {
+				strictEqual(tipElem.text(), tipText, 'text from the target element used in tooltip');
+			},
+			function() {
+				targetDiv.remove();
+			}
+		);
 	});
 
 	asyncTest('handle HTML entities in data-powertip', function() {
