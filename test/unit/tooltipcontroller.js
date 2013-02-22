@@ -18,7 +18,7 @@ $(function() {
 			tc = new TooltipController($.fn.powerTip.defaults),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		expect(3);
+		expect(2);
 
 		element.on({
 			powerTipOpen: function() {
@@ -30,9 +30,6 @@ $(function() {
 				start();
 			}
 		});
-
-		// sanity check - tooltip should be closed before testing
-		strictEqual(tipElem.css('display'), 'none', 'display set to none');
 
 		tc.showTip(element);
 	});

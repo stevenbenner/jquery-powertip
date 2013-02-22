@@ -307,7 +307,7 @@ $(function() {
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			fauxMouseLocation = { pageX: element.offset().top, pageY: element.offset().left };
 
-		expect(3);
+		expect(2);
 
 		element.on({
 			powerTipOpen: function() {
@@ -319,9 +319,6 @@ $(function() {
 				start();
 			}
 		});
-
-		// sanity check - tooltip should be closed before testing
-		strictEqual(tipElem.css('display'), 'none', 'display set to none');
 
 		// tell powertip that the mouse is over the element
 		$(document).trigger($.Event('mousemove', fauxMouseLocation));
