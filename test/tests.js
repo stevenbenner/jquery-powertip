@@ -111,10 +111,6 @@ $(function() {
 			}
 		});
 
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
 		element.powerTip('show');
 	});
 
@@ -358,10 +354,6 @@ $(function() {
 		// before the focus test will work
 		$('body').prepend(element);
 
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
 		element.trigger('focus');
 	});
 
@@ -369,8 +361,6 @@ $(function() {
 		var tipText = getRandomString(),
 			element = $('<a href="#" title="' + tipText + '"></a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
-
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
 
 		expect(2);
 
@@ -415,10 +405,6 @@ $(function() {
 			}
 		});
 
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
 		$.powerTip.showTip(element);
 	});
 
@@ -433,10 +419,6 @@ $(function() {
 	 * @param {Function=} fnClose Callback to invoke when the tooltip closes.
 	 */
 	function openExecCloseAndContinue(element, fnOpen, fnClose) {
-		// tell powertip that the mouse isn't over the element
-		// which will appear to be at 0,0 to jQuery
-		$(document).trigger($.Event('mousemove', { pageX: 50, pageY: 50 }));
-
 		element.on({
 			powerTipOpen: function() {
 				if (fnOpen) {
