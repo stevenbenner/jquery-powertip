@@ -138,18 +138,22 @@ function getTooltipContent(element) {
  * @return {number} Value with the collision flags.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
-	var collisions = Collision.none;
+	var viewportTop = session.scrollTop,
+		viewportLeft =  session.scrollLeft,
+		viewportBottom = viewportTop + session.windowHeight,
+		viewportRight = viewportLeft + session.windowWidth,
+		collisions = Collision.none;
 
-	if (coords.top < session.scrollTop) {
+	if (coords.top < viewportTop) {
 		collisions |= Collision.top;
 	}
-	if (coords.top + elementHeight > session.scrollTop + session.windowHeight) {
+	if (coords.top + elementHeight > viewportBottom) {
 		collisions |= Collision.bottom;
 	}
-	if (coords.left < session.scrollLeft || coords.right + elementWidth > session.scrollLeft + session.windowWidth) {
+	if (coords.left < viewportLeft || coords.right + elementWidth > viewportRight) {
 		collisions |= Collision.left;
 	}
-	if (coords.left + elementWidth > session.scrollLeft + session.windowWidth || coords.right < session.scrollLeft) {
+	if (coords.left + elementWidth > viewportRight || coords.right < viewportLeft) {
 		collisions |= Collision.right;
 	}
 
