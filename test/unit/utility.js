@@ -5,7 +5,7 @@
 	session:true
 	Collision:true
 	isSvgElement:true
-	initMouseTracking:true
+	initTracking:true
 	trackMouse:true
 	isMouseOver:true
 	getTooltipContent:true
@@ -24,11 +24,11 @@ $(function() {
 		strictEqual(isSvgElement(div), false, 'div is not an SVG element');
 	});
 
-	test('initMouseTracking', function() {
+	test('initTracking', function() {
 		session.currentX = 1;
 		session.currentY = 1;
 
-		initMouseTracking();
+		initTracking();
 
 		$(document).trigger($.Event('mousemove', { pageX: 2, pageY: 3 }));
 
@@ -131,9 +131,9 @@ $(function() {
 			ok(countFlags(topLeft) === 2 && (topLeft & Collision.top) === Collision.top && (topLeft & Collision.left) === Collision.left, 'top left collision detected');
 		}
 
-		// need to make sure initMouseTracking() has been invoked to populate
-		// the viewport dimensions cache
-		initMouseTracking();
+		// need to make sure initTracking() has been invoked to populate the
+		// viewport dimensions cache
+		initTracking();
 
 		// top/left placement
 		none = getViewportCollisions({ top: 0, left: 0 }, 200, 100);

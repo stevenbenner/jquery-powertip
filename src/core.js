@@ -81,8 +81,8 @@ $.fn.powerTip = function(opts, arg) {
 	var options = $.extend({}, $.fn.powerTip.defaults, opts),
 		tipController = new TooltipController(options);
 
-	// hook mouse tracking
-	initMouseTracking();
+	// hook mouse and viewport dimension tracking
+	initTracking();
 
 	// setup the elements
 	this.each(function elementSetup() {

@@ -23,7 +23,7 @@ function isSvgElement(element) {
  * Prevents attaching the events more than once.
  * @private
  */
-function initMouseTracking() {
+function initTracking() {
 	if (!session.mouseTrackingActive) {
 		session.mouseTrackingActive = true;
 
