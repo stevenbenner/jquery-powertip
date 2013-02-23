@@ -18,36 +18,42 @@ function isSvgElement(element) {
 }
 
 /**
- * Hooks mouse position tracking to mousemove and scroll events.
+ * Initializes the viewport dimension cache and hooks up the mouse position
+ * tracking and viewport dimension tracking events.
  * Prevents attaching the events more than once.
  * @private
  */
 function initMouseTracking() {
-	var lastScrollX = 0,
-		lastScrollY = 0;
-
 	if (!session.mouseTrackingActive) {
 		session.mouseTrackingActive = true;
 
-		// grab the current scroll position on load
-		$(function getScrollPos() {
-			lastScrollX = $document.scrollLeft();
-			lastScrollY = $document.scrollTop();
+		// grab the current viewport dimensions on load
+		$(function getViewportDimensions() {
+			session.scrollLeft = $window.scrollLeft();
+			session.scrollTop = $window.scrollTop();
+			session.windowWidth = $window.width();
+			session.windowHeight = $window.height();
 		});
 
-		// hook mouse position tracking
-		$document.on({
-			mousemove: trackMouse,
+		// hook mouse move tracking
+		$document.on('mousemove', trackMouse);
+
+		// hook viewport dimensions tracking
+		$window.on({
+			resize: function trackResize() {
+				session.windowWidth = $window.width();
+				session.windowHeight = $window.height();
+			},
 			scroll: function trackScroll() {
-				var x = $document.scrollLeft(),
-					y = $document.scrollTop();
-				if (x !== lastScrollX) {
-					session.currentX += x - lastScrollX;
-					lastScrollX = x;
+				var x = $window.scrollLeft(),
+					y = $window.scrollTop();
+				if (x !== session.scrollLeft) {
+					session.currentX += x - session.scrollLeft;
+					session.scrollLeft = x;
 				}
-				if (y !== lastScrollY) {
-					session.currentY += y - lastScrollY;
-					lastScrollY = y;
+				if (y !== session.scrollTop) {
+					session.currentY += y - session.scrollTop;
+					session.scrollTop = y;
 				}
 			}
 		});
@@ -132,22 +138,18 @@ function getTooltipContent(element) {
  * @return {number} Value with the collision flags.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
-	var scrollLeft = $window.scrollLeft(),
-		scrollTop = $window.scrollTop(),
-		windowWidth = $window.width(),
-		windowHeight = $window.height(),
-		collisions = Collision.none;
+	var collisions = Collision.none;
 
-	if (coords.top < scrollTop) {
+	if (coords.top < session.scrollTop) {
 		collisions |= Collision.top;
 	}
-	if (coords.top + elementHeight > scrollTop + windowHeight) {
+	if (coords.top + elementHeight > session.scrollTop + session.windowHeight) {
 		collisions |= Collision.bottom;
 	}
-	if (coords.left < scrollLeft || coords.right + elementWidth > scrollLeft + windowWidth) {
+	if (coords.left < session.scrollLeft || coords.right + elementWidth > session.scrollLeft + session.windowWidth) {
 		collisions |= Collision.left;
 	}
-	if (coords.left + elementWidth > scrollLeft + windowWidth || coords.right < scrollLeft) {
+	if (coords.left + elementWidth > session.scrollLeft + session.windowWidth || coords.right < session.scrollLeft) {
 		collisions |= Collision.right;
 	}
 

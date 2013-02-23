@@ -51,11 +51,11 @@ function PlacementCalculator() {
 			break;
 		case 'w':
 			coords.set('top', position.top - (tipHeight / 2));
-			coords.set('right', $window.width() - position.left + offset);
+			coords.set('right', session.windowWidth - position.left + offset);
 			break;
 		case 'nw':
 			coords.set('top', position.top - tipHeight - offset);
-			coords.set('right', $window.width() - position.left - 20);
+			coords.set('right', session.windowWidth - position.left - 20);
 			break;
 		case 'nw-alt':
 			coords.set('left', position.left);
@@ -67,11 +67,11 @@ function PlacementCalculator() {
 			break;
 		case 'ne-alt':
 			coords.set('top', position.top - tipHeight - offset);
-			coords.set('right', $window.width() - position.left);
+			coords.set('right', session.windowWidth - position.left);
 			break;
 		case 'sw':
 			coords.set('top', position.top + offset);
-			coords.set('right', $window.width() - position.left - 20);
+			coords.set('right', session.windowWidth - position.left - 20);
 			break;
 		case 'sw-alt':
 			coords.set('left', position.left);
@@ -83,7 +83,7 @@ function PlacementCalculator() {
 			break;
 		case 'se-alt':
 			coords.set('top', position.top + offset);
-			coords.set('right', $window.width() - position.left);
+			coords.set('right', session.windowWidth - position.left);
 			break;
 		}
 
@@ -214,8 +214,8 @@ function PlacementCalculator() {
 		}
 
 		return {
-			top: coords.y + $window.scrollTop(),
-			left: coords.x + $window.scrollLeft()
+			top: coords.y + session.scrollTop,
+			left: coords.x + session.scrollLeft
 		};
 	}
 

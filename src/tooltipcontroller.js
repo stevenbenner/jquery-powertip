@@ -32,10 +32,8 @@ function TooltipController(options) {
 	if (options.followMouse) {
 		// only one positionTipOnCursor hook per tooltip element, please
 		if (!tipElement.data(DATA_HASMOUSEMOVE)) {
-			$document.on({
-				mousemove: positionTipOnCursor,
-				scroll: positionTipOnCursor
-			});
+			$document.on('mousemove', positionTipOnCursor);
+			$window.on('scroll', positionTipOnCursor);
 			tipElement.data(DATA_HASMOUSEMOVE, true);
 		}
 	}
@@ -224,9 +222,9 @@ function TooltipController(options) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
 					if (collisions === Collision.right) {
-						coords.set('left', $window.width() - tipWidth);
+						coords.set('left', session.windowWidth - tipWidth);
 					} else if (collisions === Collision.bottom) {
-						coords.set('top', $window.scrollTop() + $window.height() - tipHeight);
+						coords.set('top', session.scrollTop + session.windowHeight - tipHeight);
 					}
 				} else {
 					// if the tooltip has more than one collision then it is

@@ -40,7 +40,11 @@ var session = {
 	previousY: 0,
 	desyncTimeout: null,
 	mouseTrackingActive: false,
-	delayInProgress: false
+	delayInProgress: false,
+	windowWidth: 0,
+	windowHeight: 0,
+	scrollTop: 0,
+	scrollLeft: 0
 };
 
 /**

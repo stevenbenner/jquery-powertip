@@ -131,6 +131,10 @@ $(function() {
 			ok(countFlags(topLeft) === 2 && (topLeft & Collision.top) === Collision.top && (topLeft & Collision.left) === Collision.left, 'top left collision detected');
 		}
 
+		// need to make sure initMouseTracking() has been invoked to populate
+		// the viewport dimensions cache
+		initMouseTracking();
+
 		// top/left placement
 		none = getViewportCollisions({ top: 0, left: 0 }, 200, 100);
 		right = getViewportCollisions({ top: 0, left: windowWidth - 199 }, 200, 100);
