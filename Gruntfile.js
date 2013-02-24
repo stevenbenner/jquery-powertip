@@ -149,8 +149,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	// register grunt tasks
-	grunt.registerTask('default', [ 'jshint:grunt', 'jshint:tests', 'concat', 'jshint:dist', 'qunit', 'uglify' ]);
-	grunt.registerTask('travis', [ 'jshint:grunt', 'jshint:tests', 'concat', 'jshint:dist', 'qunit' ]);
-	grunt.registerTask('build:release', [ 'clean', 'default', 'copy', 'cssmin', 'compress' ]);
+	grunt.registerTask('default', [ 'build:js' ]);
+	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
+	grunt.registerTask('build:js', [ 'concat', 'jshint', 'qunit', 'uglify' ]);
+	grunt.registerTask('build:css', [ 'copy:css', 'cssmin' ]);
+	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license' ]);
+	grunt.registerTask('build:release', [ 'clean', 'build', 'compress' ]);
+	grunt.registerTask('travis', [ 'concat', 'jshint', 'qunit' ]);
 
 };
