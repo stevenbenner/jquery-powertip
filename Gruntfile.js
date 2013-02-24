@@ -11,7 +11,8 @@ module.exports = function(grunt) {
 		buildpath: 'dist/<%= pkg.version %>',
 		files: {
 			cat: 'jquery.powertip-<%= pkg.version %>.js',
-			min: 'jquery.powertip-<%= pkg.version %>.min.js'
+			min: 'jquery.powertip-<%= pkg.version %>.min.js',
+			zip: 'jquery.powertip-<%= pkg.version %>.zip'
 		},
 		banner: [
 			'/*!',
@@ -22,6 +23,9 @@ module.exports = function(grunt) {
 			' <%= _.pluck(pkg.licenses, "url").join("\\n ") %>',
 			'*/\n'
 		].join('\n'),
+		clean: {
+			dist: [ '<%= buildpath %>' ]
+		},
 		jshint: {
 			grunt: {
 				src: [ 'Gruntfile.js' ],
@@ -74,6 +78,49 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		copy: {
+			css: {
+				src: [ 'css/*.css' ],
+				dest: '<%= buildpath %>/'
+			},
+			examples: {
+				src: [ 'examples/*' ],
+				dest: '<%= buildpath %>/'
+			},
+			license: {
+				src: [ 'LICENSE.txt' ],
+				dest: '<%= buildpath %>/LICENSE.txt'
+			}
+		},
+		cssmin: {
+			compress: {
+				files: [
+					{
+						expand: true,
+						cwd: 'css/',
+						src: [ '*.css' ],
+						dest: '<%= buildpath %>/css/',
+						rename: function(dest, matchedSrcPath) {
+							return dest + matchedSrcPath.replace('.css', '.min.css');
+						}
+					}
+				]
+			}
+		},
+		compress: {
+			zip: {
+				options: {
+					archive: '<%= buildpath %>/<%= files.zip %>'
+				},
+				files: [
+					{
+						expand: true,
+						cwd: '<%= buildpath %>/',
+						src: [ '**/*' ]
+					}
+				]
+			}
+		},
 		watch: {
 			grunt: {
 				files: [ 'Gruntfile.js' ],
@@ -92,13 +139,18 @@ module.exports = function(grunt) {
 
 	// load grunt plugins
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'jshint:grunt', 'jshint:tests', 'concat', 'jshint:dist', 'qunit', 'uglify' ]);
 	grunt.registerTask('travis', [ 'jshint:grunt', 'jshint:tests', 'concat', 'jshint:dist', 'qunit' ]);
+	grunt.registerTask('build:release', [ 'clean', 'default', 'copy', 'cssmin', 'compress' ]);
 
 };
