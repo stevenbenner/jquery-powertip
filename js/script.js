@@ -30,6 +30,6 @@ $(function() {
 
 	// ga download event
 	$('#download-link').on('click', function() {
-		_gaq.push(['_trackEvent', 'Downloads', 'PowerTip Release Version']);
+		_gaq.push(['_trackEvent', 'Download', 'PowerTip', this.href]);
 	});
 });
