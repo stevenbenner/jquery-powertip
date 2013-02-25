@@ -7,4 +7,4 @@
  * @requires      jQuery 1.7+
  */
 
-}(jQuery, window));
+}));

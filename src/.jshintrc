@@ -67,5 +67,6 @@
 	"nomen":          false,
 	"onevar":         false,
 	"passfail":       false,
-	"white":          false
+	"white":          false,
+	"predef":         ["define"]
 }
