@@ -70,17 +70,17 @@
 	"white":          false,
 
 	"globals": {
-		"module": true,
-		"expect": true,
-		"test": true,
-		"asyncTest": true,
-		"ok": true,
-		"equal": true,
-		"notEqual": true,
-		"deepEqual": true,
-		"notDeepEqual": true,
-		"strictEqual": true,
-		"notStrictEqual": true,
-		"start": true
+		"module": false,
+		"expect": false,
+		"test": false,
+		"asyncTest": false,
+		"ok": false,
+		"equal": false,
+		"notEqual": false,
+		"deepEqual": false,
+		"notDeepEqual": false,
+		"strictEqual": false,
+		"notStrictEqual": false,
+		"start": false
 	}
 }
