@@ -58,6 +58,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 * Added manual option to disable the built-in event listeners.
 * Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
 * Added support for SVG elements.
+* PowerTip will now use right position for right aligned tooltips.
 * Changed default z-index in CSS themes to int max.
 * Data attributes powertip and powertipjq now accept a function.
 * powerTip() will now overwrite any previous powerTip() calls on an element.
