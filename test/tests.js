@@ -296,14 +296,7 @@ $(function() {
 
 	asyncTest('tooltip should open on mouse enter and close on mouse leave', function() {
 		var tipText = getRandomString(),
-			element = $('<a href="#" title="' + tipText + '">TESTTESTTEST</a>')
-				.css({
-					display: 'block',
-					position: 'absolute',
-					top: 150,
-					left: 150
-				})
-				.powerTip(),
+			element = $('<a href="#" title="' + tipText + '">TESTTESTTEST</a>').powerTip(),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
 			fauxMouseLocation = { pageX: element.offset().top, pageY: element.offset().left };
 
