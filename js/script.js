@@ -22,8 +22,7 @@ $(function() {
 		placement: 'e',
 		mouseOnToPopup: true
 	});
-	$('.twitter-share-button').data('powertip', 'Sharing is caring!');
-	$('.twitter-share-button').powerTip({placement: 'w'});
+
 	$('#buttons a').data('powertip', 'Everything you need!');
 	$('#buttons a').powerTip({placement: 'e'});
 	$('#footer a').powerTip();
