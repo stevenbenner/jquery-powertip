@@ -42,6 +42,14 @@ table code {
 #header p {
 	font-size: 16px;
 }
+#header ul {
+	list-style: none;
+	margin-bottom: 0;
+	line-height: 10px;
+}
+#header li {
+	display: inline-block;
+}
 
 #content {
 	padding: 40px 0;
