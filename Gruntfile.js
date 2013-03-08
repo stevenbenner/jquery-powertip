@@ -123,15 +123,15 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			grunt: {
-				files: [ 'Gruntfile.js' ],
+				files: [ 'Gruntfile.js', '.jshintrc' ],
 				tasks: [ 'jshint:grunt' ]
 			},
 			src: {
-				files: [ 'src/**/*.js' ],
+				files: [ 'src/**/*.js', 'src/.jshintrc' ],
 				tasks: [ 'concat', 'jshint:dist', 'qunit' ]
 			},
 			tests: {
-				files: [ 'test/**/*.js' ],
+				files: [ 'test/**/*.js', 'test/.jshintrc' ],
 				tasks: [ 'jshint:tests', 'qunit' ]
 			}
 		}
