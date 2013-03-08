@@ -47,62 +47,96 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 
 ## Change Log
 
-**[v1.2.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...master)** - TBD
+### [v1.2.0][120diff] - Major release with lots of improvements and a significant code rewrite (TBD)
 
-* Mouse-follow tooltips will now flip out of the way if they become trapped in the bottom-right corner.
-* Escape key will now close tooltip for selected element.
-* Added 8 new tooltip CSS themes.
-* Added support for elastic tooltips.
-* Added reposition() method to the API.
-* Added destroy() method to the API.
-* Added manual option to disable the built-in event listeners.
-* Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
-* Added support for SVG elements.
-* PowerTip will now use right position for right aligned tooltips.
-* Changed default z-index in CSS themes to int max.
-* Data attributes powertip and powertipjq now accept a function.
-* powerTip() will now overwrite any previous powerTip() calls on an element.
-* You can now pass API method names as strings to the `powerTip()` function.
-* Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
-* Fixed issue that could cause tooltips to close prematurely during the closeDelay period.
-* showTip and hideTip API methods are now aliases of the new show and hide API methods.
+**IN-DEVELOPMENT - Not yet released**
 
-**[v1.1.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0)** - August 8, 2012
+* **Features & Improvements**
+	* Mouse-follow tooltips will now flip out of the way if they become trapped in the bottom-right corner.
+	* Escape key will now close tooltip for selected element.
+	* Added support for elastic tooltips.
+	* Added manual option to disable the built-in event listeners.
+	* Added nw-alt, ne-alt, sw-alt, and se-alt placement options.
+	* Added support for SVG elements.
+	* PowerTip will now use right position for right aligned tooltips.
+	* Data attributes powertip and powertipjq now accept a function.
+	* powerTip() will now overwrite any previous powerTip() calls on an element.
+* **API**
+	* Added show() and hide() methods to the API.
+	* Added reposition() method to the API.
+	* Added destroy() method to the API.
+	* You can now pass API method names as strings to the powerTip() function.
+	* showTip and hideTip API methods are now deprecated in favor of the new show and hide API methods (but they will continue to work until 2.0).
+* **CSS**
+	* Added 8 new tooltip CSS themes.
+	* Changed default z-index in CSS themes to int max.
+* **Bug Fixes**
+	* Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
+	* Fixed issue that could cause tooltips to close prematurely during the closeDelay period.
+* **Miscellaneous**
+	* Project now has a fully automated build process.
+	* Added a complete test suite and hooked up Travis CI.
+	* Significant rewrite of the code.
 
-* Added smart placement feature.
-* Added API with showTip() and closeTip() methods.
-* Added custom events.
-* Added support for keyboard navigation.
-* Added support for jsFiddle.
-* Fixed mouse-follow constraint.
+[120diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...master
 
-**[v1.0.4](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.3...v1.0.4)** - July 31, 2012
+### [v1.1.0][110diff] - Major release with several significant improvements (August 8, 2012)
 
-* Fixed problems with Internet Explorer 8.
+* **Features & Improvements**
+	* Added smart placement feature.
+	* Added custom events.
+	* Added support for keyboard navigation.
+	* Added support for jsFiddle.
+* **API**
+	* Added API with showTip() and closeTip() methods.
+* **Bug Fixes**
+	* Fixed mouse-follow constraint
 
-**[v1.0.3](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.2...v1.0.3)** - July 31, 2012
+[110diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.0.4...v1.1.0
 
-* Added mouse position tracking to scroll events.
-* Fixed rare issue that would make fixed placement tooltips follow the mouse.
+### [v1.0.4][104diff] - Minor release to address issues with IE8 (July 31, 2012)
 
-**[v1.0.2](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.1...v1.0.2)** - July 26, 2012
+* **CSS**
+	* Added RBG background color fallback for browsers that do not support RGBA.
+* **Bug Fixes**
+	* Fixed positioning problems with Internet Explorer 8.
 
-* Added placement class to tooltip element.
-* Added CSS arrows to tooltips.
-* Add nw, ne, sw, and sw placement options.
-* Changed default closeDelay to 100ms.
-* Changed default fadeOutTime to 100ms.
-* Changed default placement to north.
-* Fixed error when there is no tooltip content.
-* Fixed rare error when moused entered a tooltip during its fadeOut cycle.
+[104diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.0.3...v1.0.4
 
-**[v1.0.1](https://github.com/stevenbenner/jquery-powertip/compare/v1.0.0...v1.0.1)** - July 11, 2012
+### [v1.0.3][103diff] - Minor release to address a couple issues (July 31, 2012)
 
-* Fixed rare issue that caused tooltips to become desynced.
+* **Features & Improvements**
+	* Added mouse position tracking to scroll events.
+* **Bug Fixes**
+	* Fixed rare issue that would make fixed placement tooltips follow the mouse.
 
-**v1.0.0** - July 1, 2012
+[103diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.0.2...v1.0.3
 
-* Initial release.
+### [v1.0.2][102diff] - Minor release to make a couple small improvements and bug fixes (July 26, 2012)
+
+* **Features & Improvements**
+	* Added placement class to tooltip element.
+	* Added CSS arrows to tooltips.
+	* Add nw, ne, sw, and sw placement options.
+	* Changed default closeDelay to 100ms.
+	* Changed default fadeOutTime to 100ms.
+	* Changed default placement to north.
+* **Bug Fixes**
+	* Fixed error when there is no tooltip content.
+	* Fixed rare error when moused entered a tooltip during its fadeOut cycle.
+
+[102diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.0.1...v1.0.2
+
+### [v1.0.1][101diff] - Minor release to fix a tip tracking issue (July 11, 2012)
+
+* **Bug Fixes**
+	* Fixed rare issue that caused tooltips to become desynced.
+
+[101diff]: https://github.com/stevenbenner/jquery-powertip/compare/v1.0.0...v1.0.1
+
+### v1.0.0 - Initial public release (July 1, 2012)
+
+* **Initial public release**
 
 ## License
 
