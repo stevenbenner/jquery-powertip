@@ -68,5 +68,7 @@
 	"onevar":         false,
 	"passfail":       false,
 	"white":          false,
-	"predef":         ["define"]
+	"globals":        {
+        	"define": true
+         }
 }
