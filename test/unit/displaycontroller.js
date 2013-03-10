@@ -1,7 +1,3 @@
-/*global
-	DATA_HASACTIVEHOVER:true
-	DisplayController:true
-	session:true*/
 $(function() {
 	'use strict';
 

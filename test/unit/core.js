@@ -1,6 +1,3 @@
-/*global
-	DATA_DISPLAYCONTROLLER:true
-	DATA_POWERTIP:true*/
 $(function() {
 	'use strict';
 

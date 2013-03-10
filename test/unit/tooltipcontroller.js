@@ -1,6 +1,3 @@
-/*global
-	DATA_POWERTIP:true
-	TooltipController:true*/
 $(function() {
 	'use strict';
 

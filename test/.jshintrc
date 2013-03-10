@@ -81,6 +81,27 @@
 		"notDeepEqual": false,
 		"strictEqual": false,
 		"notStrictEqual": false,
-		"start": false
+		"start": false,
+
+		"DATA_DISPLAYCONTROLLER": false,
+		"DATA_HASACTIVEHOVER": false,
+		"DATA_POWERTIP": false,
+		"DATA_POWERTIPJQ": false,
+		"DATA_POWERTIPTARGET": false,
+		"session": true,
+		"Collision": false,
+
+		"CSSCoordinates": false,
+		"DisplayController": false,
+		"PlacementCalculator": false,
+		"TooltipController": false,
+
+		"isSvgElement": false,
+		"initTracking": false,
+		"trackMouse": false,
+		"isMouseOver": false,
+		"getTooltipContent": false,
+		"getViewportCollisions": false,
+		"countFlags": false
 	}
 }

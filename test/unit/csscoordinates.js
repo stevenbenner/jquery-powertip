@@ -1,5 +1,3 @@
-/*global
-	CSSCoordinates:true*/
 $(function() {
 	'use strict';
 

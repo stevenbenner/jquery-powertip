@@ -1,16 +1,3 @@
-/*global
-	DATA_POWERTIP:true
-	DATA_POWERTIPJQ:true
-	DATA_POWERTIPTARGET:true
-	session:true
-	Collision:true
-	isSvgElement:true
-	initTracking:true
-	trackMouse:true
-	isMouseOver:true
-	getTooltipContent:true
-	getViewportCollisions:true
-	countFlags:true*/
 $(function() {
 	'use strict';
 

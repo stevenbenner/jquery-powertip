@@ -1,6 +1,3 @@
-/*global
-	PlacementCalculator:true
-	CSSCoordinates:true*/
 $(function() {
 	'use strict';
 
