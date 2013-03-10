@@ -1,6 +1,7 @@
 /*global
 	DATA_HASACTIVEHOVER:true
-	DisplayController:true*/
+	DisplayController:true
+	session:true*/
 $(function() {
 	'use strict';
 
@@ -180,6 +181,42 @@ $(function() {
 				start();
 			}, $.fn.powerTip.defaults.closeDelay / 2 + 10);
 		}, $.fn.powerTip.defaults.closeDelay / 2);
+	});
+
+	asyncTest('show method does not call showTip if hover intent is never satisfied', function() {
+		var element = $('<span />'),
+			showCalled = false,
+			testCount = 5,
+			dc,
+			changeMousePosition;
+
+		expect(testCount);
+
+		dc = new DisplayController(
+			element,
+			$.fn.powerTip.defaults,
+			new MockTipController(
+				function() {
+					showCalled = true;
+				}
+			)
+		);
+
+		changeMousePosition = function() {
+			if (testCount-- > 0) {
+				// check value, move the mouse cursor, and run the test again
+				strictEqual(showCalled, false, 'showTip has not been called');
+				session.currentX += $.fn.powerTip.defaults.intentSensitivity;
+				session.currentY += $.fn.powerTip.defaults.intentSensitivity;
+				setTimeout(changeMousePosition, $.fn.powerTip.defaults.intentPollInterval);
+			} else {
+				// we're done testing
+				start();
+			}
+		};
+
+		dc.show();
+		changeMousePosition();
 	});
 
 	function MockTipController(show, hide, reset) {
