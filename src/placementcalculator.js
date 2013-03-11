@@ -22,17 +22,19 @@ function PlacementCalculator() {
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
 	 * @param {number} offset Distance to offset tooltips in pixels.
+	 * @param {number} fromCenter Distance along line from center (0) to boundary (1).
 	 * @return {CSSCoordinates} A CSSCoordinates object with the position.
 	 */
-	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
+	function computePlacementCoords(element, placement, tipWidth, tipHeight,
+                                        offset, fromCenter) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
 			coords = new CSSCoordinates(),
 			position;
 
 		if (isSvgElement(element)) {
-			position = getSvgPlacement(element, placementBase);
+			position = getSvgPlacement(element, placementBase, fromCenter);
 		} else {
-			position = getHtmlPlacement(element, placementBase);
+			position = getHtmlPlacement(element, placementBase, fromCenter);
 		}
 
 		// calculate the appropriate x and y position in the document
@@ -90,20 +92,36 @@ function PlacementCalculator() {
 		return coords;
 	}
 
+        /**
+         * Finds the weighted average of two values
+         * @private
+         * @param {number} a the first value (returned if weight=0)
+         * @param {number} b the second value (returned if weight=1)
+         * @param {number} weight the weight (0 <= weight <= 1)
+         */
+        function weightedAvg(a, b, weight) {
+            return Math.round( b * weight + a * (1.0 - weight) );
+        }
+
 	/**
 	 * Finds the tooltip attachment point in the document for a HTML DOM element
 	 * for the specified placement.
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
+	 * @param {number} fromCenter The relative distance between center and boundary
 	 * @return {Object} An object with the top,left position values.
 	 */
-	function getHtmlPlacement(element, placement) {
+	function getHtmlPlacement(element, placement, fromCenter) {
 		var objectOffset = element.offset(),
 			objectWidth = element.outerWidth(),
 			objectHeight = element.outerHeight(),
 			left,
-			top;
+			top,
+                        objectCenter = {
+                            top: objectOffset.top + objectHeight / 2,
+                            left: objectOffset.left + objectWidth / 2
+                        };
 
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
@@ -142,8 +160,8 @@ function PlacementCalculator() {
 		}
 
 		return {
-			top: top,
-			left: left
+			top: weightedAvg(objectCenter.top, top, fromCenter),
+			left: weightedAvg(objectCenter.left, left, fromCenter)
 		};
 	}
 
@@ -153,9 +171,10 @@ function PlacementCalculator() {
 	 * @private
 	 * @param {jQuery} element The element that the tooltip should target.
 	 * @param {string} placement The placement for the tooltip.
+	 * @param {number} fromCenter The relative distance between center and boundary
 	 * @return {Object} An object with the top,left position values.
 	 */
-	function getSvgPlacement(element, placement) {
+	function getSvgPlacement(element, placement, fromCenter) {
 		var svgElement = element.closest('svg')[0],
 			domElement = element[0],
 			point = svgElement.createSVGPoint(),
@@ -166,6 +185,7 @@ function PlacementCalculator() {
 			placements = [],
 			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
 			coords,
+                        center = svgElement.createSVGPoint(),
 			rotation,
 			steps,
 			x;
@@ -174,9 +194,12 @@ function PlacementCalculator() {
 			placements.push(point.matrixTransform(matrix));
 		}
 
-		// get bounding box corners and midpoints
+		// Get bounding box corners and midpoints
 		point.x = boundingBox.x;
 		point.y = boundingBox.y;
+                center.x = point.x + halfWidth;
+                center.y = point.y + halfHeight;
+                center = center.matrixTransform(matrix);
 		pushPlacement();
 		point.x += halfWidth;
 		pushPlacement();
@@ -197,6 +220,7 @@ function PlacementCalculator() {
 		if (placements[0].y !== placements[1].y || placements[0].x !== placements[7].x) {
 			rotation = Math.atan2(matrix.b, matrix.a) * RAD2DEG;
 			steps = Math.ceil(((rotation % 360) - 22.5) / 45);
+                        center = center.matrixTransform(matrix);
 			if (steps < 1) {
 				steps += 8;
 			}
@@ -214,8 +238,8 @@ function PlacementCalculator() {
 		}
 
 		return {
-			top: coords.y + session.scrollTop,
-			left: coords.x + session.scrollLeft
+			top: weightedAvg(center.y, coords.y, fromCenter) + session.scrollTop,
+			left: weightedAvg(center.x, coords.x, fromCenter) + session.scrollLeft
 		};
 	}
 

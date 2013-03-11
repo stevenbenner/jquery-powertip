@@ -179,6 +179,7 @@ $.fn.powerTip.defaults = {
 	placement: 'n',
 	smartPlacement: false,
 	offset: 10,
+	fromCenter: 1.0,
 	mouseOnToPopup: false,
 	manual: false,
 	openEvents: [ 'mouseenter', 'focus' ],
