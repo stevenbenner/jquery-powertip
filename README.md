@@ -70,6 +70,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 * **CSS**
 	* Added 8 new tooltip CSS themes.
 	* Changed default z-index in CSS themes to int max.
+	* Added RGB color fallbacks for tooltip arrows (meaning arrows arrows now work in IE8).
 * **Bug Fixes**
 	* Fixed bug that would cause the CSS position to be updated even when the tooltip is closed.
 	* Fixed issue that could cause tooltips to close prematurely during the closeDelay period.
