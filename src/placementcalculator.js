@@ -21,13 +21,16 @@ function PlacementCalculator() {
 	 * @param {string} placement The placement for the tooltip.
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
-	 * @param {number} offset Distance to offset tooltips in pixels.
-	 * @param {number} fromCenter Distance along line from center (0) to boundary (1).
+	 * @param {number} options.offset Distance to offset tooltips in pixels.
+	 * @param {number} options.fromCenter Distance along line from center (0) to boundary (1).
+	 * @param {number} options.inset Distance from corner of tooltip to object for ne, nw, se, sw.
 	 * @return {CSSCoordinates} A CSSCoordinates object with the position.
 	 */
-	function computePlacementCoords(element, placement, tipWidth, tipHeight,
-                                        offset, fromCenter) {
+	function computePlacementCoords(element, placement, tipWidth, tipHeight, options ) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
+                        offset = options.offset,
+                        fromCenter = options.fromCenter,
+                        inset = options.inset,
 			coords = new CSSCoordinates(),
 			position;
 
@@ -57,14 +60,14 @@ function PlacementCalculator() {
 			break;
 		case 'nw':
 			coords.set('bottom', session.windowHeight - position.top + offset);
-			coords.set('right', session.windowWidth - position.left - 20);
+			coords.set('right', session.windowWidth - position.left - inset);
 			break;
 		case 'nw-alt':
 			coords.set('left', position.left);
 			coords.set('bottom', session.windowHeight - position.top + offset);
 			break;
 		case 'ne':
-			coords.set('left', position.left - 20);
+			coords.set('left', position.left - inset);
 			coords.set('bottom', session.windowHeight - position.top + offset);
 			break;
 		case 'ne-alt':
@@ -73,14 +76,14 @@ function PlacementCalculator() {
 			break;
 		case 'sw':
 			coords.set('top', position.top + offset);
-			coords.set('right', session.windowWidth - position.left - 20);
+			coords.set('right', session.windowWidth - position.left - inset);
 			break;
 		case 'sw-alt':
 			coords.set('left', position.left);
 			coords.set('top', position.top + offset);
 			break;
 		case 'se':
-			coords.set('left', position.left - 20);
+			coords.set('left', position.left - inset);
 			coords.set('top', position.top + offset);
 			break;
 		case 'se-alt':
