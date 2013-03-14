@@ -92,6 +92,14 @@ module.exports = function(grunt) {
 				dest: '<%= buildpath %>/LICENSE.txt'
 			}
 		},
+		csslint: {
+			themes: {
+				src: [ 'css/*.css' ],
+				options: {
+					ids: false
+				}
+			}
+		},
 		cssmin: {
 			compress: {
 				files: [
@@ -145,6 +153,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 
@@ -152,9 +161,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', [ 'build:js' ]);
 	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
 	grunt.registerTask('build:js', [ 'concat', 'jshint', 'qunit', 'uglify' ]);
-	grunt.registerTask('build:css', [ 'copy:css', 'cssmin' ]);
+	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license' ]);
 	grunt.registerTask('build:release', [ 'clean', 'build', 'compress' ]);
-	grunt.registerTask('travis', [ 'concat', 'jshint', 'qunit' ]);
+	grunt.registerTask('travis', [ 'concat', 'jshint', 'qunit', 'csslint' ]);
 
 };
