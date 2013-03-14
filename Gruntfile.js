@@ -141,6 +141,10 @@ module.exports = function(grunt) {
 			tests: {
 				files: [ 'test/**/*.js', 'test/.jshintrc' ],
 				tasks: [ 'jshint:tests', 'qunit' ]
+			},
+			css: {
+				files: [ 'css/*.css' ],
+				tasks: [ 'csslint' ]
 			}
 		}
 	});
