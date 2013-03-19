@@ -57,7 +57,8 @@ function TooltipController(options) {
 			mouseleave: function tipMouseLeave() {
 				// check activeHover in case the mouse cursor entered the
 				// tooltip during the fadeOut and close cycle
-				if (session.activeHover) {
+				// and check if keepAlive option is enabled
+				if (session.activeHover && !options.keepAlive) {
 					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
 				}
 			}
@@ -367,7 +368,7 @@ function TooltipController(options) {
 				}
 			}
 
-			if (isDesynced) {
+			if (isDesynced && !options.keepAlive) {
 				// close the desynced tip
 				hideTip(session.activeHover);
 			}

@@ -123,14 +123,20 @@ $.fn.powerTip = function(opts, arg) {
 				$.powerTip.show(this, event);
 			},
 			'mouseleave.powertip': function elementMouseLeave() {
-				$.powerTip.hide(this);
+				// hide on mouseleave unless keepAlive option is enabled
+				if(!options.keepAlive){
+					$.powerTip.hide(this);
+				}
 			},
 			// keyboard events
 			'focus.powertip': function elementFocus() {
 				$.powerTip.show(this);
 			},
 			'blur.powertip': function elementBlur() {
-				$.powerTip.hide(this, true);
+				// hide on mouseleave unless keepAlive option is enabled
+				if(!options.keepAlive){
+					$.powerTip.hide(this, true);
+				}
 			},
 			'keydown.powertip': function elementKeyDown(event) {
 				// close tooltip when the escape key is pressed
@@ -159,7 +165,8 @@ $.fn.powerTip.defaults = {
 	smartPlacement: false,
 	offset: 10,
 	mouseOnToPopup: false,
-	manual: false
+	manual: false,
+	keepAlive: false
 };
 
 /**

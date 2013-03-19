@@ -61,6 +61,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 	* PowerTip will now use right position for right aligned tooltips.
 	* Data attributes powertip and powertipjq now accept a function.
 	* powerTip() will now overwrite any previous powerTip() calls on an element.
+	* Added keepAlive option to prevent automatic hiding of tooltips on mouseleave events.
 * **API**
 	* Added show() and hide() methods to the API.
 	* Added reposition() method to the API.
