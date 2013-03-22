@@ -21,7 +21,6 @@
 			"url": "http://stevenbenner.github.com/jquery-powertip/blob/master/LICENSE.txt"
 		}
 	],
-	"dependencies": {},
 	"devDependencies": {
 		"grunt": "~0.4",
 		"grunt-contrib-watch": "~0.3",
@@ -37,6 +36,5 @@
 	},
 	"scripts": {
 		"test": "grunt travis --verbose"
-	},
-	"keywords": []
+	}
 }
