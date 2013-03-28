@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 	// configure grunt
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		buildpath: 'dist/<%= pkg.version %>',
+		buildpath: 'dist',
 		temppath: '<%= buildpath %>/temp',
 		files: {
 			cat: 'jquery.powertip-<%= pkg.version %>.js',
