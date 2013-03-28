@@ -11,8 +11,8 @@ module.exports = function(grunt) {
 		buildpath: 'dist',
 		temppath: '<%= buildpath %>/temp',
 		files: {
-			cat: 'jquery.powertip-<%= pkg.version %>.js',
-			min: 'jquery.powertip-<%= pkg.version %>.min.js',
+			cat: 'jquery.powertip.js',
+			min: 'jquery.powertip.min.js',
 			zip: 'jquery.powertip-<%= pkg.version %>.zip'
 		},
 		banner: [
