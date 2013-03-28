@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		buildpath: 'dist/<%= pkg.version %>',
+		temppath: '<%= buildpath %>/temp',
 		files: {
 			cat: 'jquery.powertip-<%= pkg.version %>.js',
 			min: 'jquery.powertip-<%= pkg.version %>.min.js',
@@ -25,7 +26,7 @@ module.exports = function(grunt) {
 		].join('\n'),
 		clean: {
 			dist: [ '<%= buildpath %>' ],
-			temp: [ '<%= buildpath %>/temp' ]
+			temp: [ '<%= temppath %>' ]
 		},
 		jshint: {
 			grunt: {
@@ -60,12 +61,12 @@ module.exports = function(grunt) {
 					'src/tooltipcontroller.js',
 					'src/utility.js'
 				],
-				dest: '<%= buildpath %>/temp/core.js'
+				dest: '<%= temppath %>/core.js'
 			},
 			dist: {
 				src: [
 					'src/intro.js',
-					'<%= buildpath %>/temp/core.js',
+					'<%= temppath %>/core.js',
 					'src/outro.js'
 				],
 				dest: '<%= buildpath %>/<%= files.cat %>',
@@ -76,8 +77,8 @@ module.exports = function(grunt) {
 		},
 		indent: {
 			js: {
-				src: [ '<%= buildpath %>/temp/core.js' ],
-				dest: '<%= buildpath %>/temp/core.js',
+				src: [ '<%= temppath %>/core.js' ],
+				dest: '<%= temppath %>/core.js',
 				options: {
 					change: 1
 				}
