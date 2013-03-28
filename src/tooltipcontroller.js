@@ -141,7 +141,7 @@ function TooltipController(options) {
 		tipElement.fadeIn(options.fadeInTime, function fadeInCallback() {
 			// start desync polling
 			if (!session.desyncTimeout) {
-				session.desyncTimeout = window.setInterval(closeDesyncedTip, 500);
+				session.desyncTimeout = setInterval(closeDesyncedTip, 500);
 			}
 
 			// trigger powerTipOpen event
@@ -161,7 +161,7 @@ function TooltipController(options) {
 		session.isTipOpen = false;
 
 		// stop desync polling
-		session.desyncTimeout = window.clearInterval(session.desyncTimeout);
+		session.desyncTimeout = clearInterval(session.desyncTimeout);
 
 		// reset element state
 		element.data(DATA_HASACTIVEHOVER, false);

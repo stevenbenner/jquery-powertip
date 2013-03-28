@@ -8,7 +8,7 @@
  */
 
 // useful private variables
-var $document = $(window.document),
+var $document = $(document),
 	$window = $(window),
 	$body = $('body');
 

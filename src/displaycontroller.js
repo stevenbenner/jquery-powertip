@@ -31,7 +31,7 @@ function DisplayController(element, options, tipController) {
 		if (!element.data(DATA_HASACTIVEHOVER)) {
 			if (!immediate) {
 				session.tipOpenImminent = true;
-				hoverTimer = window.setTimeout(
+				hoverTimer = setTimeout(
 					function intentDelay() {
 						hoverTimer = null;
 						checkForIntent();
@@ -59,7 +59,7 @@ function DisplayController(element, options, tipController) {
 			element.data(DATA_FORCEDOPEN, false);
 			if (!disableDelay) {
 				session.delayInProgress = true;
-				hoverTimer = window.setTimeout(
+				hoverTimer = setTimeout(
 					function closeDelay() {
 						hoverTimer = null;
 						tipController.hideTip(element);
@@ -100,7 +100,7 @@ function DisplayController(element, options, tipController) {
 	 * @private
 	 */
 	function cancelTimer() {
-		hoverTimer = window.clearTimeout(hoverTimer);
+		hoverTimer = clearTimeout(hoverTimer);
 		session.delayInProgress = false;
 	}
 
