@@ -9,6 +9,7 @@
 		#placement-examples .east { margin-left: 450px; }
 		#mousefollow-examples div { background-color: #EEE; text-align: center; line-height: 400px; margin: 0 auto; height: 400px; width: 100%; }
 		#mouseon-examples div { background-color: #EEE; text-align: center; width: 400px; padding: 40px; }
+		#keepalive-examples div { background-color: #EEE; text-align: center; width: 400px; padding: 40px; }
 		#api-examples input { margin: 10px; padding: 10px 30px; }
 	</style>
 	<!-- Include jQuery and PowerTip -->
@@ -94,6 +95,28 @@
 			mouseOnDiv.powerTip({
 				placement: 'e',
 				mouseOnToPopup: true
+			});
+		});
+	</script>
+	
+	<!-- Keep alive examples -->
+	<div id="keepalive-examples">
+		<h2>Keep alive example</h2>
+		<div>
+			The PowerTip for this box will stay visible when the mouse leaves the box.
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// keep-alive example
+			var keepAliveDiv = $('#keepalive-examples div');
+			var keepAliveContent = $(
+				'<div>You can hide me manually using the API</div><div>or by activating another PowerTip instance</div>'
+			);
+			keepAliveDiv.data('powertipjq', keepAliveContent);
+			keepAliveDiv.powerTip({
+				placement: 'e',
+				keepAlive: true
 			});
 		});
 	</script>

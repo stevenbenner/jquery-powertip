@@ -208,6 +208,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 | `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
+| `keepAlive` | `false` | Boolean | If set to `true` then the tooltip will stay visible until manually closed or destroyed using the API or another PowerTip instance is shown. Only works if `followMouse` is set to `false`. |
 
 ## Tooltip CSS
 
