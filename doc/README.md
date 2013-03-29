@@ -399,3 +399,70 @@ $('.tips').powerTip({
 ```
 
 Smart placement is **disabled** by default because I believe that the world would be a better place if features that override explicit configuration values were disabled by default.
+
+## Custom PowerTip Integration
+
+If you need to use PowerTip in a non-standard way, that is to say, if you need tooltips to open and close in some way other than the default mouse-on/mouse-off behavior then you can create your own event handlers and tell PowerTip when it should open and close tooltips.
+
+This is actually quite easy, you just tell PowerTip not to hook the default mouse and keyboard events when you run the plugin by setting the `manual` option to `true`, then use the API to open and close tooltips. While this is a bit more technical then just using the default behavior it works just as well. In fact, PowerTip uses this same public API internally.
+
+### Disable the event hooking
+
+To disable the events that are normally attached when you run `powerTip()` just set the `manual` option to `true`.
+
+```javascript
+$('.tooltips').powerTip({ manual: true });
+```
+
+Now PowerTip has hooked itself to the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
+
+### Building your own event handlers
+
+Here is an example of a click-to-open tooltip to show you how it's done:
+
+```javascript
+// run PowerTip - but disable the default event hooks
+$('.tooltips').powerTip({ manual: true });
+
+// hook custom onclick function
+$('.tooltips').on('click', function() {
+	// hide any open tooltips
+	// this is optional, but recommended in case we optimize away the sanity
+	// checks in the API at some point.
+	$.powerTip.hide();
+
+	// show the tooltip for the element that received the click event
+	$.powerTip.show(this);
+});
+```
+
+That's pretty simple, right? This code will open a tooltip when the element is clicked and close it when the element is clicked again, or when another of the `.tooltips` elements gets clicked.
+
+Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `show()` method.
+
+So let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
+
+```javascript
+// run PowerTip - but disable the default event hooks
+$('.tooltips').powerTip({ manual: true });
+
+// hook custom mouse events
+$('.tooltips').on({
+	mouseenter: function(event) {
+		// note that we pass the jQuery mouse event to the show() method
+		// this lets PowerTip do the hover intent testing
+		$.powerTip.show(this, event);
+	},
+	mouseleave: function() {
+		// note that we pass the element to the hide() method
+		// this lets PowerTip wait before closing the tooltip, if the users
+		// mouse cursor returns to this element before the tooltip closes then
+		// the close will be canceled
+		$.powerTip.hide(this);
+	}
+});
+```
+
+And there you have it. If you want to enable the hover intent testing then you will need to pass the mouse event to the `show()` method and if you want to enable the close delay feature then you have to pass that element to the `hide()` method.
+
+Note that *only* mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`) have the required properties (`pageX`, and `pageY`) to do hover intent testing. Click events and keyboard events will not work (and will likely cause an error).
