@@ -141,14 +141,14 @@ $(function() {
 
 		doTests();
 
-		// top/right placement
-		none = getViewportCollisions({ top: 0, right: 0 }, 200, 100);
-		right = getViewportCollisions({ top: 0, right: -1 }, 200, 100);
-		bottom = getViewportCollisions({ top: windowHeight - 99, right: 0 }, 200, 100);
-		bottomRight = getViewportCollisions({ top: windowHeight - 99, right: -1 }, 200, 100);
-		top = getViewportCollisions({ top: -1, right: 0 }, 200, 100);
-		left = getViewportCollisions({ top: 0, right: windowWidth - 199 }, 200, 100);
-		topLeft = getViewportCollisions({ top: -1, right: windowWidth - 199 }, 200, 100);
+		// bottom/right placement
+		none = getViewportCollisions({ bottom: 0, right: 0 }, 200, 100);
+		right = getViewportCollisions({ bottom: 0, right: -1 }, 200, 100);
+		bottom = getViewportCollisions({ bottom: -1, right: 0 }, 200, 100);
+		bottomRight = getViewportCollisions({ bottom: -1, right: -1 }, 200, 100);
+		top = getViewportCollisions({ bottom: windowHeight - 99, right: 0 }, 200, 100);
+		left = getViewportCollisions({ bottom: 0, right: windowWidth - 199 }, 200, 100);
+		topLeft = getViewportCollisions({ bottom: windowHeight - 99, right: windowWidth - 199 }, 200, 100);
 
 		doTests();
 	});
