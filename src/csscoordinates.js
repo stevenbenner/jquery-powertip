@@ -19,6 +19,7 @@ function CSSCoordinates() {
 	me.top = 'auto';
 	me.left = 'auto';
 	me.right = 'auto';
+	me.bottom = 'auto';
 
 	/**
 	 * Set a property to a value.
