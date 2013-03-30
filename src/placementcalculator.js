@@ -39,7 +39,7 @@ function PlacementCalculator() {
 		switch (placement) {
 		case 'n':
 			coords.set('left', position.left - (tipWidth / 2));
-			coords.set('top', position.top - tipHeight - offset);
+			coords.set('bottom', session.windowHeight - position.top + offset);
 			break;
 		case 'e':
 			coords.set('left', position.left + offset);
@@ -54,19 +54,19 @@ function PlacementCalculator() {
 			coords.set('right', session.windowWidth - position.left + offset);
 			break;
 		case 'nw':
-			coords.set('top', position.top - tipHeight - offset);
+			coords.set('bottom', session.windowHeight - position.top + offset);
 			coords.set('right', session.windowWidth - position.left - 20);
 			break;
 		case 'nw-alt':
 			coords.set('left', position.left);
-			coords.set('top', position.top - tipHeight - offset);
+			coords.set('bottom', session.windowHeight - position.top + offset);
 			break;
 		case 'ne':
 			coords.set('left', position.left - 20);
-			coords.set('top', position.top - tipHeight - offset);
+			coords.set('bottom', session.windowHeight - position.top + offset);
 			break;
 		case 'ne-alt':
-			coords.set('top', position.top - tipHeight - offset);
+			coords.set('bottom', session.windowHeight - position.top + offset);
 			coords.set('right', session.windowWidth - position.left);
 			break;
 		case 'sw':
