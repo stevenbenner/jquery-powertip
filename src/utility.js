@@ -144,10 +144,10 @@ function getViewportCollisions(coords, elementWidth, elementHeight) {
 		viewportRight = viewportLeft + session.windowWidth,
 		collisions = Collision.none;
 
-	if (coords.top < viewportTop) {
+	if (coords.top < viewportTop || Math.abs(coords.bottom - session.windowHeight) - elementHeight < viewportTop) {
 		collisions |= Collision.top;
 	}
-	if (coords.top + elementHeight > viewportBottom) {
+	if (coords.top + elementHeight > viewportBottom || Math.abs(coords.bottom - session.windowHeight) > viewportBottom) {
 		collisions |= Collision.bottom;
 	}
 	if (coords.left < viewportLeft || coords.right + elementWidth > viewportRight) {
