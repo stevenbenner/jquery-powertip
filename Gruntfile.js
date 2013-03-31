@@ -132,7 +132,10 @@ module.exports = function(grunt) {
 							return dest + matchedSrcPath.replace('.css', '.min.css');
 						}
 					}
-				]
+				],
+				options: {
+					report: 'gzip'
+				}
 			}
 		},
 		compress: {
