@@ -220,7 +220,7 @@ I recommend that you either adapt one of the base stylesheets to suit your needs
 * The default id of the PowerTip element is `powerTip`. But this can be changed via the `popupId` option.
 * The PowerTip element is always a direct child of body, appended after all other content on the page.
 * The tooltip element is not created until you run `powerTip()`.
-* PowerTip will set the `display`, `visibility`, `opacity`, `top`, `left`, and `right` properties using inline styles.
+* PowerTip will set the `display`, `visibility`, `opacity`, `top`, `left`, `right`, and `bottom` properties using inline styles.
 
 ### CSS requirements
 
