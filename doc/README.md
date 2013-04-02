@@ -28,11 +28,6 @@
 
 * jQuery 1.7 or later
 
-### Demo
-
-* See PowerTip in action on the [project page](http://stevenbenner.github.com/jquery-powertip/).
-* Fiddle with PowerTip on the official [jsFiddle demo](http://jsfiddle.net/stevenbenner/2baqv/).
-
 ## Design Goals
 
 * **Tooltips that behave like they would in desktop applications**
