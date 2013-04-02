@@ -110,6 +110,10 @@ module.exports = function(grunt) {
 			license: {
 				src: [ 'LICENSE.txt' ],
 				dest: '<%= buildpath %>/LICENSE.txt'
+			},
+			index: {
+				src: [ '<%= buildpath %>/index.md' ],
+				dest: 'index.md'
 			}
 		},
 		csslint: {
@@ -150,6 +154,20 @@ module.exports = function(grunt) {
 						src: [ '**/*' ]
 					}
 				]
+			}
+		},
+		shell: {
+			checkoutpages: {
+				command: 'git checkout gh-pages'
+			},
+			addindex: {
+				command: [
+					'git add index.md',
+					'git commit -m "Publishing docs."'
+				].join(' && ')
+			},
+			checkoutmaster: {
+				command: 'git checkout master'
 			}
 		},
 		watch: {
@@ -199,6 +217,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-csslint');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-compress');
+	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-indent');
 
 	// register grunt tasks
@@ -209,5 +228,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
 	grunt.registerTask('travis', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
+	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
 
 };
