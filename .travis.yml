@@ -6,5 +6,5 @@ before_script:
 notifications:
   irc:
     channels:
-      -"irc.freenode.net#powertip"
+      - "irc.freenode.net#powertip"
     skip_join: true
