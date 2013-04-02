@@ -1,11 +1,3 @@
-# PowerTip
-
-*A jQuery plugin that creates hover tooltips.*
-
-## Summary
-
-PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
-
 ### Unique Features
 
 * **Checks for hover intent**
