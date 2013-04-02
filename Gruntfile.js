@@ -172,6 +172,19 @@ module.exports = function(grunt) {
 		}
 	});
 
+	// custom task to build the gh-pages index.md file
+	grunt.registerTask('build:gh-pages', 'Create the gh-pages markdown.', function() {
+		var data = {
+				pkg: grunt.file.readJSON('package.json'),
+				doc: grunt.file.read('doc/README.md'),
+				changelog: grunt.file.readYAML('CHANGELOG.yml')
+			},
+			template = grunt.file.read('doc/gh-pages.template.md'),
+			page = grunt.template.process(template, { data: data });
+		grunt.file.write('dist/index.md', page);
+		grunt.log.ok('gh-pages markdown created');
+	});
+
 	// force unix style line endings
 	grunt.util.linefeed = '\n';
 
