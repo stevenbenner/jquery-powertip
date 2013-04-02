@@ -4,6 +4,7 @@ node_js:
 before_script:
   - npm install -g grunt-cli
 notifications:
-  irc: "irc.freenode.net#powertip"
-  use_notice: true
-  skip_join: true
+  irc:
+    channels:
+      -"irc.freenode.net#powertip"
+    skip_join: true
