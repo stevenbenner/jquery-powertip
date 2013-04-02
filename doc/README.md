@@ -98,7 +98,6 @@ $('#element').data('powertip', 'This will be the <b>tooltip text</b>.');
 
 or
 
-
 ```javascript
 $('#element').data('powertip', function() {
 	return 'This will be the <b>tooltip text</b>.';
