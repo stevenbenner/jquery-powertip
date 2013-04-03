@@ -114,6 +114,24 @@ module.exports = function(grunt) {
 			index: {
 				src: [ '<%= buildpath %>/index.md' ],
 				dest: 'index.md'
+			},
+			zipassets: {
+				src: [ '<%= buildpath %>/<%= files.zip %>' ],
+				dest: 'releases/<%= files.zip %>'
+			},
+			jsassets: {
+				src: [ '<%= buildpath %>/<%= files.cat %>' ],
+				dest: 'scripts/<%= files.cat %>'
+			},
+			cssassets: {
+				files: [
+					{
+						expand: true,
+						cwd: '<%= buildpath %>/css/',
+						src: [ '*.css', '!*.min.css' ],
+						dest: 'styles/'
+					}
+				]
 			}
 		},
 		csslint: {
@@ -164,6 +182,14 @@ module.exports = function(grunt) {
 				command: [
 					'git add index.md',
 					'git commit -m "Publishing docs."'
+				].join(' && ')
+			},
+			addassets: {
+				command: [
+					'git add releases/<%= files.zip %>',
+					'git add scripts/<%= files.cat %>',
+					'git add styles/jquery.powertip*.css',
+					'git commit -m "Publishing assets."'
 				].join(' && ')
 			},
 			checkoutmaster: {
@@ -229,5 +255,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
 	grunt.registerTask('travis', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
+	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:zipassets', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
 
 };
