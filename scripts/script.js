@@ -35,4 +35,23 @@ $(function() {
 	$('#download-link').on('click', function() {
 		_gaq.push(['_trackEvent', 'Download', 'PowerTip', this.href]);
 	});
+
+	// add contributors list
+	var contribList = $('#contributors');
+	$.ajax({
+		url: 'https://api.github.com/repos/stevenbenner/jquery-powertip/contributors',
+		type: 'GET',
+		dataType: 'jsonp',
+		cache: false
+	}).done(function(data) {
+		var list, anchor;
+		if (data.data && data.data.length) {
+			list = $('<ul />');
+			$.each(data.data, function(idx, user) {
+				anchor = $('<a />').attr('href', user.html_url).attr('target', '_blank').attr('rel', 'external').text(user.login);
+				list.append($('<li />').append(anchor));
+			});
+			list.insertAfter(contribList.next());
+		}
+	});
 });
