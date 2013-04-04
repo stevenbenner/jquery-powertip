@@ -78,3 +78,7 @@ The PowerTip for this box will appear on the right and you will be able to inter
 		});
 	});
 %>
+
+## Contributors
+
+Special thanks to the [contributors](https://github.com/stevenbenner/jquery-powertip/graphs/contributors) who have helped build PowerTip.
