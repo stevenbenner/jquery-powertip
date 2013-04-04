@@ -584,3 +584,7 @@ Note that *only* mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`)
 ### v1.0.0 - Initial public release (July 1, 2012)
 
 * **Initial public release**
+
+## Contributors
+
+Special thanks to the [contributors](https://github.com/stevenbenner/jquery-powertip/graphs/contributors) who have helped build PowerTip.
