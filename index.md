@@ -326,16 +326,16 @@ You can also pass the API method names as strings to the `powerTip()` function. 
 $('#submit').powerTip();
 
 // open tooltip for submit button
-$.powerTip.showTip($('#submit'));
+$.powerTip.show($('#submit'));
 
 // close (any open) tooltip
-$.powerTip.closeTip();
+$.powerTip.hide();
 {% endhighlight %}
 
 ### Notes
 
 * Remember that one of the rules for PowerTip is that only one tooltip will be visible at a time, so any open tooltips will be closed before a new tooltip is shown.
-* Forcing a tooltip to open via the `showTip()` method does not disable the normal hover tooltips for any other elements. If the user moves their cursor to another element with a tooltip after you call `showTip()` then the tooltip you opened will be closed so that the tooltip for the user's current hover target can open.
+* Forcing a tooltip to open via the `show()` method does not disable the normal hover tooltips for any other elements. If the user moves their cursor to another element with a tooltip after you call `show()` then the tooltip you opened will be closed so that the tooltip for the user's current hover target can open.
 
 ## PowerTip Events
 
