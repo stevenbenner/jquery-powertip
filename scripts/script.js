@@ -8,6 +8,10 @@ $(function() {
 	$('#north-east').powerTip({placement: 'ne'});
 	$('#south-west').powerTip({placement: 'sw'});
 	$('#south-east').powerTip({placement: 'se'});
+	$('#north-west-alt').powerTip({ placement: 'nw-alt' });
+	$('#north-east-alt').powerTip({ placement: 'ne-alt' });
+	$('#south-west-alt').powerTip({ placement: 'sw-alt' });
+	$('#south-east-alt').powerTip({ placement: 'se-alt' });
 
 	// mouse follow examples
 	$('#mousefollow-examples div').powerTip({followMouse: true});
