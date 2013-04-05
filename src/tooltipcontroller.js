@@ -55,10 +55,13 @@ function TooltipController(options) {
 				}
 			},
 			mouseleave: function tipMouseLeave() {
-				// check activeHover in case the mouse cursor entered the
-				// tooltip during the fadeOut and close cycle
-				if (session.activeHover) {
-					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
+				// we only want to hide if its not in manual mode
+				if(!options.manual) {
+					// check activeHover in case the mouse cursor entered the
+					// tooltip during the fadeOut and close cycle
+					if (session.activeHover) {
+						session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
+					}
 				}
 			}
 		});
