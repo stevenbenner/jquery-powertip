@@ -41,7 +41,8 @@ function TooltipController(options) {
 	// if we want to be able to mouse onto the tooltip then we need to attach
 	// hover events to the tooltip that will cancel a close request on hover and
 	// start a new close request on mouseleave
-	if (options.mouseOnToPopup) {
+	// only hook these listeners if its not in manual mode
+	if (options.mouseOnToPopup && !options.manual) {
 		tipElement.on({
 			mouseenter: function tipMouseEnter() {
 				// we only let the mouse stay on the tooltip if it is set to let
@@ -55,13 +56,10 @@ function TooltipController(options) {
 				}
 			},
 			mouseleave: function tipMouseLeave() {
-				// we only want to hide if its not in manual mode
-				if(!options.manual) {
-					// check activeHover in case the mouse cursor entered the
-					// tooltip during the fadeOut and close cycle
-					if (session.activeHover) {
-						session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
-					}
+				// check activeHover in case the mouse cursor entered the
+				// tooltip during the fadeOut and close cycle
+				if (session.activeHover) {
+					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
 				}
 			}
 		});
