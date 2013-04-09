@@ -1,3 +1,11 @@
+v1.2.1:
+  date: TBD
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...master
+  description: Minor bug fixes and improvements
+  changes:
+    - section: Bug Fixes
+      changes:
+        - Fixed mouse-onto-tooltip events not being disabled by manual option
 v1.2.0:
   date: 2013-04-03
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...v1.2.0
