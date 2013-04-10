@@ -110,20 +110,20 @@ $(function() {
 
 		function doTests() {
 			strictEqual(none, Collision.none, 'no collisions detected');
-			strictEqual(countFlags(right), 1, 'exactly one collision detected for right test');
 			strictEqual(right & Collision.right, Collision.right, 'right collision detected for right test');
-			strictEqual(countFlags(bottom), 1, 'exactly one collision detected for bottom test');
+			strictEqual(countFlags(right), 1, 'exactly one collision detected for right test');
 			strictEqual(bottom & Collision.bottom, Collision.bottom, 'bottom collision detected for bottom test');
-			strictEqual(countFlags(bottomRight), 2, 'exactly two collisions detected for bottom-right test');
+			strictEqual(countFlags(bottom), 1, 'exactly one collision detected for bottom test');
 			strictEqual(bottomRight & Collision.bottom, Collision.bottom, 'bottom collision detected for bottom-right test');
 			strictEqual(bottomRight & Collision.right, Collision.right, 'right collision detected for bottom-right test');
-			strictEqual(countFlags(top), 1, 'exactly one collision detected for top test');
+			strictEqual(countFlags(bottomRight), 2, 'exactly two collisions detected for bottom-right test');
 			strictEqual(top & Collision.top, Collision.top, 'top collision detected for top test');
-			strictEqual(countFlags(left), 1, 'exactly one collision detected for left test');
+			strictEqual(countFlags(top), 1, 'exactly one collision detected for top test');
 			strictEqual(left & Collision.left, Collision.left, 'left collision detected for left test');
-			strictEqual(countFlags(topLeft), 2, 'exactly two collisions detected for top-left test');
+			strictEqual(countFlags(left), 1, 'exactly one collision detected for left test');
 			strictEqual(topLeft & Collision.top, Collision.top, 'top collision detected for top-left test');
 			strictEqual(topLeft & Collision.left, Collision.left, 'left collision detected for top-left test');
+			strictEqual(countFlags(topLeft), 2, 'exactly two collisions detected for top-left test');
 		}
 
 		// need to make sure initTracking() has been invoked to populate the
