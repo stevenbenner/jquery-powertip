@@ -111,6 +111,10 @@ module.exports = function(grunt) {
 				src: [ 'LICENSE.txt' ],
 				dest: '<%= buildpath %>/LICENSE.txt'
 			},
+			changelog: {
+				src: [ 'CHANGELOG.yml' ],
+				dest: '<%= buildpath %>/CHANGELOG.yml'
+			},
 			index: {
 				src: [ '<%= buildpath %>/index.md' ],
 				dest: 'index.md'
@@ -251,7 +255,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
 	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'uglify' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
-	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license' ]);
+	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
 	grunt.registerTask('travis', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
