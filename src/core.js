@@ -195,15 +195,15 @@ $.fn.powerTip.smartPlacementLists = {
 };
 
 /**
- * Determines whether to show or hide tooltip for specified event. (Only
+ * Determines whether to open or close tooltip for specified event. (Only
  * fires for events that appear in both the openEvents and closeEvents
  * options for specified element's powerTip instance.)
- * @param {jQuery|Element} element The element to open the tooltip for.
+ * @param {jQuery|Element} element The element to open or close the tooltip for.
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.showHide = function(element, event){
 	if(session.activeHover && element[0] === session.activeHover[0]){
-		// tooltip for element is active, so hide it
+		// tooltip for element is active, so close it
 		$.fn.powerTip.hide(element, event);
 	} else {
 		// tooltip for element is not active, so open it
@@ -229,7 +229,7 @@ $.fn.powerTip.show = function(element, event){
 /**
  * Dispatches $.powerTip.hide with specified element after determining
  * whether or not to immediately hide the tooltip. 
- * @param {jQuery|Element} element The element to open the tooltip for.
+ * @param {jQuery|Element} element The element to close the tooltip for.
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.hide = function(element, event){
