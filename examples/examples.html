@@ -9,7 +9,7 @@
 		#placement-examples .east { margin-left: 450px; }
 		#mousefollow-examples div { background-color: #EEE; text-align: center; line-height: 400px; margin: 0 auto; height: 400px; width: 100%; }
 		#mouseon-examples div { background-color: #EEE; text-align: center; width: 400px; padding: 40px; }
-		#api-examples input { margin: 10px; padding: 10px 30px; }
+		#events-examples input, #api-examples input { margin: 10px; padding: 10px 30px; }
 	</style>
 	<!-- Include jQuery and PowerTip -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -94,6 +94,39 @@
 			mouseOnDiv.powerTip({
 				placement: 'e',
 				mouseOnToPopup: true
+			});
+		});
+	</script>
+	
+	<!-- Custom event examples -->
+	<div id="events-examples">
+		<h2>Custom show and hide event examples</h2>
+		<input id="click-click-example" type="button" title="Show and hide on click" value="Show and hide tooltip on click" />
+		<input id="mouseenter-mouseenter-example" type="button" title="Show and hide on mouse enter" value="Show and hide tooltip on mouse enter" />
+		<input id="mouseenter-clickMouseleave-example" type="button" title="Show on mouse enter, hide on click and mouse leave" value="Show tooltip on mouse enter, hide on click and mouse leave" />
+		<input id="click-null-example" type="button" title="Show on click" value="Show tooltip on click" />
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// click-click example
+			$('#click-click-example').powerTip({
+				openEvents: ['click'],
+				closeEvents: ['click']
+			});
+			// mouseenter-mouseenter example
+			$('#mouseenter-mouseenter-example').powerTip({
+				openEvents: ['mouseenter'],
+				closeEvents: ['mouseenter']
+			});
+			// mouseenter-click example
+			$('#mouseenter-clickMouseleave-example').powerTip({
+				openEvents: ['mouseenter'],
+				closeEvents: ['click', 'mouseleave']
+			});
+			// click-null example
+			$('#click-null-example').powerTip({
+				openEvents: ['click'],
+				closeEvents: []
 			});
 		});
 	</script>
