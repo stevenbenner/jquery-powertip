@@ -118,7 +118,7 @@ $.fn.powerTip = function(opts, arg) {
 	// attach events to matched elements if the manual option is not enabled
 	if (!options.manual) {
 		var me = this;
-		
+
 		// attach open events
 		$.each(options.openEvents, function(idx, evt){
 			if($.inArray(evt, options.closeEvents) > -1){
@@ -132,6 +132,7 @@ $.fn.powerTip = function(opts, arg) {
 				});
 			}
 		});
+
 		// attach close events
 		$.each(options.closeEvents, function(idx, evt){
 			if($.inArray(evt, options.openEvents) < 0){
@@ -140,7 +141,7 @@ $.fn.powerTip = function(opts, arg) {
 				});
 			}
 		});
-		
+
 		this.on('keydown.powertip', function elementKeyDown(event) {
 			// always close tooltip when the escape key is pressed
 			if (event.keyCode === 27) {
@@ -232,7 +233,7 @@ $.fn.powerTip.show = function(element, event){
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.hide = function(element, event){
-	if(event.type === "blur"){
+	if(event.type === 'blur'){
 		$.powerTip.hide(element, true);
 	} else {
 		$.powerTip.hide(element);

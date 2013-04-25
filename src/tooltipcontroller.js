@@ -137,7 +137,7 @@ function TooltipController(options) {
 		} else {
 			positionTipOnCursor();
 		}
-		
+
 		// close tooltip when clicking anywhere on the page, with the exception of 
 		// the tooltip's trigger element and any elements that are within 
 		// a tooltip that has 'mouseOnToPopup' option enabled
@@ -183,7 +183,7 @@ function TooltipController(options) {
 		// reset element state
 		element.data(DATA_HASACTIVEHOVER, false);
 		element.data(DATA_FORCEDOPEN, false);
-		
+
 		// remove document click handler
 		$document.off('click.powertip');
 
@@ -364,9 +364,7 @@ function TooltipController(options) {
 		// result in a desynced tooltip because the tooltip was never asked to
 		// close. So we should periodically check for a desync situation and
 		// close the tip if such a situation arises.
-		if (session.isTipOpen && !session.isClosing && !session.delayInProgress && 
-				($.inArray("mouseleave", options.closeEvents) > -1 || $.inArray("mouseout", options.closeEvents) > -1 ||
-						$.inArray("blur", options.closeEvents) > -1 || $.inArray("focusout", options.closeEvents) > -1)) {
+		if (session.isTipOpen && !session.isClosing && !session.delayInProgress && ($.inArray('mouseleave', options.closeEvents) > -1 || $.inArray('mouseout', options.closeEvents) > -1 || $.inArray('blur', options.closeEvents) > -1 || $.inArray('focusout', options.closeEvents) > -1)) {
 			// user moused onto another tip or active hover is disabled
 			if (session.activeHover.data(DATA_HASACTIVEHOVER) === false || session.activeHover.is(':disabled')) {
 				isDesynced = true;
