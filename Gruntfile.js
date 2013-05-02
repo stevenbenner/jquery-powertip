@@ -251,13 +251,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-indent');
 
 	// register grunt tasks
-	grunt.registerTask('default', [ 'build:js' ]);
+	grunt.registerTask('default', [ 'test' ]);
+	grunt.registerTask('test', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
 	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
 	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'uglify' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
-	grunt.registerTask('travis', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
+	grunt.registerTask('travis', [ 'test' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
 	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:zipassets', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
 
