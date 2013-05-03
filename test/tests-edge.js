@@ -88,6 +88,42 @@ $(function() {
 	$('#huge-text-smart .south-west-alt').powerTip({placement: 'sw-alt', smartPlacement: true});
 	$('#huge-text-smart .south-east-alt').powerTip({placement: 'se-alt', smartPlacement: true});
 
+	// SVG elements
+	$('#svg-elements #red-ellipse1').powerTip({ placement: 'n' });
+	$('#svg-elements #red-ellipse2').powerTip({ placement: 'e' });
+	$('#svg-elements #red-ellipse3').powerTip({ placement: 's' });
+	$('#svg-elements #red-ellipse4').powerTip({ placement: 'w' });
+	$('#svg-elements #red-ellipse5').powerTip({ placement: 'nw' });
+	$('#svg-elements #red-ellipse5-alt').powerTip({ placement: 'nw-alt' });
+	$('#svg-elements #red-ellipse6').powerTip({ placement: 'ne' });
+	$('#svg-elements #red-ellipse6-alt').powerTip({ placement: 'ne-alt' });
+	$('#svg-elements #red-ellipse7').powerTip({ placement: 'sw' });
+	$('#svg-elements #red-ellipse7-alt').powerTip({ placement: 'sw-alt' });
+	$('#svg-elements #red-ellipse8').powerTip({ placement: 'se' });
+	$('#svg-elements #red-ellipse8-alt').powerTip({ placement: 'se-alt' });
+	$('#svg-elements #red-ellipse9').powerTip({ placement: 'n' });
+
+	// Complex SVG elements
+	$('#complex-svg-elements #black-star').powerTip({ placement: 'n' });
+	$('#complex-svg-elements #black-line').powerTip({ placement: 'e' });
+	$('#complex-svg-elements #black-mexico').powerTip({ placement: 's' });
+	$('#complex-svg-elements #black-group').powerTip({ placement: 'w' });
+	$('#complex-svg-elements #black-circle').powerTip({ placement: 'nw' });
+	$('#complex-svg-elements #black-rect').powerTip({ placement: 'ne' });
+	$('#complex-svg-elements #black-polygon').powerTip({ placement: 'sw' });
+	$('#complex-svg-elements #black-text').powerTip({ placement: 'se' });
+
+	// Rotated SVG elements
+	$('#rotated-svg-elements #blue-ellipse1').powerTip({ placement: 'nw' });
+	$('#rotated-svg-elements #blue-ellipse2').powerTip({ placement: 'n' });
+	$('#rotated-svg-elements #blue-ellipse3').powerTip({ placement: 'ne' });
+	$('#rotated-svg-elements #blue-ellipse4').powerTip({ placement: 'w' });
+	$('#rotated-svg-elements #blue-ellipse5').powerTip({ followMouse: true });
+	$('#rotated-svg-elements #blue-ellipse6').powerTip({ placement: 'e' });
+	$('#rotated-svg-elements #blue-ellipse7').powerTip({ placement: 'sw' });
+	$('#rotated-svg-elements #blue-ellipse8').powerTip({ placement: 's' });
+	$('#rotated-svg-elements #blue-ellipse9').powerTip({ placement: 'se' });
+
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
 
