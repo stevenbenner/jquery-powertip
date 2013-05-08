@@ -1,4 +1,4 @@
-# [PowerTip][projectpage] - A jQuery plugin that creates hover tooltips.
+# [PowerTip][projectpage]
 
 PowerTip is a jQuery tooltip plugin with some advanced features like **hover intent testing**, **tooltip queueing**, and **support for complex data**. It also has that rarest of features in jQuery plugins, it's not abandonware.
 
