@@ -22,6 +22,7 @@
 * Multiple instances
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
+* Supports custom open and close event handlers
 * Actively maintained
 
 ### Requirements
@@ -194,6 +195,8 @@ Of course those defaults will be overridden with any options you pass directly t
 | `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
 | `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
 | `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
+| `openEvents` | `[ 'mouseenter', 'focus' ]` | Array of Strings | Specifies which jQuery events should cause the tooltip to open. Only applies if `manual` is set to `false`. |
+| `closeEvents` | `[ 'mouseleave', 'blur' ]` | Array of Strings | Specifies which jQuery events should cause the tooltip to close. Only applies if `manual` is set to `false`. |
 
 ## Tooltip CSS
 
