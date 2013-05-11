@@ -3,6 +3,9 @@ v1.2.1:
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...master
   description: Minor bug fixes and improvements
   changes:
+    - section: Features & Improvements
+      changes:
+        - Added openEvents and closeEvents options.
     - section: Bug Fixes
       changes:
         - Fixed mouse-onto-tooltip events not being disabled by manual option
