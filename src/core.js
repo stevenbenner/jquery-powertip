@@ -115,28 +115,37 @@ $.fn.powerTip = function(opts, arg) {
 		);
 	});
 
-	// attach events to matched elements if the manual options is not enabled
+	// attach events to matched elements if the manual option is not enabled
 	if (!options.manual) {
-		this.on({
-			// mouse events
-			'mouseenter.powertip': function elementMouseEnter(event) {
-				$.powerTip.show(this, event);
-			},
-			'mouseleave.powertip': function elementMouseLeave() {
-				$.powerTip.hide(this);
-			},
-			// keyboard events
-			'focus.powertip': function elementFocus() {
-				$.powerTip.show(this);
-			},
-			'blur.powertip': function elementBlur() {
+		var me = this;
+
+		// attach open events
+		$.each(options.openEvents, function(idx, evt){
+			if($.inArray(evt, options.closeEvents) > -1){
+				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
+				me.on(evt + '.powertip', function elementOpenCloseEvent(event){
+					$.fn.powerTip.showHide(me, event);
+				});
+			} else {
+				me.on(evt + '.powertip', function elementOpenEvent(event){
+					$.fn.powerTip.show(me, event);
+				});
+			}
+		});
+
+		// attach close events
+		$.each(options.closeEvents, function(idx, evt){
+			if($.inArray(evt, options.openEvents) < 0){
+				me.on(evt + '.powertip', function elementCloseEvent(event){
+					$.fn.powerTip.hide(me, event);
+				});
+			}
+		});
+
+		this.on('keydown.powertip', function elementKeyDown(event) {
+			// always close tooltip when the escape key is pressed
+			if (event.keyCode === 27) {
 				$.powerTip.hide(this, true);
-			},
-			'keydown.powertip': function elementKeyDown(event) {
-				// close tooltip when the escape key is pressed
-				if (event.keyCode === 27) {
-					$.powerTip.hide(this, true);
-				}
 			}
 		});
 	}
@@ -159,7 +168,9 @@ $.fn.powerTip.defaults = {
 	smartPlacement: false,
 	offset: 10,
 	mouseOnToPopup: false,
-	manual: false
+	manual: false,
+	openEvents: [ 'mouseenter', 'focus' ],
+	closeEvents: [ 'mouseleave', 'blur' ]
 };
 
 /**
@@ -181,6 +192,52 @@ $.fn.powerTip.smartPlacementLists = {
 	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
 	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
 	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
+};
+
+/**
+ * Determines whether to open or close tooltip for specified event. (Only
+ * fires for events that appear in both the openEvents and closeEvents
+ * options for specified element's powerTip instance.)
+ * @param {jQuery|Element} element The element to open or close the tooltip for.
+ * @param {jQuery.Event=} event jQuery event.
+ */
+$.fn.powerTip.showHide = function(element, event){
+	if(session.activeHover && element[0] === session.activeHover[0]){
+		// tooltip for element is active, so close it
+		$.fn.powerTip.hide(element, event);
+	} else {
+		// tooltip for element is not active, so open it
+		$.fn.powerTip.show(element, event);
+	}
+};
+
+/**
+ * Dispatches $.powerTip.show with specified element after determining
+ * whether or not to pass the fired event on to show function.
+ * @param {jQuery|Element} element The element to open the tooltip for.
+ * @param {jQuery.Event=} event jQuery event.
+ */
+$.fn.powerTip.show = function(element, event){
+	if(event.pageX){
+		// for mouse events, pass event to show (for hover intent and mouse tracking)
+		$.powerTip.show(element, event);
+	} else {
+		$.powerTip.show(element);
+	}
+};
+
+/**
+ * Dispatches $.powerTip.hide with specified element after determining
+ * whether or not to immediately hide the tooltip. 
+ * @param {jQuery|Element} element The element to close the tooltip for.
+ * @param {jQuery.Event=} event jQuery event.
+ */
+$.fn.powerTip.hide = function(element, event){
+	if(event.type === 'blur'){
+		$.powerTip.hide(element, true);
+	} else {
+		$.powerTip.hide(element);
+	}
 };
 
 /**
