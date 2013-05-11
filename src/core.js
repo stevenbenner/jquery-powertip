@@ -120,23 +120,23 @@ $.fn.powerTip = function(opts, arg) {
 		var me = this;
 
 		// attach open events
-		$.each(options.openEvents, function(idx, evt){
-			if($.inArray(evt, options.closeEvents) > -1){
+		$.each(options.openEvents, function(idx, evt) {
+			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
-				me.on(evt + '.powertip', function elementOpenCloseEvent(event){
+				me.on(evt + '.powertip', function elementOpenCloseEvent(event) {
 					$.fn.powerTip.showHide(me, event);
 				});
 			} else {
-				me.on(evt + '.powertip', function elementOpenEvent(event){
+				me.on(evt + '.powertip', function elementOpenEvent(event) {
 					$.fn.powerTip.show(me, event);
 				});
 			}
 		});
 
 		// attach close events
-		$.each(options.closeEvents, function(idx, evt){
-			if($.inArray(evt, options.openEvents) < 0){
-				me.on(evt + '.powertip', function elementCloseEvent(event){
+		$.each(options.closeEvents, function(idx, evt) {
+			if ($.inArray(evt, options.openEvents) < 0) {
+				me.on(evt + '.powertip', function elementCloseEvent(event) {
 					$.fn.powerTip.hide(me, event);
 				});
 			}
@@ -201,8 +201,8 @@ $.fn.powerTip.smartPlacementLists = {
  * @param {jQuery|Element} element The element to open or close the tooltip for.
  * @param {jQuery.Event=} event jQuery event.
  */
-$.fn.powerTip.showHide = function(element, event){
-	if(session.activeHover && element[0] === session.activeHover[0]){
+$.fn.powerTip.showHide = function(element, event) {
+	if (session.activeHover && element[0] === session.activeHover[0]) {
 		// tooltip for element is active, so close it
 		$.fn.powerTip.hide(element, event);
 	} else {
@@ -217,8 +217,8 @@ $.fn.powerTip.showHide = function(element, event){
  * @param {jQuery|Element} element The element to open the tooltip for.
  * @param {jQuery.Event=} event jQuery event.
  */
-$.fn.powerTip.show = function(element, event){
-	if(event.pageX){
+$.fn.powerTip.show = function(element, event) {
+	if (event.pageX) {
 		// for mouse events, pass event to show (for hover intent and mouse tracking)
 		$.powerTip.show(element, event);
 	} else {
@@ -228,12 +228,12 @@ $.fn.powerTip.show = function(element, event){
 
 /**
  * Dispatches $.powerTip.hide with specified element after determining
- * whether or not to immediately hide the tooltip. 
+ * whether or not to immediately hide the tooltip.
  * @param {jQuery|Element} element The element to close the tooltip for.
  * @param {jQuery.Event=} event jQuery event.
  */
-$.fn.powerTip.hide = function(element, event){
-	if(event.type === 'blur'){
+$.fn.powerTip.hide = function(element, event) {
+	if (event.type === 'blur') {
 		$.powerTip.hide(element, true);
 	} else {
 		$.powerTip.hide(element);

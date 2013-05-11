@@ -138,14 +138,14 @@ function TooltipController(options) {
 			positionTipOnCursor();
 		}
 
-		// close tooltip when clicking anywhere on the page, with the exception of 
-		// the tooltip's trigger element and any elements that are within 
+		// close tooltip when clicking anywhere on the page, with the exception of
+		// the tooltip's trigger element and any elements that are within
 		// a tooltip that has 'mouseOnToPopup' option enabled
-		$document.on('click.powertip', function documentClick(event){
+		$document.on('click.powertip', function documentClick(event) {
 			var target = event.target;
-			if(target !== element[0]){
-				if(options.mouseOnToPopup){
-					if(target !== tipElement[0] && !$.contains(tipElement[0], target)){
+			if (target !== element[0]) {
+				if (options.mouseOnToPopup) {
+					if (target !== tipElement[0] && !$.contains(tipElement[0], target)) {
 						$.powerTip.hide();
 					}
 				} else {
