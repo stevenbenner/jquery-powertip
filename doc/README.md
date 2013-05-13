@@ -29,6 +29,8 @@
 
 * jQuery 1.7 or later
 
+**Important note:** The `<body>` tag must use the default CSS `position`.
+
 ## Design Goals
 
 * **Tooltips that behave like they would in desktop applications**
