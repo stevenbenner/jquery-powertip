@@ -28,6 +28,20 @@
 
 			// hook theme switcher to select change
 			$('#theme-switcher').on('change', setTheme);
+
+			setInterval(function() {
+				var sessionText = '';
+				$.each(session, function(key, value) {
+					var val;
+					if (value && typeof value === 'object' && value.jquery) {
+						val = value.attr('id');
+					} else {
+						val = value;
+					}
+					sessionText += key + ': ' + val + '\n';
+				});
+				$('#session pre').text(sessionText);
+			}, 250);
 		});
 	</script>
 	<style type="text/css">
@@ -38,6 +52,8 @@
 		#huge-text input, #huge-text-smart input { margin: 10px; padding: 10px; }
 		#huge-text .east, #huge-text-smart .east { margin-left: 450px; }
 		svg { display: block; margin: 0 auto; }
+		#session { position: fixed; right: 10px; top: 10px; font-size: 10px; width: 160px; background-color: #fff; border: 1px solid #ccc; padding: 10px; overflow: hidden; }
+		#session pre { margin: 0; }
 	</style>
 </head>
 <body>
@@ -162,5 +178,6 @@
 		<p>This box has a mouse following tooltip.</p>
 		<p>Trap it in the bottom right corner of the viewport. It should flip out of the way. It should not flip if it only hits one edge.</p>
 	</section>
+	<div id="session"><pre /></div>
 </body>
 </html>
