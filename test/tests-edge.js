@@ -25,6 +25,10 @@ $(function() {
 	});
 	$('#auto-disable-button input').powerTip({ placement: 'e' });
 
+	// Long delay tooltips
+	$('#long-delay #first-button').powerTip({ closeDelay: 2000, mouseOnToPopup: true });
+	$('#long-delay #second-button').powerTip({ closeDelay: 2000 });
+
 	// setup huge text tooltips
 	var hugeText = [
 		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed',
