@@ -43,26 +43,30 @@ function TooltipController(options) {
 	// start a new close request on mouseleave
 	// only hook these listeners if its not in manual mode
 	if (options.mouseOnToPopup && !options.manual) {
-		tipElement.on({
-			mouseenter: function tipMouseEnter() {
-				// we only let the mouse stay on the tooltip if it is set to let
-				// users interact with it
-				if (tipElement.data(DATA_MOUSEONTOTIP)) {
+		// only one event hook per tooltip element, please
+		if (!tipElement.data(DATA_HASMOUSEENTER)) {
+			tipElement.on({
+				mouseenter: function tipMouseEnter() {
+					// we only let the mouse stay on the tooltip if it is set to let
+					// users interact with it
+					if (tipElement.data(DATA_MOUSEONTOTIP)) {
+						// check activeHover in case the mouse cursor entered the
+						// tooltip during the fadeOut and close cycle
+						if (session.activeHover) {
+							session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
+						}
+					}
+				},
+				mouseleave: function tipMouseLeave() {
 					// check activeHover in case the mouse cursor entered the
 					// tooltip during the fadeOut and close cycle
 					if (session.activeHover) {
-						session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
+						session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
 					}
 				}
-			},
-			mouseleave: function tipMouseLeave() {
-				// check activeHover in case the mouse cursor entered the
-				// tooltip during the fadeOut and close cycle
-				if (session.activeHover) {
-					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
-				}
-			}
-		});
+			});
+			tipElement.data(DATA_HASMOUSEENTER, true);
+		}
 	}
 
 	/**
