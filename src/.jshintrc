@@ -19,7 +19,6 @@
 	"jquery": true,
 
 	"globals": {
-		"define": false,
-		"SVGElement": false
+		"define": false
 	}
 }
