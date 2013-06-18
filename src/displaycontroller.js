@@ -17,7 +17,8 @@
  *     this instance.
  */
 function DisplayController(element, options, tipController) {
-	var hoverTimer = null;
+	var hoverTimer = null,
+		myCloseDelay = null;
 
 	/**
 	 * Begins the process of showing a tooltip.
@@ -44,6 +45,9 @@ function DisplayController(element, options, tipController) {
 				}
 				tipController.showTip(element);
 			}
+		} else {
+			// cursor left and returned to this element, cancel close
+			cancelClose();
 		}
 	}
 
@@ -59,14 +63,18 @@ function DisplayController(element, options, tipController) {
 			element.data(DATA_FORCEDOPEN, false);
 			if (!disableDelay) {
 				session.delayInProgress = true;
-				hoverTimer = setTimeout(
+				session.closeDelayTimeout = setTimeout(
 					function closeDelay() {
-						hoverTimer = null;
+						session.closeDelayTimeout = null;
 						tipController.hideTip(element);
 						session.delayInProgress = false;
+						myCloseDelay = null;
 					},
 					options.closeDelay
 				);
+				// save internal reference close delay id so we can check if the
+				// active close delay belongs to this instance
+				myCloseDelay = session.closeDelayTimeout;
 			} else {
 				tipController.hideTip(element);
 			}
@@ -86,6 +94,7 @@ function DisplayController(element, options, tipController) {
 
 		// check if difference has passed the sensitivity threshold
 		if (totalDifference < options.intentSensitivity) {
+			cancelClose();
 			tipController.showTip(element);
 		} else {
 			// try again
@@ -98,9 +107,23 @@ function DisplayController(element, options, tipController) {
 	/**
 	 * Cancels active hover timer.
 	 * @private
+	 * @param {boolean=} stopClose Cancel any active close delay timer.
 	 */
-	function cancelTimer() {
+	function cancelTimer(stopClose) {
 		hoverTimer = clearTimeout(hoverTimer);
+		// cancel the current close delay if the active close delay is for this
+		// element or the stopClose argument is true
+		if (session.closeDelayTimeout && myCloseDelay === session.closeDelayTimeout || stopClose) {
+			cancelClose();
+		}
+	}
+
+	/**
+	 * Cancels any active close delay timer.
+	 * @private
+	 */
+	function cancelClose() {
+		session.closeDelayTimeout = clearTimeout(session.closeDelayTimeout);
 		session.delayInProgress = false;
 	}
 

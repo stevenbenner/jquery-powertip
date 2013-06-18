@@ -40,6 +40,7 @@ var session = {
 	previousX: 0,
 	previousY: 0,
 	desyncTimeout: null,
+	closeDelayTimeout: null,
 	mouseTrackingActive: false,
 	delayInProgress: false,
 	windowWidth: 0,
