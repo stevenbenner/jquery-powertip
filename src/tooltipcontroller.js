@@ -195,7 +195,7 @@ function TooltipController(options) {
 			var coords = new CSSCoordinates();
 
 			// reset session and tooltip element
-            session.activeHover = null;
+			session.activeHover = null;
 			session.isClosing = false;
 			session.isFixedTipOpen = false;
 			tipElement.removeClass();
