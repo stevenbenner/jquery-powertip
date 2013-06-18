@@ -10,6 +10,7 @@ v1.2.1:
       changes:
         - Fixed mouse-onto-tooltip events not being disabled by manual option
         - Fixed possible repeated event hooks when mouseOnToPopup is enabled.
+        - The closeDelay timer is now correctly shared between all tooltips.
     - section: Miscellaneous
       changes:
         - Fixed script url in the examples HTML file incuded in the release.
