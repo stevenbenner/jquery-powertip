@@ -1,6 +1,9 @@
 $(function() {
 	'use strict';
 
+	// Open on load
+	$('#open-on-load input').powerTip({ placement: 'ne' }).powerTip('show');
+
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
 		var $this = $(this);
