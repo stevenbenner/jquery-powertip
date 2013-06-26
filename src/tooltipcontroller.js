@@ -227,37 +227,45 @@ function TooltipController(options) {
 			var tipWidth = tipElement.outerWidth(),
 				tipHeight = tipElement.outerHeight(),
 				coords = new CSSCoordinates(),
-				collisions,
-				collisionCount;
+                collisions;
 
-			// grab collisions
-			coords.set('top', session.currentY + options.offset);
-			coords.set('left', session.currentX + options.offset);
-			collisions = getViewportCollisions(
-				coords,
-				tipWidth,
-				tipHeight
-			);
+            if (options.offsetUp) {
+                coords.set('top', session.currentY - options.offset - tipHeight);
+            } else {
+                coords.set('top', session.currentY + options.offset);
+            }
 
-			// handle tooltip view port collisions
-			if (collisions !== Collision.none) {
-				collisionCount = countFlags(collisions);
-				if (collisionCount === 1) {
-					// if there is only one collision (bottom or right) then
-					// simply constrain the tooltip to the view port
-					if (collisions === Collision.right) {
-						coords.set('left', session.windowWidth - tipWidth);
-					} else if (collisions === Collision.bottom) {
-						coords.set('top', session.scrollTop + session.windowHeight - tipHeight);
-					}
-				} else {
-					// if the tooltip has more than one collision then it is
-					// trapped in the corner and should be flipped to get it out
-					// of the users way
-					coords.set('left', session.currentX - tipWidth - options.offset);
-					coords.set('top', session.currentY - tipHeight - options.offset);
-				}
-			}
+            // horizontally center the tooltip with the mouse pointer in the center
+            coords.set('left', session.currentX - (tipWidth / 2));
+
+            // grab collisions
+            collisions = getViewportCollisions(
+                coords,
+                tipWidth,
+                tipHeight
+            );
+
+            // handle tooltip view port collisions
+            if (collisions !== Collision.none) {
+                // use bitmask to find multiple collisions
+                // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators#Examples
+                if (collisions & Collision.right) {
+                    // move left to constrain to viewport
+                    coords.set('left', session.windowWidth - tipWidth);
+                }
+                if (collisions & Collision.left) {
+                    // move right to constrain to viewport
+                    coords.set('left', 0);
+                }
+                if (collisions & Collision.top) {
+                    // flip to bottom
+                    coords.set('top', session.currentY + options.offset);
+                }
+                if (collisions & Collision.bottom) {
+                    // flip to top
+                    coords.set('top', session.currentY - tipHeight - options.offset);
+                }
+            }
 
 			// position the tooltip
 			tipElement.css(coords);
