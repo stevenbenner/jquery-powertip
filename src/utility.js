@@ -28,12 +28,8 @@ function initTracking() {
 		session.mouseTrackingActive = true;
 
 		// grab the current viewport dimensions on load
-		$(function getViewportDimensions() {
-			session.scrollLeft = $window.scrollLeft();
-			session.scrollTop = $window.scrollTop();
-			session.windowWidth = $window.width();
-			session.windowHeight = $window.height();
-		});
+		getViewportDimensions();
+		$(getViewportDimensions);
 
 		// hook mouse move tracking
 		$document.on('mousemove', trackMouse);
@@ -58,6 +54,13 @@ function initTracking() {
 			}
 		});
 	}
+}
+
+function getViewportDimensions() {
+	session.scrollLeft = $window.scrollLeft();
+	session.scrollTop = $window.scrollTop();
+	session.windowWidth = $window.width();
+	session.windowHeight = $window.height();
 }
 
 /**
