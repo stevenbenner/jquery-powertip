@@ -31,6 +31,8 @@ function PlacementCalculator() {
 
 		if (isSvgElement(element)) {
 			position = getSvgPlacement(element, placementBase);
+		} else if (element.css('transform').indexOf('matrix') !== -1) {
+			position = getTransformedHtmlPlacement(element, placementBase);
 		} else {
 			position = getHtmlPlacement(element, placementBase);
 		}
@@ -91,6 +93,47 @@ function PlacementCalculator() {
 	}
 
 	/**
+	 * Calculates the size of the rotated-element's bounding box.
+	 * @private
+	 * @param {jQuery} element The possibly rotated element.
+	 * @return {Object} An object with the width,height position values.
+	 */
+	function getTransformedHtmlDimensions(element) {
+		var cos,
+			sin,
+			width = element.width(),
+			height = element.height(),
+			matrix = element.css('transform').replace(/matrix\(|\)/g, '').split(', ');
+		cos = matrix[0];
+		sin = matrix[1];
+		return {
+			'width': Math.round(width * Math.abs(cos) + height * Math.abs(sin)),
+			'height': Math.round(width * Math.abs(sin) + height * Math.abs(cos))
+		};
+	}
+
+	/**
+	 * Finds the tooltip attachment point in the document for a css
+	 * transformed HTML DOM element for the specified placement.
+	 * @private
+	 * @param {jQuery} element The element that the tooltip should target.
+	 * @param {string} placement The placement for the tooltip.
+	 * @return {Object} An object with the top,left position values.
+	 */
+	function getTransformedHtmlPlacement(element, placement) {
+		var objectOffset = element.offset(),
+			objectWidth,
+			objectHeight,
+			objectSize;
+
+		objectSize = getTransformedHtmlDimensions(element);
+		objectWidth = objectSize.width;
+		objectHeight = objectSize.height;
+
+		return getGenericPlacement(placement, objectOffset, objectWidth, objectHeight);
+	}
+
+	/**
 	 * Finds the tooltip attachment point in the document for a HTML DOM element
 	 * for the specified placement.
 	 * @private
@@ -101,10 +144,25 @@ function PlacementCalculator() {
 	function getHtmlPlacement(element, placement) {
 		var objectOffset = element.offset(),
 			objectWidth = element.outerWidth(),
-			objectHeight = element.outerHeight(),
-			left,
-			top;
+			objectHeight = element.outerHeight();
 
+		return getGenericPlacement(placement, objectOffset, objectWidth, objectHeight);
+	}
+
+
+	/**
+	 * Returns the appropriate position. Helper for getHtmlPlacement() and
+	 * getTransformedHtmlPlacement().
+	 * @private
+	 * @param {string} placement The placement for the tooltip.
+	 * @param {Object} objectOffset Element's offset.
+	 * @param {number} Element's width.
+	 * @param {number} Element's height.
+	 * @return {Object} An object with the top,left position values.
+	 */
+	function getGenericPlacement(placement, objectOffset, objectWidth, objectHeight) {
+		var left,
+			top;
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
 		case 'n':
