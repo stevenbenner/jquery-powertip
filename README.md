@@ -2,7 +2,7 @@
 
 PowerTip is a jQuery tooltip plugin with some advanced features like **hover intent testing**, **tooltip queueing**, and **support for complex data**. It also has that rarest of features in jQuery plugins, it's not abandonware.
 
-[![Build Status](https://secure.travis-ci.org/stevenbenner/jquery-powertip.png)](http://travis-ci.org/stevenbenner/jquery-powertip)
+[![Build Status](https://secure.travis-ci.org/stevenbenner/jquery-powertip.png)](http://travis-ci.org/stevenbenner/jquery-powertip) [![Dependency Status](https://gemnasium.com/stevenbenner/jquery-powertip.png)](https://gemnasium.com/stevenbenner/jquery-powertip)
 
 ## Getting Started
 
