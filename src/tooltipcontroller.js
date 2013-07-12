@@ -178,7 +178,6 @@ function TooltipController(options) {
 	function hideTip(element) {
 		// reset session
 		session.isClosing = true;
-		session.activeHover = null;
 		session.isTipOpen = false;
 
 		// stop desync polling
@@ -196,6 +195,7 @@ function TooltipController(options) {
 			var coords = new CSSCoordinates();
 
 			// reset session and tooltip element
+			session.activeHover = null;
 			session.isClosing = false;
 			session.isFixedTipOpen = false;
 			tipElement.removeClass();
