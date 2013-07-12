@@ -13,8 +13,8 @@
 	<script type="text/javascript" src="../src/utility.js"></script>
 	<script type="text/javascript" src="tests-edge.js"></script>
 	<script type="text/javascript">
-		/* CSS Theme Switcher */
 		$(function() {
+			// css theme switcher
 			function setTheme() {
 				var theme = $('#theme-switcher').val();
 				if (theme !== '') {
@@ -23,12 +23,13 @@
 				$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
 			}
 
-			// run it on page load
+			// run theme switcher on page load
 			setTheme();
 
 			// hook theme switcher to select change
 			$('#theme-switcher').on('change', setTheme);
 
+			// session debug info box
 			setInterval(function() {
 				var sessionText = '';
 				$.each(session, function(key, value) {
