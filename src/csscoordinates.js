@@ -38,7 +38,7 @@ function CSSCoordinates() {
 	 * @private
 	 * @param {string} property The name of the property.
 	 */
-        me.isSet = function(property) {
-            return $.isNumeric(me[property]);
-        };
+	me.isSet = function(property) {
+		return $.isNumeric(me[property]);
+	};
 }

@@ -28,9 +28,9 @@ function PlacementCalculator() {
 	 */
 	function computePlacementCoords(element, placement, tipWidth, tipHeight, options ) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
-                        offset = options.offset,
-                        fromCenter = options.fromCenter,
-                        inset = options.inset,
+			offset = options.offset,
+			fromCenter = options.fromCenter,
+			inset = options.inset,
 			coords = new CSSCoordinates(),
 			position;
 
@@ -95,16 +95,16 @@ function PlacementCalculator() {
 		return coords;
 	}
 
-        /**
-         * Finds the weighted average of two values
-         * @private
-         * @param {number} a the first value (returned if weight=0)
-         * @param {number} b the second value (returned if weight=1)
-         * @param {number} weight the weight (0 <= weight <= 1)
-         */
-        function weightedAvg(a, b, weight) {
-            return Math.round( b * weight + a * (1.0 - weight) );
-        }
+	/**
+	 * Finds the weighted average of two values
+	 * @private
+	 * @param {number} a the first value (returned if weight=0)
+	 * @param {number} b the second value (returned if weight=1)
+	 * @param {number} weight the weight (0 <= weight <= 1)
+	 */
+	function weightedAvg(a, b, weight) {
+		return Math.round( b * weight + a * (1.0 - weight) );
+	}
 
 	/**
 	 * Finds the tooltip attachment point in the document for a HTML DOM element
@@ -121,10 +121,10 @@ function PlacementCalculator() {
 			objectHeight = element.outerHeight(),
 			left,
 			top,
-                        objectCenter = {
-                            top: objectOffset.top + objectHeight / 2,
-                            left: objectOffset.left + objectWidth / 2
-                        };
+			objectCenter = {
+				top: objectOffset.top + objectHeight / 2,
+				left: objectOffset.left + objectWidth / 2
+			};
 
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
@@ -188,7 +188,7 @@ function PlacementCalculator() {
 			placements = [],
 			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
 			coords,
-                        center = svgElement.createSVGPoint(),
+						center = svgElement.createSVGPoint(),
 			rotation,
 			steps,
 			x;
@@ -200,9 +200,9 @@ function PlacementCalculator() {
 		// Get bounding box corners and midpoints
 		point.x = boundingBox.x;
 		point.y = boundingBox.y;
-                center.x = point.x + halfWidth;
-                center.y = point.y + halfHeight;
-                center = center.matrixTransform(matrix);
+		center.x = point.x + halfWidth;
+		center.y = point.y + halfHeight;
+		center = center.matrixTransform(matrix);
 		pushPlacement();
 		point.x += halfWidth;
 		pushPlacement();
@@ -223,7 +223,7 @@ function PlacementCalculator() {
 		if (placements[0].y !== placements[1].y || placements[0].x !== placements[7].x) {
 			rotation = Math.atan2(matrix.b, matrix.a) * RAD2DEG;
 			steps = Math.ceil(((rotation % 360) - 22.5) / 45);
-                        center = center.matrixTransform(matrix);
+			center = center.matrixTransform(matrix);
 			if (steps < 1) {
 				steps += 8;
 			}
