@@ -27,6 +27,7 @@ $(function() {
 		mouseOnToPopup: true
 	});
 
+	// project page tooltips
 	$('#buttons a').data('powertip', 'Everything you need!');
 	$('#buttons a').powerTip({ placement: 'e' });
 	$('#footer a').powerTip();
