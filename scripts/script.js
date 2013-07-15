@@ -1,20 +1,20 @@
 $(function() {
 	// placement examples
-	$('#north').powerTip({placement: 'n'});
-	$('#east').powerTip({placement: 'e'});
-	$('#south').powerTip({placement: 's'});
-	$('#west').powerTip({placement: 'w'});
-	$('#north-west').powerTip({placement: 'nw'});
-	$('#north-east').powerTip({placement: 'ne'});
-	$('#south-west').powerTip({placement: 'sw'});
-	$('#south-east').powerTip({placement: 'se'});
+	$('#north').powerTip({ placement: 'n' });
+	$('#east').powerTip({ placement: 'e' });
+	$('#south').powerTip({ placement: 's' });
+	$('#west').powerTip({ placement: 'w' });
+	$('#north-west').powerTip({ placement: 'nw' });
+	$('#north-east').powerTip({ placement: 'ne' });
+	$('#south-west').powerTip({ placement: 'sw' });
+	$('#south-east').powerTip({ placement: 'se' });
 	$('#north-west-alt').powerTip({ placement: 'nw-alt' });
 	$('#north-east-alt').powerTip({ placement: 'ne-alt' });
 	$('#south-west-alt').powerTip({ placement: 'sw-alt' });
 	$('#south-east-alt').powerTip({ placement: 'se-alt' });
 
 	// mouse follow examples
-	$('#mousefollow-examples div').powerTip({followMouse: true});
+	$('#mousefollow-examples div').powerTip({ followMouse: true });
 
 	// mouse-on examples
 	$('#mouseon-examples div').data('powertipjq', $([
@@ -28,7 +28,7 @@ $(function() {
 	});
 
 	$('#buttons a').data('powertip', 'Everything you need!');
-	$('#buttons a').powerTip({placement: 'e'});
+	$('#buttons a').powerTip({ placement: 'e' });
 	$('#footer a').powerTip();
 
 	// ga download event
