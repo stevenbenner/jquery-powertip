@@ -126,11 +126,11 @@ $.fn.powerTip = function(opts, arg) {
 			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
 				me.on(evt + '.powertip', function elementOpenCloseEvent(event) {
-					$.fn.powerTip.showHide(me, event);
+					$.fn.powerTip.showHide(this, event);
 				});
 			} else {
 				me.on(evt + '.powertip', function elementOpenEvent(event) {
-					$.fn.powerTip.show(me, event);
+					$.fn.powerTip.show(this, event);
 				});
 			}
 		});
@@ -139,7 +139,7 @@ $.fn.powerTip = function(opts, arg) {
 		$.each(options.closeEvents, function(idx, evt) {
 			if ($.inArray(evt, options.openEvents) < 0) {
 				me.on(evt + '.powertip', function elementCloseEvent(event) {
-					$.fn.powerTip.hide(me, event);
+					$.fn.powerTip.hide(this, event);
 				});
 			}
 		});
