@@ -69,14 +69,16 @@ var Collision = {
  * @return {jQuery} jQuery object for the matched selectors.
  */
 $.fn.powerTip = function(opts, arg) {
+	var targetElements = this;
+
 	// don't do any work if there were no matched elements
-	if (!this.length) {
-		return this;
+	if (!targetElements.length) {
+		return targetElements;
 	}
 
 	// handle api method calls on the plugin, e.g. powerTip('hide')
 	if ($.type(opts) === 'string' && $.powerTip[opts]) {
-		return $.powerTip[opts].call(this, this, arg);
+		return $.powerTip[opts].call(targetElements, targetElements, arg);
 	}
 
 	// extend options and instantiate TooltipController
@@ -87,7 +89,7 @@ $.fn.powerTip = function(opts, arg) {
 	initTracking();
 
 	// setup the elements
-	this.each(function elementSetup() {
+	targetElements.each(function elementSetup() {
 		var $this = $(this),
 			dataPowertip = $this.data(DATA_POWERTIP),
 			dataElem = $this.data(DATA_POWERTIPJQ),
@@ -119,17 +121,15 @@ $.fn.powerTip = function(opts, arg) {
 
 	// attach events to matched elements if the manual option is not enabled
 	if (!options.manual) {
-		var me = this;
-
 		// attach open events
 		$.each(options.openEvents, function(idx, evt) {
 			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
-				me.on(evt + '.powertip', function elementOpenCloseEvent(event) {
+				targetElements.on(evt + '.powertip', function elementOpenCloseEvent(event) {
 					$.fn.powerTip.showHide(this, event);
 				});
 			} else {
-				me.on(evt + '.powertip', function elementOpenEvent(event) {
+				targetElements.on(evt + '.powertip', function elementOpenEvent(event) {
 					$.fn.powerTip.show(this, event);
 				});
 			}
@@ -138,13 +138,13 @@ $.fn.powerTip = function(opts, arg) {
 		// attach close events
 		$.each(options.closeEvents, function(idx, evt) {
 			if ($.inArray(evt, options.openEvents) < 0) {
-				me.on(evt + '.powertip', function elementCloseEvent(event) {
+				targetElements.on(evt + '.powertip', function elementCloseEvent(event) {
 					$.fn.powerTip.hide(this, event);
 				});
 			}
 		});
 
-		this.on('keydown.powertip', function elementKeyDown(event) {
+		targetElements.on('keydown.powertip', function elementKeyDown(event) {
 			// always close tooltip when the escape key is pressed
 			if (event.keyCode === 27) {
 				$.powerTip.hide(this, true);
@@ -152,7 +152,7 @@ $.fn.powerTip = function(opts, arg) {
 		});
 	}
 
-	return this;
+	return targetElements;
 };
 
 /**
