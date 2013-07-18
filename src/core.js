@@ -69,7 +69,9 @@ var Collision = {
  * @return {jQuery} jQuery object for the matched selectors.
  */
 $.fn.powerTip = function(opts, arg) {
-	var targetElements = this;
+	var targetElements = this,
+		options,
+		tipController;
 
 	// don't do any work if there were no matched elements
 	if (!targetElements.length) {
@@ -82,8 +84,8 @@ $.fn.powerTip = function(opts, arg) {
 	}
 
 	// extend options and instantiate TooltipController
-	var options = $.extend({}, $.fn.powerTip.defaults, opts),
-		tipController = new TooltipController(options);
+	options = $.extend({}, $.fn.powerTip.defaults, opts);
+	tipController = new TooltipController(options);
 
 	// hook mouse and viewport dimension tracking
 	initTracking();
