@@ -213,12 +213,20 @@ module.exports = function(grunt) {
 				tasks: [ 'jshint:grunt' ]
 			},
 			src: {
-				files: [ 'src/**/*.js', 'src/.jshintrc' ],
-				tasks: [ 'concat', 'jshint:dist', 'qunit' ]
+				files: [ 'src/**/*.js' ],
+				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist', 'qunit' ]
+			},
+			srcjshint: {
+				files: [ 'src/.jshintrc' ],
+				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist' ]
 			},
 			tests: {
-				files: [ 'test/**/*.js', 'test/.jshintrc' ],
-				tasks: [ 'jshint:tests', 'qunit' ]
+				files: [ 'test/**/*.js' ],
+				tasks: [ 'jshint:tests', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'qunit' ]
+			},
+			testsjshint: {
+				files: [ 'test/.jshintrc' ],
+				tasks: [ 'jshint:tests' ]
 			},
 			css: {
 				files: [ 'css/*.css' ],
