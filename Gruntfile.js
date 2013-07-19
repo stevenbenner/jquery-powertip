@@ -89,9 +89,8 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			dist: {
-				files: {
-					'<%= buildpath %>/<%= files.min %>': '<%= buildpath %>/<%= files.cat %>'
-				},
+				src: [ '<%= buildpath %>/<%= files.cat %>' ],
+				dest: '<%= buildpath %>/<%= files.min %>',
 				options: {
 					banner: '<%= banner %>',
 					report: 'gzip'
