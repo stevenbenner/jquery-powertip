@@ -146,6 +146,7 @@ $.fn.powerTip = function(opts, arg) {
 			}
 		});
 
+		// attach escape key close event
 		targetElements.on('keydown.powertip', function elementKeyDown(event) {
 			// always close tooltip when the escape key is pressed
 			if (event.keyCode === 27) {
