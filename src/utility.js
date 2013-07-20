@@ -56,6 +56,10 @@ function initTracking() {
 	}
 }
 
+/**
+ * Updates the viewport dimensions cache.
+ * @private
+ */
 function getViewportDimensions() {
 	session.scrollLeft = $window.scrollLeft();
 	session.scrollTop = $window.scrollTop();
