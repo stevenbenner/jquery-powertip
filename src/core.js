@@ -16,6 +16,7 @@ var $document = $(document),
 var DATA_DISPLAYCONTROLLER = 'displayController',
 	DATA_HASACTIVEHOVER = 'hasActiveHover',
 	DATA_HASMOUSEENTER = 'hasMouseEnter',
+	DATA_ISENABLED = 'isEnabled',
 	DATA_FORCEDOPEN = 'forcedOpen',
 	DATA_HASMOUSEMOVE = 'hasMouseMove',
 	DATA_MOUSEONTOTIP = 'mouseOnToPopup',
@@ -113,6 +114,9 @@ $.fn.powerTip = function(opts, arg) {
 			$this.data(DATA_ORIGINALTITLE, title);
 			$this.removeAttr('title');
 		}
+
+		// set the initial tooltip state to enabled
+		$this.data(DATA_ISENABLED, true);
 
 		// create hover controllers for each element
 		$this.data(
@@ -256,13 +260,15 @@ $.powerTip = {
 	 *     tracking (optional).
 	 */
 	show: function apiShowTip(element, event) {
-		if (event) {
-			trackMouse(event);
-			session.previousX = event.pageX;
-			session.previousY = event.pageY;
-			$(element).data(DATA_DISPLAYCONTROLLER).show();
-		} else {
-			$(element).first().data(DATA_DISPLAYCONTROLLER).show(true, true);
+		if ($(element).data(DATA_ISENABLED)) {
+			if (event) {
+				trackMouse(event);
+				session.previousX = event.pageX;
+				session.previousY = event.pageY;
+				$(element).data(DATA_DISPLAYCONTROLLER).show();
+			} else {
+				$(element).first().data(DATA_DISPLAYCONTROLLER).show(true, true);
+			}
 		}
 		return element;
 	},
@@ -294,6 +300,27 @@ $.powerTip = {
 	},
 
 	/**
+	 * Enables the tooltip.
+	 * @param (jQuery|Element) element The element with the tooltip that
+	 *     should be enabled.
+	 */
+	enable: function apiEnableTip(element) {
+		$(element).data(DATA_ISENABLED, true);
+		return element;
+	},
+
+	/**
+	 * Disables the tooltip.
+	 * @param (jQuery|Element) element The element with the tooltip that
+	 *     should be disabled.
+	 */
+	disable: function apiDisableTip(element) {
+		$(element).data(DATA_ISENABLED, false);
+		$.powerTip.hide(element, true);
+		return element;
+	},
+
+	/**
 	 * Destroy and roll back any powerTip() instance on the specified element.
 	 * @param {jQuery|Element} element The element with the powerTip instance.
 	 */
@@ -304,6 +331,7 @@ $.powerTip = {
 					DATA_ORIGINALTITLE,
 					DATA_DISPLAYCONTROLLER,
 					DATA_HASACTIVEHOVER,
+					DATA_ISENABLED,
 					DATA_FORCEDOPEN
 				];
 
