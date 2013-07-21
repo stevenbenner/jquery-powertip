@@ -145,7 +145,7 @@ function TooltipController(options) {
 		// close tooltip when clicking anywhere on the page, with the exception of
 		// the tooltip's trigger element and any elements that are within
 		// a tooltip that has 'mouseOnToPopup' option enabled
-		$document.on('click.powertip', function documentClick(event) {
+		$document.on('click' + EVENT_NAMESPACE, function documentClick(event) {
 			var target = event.target;
 			if (target !== element[0]) {
 				if (options.mouseOnToPopup) {
@@ -188,7 +188,7 @@ function TooltipController(options) {
 		element.data(DATA_FORCEDOPEN, false);
 
 		// remove document click handler
-		$document.off('click.powertip');
+		$document.off('click' + EVENT_NAMESPACE);
 
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {

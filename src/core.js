@@ -23,6 +23,7 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
 	DATA_POWERTIP = 'powertip',
 	DATA_POWERTIPJQ = 'powertipjq',
 	DATA_POWERTIPTARGET = 'powertiptarget',
+	EVENT_NAMESPACE = '.powertip',
 	RAD2DEG = 180 / Math.PI;
 
 /**
@@ -127,11 +128,11 @@ $.fn.powerTip = function(opts, arg) {
 		$.each(options.openEvents, function(idx, evt) {
 			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
-				targetElements.on(evt + '.powertip', function elementOpenCloseEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenCloseEvent(event) {
 					$.fn.powerTip.showHide(this, event);
 				});
 			} else {
-				targetElements.on(evt + '.powertip', function elementOpenEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenEvent(event) {
 					$.fn.powerTip.show(this, event);
 				});
 			}
@@ -140,14 +141,14 @@ $.fn.powerTip = function(opts, arg) {
 		// attach close events
 		$.each(options.closeEvents, function(idx, evt) {
 			if ($.inArray(evt, options.openEvents) < 0) {
-				targetElements.on(evt + '.powertip', function elementCloseEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementCloseEvent(event) {
 					$.fn.powerTip.hide(this, event);
 				});
 			}
 		});
 
 		// attach escape key close event
-		targetElements.on('keydown.powertip', function elementKeyDown(event) {
+		targetElements.on('keydown' + EVENT_NAMESPACE, function elementKeyDown(event) {
 			// always close tooltip when the escape key is pressed
 			if (event.keyCode === 27) {
 				$.powerTip.hide(this, true);
@@ -298,7 +299,7 @@ $.powerTip = {
 	 * @param {jQuery|Element} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
-		$(element).off('.powertip').each(function destroy() {
+		$(element).off(EVENT_NAMESPACE).each(function destroy() {
 			var $this = $(this),
 				dataAttributes = [
 					DATA_ORIGINALTITLE,
