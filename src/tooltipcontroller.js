@@ -32,8 +32,8 @@ function TooltipController(options) {
 	if (options.followMouse) {
 		// only one positionTipOnCursor hook per tooltip element, please
 		if (!tipElement.data(DATA_HASMOUSEMOVE)) {
-			$document.on('mousemove', positionTipOnCursor);
-			$window.on('scroll', positionTipOnCursor);
+			$document.on('mousemove' + EVENT_NAMESPACE, positionTipOnCursor);
+			$window.on('scroll' + EVENT_NAMESPACE, positionTipOnCursor);
 			tipElement.data(DATA_HASMOUSEMOVE, true);
 		}
 	}

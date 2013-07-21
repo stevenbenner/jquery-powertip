@@ -32,27 +32,11 @@ function initTracking() {
 		$(getViewportDimensions);
 
 		// hook mouse move tracking
-		$document.on('mousemove', trackMouse);
+		$document.on('mousemove' + EVENT_NAMESPACE, trackMouse);
 
 		// hook viewport dimensions tracking
-		$window.on({
-			resize: function trackResize() {
-				session.windowWidth = $window.width();
-				session.windowHeight = $window.height();
-			},
-			scroll: function trackScroll() {
-				var x = $window.scrollLeft(),
-					y = $window.scrollTop();
-				if (x !== session.scrollLeft) {
-					session.currentX += x - session.scrollLeft;
-					session.scrollLeft = x;
-				}
-				if (y !== session.scrollTop) {
-					session.currentY += y - session.scrollTop;
-					session.scrollTop = y;
-				}
-			}
-		});
+		$window.on('resize' + EVENT_NAMESPACE, trackResize);
+		$window.on('scroll' + EVENT_NAMESPACE, trackScroll);
 	}
 }
 
@@ -65,6 +49,32 @@ function getViewportDimensions() {
 	session.scrollTop = $window.scrollTop();
 	session.windowWidth = $window.width();
 	session.windowHeight = $window.height();
+}
+
+/**
+ * Updates the window size info in the viewport dimensions cache.
+ * @private
+ */
+function trackResize() {
+	session.windowWidth = $window.width();
+	session.windowHeight = $window.height();
+}
+
+/**
+ * Updates the scroll offset info in the viewport dimensions cache.
+ * @private
+ */
+function trackScroll() {
+	var x = $window.scrollLeft(),
+		y = $window.scrollTop();
+	if (x !== session.scrollLeft) {
+		session.currentX += x - session.scrollLeft;
+		session.scrollLeft = x;
+	}
+	if (y !== session.scrollTop) {
+		session.currentY += y - session.scrollTop;
+		session.scrollTop = y;
+	}
 }
 
 /**
