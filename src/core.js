@@ -299,11 +299,15 @@ $.powerTip = {
 	},
 
 	/**
-	 * Destroy and roll back any powerTip() instance on the specified element.
-	 * @param {jQuery|Element} element The element with the powerTip instance.
+	 * Destroy and roll back any powerTip() instance on the specified elements.
+	 * If no elements are specified then all elements that the plugin is
+	 * currently attached to will be rolled back.
+	 * @param {(jQuery|Element)=} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
-		var $element = $(element);
+		var $element = element ? $(element) : session.elements;
+
+		// unhook events and destroy plugin changes to each element
 		$element.off(EVENT_NAMESPACE).each(function destroy() {
 			var $this = $(this),
 				dataAttributes = [
@@ -313,14 +317,27 @@ $.powerTip = {
 					DATA_FORCEDOPEN
 				];
 
+			// revert title attribute
 			if ($this.data(DATA_ORIGINALTITLE)) {
 				$this.attr('title', $this.data(DATA_ORIGINALTITLE));
 				dataAttributes.push(DATA_POWERTIP);
 			}
 
+			// remove data attributes
 			$this.removeData(dataAttributes);
 		});
+
+		// remove destroyed element from active elements collection
 		session.elements = session.elements.not($element);
+
+		// if there are no active elements left then we will unhook all of the
+		// events that we've bound code to
+		if (session.elements.length === 0) {
+			$window.off(EVENT_NAMESPACE);
+			$document.off(EVENT_NAMESPACE);
+			session.mouseTrackingActive = false;
+		}
+
 		return element;
 	}
 };
