@@ -31,6 +31,7 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
  * Private properties global to all powerTip instances
  */
 var session = {
+	elements: null,
 	isTipOpen: false,
 	isFixedTipOpen: false,
 	isClosing: false,
@@ -155,6 +156,9 @@ $.fn.powerTip = function(opts, arg) {
 			}
 		});
 	}
+
+	// remember elements that the plugin is attached to
+	session.elements = session.elements ? session.elements.add(targetElements) : targetElements;
 
 	return targetElements;
 };
@@ -299,7 +303,8 @@ $.powerTip = {
 	 * @param {jQuery|Element} element The element with the powerTip instance.
 	 */
 	destroy: function apiDestroy(element) {
-		$(element).off(EVENT_NAMESPACE).each(function destroy() {
+		var $element = $(element);
+		$element.off(EVENT_NAMESPACE).each(function destroy() {
 			var $this = $(this),
 				dataAttributes = [
 					DATA_ORIGINALTITLE,
@@ -315,6 +320,7 @@ $.powerTip = {
 
 			$this.removeData(dataAttributes);
 		});
+		session.elements = session.elements.not($element);
 		return element;
 	}
 };
