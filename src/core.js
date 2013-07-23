@@ -332,11 +332,13 @@ $.powerTip = {
 		session.elements = session.elements.not($element);
 
 		// if there are no active elements left then we will unhook all of the
-		// events that we've bound code to
+		// events that we've bound code to and remove the tooltip elements
 		if (session.elements.length === 0) {
 			$window.off(EVENT_NAMESPACE);
 			$document.off(EVENT_NAMESPACE);
 			session.mouseTrackingActive = false;
+			session.tooltips.remove();
+			session.tooltips = null;
 		}
 
 		return element;
