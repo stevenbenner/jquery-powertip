@@ -32,6 +32,7 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
  */
 var session = {
 	elements: null,
+	tooltips: null,
 	isTipOpen: false,
 	isFixedTipOpen: false,
 	isClosing: false,

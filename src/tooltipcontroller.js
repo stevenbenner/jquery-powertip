@@ -26,6 +26,8 @@ function TooltipController(options) {
 			$body = $('body');
 		}
 		$body.append(tipElement);
+		// remember the tooltip elements that the plugin has created
+		session.tooltips = session.tooltips ? session.tooltips.add(tipElement) : tipElement;
 	}
 
 	// hook mousemove for cursor follow tooltips
