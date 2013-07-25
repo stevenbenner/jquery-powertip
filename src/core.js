@@ -308,6 +308,12 @@ $.powerTip = {
 	destroy: function apiDestroy(element) {
 		var $element = element ? $(element) : session.elements;
 
+		// if the plugin is not hooked to any elements then there is no point
+		// trying to destroy anything, or dealing with the possible errors
+		if (!session.elements || session.elements.length === 0) {
+			return element;
+		}
+
 		// unhook events and destroy plugin changes to each element
 		$element.off(EVENT_NAMESPACE).each(function destroy() {
 			var $this = $(this),
