@@ -260,6 +260,7 @@ $.powerTip = {
 	 * @param {jQuery|Element} element The element to open the tooltip for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
 	 *     tracking (optional).
+	 * @return {jQuery|Element} The original jQuery object or DOM Element.
 	 */
 	show: function apiShowTip(element, event) {
 		if (event) {
@@ -276,6 +277,7 @@ $.powerTip = {
 	/**
 	 * Repositions the tooltip on the element.
 	 * @param {jQuery|Element} element The element the tooltip is shown for.
+	 * @return {jQuery|Element} The original jQuery object or DOM Element.
 	 */
 	reposition: function apiResetPosition(element) {
 		$(element).first().data(DATA_DISPLAYCONTROLLER).resetPosition();
@@ -287,6 +289,8 @@ $.powerTip = {
 	 * @param {(jQuery|Element)=} element The element with the tooltip that
 	 *     should be closed (optional).
 	 * @param {boolean=} immediate Disable close delay (optional).
+	 * @return {jQuery|Element|undefined} The original jQuery object or DOM
+	 *     Element, if one was specified.
 	 */
 	hide: function apiCloseTip(element, immediate) {
 		if (element) {
@@ -304,6 +308,8 @@ $.powerTip = {
 	 * If no elements are specified then all elements that the plugin is
 	 * currently attached to will be rolled back.
 	 * @param {(jQuery|Element)=} element The element with the powerTip instance.
+	 * @return {jQuery|Element|undefined} The original jQuery object or DOM
+	 *     Element, if one was specified.
 	 */
 	destroy: function apiDestroy(element) {
 		var $element = element ? $(element) : session.elements;
