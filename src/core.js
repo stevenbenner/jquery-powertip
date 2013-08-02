@@ -244,7 +244,7 @@ $.fn.powerTip.show = function(element, event) {
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.hide = function(element, event) {
-	if (event.type === 'blur') {
+	if (typeof event.pageX !== 'number') {
 		$.powerTip.hide(element, true);
 	} else {
 		$.powerTip.hide(element);
