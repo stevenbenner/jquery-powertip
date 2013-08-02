@@ -229,7 +229,7 @@ $.fn.powerTip.showHide = function(element, event) {
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.show = function(element, event) {
-	if (event.pageX) {
+	if (typeof event.pageX === 'number') {
 		// for mouse events, pass event to show (for hover intent and mouse tracking)
 		$.powerTip.show(element, event);
 	} else {
