@@ -229,12 +229,8 @@ $.fn.powerTip.showHide = function(element, event) {
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.show = function(element, event) {
-	if (typeof event.pageX === 'number') {
-		// for mouse events, pass event to show (for hover intent and mouse tracking)
-		$.powerTip.show(element, event);
-	} else {
-		$.powerTip.show(element);
-	}
+	// for mouse events, pass event to show (for hover intent and mouse tracking)
+	$.powerTip.show(element, typeof event.pageX === 'number' ? event : null);
 };
 
 /**
@@ -244,11 +240,8 @@ $.fn.powerTip.show = function(element, event) {
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.hide = function(element, event) {
-	if (typeof event.pageX !== 'number') {
-		$.powerTip.hide(element, true);
-	} else {
-		$.powerTip.hide(element);
-	}
+	// set immediate to true for any event without mouse info
+	$.powerTip.hide(element, typeof event.pageX !== 'number');
 };
 
 /**
