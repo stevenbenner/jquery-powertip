@@ -213,13 +213,7 @@ $.fn.powerTip.smartPlacementLists = {
  * @param {jQuery.Event=} event jQuery event.
  */
 $.fn.powerTip.showHide = function(element, event) {
-	if (session.activeHover && element[0] === session.activeHover[0]) {
-		// tooltip for element is active, so close it
-		$.fn.powerTip.hide(element, event);
-	} else {
-		// tooltip for element is not active, so open it
-		$.fn.powerTip.show(element, event);
-	}
+	$.powerTip.toggle(element, event);
 };
 
 /**
@@ -294,6 +288,24 @@ $.powerTip = {
 			}
 		}
 		return element;
+	},
+
+	/**
+	 * Toggles the tooltip for the specified element. This will open a closed
+	 * tooltip, or close and open tooltip.
+	 * @param {(jQuery|Element)} element The element with the tooltip that
+	 *     should be toggled.
+	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
+	 *     tracking (optional).
+	 */
+	toggle: function apiToggle(element, event) {
+		if (session.activeHover && element[0] === session.activeHover[0]) {
+			// tooltip for element is active, so close it
+			$.powerTip.hide(element, event);
+		} else {
+			// tooltip for element is not active, so open it
+			$.powerTip.show(element, event);
+		}
 	},
 
 	/**
