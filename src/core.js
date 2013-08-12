@@ -131,11 +131,12 @@ $.fn.powerTip = function(opts, arg) {
 			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
 				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenCloseEvent(event) {
-					$.fn.powerTip.showHide(this, event);
+					$.powerTip.toggle(this, event);
 				});
 			} else {
 				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenEvent(event) {
-					$.fn.powerTip.show(this, event);
+					// for mouse events, pass event to show (for hover intent and mouse tracking)
+					$.powerTip.show(this, typeof event.pageX === 'number' ? event : null);
 				});
 			}
 		});
@@ -144,7 +145,8 @@ $.fn.powerTip = function(opts, arg) {
 		$.each(options.closeEvents, function(idx, evt) {
 			if ($.inArray(evt, options.openEvents) < 0) {
 				targetElements.on(evt + EVENT_NAMESPACE, function elementCloseEvent(event) {
-					$.fn.powerTip.hide(this, event);
+					// set immediate to true for any event without mouse info
+					$.powerTip.hide(this, typeof event.pageX !== 'number');
 				});
 			}
 		});
@@ -203,39 +205,6 @@ $.fn.powerTip.smartPlacementLists = {
 	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
 	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
 	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
-};
-
-/**
- * Determines whether to open or close tooltip for specified event. (Only
- * fires for events that appear in both the openEvents and closeEvents
- * options for specified element's powerTip instance.)
- * @param {jQuery|Element} element The element to open or close the tooltip for.
- * @param {jQuery.Event=} event jQuery event.
- */
-$.fn.powerTip.showHide = function(element, event) {
-	$.powerTip.toggle(element, event);
-};
-
-/**
- * Dispatches $.powerTip.show with specified element after determining
- * whether or not to pass the fired event on to show function.
- * @param {jQuery|Element} element The element to open the tooltip for.
- * @param {jQuery.Event=} event jQuery event.
- */
-$.fn.powerTip.show = function(element, event) {
-	// for mouse events, pass event to show (for hover intent and mouse tracking)
-	$.powerTip.show(element, typeof event.pageX === 'number' ? event : null);
-};
-
-/**
- * Dispatches $.powerTip.hide with specified element after determining
- * whether or not to immediately hide the tooltip.
- * @param {jQuery|Element} element The element to close the tooltip for.
- * @param {jQuery.Event=} event jQuery event.
- */
-$.fn.powerTip.hide = function(element, event) {
-	// set immediate to true for any event without mouse info
-	$.powerTip.hide(element, typeof event.pageX !== 'number');
 };
 
 /**
