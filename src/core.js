@@ -289,12 +289,19 @@ $.powerTip = {
 	 * @param {boolean=} immediate Disable close delay (optional).
 	 */
 	hide: function apiCloseTip(element, immediate) {
+		immediate = element ? immediate : true;
+		var displayController;
+		// find the relevant display controller
 		if (element) {
-			$(element).first().data(DATA_DISPLAYCONTROLLER).hide(immediate);
+			displayController = $(element).first().data(DATA_DISPLAYCONTROLLER);
 		} else {
 			if (session.activeHover) {
-				session.activeHover.data(DATA_DISPLAYCONTROLLER).hide(true);
+				displayController = session.activeHover.data(DATA_DISPLAYCONTROLLER);
 			}
+		}
+		// if found, hide the tip
+		if (displayController) {
+			displayController.hide(immediate);
 		}
 		return element;
 	},
