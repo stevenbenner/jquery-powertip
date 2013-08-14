@@ -130,11 +130,11 @@ $.fn.powerTip = function(opts, arg) {
 		$.each(options.openEvents, function(idx, evt) {
 			if ($.inArray(evt, options.closeEvents) > -1) {
 				// event is in both openEvents and closeEvents arrays, so attach show/hide helper
-				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenCloseEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementToggle(event) {
 					$.powerTip.toggle(this, event);
 				});
 			} else {
-				targetElements.on(evt + EVENT_NAMESPACE, function elementOpenEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementOpen(event) {
 					// for mouse events, pass event to show (for hover intent and mouse tracking)
 					$.powerTip.show(this, typeof event.pageX === 'number' ? event : null);
 				});
@@ -144,7 +144,7 @@ $.fn.powerTip = function(opts, arg) {
 		// attach close events
 		$.each(options.closeEvents, function(idx, evt) {
 			if ($.inArray(evt, options.openEvents) < 0) {
-				targetElements.on(evt + EVENT_NAMESPACE, function elementCloseEvent(event) {
+				targetElements.on(evt + EVENT_NAMESPACE, function elementClose(event) {
 					// set immediate to true for any event without mouse info
 					$.powerTip.hide(this, typeof event.pageX !== 'number');
 				});
