@@ -49,11 +49,11 @@ function TooltipController(options) {
 		if (!tipElement.data(DATA_HASMOUSEENTER)) {
 			tipElement.on({
 				mouseenter: function tipMouseEnter() {
-					// we only let the mouse stay on the tooltip if it is set to let
-					// users interact with it
+					// we only let the mouse stay on the tooltip if it is set to
+					// let users interact with it
 					if (tipElement.data(DATA_MOUSEONTOTIP)) {
-						// check activeHover in case the mouse cursor entered the
-						// tooltip during the fadeOut and close cycle
+						// check activeHover in case the mouse cursor entered
+						// the tooltip during the fadeOut and close cycle
 						if (session.activeHover) {
 							session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
 						}
@@ -144,9 +144,9 @@ function TooltipController(options) {
 			positionTipOnCursor();
 		}
 
-		// close tooltip when clicking anywhere on the page, with the exception of
-		// the tooltip's trigger element and any elements that are within
-		// a tooltip that has 'mouseOnToPopup' option enabled
+		// close tooltip when clicking anywhere on the page, with the exception
+		// of the tooltip's trigger element and any elements that are within a
+		// tooltip that has 'mouseOnToPopup' option enabled
 		$document.on('click' + EVENT_NAMESPACE, function documentClick(event) {
 			var target = event.target;
 			if (target !== element[0]) {
