@@ -105,6 +105,7 @@ $(function() {
 		strictEqual(typeof $.powerTip.show, 'function', 'show is defined');
 		strictEqual(typeof $.powerTip.reposition, 'function', 'reposition is defined');
 		strictEqual(typeof $.powerTip.hide, 'function', 'hide is defined');
+		strictEqual(typeof $.powerTip.toggle, 'function', 'toggle is defined');
 		strictEqual(typeof $.powerTip.destroy, 'function', 'destroy is defined');
 		// deprecated
 		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip is defined');
