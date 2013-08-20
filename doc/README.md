@@ -270,6 +270,7 @@ There are times when you may need to open or close a tooltip manually. To make t
 | ----- | ----- |
 | `show(element, event)` | This function will force the tooltip for the specified element to open. You pass it a jQuery object with the element that you want to show the tooltip for. If the jQuery object you pass to this function has more than one matched elements then only the first element will show its tooltip. You can also pass it the event (a `$.Event`) with the pageX and pageY properties for mouse tracking. |
 | `hide(element, immediate)` | Closes any open tooltip. You do not need to specify which tooltip you would like to close (because there can be only one). If you set immediate to `true` there will be no close delay. |
+| `toggle(element, event)` | This will toggle the tooltip, opening a closed tooltip or closing an open tooltip. The event argument is optional. If a mouse event is passed then this function will enable hover intent testing when opening a tooltip, or enable a close delay when closing a tooltip. Non-mouse events are ignored. |
 | `reposition(element)` | Repositions an open tooltip on the specified element. Use this if the tooltip or the element it opened for has changed its size or position. |
 | `destroy(element)` | This will destroy and roll back any PowerTip instance attached to the matched elements. If no element is specified then all PowerTip instances will be destroyed, including the document events and tooltip elements. |
 
