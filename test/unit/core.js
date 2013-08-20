@@ -22,6 +22,8 @@ $(function() {
 		ok($.fn.powerTip.defaults.hasOwnProperty('offset'), 'offset exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('mouseOnToPopup'), 'mouseOnToPopup exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('manual'), 'manual exists');
+		ok($.fn.powerTip.defaults.hasOwnProperty('openEvents'), 'openEvents exists');
+		ok($.fn.powerTip.defaults.hasOwnProperty('closeEvents'), 'closeEvents exists');
 	});
 
 	test('expose smart placement lists', function() {
