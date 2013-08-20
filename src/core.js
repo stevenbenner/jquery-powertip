@@ -135,8 +135,7 @@ $.fn.powerTip = function(opts, arg) {
 				});
 			} else {
 				targetElements.on(evt + EVENT_NAMESPACE, function elementOpen(event) {
-					// pass mouse events (for hover intent and mouse tracking)
-					$.powerTip.show(this, typeof event.pageX === 'number' ? event : null);
+					$.powerTip.show(this, event);
 				});
 			}
 		});
