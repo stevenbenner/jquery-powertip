@@ -145,7 +145,7 @@ $.fn.powerTip = function(opts, arg) {
 			if ($.inArray(evt, options.openEvents) < 0) {
 				targetElements.on(evt + EVENT_NAMESPACE, function elementClose(event) {
 					// set immediate to true for any event without mouse info
-					$.powerTip.hide(this, typeof event.pageX !== 'number');
+					$.powerTip.hide(this, !isMouseEvent(event));
 				});
 			}
 		});
@@ -220,7 +220,7 @@ $.powerTip = {
 	show: function apiShowTip(element, event) {
 		// if we were supplied an event with a pageX property then it is a mouse
 		// event with the information necessary to do hover intent testing
-		if (event && typeof event.pageX === 'number') {
+		if (isMouseEvent(event)) {
 			trackMouse(event);
 			session.previousX = event.pageX;
 			session.previousY = event.pageY;
@@ -271,7 +271,7 @@ $.powerTip = {
 	toggle: function apiToggle(element, event) {
 		if (session.activeHover && session.activeHover.is(element)) {
 			// tooltip for element is active, so close it
-			$.powerTip.hide(element, typeof event.pageX !== 'number');
+			$.powerTip.hide(element, !isMouseEvent(event));
 		} else {
 			// tooltip for element is not active, so open it
 			$.powerTip.show(element, event);
