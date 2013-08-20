@@ -271,7 +271,7 @@ $.powerTip = {
 	toggle: function apiToggle(element, event) {
 		if (session.activeHover && session.activeHover.is(element)) {
 			// tooltip for element is active, so close it
-			$.powerTip.hide(element, event);
+			$.powerTip.hide(element, typeof event.pageX !== 'number');
 		} else {
 			// tooltip for element is not active, so open it
 			$.powerTip.show(element, event);
