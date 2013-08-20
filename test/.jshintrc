@@ -50,6 +50,7 @@
 		"TooltipController": false,
 
 		"isSvgElement": false,
+		"isMouseEvent": false,
 		"initTracking": false,
 		"trackMouse": false,
 		"isMouseOver": false,

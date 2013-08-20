@@ -11,6 +11,15 @@ $(function() {
 		strictEqual(isSvgElement(div), false, 'div is not an SVG element');
 	});
 
+	test('isMouseEvent', function() {
+		var mouseEnterEvent = $.Event('mouseenter', { pageX: 2, pageY: 3 }),
+			emptyEvent = $.Event();
+
+		strictEqual(isMouseEvent(mouseEnterEvent), true, 'The mouseenter event with coordinates is a mouse event');
+		strictEqual(isMouseEvent(emptyEvent), false, 'Empty event is not a mouse event');
+		strictEqual(isMouseEvent(), false, 'Undefined argument is not a mouse event');
+	});
+
 	test('initTracking', function() {
 		session.currentX = 1;
 		session.currentY = 1;
