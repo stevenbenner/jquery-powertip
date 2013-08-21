@@ -19,6 +19,7 @@ function isSvgElement(element) {
 
 /**
  * Determines if the specified jQuery.Event object has mouse data.
+ * @private
  * @param {jQuery.Event=} event The jQuery.Event object to test.
  * @return {boolean} True if there is mouse data, otherwise false.
  */
