@@ -161,6 +161,31 @@ $(function() {
 		ok(hideCalled, 'hide method was called');
 	});
 
+	test('API toggle method should call DisplayController.show to open and DisplayController.hide to close', function() {
+		var showCalled = false,
+			hideCalled = false,
+			element = $('<span />')
+				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
+					function() {
+						showCalled = true;
+						// toggle checks activeHover to determine action
+						session.activeHover = element;
+					},
+					function() {
+						hideCalled = true;
+					}
+				));
+
+		$.powerTip.toggle(element); // simulate show
+		$.powerTip.toggle(element); // simulate hide
+
+		ok(showCalled, 'show method was called');
+		ok(hideCalled, 'hide method was called');
+
+		// reset activeHover
+		session.activeHover = null;
+	});
+
 	test('API destroy method rolls back PowerTip changes', function() {
 		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
 			elementDataAttr = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip(),
