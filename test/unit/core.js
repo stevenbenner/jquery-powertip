@@ -51,6 +51,7 @@ $(function() {
 		deepEqual(empty.powerTip(), empty, 'original jQuery object returned for empty selector');
 		deepEqual(div.powerTip('show'), div, 'original jQuery object returned for show');
 		deepEqual(div.powerTip('hide'), div, 'original jQuery object returned for hide');
+		deepEqual(div.powerTip('toggle'), div, 'original jQuery object returned for toggle');
 		deepEqual(div.powerTip('resetPosition'), div, 'original jQuery object returned for resetPosition');
 		deepEqual(div.powerTip('destroy'), div, 'original jQuery object returned for destroy');
 		ok(!element.attr('title'), 'title attribute was removed');
