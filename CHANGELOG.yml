@@ -7,6 +7,7 @@ v1.2.1:
       changes:
         - Added openEvents and closeEvents options.
         - The destroy() API method elements argument is now optional. When omitted all instances will be destroyed.
+        - Added toggle() method to the API.
     - section: Bug Fixes
       changes:
         - Fixed mouse-onto-tooltip events not being disabled by manual option
