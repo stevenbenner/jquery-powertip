@@ -6,6 +6,8 @@ v1.2.1:
     - section: Features & Improvements
       changes:
         - Added openEvents and closeEvents options.
+    - section: API
+      changes:
         - The destroy() API method elements argument is now optional. When omitted all instances will be destroyed.
         - Added toggle() method to the API.
     - section: Bug Fixes
