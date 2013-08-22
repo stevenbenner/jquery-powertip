@@ -263,7 +263,7 @@ $.powerTip = {
 	/**
 	 * Toggles the tooltip for the specified element. This will open a closed
 	 * tooltip, or close and open tooltip.
-	 * @param {(jQuery|Element)} element The element with the tooltip that
+	 * @param {jQuery|Element} element The element with the tooltip that
 	 *     should be toggled.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
 	 *     tracking (optional).
