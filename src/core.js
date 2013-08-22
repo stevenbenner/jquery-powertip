@@ -267,6 +267,7 @@ $.powerTip = {
 	 *     should be toggled.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
 	 *     tracking (optional).
+	 * @return {jQuery|Element} The original jQuery object or DOM Element.
 	 */
 	toggle: function apiToggle(element, event) {
 		if (session.activeHover && session.activeHover.is(element)) {
@@ -276,6 +277,7 @@ $.powerTip = {
 			// tooltip for element is not active, so open it
 			$.powerTip.show(element, event);
 		}
+		return element;
 	},
 
 	/**
