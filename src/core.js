@@ -250,8 +250,8 @@ $.powerTip = {
 	 *     Element, if one was specified.
 	 */
 	hide: function apiCloseTip(element, immediate) {
-		immediate = element ? immediate : true;
 		var displayController;
+		immediate = element ? immediate : true;
 		// find the relevant display controller
 		if (element) {
 			displayController = $(element).first().data(DATA_DISPLAYCONTROLLER);
