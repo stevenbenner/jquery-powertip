@@ -66,7 +66,7 @@ var Collision = {
 
 /**
  * Display hover tooltips on the matched elements.
- * @param {(Object|string)} opts The options object to use for the plugin, or
+ * @param {(Object|string)=} opts The options object to use for the plugin, or
  *     the name of a method to invoke on the first matched element.
  * @param {*=} [arg] Argument for an invoked method (optional).
  * @return {jQuery} jQuery object for the matched selectors.
