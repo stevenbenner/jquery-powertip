@@ -255,10 +255,8 @@ $.powerTip = {
 		// find the relevant display controller
 		if (element) {
 			displayController = $(element).first().data(DATA_DISPLAYCONTROLLER);
-		} else {
-			if (session.activeHover) {
-				displayController = session.activeHover.data(DATA_DISPLAYCONTROLLER);
-			}
+		} else if (session.activeHover) {
+			displayController = session.activeHover.data(DATA_DISPLAYCONTROLLER);
 		}
 		// if found, hide the tip
 		if (displayController) {
