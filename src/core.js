@@ -251,17 +251,21 @@ $.powerTip = {
 	 */
 	hide: function apiCloseTip(element, immediate) {
 		var displayController;
+
 		immediate = element ? immediate : true;
+
 		// find the relevant display controller
 		if (element) {
 			displayController = $(element).first().data(DATA_DISPLAYCONTROLLER);
 		} else if (session.activeHover) {
 			displayController = session.activeHover.data(DATA_DISPLAYCONTROLLER);
 		}
+
 		// if found, hide the tip
 		if (displayController) {
 			displayController.hide(immediate);
 		}
+
 		return element;
 	},
 
