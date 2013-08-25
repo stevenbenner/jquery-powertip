@@ -14,7 +14,7 @@
  * @return {boolean} Whether this is an SVG element
  */
 function isSvgElement(element) {
-	return window.SVGElement && element[0] instanceof SVGElement;
+	return !!window.SVGElement && element[0] instanceof SVGElement;
 }
 
 /**
