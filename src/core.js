@@ -252,6 +252,7 @@ $.powerTip = {
 	hide: function apiCloseTip(element, immediate) {
 		var displayController;
 
+		// set immediate to true when no element is specified
 		immediate = element ? immediate : true;
 
 		// find the relevant display controller
