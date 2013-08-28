@@ -17,6 +17,7 @@ v1.3.0:
         - The closeDelay timer is now correctly shared between all tooltips.
         - Browser dimensions cache is now initialized as soon as PowerTip loads.
         - Fixed queuing issue when the API hide() method is called immediately after show().
+        - Fixed error when an element with an open tooltip is deleted.
     - section: Miscellaneous
       changes:
         - Fixed script url in the examples HTML file incuded in the release.
