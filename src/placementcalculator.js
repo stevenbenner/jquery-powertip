@@ -2,7 +2,7 @@
  * PowerTip PlacementCalculator
  *
  * @fileoverview  PlacementCalculator object that computes tooltip position.
- * @link          http://stevenbenner.github.com/jquery-powertip/
+ * @link          http://stevenbenner.github.io/jquery-powertip/
  * @author        Steven Benner (http://stevenbenner.com/)
  * @requires      jQuery 1.7+
  */

@@ -348,11 +348,11 @@ Smart placement is a feature that will attempt to keep non-mouse-follow tooltips
 
 **Without smart placement:**
 
-![Example without smart placement](http://stevenbenner.github.com/jquery-powertip/images/without-smart-placement.png)
+![Example without smart placement](http://stevenbenner.github.io/jquery-powertip/images/without-smart-placement.png)
 
 **With smart placement:**
 
-![Example with smart placement](http://stevenbenner.github.com/jquery-powertip/images/with-smart-placement.png)
+![Example with smart placement](http://stevenbenner.github.io/jquery-powertip/images/with-smart-placement.png)
 
 It does this by detecting that a tooltip would appear outside of the view port, then trying a series of other placement options until it finds one that isn't going to be outside of the view port. You can define the placement fall backs and priorities yourself by overriding them in the `$.fn.powerTip.smartPlacementLists` object.
 

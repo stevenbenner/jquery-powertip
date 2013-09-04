@@ -2,7 +2,7 @@
  * PowerTip DisplayController
  *
  * @fileoverview  DisplayController object used to manage tooltips for elements.
- * @link          http://stevenbenner.github.com/jquery-powertip/
+ * @link          http://stevenbenner.github.io/jquery-powertip/
  * @author        Steven Benner (http://stevenbenner.com/)
  * @requires      jQuery 1.7+
  */
