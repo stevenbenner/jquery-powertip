@@ -30,6 +30,7 @@
 			$('#theme-switcher').on('change', setTheme);
 
 			// session debug info box
+			var debugOutput = $('#session pre');
 			setInterval(function() {
 				var sessionText = '';
 				$.each(session, function(key, value) {
@@ -41,7 +42,7 @@
 					}
 					sessionText += key + ': ' + val + '\n';
 				});
-				$('#session pre').text(sessionText);
+				debugOutput.text(sessionText);
 			}, 250);
 		});
 	</script>
