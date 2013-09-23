@@ -36,7 +36,7 @@
 				$.each(session, function(key, value) {
 					var val;
 					if (value && typeof value === 'object' && value.jquery) {
-						val = value.attr('id');
+						val = value.attr('id') || value.parent().attr('id');
 					} else {
 						val = value;
 					}
