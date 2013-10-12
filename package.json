@@ -33,7 +33,7 @@
 		"grunt-contrib-csslint": "~0.1",
 		"grunt-contrib-cssmin": "~0.6",
 		"grunt-contrib-compress": "~0.5",
-		"grunt-shell": "~0.4",
+		"grunt-shell": "~0.5",
 		"grunt-indent": "~0.1"
 	},
 	"scripts": {
