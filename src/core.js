@@ -218,8 +218,8 @@ $.powerTip = {
 	 * @return {jQuery|Element} The original jQuery object or DOM Element.
 	 */
 	show: function apiShowTip(element, event) {
-		// if we were supplied an event with a pageX property then it is a mouse
-		// event with the information necessary to do hover intent testing
+		// if we were given a mouse event then run the hover intent testing,
+		// otherwise, simply show the tooltip asap
 		if (isMouseEvent(event)) {
 			trackMouse(event);
 			session.previousX = event.pageX;
