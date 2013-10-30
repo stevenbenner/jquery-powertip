@@ -4,6 +4,13 @@ $(function() {
 	// Open on load
 	$('#open-on-load input').powerTip({ placement: 'ne' }).powerTip('show');
 
+	// Click toggle
+	$('#click-toggle input').powerTip({
+		openEvents: [ 'click' ],
+		closeEvents: [ 'click' ],
+		placement: 'e'
+	});
+
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
 		var $this = $(this);
