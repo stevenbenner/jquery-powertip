@@ -144,6 +144,9 @@ function TooltipController(options) {
 			positionTipOnCursor();
 		}
 
+		// add custom class to tooltip element
+		tipElement.addClass(options.popupClass);
+
 		// close tooltip when clicking anywhere on the page, with the exception
 		// of the tooltip's trigger element and any elements that are within a
 		// tooltip that has 'mouseOnToPopup' option enabled
