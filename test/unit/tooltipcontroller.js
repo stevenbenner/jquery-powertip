@@ -76,4 +76,54 @@ $(function() {
 		tc.foo = 0;
 	});
 
+	asyncTest('TooltipController adds placement classes', function() {
+		var placementList = [],
+			tipElem;
+
+		expect(Object.keys($.fn.powerTip.smartPlacementLists).length);
+
+		// function that actually runs a test
+		function testPlacementClass(placement) {
+			var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+				opts = $.extend({}, zeroTimeOpts, { placement: placement }),
+				tc = new TooltipController(opts);
+
+			// the element wont exist until it's built by a TooltipController,
+			// so we must grab it here
+			if (!tipElem) {
+				tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+			}
+
+			element.on({
+				powerTipOpen: function() {
+					strictEqual(tipElem.hasClass(placement), true, placement + ' placement class added');
+					tc.hideTip(element);
+				},
+				powerTipClose: function() {
+					runNextTest();
+				}
+			});
+
+			tc.showTip(element);
+		}
+
+		// function to run the next test in the placementList queue
+		function runNextTest() {
+			var nextPlacement = placementList.shift();
+			if (nextPlacement) {
+				testPlacementClass(nextPlacement);
+			} else {
+				start();
+			}
+		}
+
+		// populate placement list
+		$.each($.fn.powerTip.smartPlacementLists, function(key) {
+			placementList.push(key);
+		});
+
+		// start the tests
+		runNextTest();
+	});
+
 });
