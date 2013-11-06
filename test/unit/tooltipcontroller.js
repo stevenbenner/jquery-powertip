@@ -1,6 +1,9 @@
 $(function() {
 	'use strict';
 
+	// set of default options with zero fade time for faster testing
+	var zeroTimeOpts = $.extend({}, $.fn.powerTip.defaults, { fadeInTime: 0, fadeOutTime: 0 });
+
 	module('Tooltip Controller');
 
 	test('expose methods', function() {
@@ -12,7 +15,7 @@ $(function() {
 
 	asyncTest('custom PowerTip events fire', function() {
 		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
-			tc = new TooltipController($.fn.powerTip.defaults),
+			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		expect(9);
@@ -44,7 +47,7 @@ $(function() {
 
 	asyncTest('showTip opens tooltip and hideTip closes it', function() {
 		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
-			tc = new TooltipController($.fn.powerTip.defaults),
+			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
 		expect(2);
