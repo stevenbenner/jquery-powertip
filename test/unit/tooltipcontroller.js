@@ -126,4 +126,24 @@ $(function() {
 		runNextTest();
 	});
 
+	asyncTest('TooltipController adds custom classes', function() {
+		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+			tc = new TooltipController($.extend({}, zeroTimeOpts, { popupClass: 'customClass' })),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
+
+		expect(1);
+
+		element.on({
+			powerTipOpen: function() {
+				strictEqual(tipElem.hasClass('customClass'), true, 'custom class added');
+				tc.hideTip(element);
+			},
+			powerTipClose: function() {
+				start();
+			}
+		});
+
+		tc.showTip(element);
+	});
+
 });
