@@ -6,6 +6,7 @@ v1.3.0:
     - section: Features & Improvements
       changes:
         - Added openEvents and closeEvents options.
+        - Added popupClass option for custom tooltip classes.
     - section: API
       changes:
         - The destroy() API method elements argument is now optional. When omitted all instances will be destroyed.
