@@ -39,6 +39,12 @@ $(function() {
 	$('#long-delay #first-button').powerTip({ closeDelay: 2000, mouseOnToPopup: true });
 	$('#long-delay #second-button').powerTip({ closeDelay: 2000 });
 
+	// Manual and interactive tooltips
+	$('#manual-and-interactive #manual-button').on('click', function() {
+		$(this).powerTip('toggle');
+	}).powerTip({ manual: true });
+	$('#manual-and-interactive #interactive-button').powerTip({ mouseOnToPopup: true });
+
 	// setup huge text tooltips
 	var hugeText = [
 		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed',
