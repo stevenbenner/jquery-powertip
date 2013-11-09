@@ -15,7 +15,6 @@ var $document = $(document),
 // constants
 var DATA_DISPLAYCONTROLLER = 'displayController',
 	DATA_HASACTIVEHOVER = 'hasActiveHover',
-	DATA_HASMOUSEENTER = 'hasMouseEnter',
 	DATA_FORCEDOPEN = 'forcedOpen',
 	DATA_HASMOUSEMOVE = 'hasMouseMove',
 	DATA_MOUSEONTOTIP = 'mouseOnToPopup',

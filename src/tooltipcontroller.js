@@ -40,37 +40,6 @@ function TooltipController(options) {
 		}
 	}
 
-	// if we want to be able to mouse onto the tooltip then we need to attach
-	// hover events to the tooltip that will cancel a close request on hover and
-	// start a new close request on mouseleave
-	// only hook these listeners if its not in manual mode
-	if (options.mouseOnToPopup && !options.manual) {
-		// only one event hook per tooltip element, please
-		if (!tipElement.data(DATA_HASMOUSEENTER)) {
-			tipElement.on({
-				mouseenter: function tipMouseEnter() {
-					// we only let the mouse stay on the tooltip if it is set to
-					// let users interact with it
-					if (tipElement.data(DATA_MOUSEONTOTIP)) {
-						// check activeHover in case the mouse cursor entered
-						// the tooltip during the fadeOut and close cycle
-						if (session.activeHover) {
-							session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
-						}
-					}
-				},
-				mouseleave: function tipMouseLeave() {
-					// check activeHover in case the mouse cursor entered the
-					// tooltip during the fadeOut and close cycle
-					if (session.activeHover) {
-						session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
-					}
-				}
-			});
-			tipElement.data(DATA_HASMOUSEENTER, true);
-		}
-	}
-
 	/**
 	 * Gives the specified element the active-hover state and queues up the
 	 * showTip function.
@@ -163,6 +132,27 @@ function TooltipController(options) {
 			}
 		});
 
+		// if we want to be able to mouse on to the tooltip then we need to
+		// attach hover events to the tooltip that will cancel a close request
+		// on mouseenter and start a new close request on mouseleave
+		// only hook these listeners if we're not in manual mode
+		if (options.mouseOnToPopup && !options.manual) {
+			tipElement.on('mouseenter' + EVENT_NAMESPACE, function tipMouseEnter() {
+				// check activeHover in case the mouse cursor entered the
+				// tooltip during the fadeOut and close cycle
+				if (session.activeHover) {
+					session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
+				}
+			});
+			tipElement.on('mouseleave' + EVENT_NAMESPACE, function tipMouseLeave() {
+				// check activeHover in case the mouse cursor left the tooltip
+				// during the fadeOut and close cycle
+				if (session.activeHover) {
+					session.activeHover.data(DATA_DISPLAYCONTROLLER).hide();
+				}
+			});
+		}
+
 		// fadein
 		tipElement.fadeIn(options.fadeInTime, function fadeInCallback() {
 			// start desync polling
@@ -194,6 +184,9 @@ function TooltipController(options) {
 
 		// remove document click handler
 		$document.off('click' + EVENT_NAMESPACE);
+
+		// unbind the mouseOnToPopup events if they were set
+		tipElement.off(EVENT_NAMESPACE);
 
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
