@@ -234,6 +234,22 @@ $(function() {
 		hideTriggered = false;
 	});
 
+	test('API destroy method with no arguments rolls back all PowerTip changes', function() {
+		// run PowerTip
+		$('<a href="#" title="This is the tooltip text"></a>').powerTip();
+
+		// destroy everything
+		$.powerTip.destroy();
+
+		// tooltip element
+		strictEqual($('#' + $.fn.powerTip.defaults.popupId).length, 0, 'tooltip element removed');
+
+		// document event (mouse tracking)
+		session.currentX = 1;
+		$(document).trigger($.Event('mousemove', { pageX: 2, pageY: 3 }));
+		strictEqual(session.currentX, 1, 'document event removed');
+	});
+
 	function MockDisplayController(show, hide, cancel, resetPosition) {
 		this.show = show || $.noop;
 		this.hide = hide || $.noop;
