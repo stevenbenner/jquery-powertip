@@ -19,6 +19,7 @@ v1.3.0:
         - Browser dimensions cache is now initialized as soon as PowerTip loads.
         - Fixed queuing issue when the API hide() method is called immediately after show().
         - Fixed error when an element with an open tooltip is deleted.
+        - Fixed mouseOnToPopup events being applied to instances where manual is set to true.
     - section: Miscellaneous
       changes:
         - Fixed script url in the examples HTML file incuded in the release.
