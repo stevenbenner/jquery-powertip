@@ -1,7 +1,7 @@
 v1.3.0:
   date: TBD
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...master
-  description: Minor bug fixes and improvements
+  description: API enhancements, new options, and several bug fixes
   changes:
     - section: Features & Improvements
       changes:
@@ -13,13 +13,13 @@ v1.3.0:
         - Added toggle() method to the API.
     - section: Bug Fixes
       changes:
-        - Fixed mouse-onto-tooltip events not being disabled by manual option
-        - Fixed possible repeated event hooks when mouseOnToPopup is enabled.
         - The closeDelay timer is now correctly shared between all tooltips.
         - Browser dimensions cache is now initialized as soon as PowerTip loads.
         - Fixed queuing issue when the API hide() method is called immediately after show().
         - Fixed error when an element with an open tooltip is deleted.
-        - Fixed mouseOnToPopup events being applied to instances where manual is set to true.
+        - The mouseOnToPopup option will now be ignored (forced false) when the manual option is enabled.
+        - Fixed possible repeated event hooks when mouseOnToPopup is enabled.
+        - Fixed mouseOnToPopup events being applied to other instances where manual is enabled.
     - section: Miscellaneous
       changes:
         - Fixed script url in the examples HTML file incuded in the release.
