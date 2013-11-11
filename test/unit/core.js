@@ -59,7 +59,12 @@ $(function() {
 	});
 
 	test('powerTip hooks events', function() {
-		var element = $('<a href="#" title="This is the tooltip text">TEXT</a>').powerTip(),
+		var openEvents = [ 'mouseenter', 'focus', 'customOpenEvent' ],
+			closeEvents = [ 'mouseleave', 'blur', 'customCloseEvent' ],
+			element = $('<a href="#" title="This is the tooltip text">TEXT</a>').powerTip({
+				openEvents: openEvents,
+				closeEvents: closeEvents
+			}),
 			showTriggered = false,
 			hideTriggered = false;
 
@@ -80,25 +85,24 @@ $(function() {
 		// before the focus test will work
 		$('body').prepend(element);
 
-		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
-		ok(showTriggered, 'mouseenter event calls DisplayController.show');
-		showTriggered = false;
+		// test open events
+		$.each(openEvents, function(idx, eventName) {
+			showTriggered = false;
+			element.trigger(eventName);
+			strictEqual(showTriggered, true, eventName + ' event calls DisplayController.show');
+		});
 
-		element.trigger('mouseleave');
-		ok(hideTriggered, 'mouseleave event calls DisplayController.hide');
+		// test close events
+		$.each(closeEvents, function(idx, eventName) {
+			hideTriggered = false;
+			element.trigger('mouseleave');
+			strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
+		});
+
+		// test escape key
 		hideTriggered = false;
-
-		element.trigger('focus');
-		ok(showTriggered, 'focus event calls DisplayController.show');
-		showTriggered = false;
-
-		element.trigger('blur');
-		ok(hideTriggered, 'blur event calls DisplayController.hide');
-		hideTriggered = false;
-
 		element.trigger($.Event('keydown', { keyCode: 27 }));
-		ok(hideTriggered, 'keydown event for key code 27 calls DisplayController.hide');
-		hideTriggered = false;
+		strictEqual(hideTriggered, true, 'keydown event for key code 27 calls DisplayController.hide');
 
 		// cleanup test element
 		element.remove();
