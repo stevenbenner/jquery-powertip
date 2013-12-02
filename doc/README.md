@@ -150,6 +150,18 @@ You can specify the ID of an element in the DOM to pull the content from. PowerT
 $('#element').data('powertiptarget', 'myToolTip');
 ```
 
+## Changing the tooltip content
+
+After you invoke `powerTip()` on an element the title attribute will be deleted and the HTML data attributes will be cached internally by jQuery. This means that if you want to change the tooltip for any element that you have already run PowerTip on then you must use the `.data()` method provided by jQuery. Changing the markup attributes will have no effect.
+
+Tooltips that are created using the HTML `title` attribute will have their content saved as "powertip" in the data collection. If you want to change the content of a tooltip after setting it with the `title` attribute then you must change the "powertip" data attribute.
+
+Example:
+
+```javascript
+$('#element').data('powertip', 'new tooltip content');
+```
+
 ## Options
 
 The tooltip behavior is determined by a series of options that you can override. You can pass the options as an object directly to the plugin as an argument when you call it. For example:
