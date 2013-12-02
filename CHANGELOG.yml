@@ -23,6 +23,7 @@ v1.3.0:
     - section: Miscellaneous
       changes:
         - Fixed script url in the examples HTML file incuded in the release.
+        - Documented the caching quirks for changing tooltip content.
 v1.2.0:
   date: 2013-04-03
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...v1.2.0
