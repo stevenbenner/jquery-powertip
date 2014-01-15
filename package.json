@@ -32,7 +32,7 @@
 		"grunt-contrib-copy": "~0.5",
 		"grunt-contrib-csslint": "~0.2",
 		"grunt-contrib-cssmin": "~0.7",
-		"grunt-contrib-compress": "~0.5",
+		"grunt-contrib-compress": "~0.6",
 		"grunt-shell": "~0.6",
 		"grunt-indent": "~0.1"
 	},
