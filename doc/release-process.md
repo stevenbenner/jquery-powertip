@@ -13,6 +13,8 @@ This includes anything in the following namespaces:
 * `$.fn.powerTip.smartPlacementLists`
 * `$.powerTip`
 
+The events that fire during the tooltip life cycle are also considered to be part of the API for versioning purposes.
+
 ### Semantic Versioning Requirements
 
 > * MAJOR version when you make incompatible API changes,
