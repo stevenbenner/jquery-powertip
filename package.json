@@ -23,7 +23,7 @@
 	],
 	"devDependencies": {
 		"grunt": "~0.4",
-		"grunt-contrib-watch": "~0.5",
+		"grunt-contrib-watch": "~0.6",
 		"grunt-contrib-clean": "~0.5",
 		"grunt-contrib-jshint": "~0.8",
 		"grunt-contrib-concat": "~0.3",
