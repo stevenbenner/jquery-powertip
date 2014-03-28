@@ -195,23 +195,23 @@ Of course those defaults will be overridden with any options you pass directly t
 
 ### List of options
 
-| Name | Default | Type | Description |
-| ----- | ----- | ----- | ----- |
-| `followMouse` | `false` | Boolean | If set to `true` the tooltip will follow the users mouse cursor. |
-| `mouseOnToPopup` | `false` | Boolean | Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only works if `followMouse` is set to `false`.  If `manual: true` is set, mouseOnToPopup won't have any event listeners.  |
-| `placement` | `'n'` | String | Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
-| `smartPlacement` | `false` | Boolean | When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if `followMouse` is set to `false`. |
-| `popupId` | `'powerTip'` | String | HTML id attribute for the tooltip div. |
-| `popupClass` | `''` | String | Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
-| `offset` | `10` | Number | Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
-| `fadeInTime` | `200` | Number | Tooltip fade-in time in milliseconds. |
-| `fadeOutTime` | `100` | Number | Tooltip fade-out time in milliseconds. |
-| `closeDelay` | `100` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
-| `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
-| `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
-| `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
-| `openEvents` | `[ 'mouseenter', 'focus' ]` | Array of Strings | Specifies which jQuery events should cause the tooltip to open. Only applies if `manual` is set to `false`. |
-| `closeEvents` | `[ 'mouseleave', 'blur' ]` | Array of Strings | Specifies which jQuery events should cause the tooltip to close. Only applies if `manual` is set to `false`. |
+| Name | Type | Description |
+| ----- | ----- | ----- |
+| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the users mouse cursor. |
+| `mouseOnToPopup` | Boolean | (default: `false`) Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only works if `followMouse` is set to `false`.  If `manual: true` is set, mouseOnToPopup won't have any event listeners. |
+| `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
+| `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if `followMouse` is set to `false`. |
+| `popupId` | String | (default: `'powerTip'`) HTML id attribute for the tooltip div. |
+| `popupClass` | String | (default: `''`) Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
+| `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
+| `fadeInTime` | Number | (default: `200`) Tooltip fade-in time in milliseconds. |
+| `fadeOutTime` | Number | (default: `100`) Tooltip fade-out time in milliseconds. |
+| `closeDelay` | Number | (default: `100`) Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
+| `intentPollInterval` | Number | (default: `100`) Hover intent polling interval in milliseconds. |
+| `intentSensitivity` | Number | (default: `7`) Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
+| `manual` | Boolean | (default: `false`) If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
+| `openEvents` | Array of Strings | (default: `[ 'mouseenter', 'focus' ]`) Specifies which jQuery events should cause the tooltip to open. Only applies if `manual` is set to `false`. |
+| `closeEvents` | Array of Strings | (default: `[ 'mouseleave', 'blur' ]`) Specifies which jQuery events should cause the tooltip to close. Only applies if `manual` is set to `false`. |
 
 ## Tooltip CSS
 
