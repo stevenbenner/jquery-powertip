@@ -8,7 +8,7 @@ PowerTip is a jQuery tooltip plugin with some advanced features like **hover int
 ## Getting Started
 
 * Download the latest stable release from the [PowerTip web site][projectpage].
-* Add the js and css references to your web site.
+* Add the JavaScript and CSS file references to your web site.
 * Add a title or data-powertip attribute to the elements you want to show tooltips for.
 * Run the `powerTip()` method on those elements.
 
@@ -21,21 +21,21 @@ You can find the documentation for the **latest release version** on the [PowerT
 
 ## Reporting Bugs
 
-For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub. If you don't want to use GitHub or want to contact me about something else please feel free to contact me via twitter at [@stevenbenner][twitter]. As with all open source projects: pull request > bug report > tweet.
+For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub. If you don't want to use GitHub please feel free to contact me via twitter at [@stevenbenner][twitter]. As with all open source projects: pull request > bug report > tweet.
 
 [newissue]: https://github.com/stevenbenner/jquery-powertip/issues/new
 [twitter]: https://twitter.com/stevenbenner
 
 ## Contributor Guide
 
-Make PowerTip better! Join the [leage of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (jsFiddle, pastebin, text file, whatever).
+Make PowerTip better! Join the [league of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (jsFiddle, pastebin, text file, whatever).
 
 [contributors]: https://github.com/stevenbenner/jquery-powertip/graphs/contributors
 [fork]: https://github.com/stevenbenner/jquery-powertip/fork
 
 ### Style Guide
 
-These are general guidelines, not rules. I won't refuse a pull request just because it isn't the exact style that I use.
+These are general guidelines, not rules. I won't refuse a pull request just because it isn't the style that I use.
 
 * Style guide: In general, follow the [Google JavaScript Style Guide][styleguide].
 * Line wrap: Soft-wrap at 80 characters (go further if wrapping makes code less readable).
