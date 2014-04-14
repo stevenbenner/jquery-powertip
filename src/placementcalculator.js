@@ -164,7 +164,7 @@ function PlacementCalculator() {
 			halfWidth = boundingBox.width / 2,
 			halfHeight = boundingBox.height / 2,
 			placements = [],
-			placementKeys = ['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'],
+			placementKeys = [ 'nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w' ],
 			coords,
 			rotation,
 			steps,

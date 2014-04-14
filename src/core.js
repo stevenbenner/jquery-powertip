@@ -192,18 +192,18 @@ $.fn.powerTip.defaults = {
  * do not fit.
  */
 $.fn.powerTip.smartPlacementLists = {
-	n: ['n', 'ne', 'nw', 's'],
-	e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
-	s: ['s', 'se', 'sw', 'n'],
-	w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
-	nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
-	ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
-	sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-	se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
-	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e'],
-	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
-	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
-	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
+	n: [ 'n', 'ne', 'nw', 's' ],
+	e: [ 'e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e' ],
+	s: [ 's', 'se', 'sw', 'n' ],
+	w: [ 'w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w' ],
+	nw: [ 'nw', 'w', 'sw', 'n', 's', 'se', 'nw' ],
+	ne: [ 'ne', 'e', 'se', 'n', 's', 'sw', 'ne' ],
+	sw: [ 'sw', 'w', 'nw', 's', 'n', 'ne', 'sw' ],
+	se: [ 'se', 'e', 'ne', 's', 'n', 'nw', 'se' ],
+	'nw-alt': [ 'nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e' ],
+	'ne-alt': [ 'ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w' ],
+	'sw-alt': [ 'sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e' ],
+	'se-alt': [ 'se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w' ]
 };
 
 /**

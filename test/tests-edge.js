@@ -81,32 +81,32 @@ $(function() {
 	);
 
 	// Huge text
-	$('#huge-text .north').powerTip({placement: 'n'});
-	$('#huge-text .east').powerTip({placement: 'e'});
-	$('#huge-text .south').powerTip({placement: 's'});
-	$('#huge-text .west').powerTip({placement: 'w'});
-	$('#huge-text .north-west').powerTip({placement: 'nw'});
-	$('#huge-text .north-east').powerTip({placement: 'ne'});
-	$('#huge-text .south-west').powerTip({placement: 'sw'});
-	$('#huge-text .south-east').powerTip({placement: 'se'});
-	$('#huge-text .north-west-alt').powerTip({placement: 'nw-alt'});
-	$('#huge-text .north-east-alt').powerTip({placement: 'ne-alt'});
-	$('#huge-text .south-west-alt').powerTip({placement: 'sw-alt'});
-	$('#huge-text .south-east-alt').powerTip({placement: 'se-alt'});
+	$('#huge-text .north').powerTip({ placement: 'n' });
+	$('#huge-text .east').powerTip({ placement: 'e' });
+	$('#huge-text .south').powerTip({ placement: 's' });
+	$('#huge-text .west').powerTip({ placement: 'w' });
+	$('#huge-text .north-west').powerTip({ placement: 'nw' });
+	$('#huge-text .north-east').powerTip({ placement: 'ne' });
+	$('#huge-text .south-west').powerTip({ placement: 'sw' });
+	$('#huge-text .south-east').powerTip({ placement: 'se' });
+	$('#huge-text .north-west-alt').powerTip({ placement: 'nw-alt' });
+	$('#huge-text .north-east-alt').powerTip({ placement: 'ne-alt' });
+	$('#huge-text .south-west-alt').powerTip({ placement: 'sw-alt' });
+	$('#huge-text .south-east-alt').powerTip({ placement: 'se-alt' });
 
 	// Huge text with smart placement
-	$('#huge-text-smart .north').powerTip({placement: 'n', smartPlacement: true});
-	$('#huge-text-smart .east').powerTip({placement: 'e', smartPlacement: true});
-	$('#huge-text-smart .south').powerTip({placement: 's', smartPlacement: true});
-	$('#huge-text-smart .west').powerTip({placement: 'w', smartPlacement: true});
-	$('#huge-text-smart .north-west').powerTip({placement: 'nw', smartPlacement: true});
-	$('#huge-text-smart .north-east').powerTip({placement: 'ne', smartPlacement: true});
-	$('#huge-text-smart .south-west').powerTip({placement: 'sw', smartPlacement: true});
-	$('#huge-text-smart .south-east').powerTip({placement: 'se', smartPlacement: true});
-	$('#huge-text-smart .north-west-alt').powerTip({placement: 'nw-alt', smartPlacement: true});
-	$('#huge-text-smart .north-east-alt').powerTip({placement: 'ne-alt', smartPlacement: true});
-	$('#huge-text-smart .south-west-alt').powerTip({placement: 'sw-alt', smartPlacement: true});
-	$('#huge-text-smart .south-east-alt').powerTip({placement: 'se-alt', smartPlacement: true});
+	$('#huge-text-smart .north').powerTip({ placement: 'n', smartPlacement: true });
+	$('#huge-text-smart .east').powerTip({ placement: 'e', smartPlacement: true });
+	$('#huge-text-smart .south').powerTip({ placement: 's', smartPlacement: true });
+	$('#huge-text-smart .west').powerTip({ placement: 'w', smartPlacement: true });
+	$('#huge-text-smart .north-west').powerTip({ placement: 'nw', smartPlacement: true });
+	$('#huge-text-smart .north-east').powerTip({ placement: 'ne', smartPlacement: true });
+	$('#huge-text-smart .south-west').powerTip({ placement: 'sw', smartPlacement: true });
+	$('#huge-text-smart .south-east').powerTip({ placement: 'se', smartPlacement: true });
+	$('#huge-text-smart .north-west-alt').powerTip({ placement: 'nw-alt', smartPlacement: true });
+	$('#huge-text-smart .north-east-alt').powerTip({ placement: 'ne-alt', smartPlacement: true });
+	$('#huge-text-smart .south-west-alt').powerTip({ placement: 'sw-alt', smartPlacement: true });
+	$('#huge-text-smart .south-east-alt').powerTip({ placement: 'se-alt', smartPlacement: true });
 
 	// SVG elements
 	$('#svg-elements #red-ellipse1').powerTip({ placement: 'n' });

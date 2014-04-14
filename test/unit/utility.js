@@ -78,10 +78,14 @@ $(function() {
 
 	test('getTooltipContent', function() {
 		var powertip = $('<div />').data(DATA_POWERTIP, 'powertip'),
-			powertipFunc = $('<div />').data(DATA_POWERTIP, function() { return 'powertipFunc'; }),
+			powertipFunc = $('<div />').data(DATA_POWERTIP, function() {
+				return 'powertipFunc';
+			}),
 			jqObject = $('<div><b>powertipjq</b></div>'),
 			powertipjq = $('<div />').data(DATA_POWERTIPJQ, jqObject),
-			powertipjqFunc = $('<div />').data(DATA_POWERTIPJQ, function() { return jqObject; }),
+			powertipjqFunc = $('<div />').data(DATA_POWERTIPJQ, function() {
+				return jqObject;
+			}),
 			powertiptarget = $('<div />').data(DATA_POWERTIPTARGET, 'tiptargettest'),
 			targetDiv = $('<div />').attr('id', 'tiptargettest').text('tiptargettest');
 

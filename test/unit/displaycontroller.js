@@ -119,7 +119,7 @@ $(function() {
 		ok(hideCalled, 'hideTip called');
 	});
 
-	asyncTest('cancel method stops showTip from being called', function(){
+	asyncTest('cancel method stops showTip from being called', function() {
 		var element = $('<span />'),
 			showCalled = false,
 			dc;
@@ -148,7 +148,7 @@ $(function() {
 		}, $.fn.powerTip.defaults.intentPollInterval / 2);
 	});
 
-	asyncTest('cancel method stops hideTip from being called', function(){
+	asyncTest('cancel method stops hideTip from being called', function() {
 		var element = $('<span />'),
 			hideCalled = false,
 			dc;
