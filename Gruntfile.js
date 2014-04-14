@@ -48,6 +48,32 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		jscs: {
+			grunt: {
+				src: [ 'Gruntfile.js' ],
+				options: {
+					config: '.jscsrc'
+				}
+			},
+			tests: {
+				src: [ 'test/**/*.js' ],
+				options: {
+					config: '.jscsrc'
+				}
+			},
+			js: {
+				src: [ 'src/*.js' ],
+				options: {
+					config: '.jscsrc'
+				}
+			},
+			dist: {
+				src: [ '<%= buildpath %>/<%= files.cat %>' ],
+				options: {
+					config: '.jscsrc'
+				}
+			}
+		},
 		concat: {
 			options: {
 				stripBanners: true
@@ -209,11 +235,11 @@ module.exports = function(grunt) {
 		watch: {
 			grunt: {
 				files: [ 'Gruntfile.js', '.jshintrc' ],
-				tasks: [ 'jshint:grunt' ]
+				tasks: [ 'jshint:grunt',  'jscs:grunt' ]
 			},
 			src: {
 				files: [ 'src/**/*.js' ],
-				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist', 'qunit' ]
+				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist', 'jscs:js', 'jscs:dist', 'qunit' ]
 			},
 			srcjshint: {
 				files: [ 'src/.jshintrc' ],
@@ -221,7 +247,7 @@ module.exports = function(grunt) {
 			},
 			tests: {
 				files: [ 'test/**/*.js' ],
-				tasks: [ 'jshint:tests', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'qunit' ]
+				tasks: [ 'jshint:tests', 'jscs:tests', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'qunit' ]
 			},
 			testsjshint: {
 				files: [ 'test/.jshintrc' ],
@@ -263,12 +289,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-indent');
+	grunt.loadNpmTasks('grunt-jscs-checker');
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'test' ]);
-	grunt.registerTask('test', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'csslint' ]);
+	grunt.registerTask('test', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'csslint' ]);
 	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
-	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'qunit', 'uglify' ]);
+	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'uglify' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);

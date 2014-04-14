@@ -1,0 +1,51 @@
+{
+	"requireCurlyBraces": [ "if", "else", "for", "while", "do", "try", "catch" ],
+	"requireSpaceAfterKeywords": [ "if", "else", "for", "while", "do", "switch", "return", "try", "catch" ],
+	"disallowLeftStickedOperators": [ "?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
+	"disallowRightStickedOperators": [ "?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
+	"disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-" ],
+	"disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ],
+	"requireRightStickedOperators": [ "!" ],
+	"requireLeftStickedOperators": [ "," ],
+	"disallowImplicitTypeConversion": [ "string" ],
+	"disallowKeywords": [ "with" ],
+	"disallowKeywordsOnNewLine": [ "else" ],
+	"requireSpacesInsideObjectBrackets": "all",
+	"requireSpacesInsideArrayBrackets": "all",
+	"requireSpacesInFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowSpacesInFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	},
+	"disallowSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	},
+	"disallowSpacesInNamedFunctionExpression": {
+		"beforeOpeningRoundBrace": true
+	},
+	"requireBlocksOnNewline": true,
+	"disallowEmptyBlocks": true,
+	"disallowDanglingUnderscores": true,
+	"disallowSpaceAfterObjectKeys": true,
+	"requireCommaBeforeLineBreak": true,
+	"disallowMultipleLineStrings": true,
+	"disallowMultipleLineBreaks": true,
+	"validateQuoteMarks": {
+		"mark": "'",
+		"escape": true
+	},
+	"validateIndentation": "\t",
+	"disallowMixedSpacesAndTabs": true,
+	"disallowTrailingWhitespace": true,
+	"requireLineFeedAtFileEnd": true,
+	"requireCapitalizedConstructors": true,
+	"requireDotNotation": true,
+	"disallowYodaConditions": true,
+	"validateJSDoc": {
+		"checkParamNames": true,
+		"checkRedundantParams": true,
+		"requireParamTypes": true
+	},
+	"excludeFiles": [ "src/intro.js", "src/outro.js" ]
+}
