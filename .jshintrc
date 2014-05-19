@@ -20,7 +20,5 @@
 	"strict": true,
 	"trailing": true,
 
-	"node": true,
-
-	"onevar": true
+	"node": true
 }

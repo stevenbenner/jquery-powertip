@@ -21,8 +21,6 @@
 	"browser": true,
 	"jquery": true,
 
-	"onevar": true,
-
 	"globals": {
 		"module": false,
 		"expect": false,
