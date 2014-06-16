@@ -24,6 +24,7 @@
 	"disallowSpacesInNamedFunctionExpression": {
 		"beforeOpeningRoundBrace": true
 	},
+	"disallowTrailingComma": true,
 	"requireBlocksOnNewline": true,
 	"disallowEmptyBlocks": true,
 	"disallowDanglingUnderscores": true,
