@@ -1,12 +1,17 @@
 {
 	"requireCurlyBraces": [ "if", "else", "for", "while", "do", "try", "catch" ],
 	"requireSpaceAfterKeywords": [ "if", "else", "for", "while", "do", "switch", "return", "try", "catch" ],
-	"disallowLeftStickedOperators": [ "?", "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
-	"disallowRightStickedOperators": [ "?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
+	"requireSpacesInConditionalExpression": {
+		"afterTest": true,
+		"beforeConsequent": true,
+		"afterConsequent": true,
+		"beforeAlternate": true
+	},
 	"disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-" ],
 	"disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ],
-	"requireRightStickedOperators": [ "!" ],
-	"requireLeftStickedOperators": [ "," ],
+	"requireSpaceBeforeBinaryOperators": [ "=", "+", "-", "/", "*", "==", "===", "!=", "!==" ],
+	"requireSpaceAfterBinaryOperators": [ "=", ",", "+", "-", "/", "*", "==", "===", "!=", "!==" ],
+	"disallowSpaceBeforeBinaryOperators": [ "," ],
 	"disallowImplicitTypeConversion": [ "string" ],
 	"disallowKeywords": [ "with" ],
 	"disallowKeywordsOnNewLine": [ "else" ],
