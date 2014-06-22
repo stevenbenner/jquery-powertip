@@ -145,5 +145,4 @@ $(function() {
 
 		tc.showTip(element);
 	});
-
 });

@@ -260,5 +260,4 @@ $(function() {
 		this.cancel = cancel || $.noop;
 		this.resetPosition = resetPosition || $.noop;
 	}
-
 });

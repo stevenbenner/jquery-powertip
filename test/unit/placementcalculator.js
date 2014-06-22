@@ -21,5 +21,4 @@ $(function() {
 
 		ok(retVal instanceof CSSCoordinates);
 	});
-
 });

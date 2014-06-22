@@ -146,5 +146,4 @@ $(function() {
 
 	// Trapped mouse following tooltip
 	$('#trapped-mousefollow').powerTip({ followMouse: true });
-
 });

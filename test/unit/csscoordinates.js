@@ -29,5 +29,4 @@ $(function() {
 		strictEqual(coords.right, 10, 'right property was rounded down');
 		strictEqual(coords.bottom, 11, 'bottom property was rounded up');
 	});
-
 });

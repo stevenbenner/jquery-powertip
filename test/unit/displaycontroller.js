@@ -220,5 +220,4 @@ $(function() {
 		this.hideTip = hide || $.noop;
 		this.resetPosition = reset || $.noop;
 	}
-
 });

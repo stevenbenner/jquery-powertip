@@ -165,5 +165,4 @@ $(function() {
 
 		doTests();
 	});
-
 });
