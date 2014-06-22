@@ -1,40 +1,56 @@
 {
 	"requireCurlyBraces": [ "if", "else", "for", "while", "do", "try", "catch" ],
 	"requireSpaceAfterKeywords": [ "if", "else", "for", "while", "do", "switch", "return", "try", "catch" ],
+	"requireSpaceBeforeBlockStatements": true,
+	"requireParenthesesAroundIIFE": true,
 	"requireSpacesInConditionalExpression": {
 		"afterTest": true,
 		"beforeConsequent": true,
 		"afterConsequent": true,
 		"beforeAlternate": true
 	},
-	"disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-" ],
-	"disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ],
-	"requireSpaceBeforeBinaryOperators": [ "=", "+", "-", "/", "*", "==", "===", "!=", "!==" ],
-	"requireSpaceAfterBinaryOperators": [ "=", ",", "+", "-", "/", "*", "==", "===", "!=", "!==" ],
-	"disallowSpaceBeforeBinaryOperators": [ "," ],
-	"disallowImplicitTypeConversion": [ "string" ],
-	"disallowKeywords": [ "with" ],
-	"disallowKeywordsOnNewLine": [ "else" ],
-	"requireSpacesInsideObjectBrackets": "all",
-	"requireSpacesInsideArrayBrackets": "all",
 	"requireSpacesInFunctionExpression": {
 		"beforeOpeningCurlyBrace": true
 	},
 	"disallowSpacesInFunctionExpression": {
 		"beforeOpeningRoundBrace": true
 	},
+	"requireSpacesInAnonymousFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
+	},
 	"disallowSpacesInAnonymousFunctionExpression": {
 		"beforeOpeningRoundBrace": true
+	},
+	"requireSpacesInNamedFunctionExpression": {
+		"beforeOpeningCurlyBrace": true
 	},
 	"disallowSpacesInNamedFunctionExpression": {
 		"beforeOpeningRoundBrace": true
 	},
-	"disallowTrailingComma": true,
+	"requireSpacesInFunctionDeclaration": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowSpacesInFunctionDeclaration": {
+		"beforeOpeningRoundBrace": true
+	},
 	"requireBlocksOnNewline": true,
+	"disallowPaddingNewlinesInBlocks": true,
 	"disallowEmptyBlocks": true,
+	"disallowSpacesInsideParentheses": true,
+	"requireSpacesInsideObjectBrackets": "all",
+	"requireSpacesInsideArrayBrackets": "all",
 	"disallowDanglingUnderscores": true,
 	"disallowSpaceAfterObjectKeys": true,
 	"requireCommaBeforeLineBreak": true,
+	"requireOperatorBeforeLineBreak": true,
+	"disallowSpaceAfterPrefixUnaryOperators": true,
+	"disallowSpaceBeforePostfixUnaryOperators": true,
+	"requireSpaceBeforeBinaryOperators": [ "=", "+", "-", "/", "*", "==", "===", "!=", "!==" ],
+	"disallowSpaceBeforeBinaryOperators": [ "," ],
+	"requireSpaceAfterBinaryOperators": true,
+	"disallowImplicitTypeConversion": [ "numeric", "boolean", "binary", "string" ],
+	"requireCamelCaseOrUpperCaseIdentifiers": true,
+	"disallowKeywords": [ "with" ],
 	"disallowMultipleLineStrings": true,
 	"disallowMultipleLineBreaks": true,
 	"validateQuoteMarks": {
@@ -44,6 +60,8 @@
 	"validateIndentation": "\t",
 	"disallowMixedSpacesAndTabs": true,
 	"disallowTrailingWhitespace": true,
+	"disallowTrailingComma": true,
+	"disallowKeywordsOnNewLine": [ "else" ],
 	"requireLineFeedAtFileEnd": true,
 	"requireCapitalizedConstructors": true,
 	"requireDotNotation": true,
@@ -53,5 +71,6 @@
 		"checkRedundantParams": true,
 		"requireParamTypes": true
 	},
+	"requireSpaceAfterLineComment": true,
 	"excludeFiles": [ "src/intro.js", "src/outro.js" ]
 }
