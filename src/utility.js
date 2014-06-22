@@ -14,7 +14,7 @@
  * @return {boolean} Whether this is an SVG element
  */
 function isSvgElement(element) {
-	return !!window.SVGElement && element[0] instanceof SVGElement;
+	return Boolean(window.SVGElement && element[0] instanceof SVGElement);
 }
 
 /**
@@ -24,7 +24,7 @@ function isSvgElement(element) {
  * @return {boolean} True if there is mouse data, otherwise false.
  */
 function isMouseEvent(event) {
-	return !!event && typeof event.pageX === 'number';
+	return Boolean(event && typeof event.pageX === 'number');
 }
 
 /**
