@@ -283,7 +283,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-indent');
-	grunt.loadNpmTasks('grunt-jscs-checker');
+	grunt.loadNpmTasks('grunt-jscs');
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'test' ]);
