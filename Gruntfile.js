@@ -66,12 +66,6 @@ module.exports = function(grunt) {
 				options: {
 					config: '.jscsrc'
 				}
-			},
-			dist: {
-				src: [ '<%= buildpath %>/<%= files.cat %>' ],
-				options: {
-					config: '.jscsrc'
-				}
 			}
 		},
 		concat: {
