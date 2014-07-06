@@ -34,6 +34,7 @@
 		"grunt-contrib-cssmin": "~0.10",
 		"grunt-contrib-compress": "~0.9",
 		"grunt-jscs": "0.6",
+		"grunt-jsonlint": "~1.0",
 		"grunt-shell": "~0.7",
 		"grunt-indent": "~0.1"
 	},

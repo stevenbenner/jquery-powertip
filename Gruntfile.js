@@ -68,6 +68,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		jsonlint: {
+			project: {
+				src: [
+					'package.json',
+					'powertip.jquery.json',
+					'.jscsrc',
+					'.jshintrc',
+					'src/.jshintrc',
+					'test/.jshintrc'
+				]
+			}
+		},
 		concat: {
 			options: {
 				stripBanners: true
@@ -284,11 +296,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-indent');
 	grunt.loadNpmTasks('grunt-jscs');
+	grunt.loadNpmTasks('grunt-jsonlint');
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'test' ]);
-	grunt.registerTask('test', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'csslint' ]);
-	grunt.registerTask('build', [ 'build:js', 'build:css', 'build:docs' ]);
+	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'csslint' ]);
+	grunt.registerTask('build', [ 'jsonlint', 'build:js', 'build:css', 'build:docs' ]);
 	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'uglify' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
