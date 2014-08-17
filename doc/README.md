@@ -162,6 +162,10 @@ Example:
 $('#element').data('powertip', 'new tooltip content');
 ```
 
+### Security considerations
+
+It should be noted that PowerTip uses jQuery's [append()](https://api.jquery.com/append/) method for placing content in the tooltip. This method can potentially execute code. Do not attempt to show tooltips with content from untrusted sources without sanitizing the input or you may introduce an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability on your web page.
+
 ## Options
 
 The tooltip behavior is determined by a series of options that you can override. You can pass the options as an object directly to the plugin as an argument when you call it. For example:
