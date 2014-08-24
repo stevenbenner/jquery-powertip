@@ -219,6 +219,8 @@ Of course those defaults will be overridden with any options you pass directly t
 
 ## Tooltip CSS
 
+**If you use one of the included CSS files then you do not need to add any other CSS to get PowerTip running.**
+
 PowerTip includes some base CSS that you can just add to your site and be done with it, but you may want to change the styles or even craft your own styles to match your design. PowerTip is specifically designed to give you full control of your tooltips with CSS, with just a few basic requirements.
 
 I recommend that you either adapt one of the base stylesheets to suit your needs or override its rules so that you don't forget anything.
