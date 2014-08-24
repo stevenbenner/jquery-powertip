@@ -417,19 +417,19 @@ If you need to use PowerTip in a non-standard way, that is to say, if you need t
 
 This is actually quite easy, you just tell PowerTip not to hook the default mouse and keyboard events when you run the plugin by setting the `manual` option to `true`, then use the API to open and close tooltips. While this is a bit more technical then just using the default behavior it works just as well. In fact, PowerTip uses this same public API internally.
 
-### Disable the event hooking
+### Disable event binding
 
-To disable the events that are normally attached when you run `powerTip()` just set the `manual` option to `true`.
+To disable binding of the events that are normally attached when you run `powerTip()` just set the `manual` option to `true`.
 
 ```javascript
 $('.tooltips').powerTip({ manual: true });
 ```
 
-Now PowerTip has hooked itself to the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
+Now PowerTip has initialized and set up the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
 
 ### Building your own event handlers
 
-Here is an example of a click-to-open tooltip to show you how it's done:
+Here is an example of a manually implemented click-to-open tooltip to show you how it's done:
 
 ```javascript
 // run PowerTip - but disable the default event hooks
@@ -437,19 +437,18 @@ $('.tooltips').powerTip({ manual: true });
 
 // hook custom onclick function
 $('.tooltips').on('click', function() {
-	// hide any open tooltips
-	// this is optional, but recommended in case we optimize away the sanity
-	// checks in the API at some point.
-	$.powerTip.hide();
-
-	// show the tooltip for the element that received the click event
-	$.powerTip.show(this);
+	// toggle the tooltip for the element that received the click event
+	$.powerTip.toggle(this);
 });
+
+// Note: this is just for example - for click-to-open you should probably just
+// use the open/closeEvents options, like this:
+// $('.tooltips').powerTip({ openEvents: [ 'click' ], closeEvents: [ 'click' ] });
 ```
 
-That's pretty simple, right? This code will open a tooltip when the element is clicked and close it when the element is clicked again, or when another of the `.tooltips` elements gets clicked.
+This code will open a tooltip when the element is clicked and close it when the element is clicked again, or when another one of the `.tooltips` elements gets clicked.
 
-Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `show()` method.
+Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `toggle()` method.
 
 So let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
 
@@ -476,4 +475,8 @@ $('.tooltips').on({
 
 And there you have it. If you want to enable the hover intent testing then you will need to pass the mouse event to the `show()` method and if you want to enable the close delay feature then you have to pass that element to the `hide()` method.
 
-Note that *only* mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`) have the required properties (`pageX`, and `pageY`) to do hover intent testing. Click events and keyboard events will not work (and will likely cause an error).
+### Additional notes
+
+* Only mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`) have the required properties (`pageX`, and `pageY`) to do hover intent testing. Click events and keyboard events will not work.
+* You should not use the `destroy()` method while your custom handlers are hooked up, it may cause unexpected things to happen (like mouse position tracking not working).
+* In most cases you should probably be using the `openEvents` and `closeEvents` options to bind tooltips to non-default events.
