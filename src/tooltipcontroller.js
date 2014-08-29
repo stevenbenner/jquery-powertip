@@ -106,7 +106,7 @@ function TooltipController(options) {
 		tipElement.data(DATA_MOUSEONTOTIP, options.mouseOnToPopup);
 
 		// set tooltip position
-		if (!options.followMouse) {
+		if (!options.followMouse && !options.appearAtMouse) {
 			positionTipOnElement(element);
 			session.isFixedTipOpen = true;
 		} else {

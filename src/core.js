@@ -171,6 +171,7 @@ $.fn.powerTip.defaults = {
 	fadeInTime: 200,
 	fadeOutTime: 100,
 	followMouse: false,
+	appearAtMouse: false,
 	popupId: 'powerTip',
 	popupClass: null,
 	intentSensitivity: 7,
