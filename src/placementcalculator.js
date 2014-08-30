@@ -21,10 +21,11 @@ function PlacementCalculator() {
 	 * @param {string} placement The placement for the tooltip.
 	 * @param {number} tipWidth Width of the tooltip element in pixels.
 	 * @param {number} tipHeight Height of the tooltip element in pixels.
-	 * @param {number} offset Distance to offset tooltips in pixels.
+	 * @param {number} offsetX Distance to offset tooltips in pixels on the X co-ordinate.
+	 * @param {number} offsetY Distance to offset tooltips in pixels on the Y co-ordinate.
 	 * @return {CSSCoordinates} A CSSCoordinates object with the position.
 	 */
-	function computePlacementCoords(element, placement, tipWidth, tipHeight, offset) {
+	function computePlacementCoords(element, placement, tipWidth, tipHeight, offsetX, offsetY) {
 		var placementBase = placement.split('-')[0], // ignore 'alt' for corners
 			coords = new CSSCoordinates(),
 			position;
@@ -39,50 +40,50 @@ function PlacementCalculator() {
 		switch (placement) {
 		case 'n':
 			coords.set('left', position.left - (tipWidth / 2));
-			coords.set('bottom', session.windowHeight - position.top + offset);
+			coords.set('bottom', session.windowHeight - position.top + offsetY);
 			break;
 		case 'e':
-			coords.set('left', position.left + offset);
+			coords.set('left', position.left + offsetX);
 			coords.set('top', position.top - (tipHeight / 2));
 			break;
 		case 's':
 			coords.set('left', position.left - (tipWidth / 2));
-			coords.set('top', position.top + offset);
+			coords.set('top', position.top + offsetY);
 			break;
 		case 'w':
 			coords.set('top', position.top - (tipHeight / 2));
-			coords.set('right', session.windowWidth - position.left + offset);
+			coords.set('right', session.windowWidth - position.left + offsetX);
 			break;
 		case 'nw':
-			coords.set('bottom', session.windowHeight - position.top + offset);
+			coords.set('bottom', session.windowHeight - position.top + offsetY);
 			coords.set('right', session.windowWidth - position.left - 20);
 			break;
 		case 'nw-alt':
 			coords.set('left', position.left);
-			coords.set('bottom', session.windowHeight - position.top + offset);
+			coords.set('bottom', session.windowHeight - position.top + offsetY);
 			break;
 		case 'ne':
 			coords.set('left', position.left - 20);
-			coords.set('bottom', session.windowHeight - position.top + offset);
+			coords.set('bottom', session.windowHeight - position.top + offsetY);
 			break;
 		case 'ne-alt':
-			coords.set('bottom', session.windowHeight - position.top + offset);
+			coords.set('bottom', session.windowHeight - position.top + offsetY);
 			coords.set('right', session.windowWidth - position.left);
 			break;
 		case 'sw':
-			coords.set('top', position.top + offset);
+			coords.set('top', position.top + offsetY);
 			coords.set('right', session.windowWidth - position.left - 20);
 			break;
 		case 'sw-alt':
 			coords.set('left', position.left);
-			coords.set('top', position.top + offset);
+			coords.set('top', position.top + offsetY);
 			break;
 		case 'se':
 			coords.set('left', position.left - 20);
-			coords.set('top', position.top + offset);
+			coords.set('top', position.top + offsetY);
 			break;
 		case 'se-alt':
-			coords.set('top', position.top + offset);
+			coords.set('top', position.top + offsetY);
 			coords.set('right', session.windowWidth - position.left);
 			break;
 		}

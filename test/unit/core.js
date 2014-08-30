@@ -19,7 +19,8 @@ $(function() {
 		ok($.fn.powerTip.defaults.hasOwnProperty('closeDelay'), 'closeDelay exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('placement'), 'placement exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('smartPlacement'), 'smartPlacement exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('offset'), 'offset exists');
+		ok($.fn.powerTip.defaults.hasOwnProperty('offsetX'), 'offsetX exists');
+		ok($.fn.powerTip.defaults.hasOwnProperty('offsetY'), 'offsetY exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('mouseOnToPopup'), 'mouseOnToPopup exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('manual'), 'manual exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('openEvents'), 'openEvents exists');

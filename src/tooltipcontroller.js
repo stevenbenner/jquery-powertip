@@ -200,8 +200,8 @@ function TooltipController(options) {
 
 			// support mouse-follow and fixed position tips at the same time by
 			// moving the tooltip to the last cursor location after it is hidden
-			coords.set('top', session.currentY + options.offset);
-			coords.set('left', session.currentX + options.offset);
+			coords.set('top', session.currentY + options.offsetY);
+			coords.set('left', session.currentX + options.offsetX);
 			tipElement.css(coords);
 
 			// trigger powerTipClose event
@@ -229,8 +229,8 @@ function TooltipController(options) {
 				collisionCount;
 
 			// grab collisions
-			coords.set('top', session.currentY + options.offset);
-			coords.set('left', session.currentX + options.offset);
+			coords.set('top', session.currentY + options.offsetY);
+			coords.set('left', session.currentX + options.offsetX);
 			collisions = getViewportCollisions(
 				coords,
 				tipWidth,
@@ -252,13 +252,18 @@ function TooltipController(options) {
 					// if the tooltip has more than one collision then it is
 					// trapped in the corner and should be flipped to get it out
 					// of the users way
-					coords.set('left', session.currentX - tipWidth - options.offset);
-					coords.set('top', session.currentY - tipHeight - options.offset);
+					coords.set('left', session.currentX - tipWidth - options.offsetX);
+					coords.set('top', session.currentY - tipHeight - options.offsetY);
 				}
 			}
 
 			// position the tooltip
 			tipElement.css(coords);
+
+			// check smart placement
+			if (options.appearAtMouse) {
+				tipElement.addClass(options.placement);
+			}
 		}
 	}
 
@@ -339,7 +344,8 @@ function TooltipController(options) {
 				placement,
 				tipWidth,
 				tipHeight,
-				options.offset
+				options.offsetX,
+				options.offsetY
 			);
 
 			// place the tooltip
