@@ -35,7 +35,7 @@
 		"grunt-contrib-compress": "~0.11",
 		"grunt-jscs": "0.7",
 		"grunt-jsonlint": "~1.0",
-		"grunt-shell": "~1.0",
+		"grunt-shell": "~1.1",
 		"grunt-indent": "~0.1"
 	},
 	"scripts": {
