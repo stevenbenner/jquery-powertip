@@ -442,7 +442,7 @@ $('.tooltips').on('click', function() {
 });
 
 // Note: this is just for example - for click-to-open you should probably just
-// use the open/closeEvents options, like this:
+// use the openEvents/closeEvents options, like this:
 // $('.tooltips').powerTip({ openEvents: [ 'click' ], closeEvents: [ 'click' ] });
 ```
 
