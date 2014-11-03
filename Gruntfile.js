@@ -198,6 +198,7 @@ module.exports = function(grunt) {
 					}
 				],
 				options: {
+					banner: '<%= banner %>',
 					report: 'gzip'
 				}
 			}
