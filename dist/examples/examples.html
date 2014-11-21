@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>PowerTip Examples</title>
+	<style type="text/css">
+		#placement-examples div { text-align: center; }
+		#placement-examples input { margin: 10px; padding: 10px; }
+		#placement-examples .east { margin-left: 450px; }
+		#mousefollow-examples div { background-color: #EEE; text-align: center; line-height: 400px; margin: 0 auto; height: 400px; width: 100%; }
+		#mouseon-examples div { background-color: #EEE; text-align: center; width: 400px; padding: 40px; }
+		#events-examples input, #api-examples input { margin: 10px; padding: 10px 30px; }
+	</style>
+	<!-- Include jQuery and PowerTip -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+	<script type="text/javascript" src="../jquery.powertip.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/jquery.powertip.css" />
+</head>
+<body>
+
+	<h1>PowerTip Examples</h1>
+
+	<!-- Placement Examples -->
+	<div id="placement-examples">
+		<h2>Placement examples</h2>
+		<div>
+			<input type="button" class="north-west-alt" value="North West Alt" title="North west alt placement" />
+			<input type="button" class="north-west" value="North West" title="North west placement" />
+			<input type="button" class="north" value="North" title="North placement" />
+			<input type="button" class="north-east" value="North East" title="North east placement" />
+			<input type="button" class="north-east-alt" value="North East Alt" title="North east alt placement" /><br />
+			<input type="button" class="west" value="West" title="West placement" />
+			<input type="button" class="east" value="East" title="East placement" /><br />
+			<input type="button" class="south-west-alt" value="South West Alt" title="South west alt placement" />
+			<input type="button" class="south-west" value="South West" title="South west placement" />
+			<input type="button" class="south" value="South" title="South placement" />
+			<input type="button" class="south-east" value="South East" title="South east placement" />
+			<input type="button" class="south-east-alt" value="South East Alt" title="South east alt placement" />
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// placement examples
+			$('.north').powerTip({ placement: 'n' });
+			$('.east').powerTip({ placement: 'e' });
+			$('.south').powerTip({ placement: 's' });
+			$('.west').powerTip({ placement: 'w' });
+			$('.north-west').powerTip({ placement: 'nw' });
+			$('.north-east').powerTip({ placement: 'ne' });
+			$('.south-west').powerTip({ placement: 'sw' });
+			$('.south-east').powerTip({ placement: 'se' });
+			$('.north-west-alt').powerTip({ placement: 'nw-alt' });
+			$('.north-east-alt').powerTip({ placement: 'ne-alt' });
+			$('.south-west-alt').powerTip({ placement: 'sw-alt' });
+			$('.south-east-alt').powerTip({ placement: 'se-alt' });
+		});
+	</script>
+
+	<!-- Mouse-Follow Example -->
+	<div id="mousefollow-examples">
+		<h2>Mouse follow example</h2>
+		<div title="Mouse follow">
+			The PowerTip for this box will follow the mouse.
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// mouse follow example
+			$('#mousefollow-examples div').powerTip({ followMouse: true });
+		});
+	</script>
+
+	<!-- Mouse on to tooltip example -->
+	<div id="mouseon-examples">
+		<h2>Mouse on to tooltip example</h2>
+		<div>
+			The PowerTip for this box will appear on the right and you will be able to interact with its content.
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// mouse-on example
+			var mouseOnDiv = $('#mouseon-examples div');
+			var tipContent = $(
+				'<p><b>Here is some content</b></p>' +
+				'<p><a href="http://stevenbenner.com/">Maybe a link</a></p>'
+			);
+			mouseOnDiv.data('powertipjq', tipContent);
+			mouseOnDiv.powerTip({
+				placement: 'e',
+				mouseOnToPopup: true
+			});
+		});
+	</script>
+
+	<!-- Custom event examples -->
+	<div id="events-examples">
+		<h2>Custom show and hide event examples</h2>
+		<input id="click-click-example" type="button" title="Show and hide on click" value="Show and hide tooltip on click" />
+		<input id="mouseenter-mouseenter-example" type="button" title="Show and hide on mouse enter" value="Show and hide tooltip on mouse enter" />
+		<input id="mouseenter-clickMouseleave-example" type="button" title="Show on mouse enter, hide on click and mouse leave" value="Show tooltip on mouse enter, hide on click and mouse leave" />
+		<input id="click-null-example" type="button" title="Show on click" value="Show tooltip on click" />
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// click-click example
+			$('#click-click-example').powerTip({
+				openEvents: [ 'click' ],
+				closeEvents: [ 'click' ]
+			});
+			// mouseenter-mouseenter example
+			$('#mouseenter-mouseenter-example').powerTip({
+				openEvents: [ 'mouseenter' ],
+				closeEvents: [ 'mouseenter' ]
+			});
+			// mouseenter-click example
+			$('#mouseenter-clickMouseleave-example').powerTip({
+				openEvents: [ 'mouseenter' ],
+				closeEvents: [ 'click', 'mouseleave' ]
+			});
+			// click-null example
+			$('#click-null-example').powerTip({
+				openEvents: [ 'click' ],
+				closeEvents: []
+			});
+		});
+	</script>
+
+	<!-- API Examples -->
+	<div id="api-examples">
+		<h2>API examples</h2>
+		<input id="api-open" type="button" value="Show mouse-on tooltip" />
+		<input id="api-close" type="button" value="Close any open tooltips" />
+		<input id="api-manual" type="button" title="Manual Tooltip" value="Manually applied tooltip (click)" />
+		<div id="api-manual-mouse">
+			Delegated manual mouseover, with lazy-loaded tooltip:
+			<input type="button" value="Child 1" />
+			<input type="button" value="Child 2" />
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			// api examples
+			$('#api-open').on('click', function() {
+				$.powerTip.show($('#mouseon-examples div'));
+			});
+			$('#api-close').on('click', function() {
+				$.powerTip.hide();
+			});
+			$('#api-manual')
+				.powerTip({
+					manual: true
+				})
+				.on('click', function() {
+					$(this).powerTip('show');
+				})
+				.on('mouseleave', function() {
+					$(this).powerTip('hide', true);
+				});
+			$('#api-manual-mouse')
+				.on('mouseenter', 'input', function(evt) {
+					if (!$(this).data('powertip')) {
+						$(this)
+							.data('powertip', 'Tooltip added: ' + (new Date()))
+							.powerTip({
+								manual: true
+							});
+					}
+					$(this).powerTip('show', evt);
+				})
+				.on('mouseleave', 'input', function() {
+					$(this).powerTip('hide');
+				});
+		});
+	</script>
+
+</body>
+</html>
