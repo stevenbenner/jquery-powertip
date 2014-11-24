@@ -72,6 +72,9 @@ $(function() {
 
 		strictEqual($('#popupId').length, 1, 'custom id element created');
 
+		// clean up
+		$('#popupId').remove();
+
 		// this is solely to make the linter happy
 		tc.foo = 0;
 	});
