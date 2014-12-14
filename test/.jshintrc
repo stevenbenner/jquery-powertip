@@ -20,21 +20,9 @@
 
 	"browser": true,
 	"jquery": true,
+	"qunit": true,
 
 	"globals": {
-		"module": false,
-		"expect": false,
-		"test": false,
-		"asyncTest": false,
-		"ok": false,
-		"equal": false,
-		"notEqual": false,
-		"deepEqual": false,
-		"notDeepEqual": false,
-		"strictEqual": false,
-		"notStrictEqual": false,
-		"start": false,
-
 		"DATA_DISPLAYCONTROLLER": false,
 		"DATA_HASACTIVEHOVER": false,
 		"DATA_POWERTIP": false,
