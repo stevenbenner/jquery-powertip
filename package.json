@@ -32,7 +32,7 @@
 		"grunt-contrib-copy": "~0.7",
 		"grunt-contrib-csslint": "~0.3",
 		"grunt-contrib-cssmin": "~0.11",
-		"grunt-contrib-compress": "~0.12",
+		"grunt-contrib-compress": "~0.13",
 		"grunt-jscs": "1.1",
 		"grunt-jsonlint": "~1.0",
 		"grunt-shell": "~1.1",
