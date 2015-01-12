@@ -11,6 +11,12 @@ $(function() {
 		placement: 'e'
 	});
 
+	// Remote target
+	$('#remote-target a').powerTip({ placement: 'ne' });
+	$('#remote-target input').on('click', function() {
+		$('#remote-target a').powerTip('show');
+	});
+
 	// Self-disabling button
 	$('#disable-button input').on('click', function() {
 		var $this = $(this);
