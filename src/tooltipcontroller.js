@@ -119,18 +119,20 @@ function TooltipController(options) {
 		// close tooltip when clicking anywhere on the page, with the exception
 		// of the tooltip's trigger element and any elements that are within a
 		// tooltip that has 'mouseOnToPopup' option enabled
-		$document.on('click' + EVENT_NAMESPACE, function documentClick(event) {
-			var target = event.target;
-			if (target !== element[0]) {
-				if (options.mouseOnToPopup) {
-					if (target !== tipElement[0] && !$.contains(tipElement[0], target)) {
+		if (!element.data(DATA_FORCEDOPEN)) {
+			$document.on('click' + EVENT_NAMESPACE, function documentClick(event) {
+				var target = event.target;
+				if (target !== element[0]) {
+					if (options.mouseOnToPopup) {
+						if (target !== tipElement[0] && !$.contains(tipElement[0], target)) {
+							$.powerTip.hide();
+						}
+					} else {
 						$.powerTip.hide();
 					}
-				} else {
-					$.powerTip.hide();
 				}
-			}
-		});
+			});
+		}
 
 		// if we want to be able to mouse on to the tooltip then we need to
 		// attach hover events to the tooltip that will cancel a close request

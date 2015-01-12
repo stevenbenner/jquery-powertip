@@ -43,6 +43,7 @@ function DisplayController(element, options, tipController) {
 				if (forceOpen) {
 					element.data(DATA_FORCEDOPEN, true);
 				}
+				closeAnyDelayed();
 				tipController.showTip(element);
 			}
 		} else {
@@ -57,6 +58,11 @@ function DisplayController(element, options, tipController) {
 	 * @param {boolean=} disableDelay Disable close delay (optional).
 	 */
 	function closeTooltip(disableDelay) {
+		// if this instance already has a close delay in progress then halt it
+		if (myCloseDelay) {
+			myCloseDelay = session.closeDelayTimeout = clearTimeout(myCloseDelay);
+			session.delayInProgress = false;
+		}
 		cancelTimer();
 		session.tipOpenImminent = false;
 		if (element.data(DATA_HASACTIVEHOVER)) {
@@ -95,6 +101,7 @@ function DisplayController(element, options, tipController) {
 		// check if difference has passed the sensitivity threshold
 		if (totalDifference < options.intentSensitivity) {
 			cancelClose();
+			closeAnyDelayed();
 			tipController.showTip(element);
 		} else {
 			// try again
@@ -125,6 +132,19 @@ function DisplayController(element, options, tipController) {
 	function cancelClose() {
 		session.closeDelayTimeout = clearTimeout(session.closeDelayTimeout);
 		session.delayInProgress = false;
+	}
+
+	/**
+	 * Asks any tooltips waiting on their close delay to close now.
+	 * @private
+	 */
+	function closeAnyDelayed() {
+		// if another element is waiting for its close delay then we should ask
+		// it to close immediately so we can proceed without unexpected timeout
+		// code being run during this tooltip's lifecycle
+		if (session.delayInProgress && session.activeHover && !session.activeHover.is(element)) {
+			session.activeHover.data(DATA_DISPLAYCONTROLLER).hide(true);
+		}
 	}
 
 	/**
