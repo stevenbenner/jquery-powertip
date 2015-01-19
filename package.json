@@ -30,7 +30,7 @@
 		"grunt-contrib-qunit": "~0.5",
 		"grunt-contrib-uglify": "~0.7",
 		"grunt-contrib-copy": "~0.7",
-		"grunt-contrib-csslint": "~0.3",
+		"grunt-contrib-csslint": "~0.4",
 		"grunt-contrib-cssmin": "~0.11",
 		"grunt-contrib-compress": "~0.13",
 		"grunt-jscs": "1.1",
