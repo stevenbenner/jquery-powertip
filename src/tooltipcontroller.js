@@ -302,7 +302,7 @@ function TooltipController(options) {
 		}
 
 		// add placement as class for CSS arrows
-		tipElement.addClass(finalPlacement);
+		tipElement.attr('css', finalPlacement);
 	}
 
 	/**
