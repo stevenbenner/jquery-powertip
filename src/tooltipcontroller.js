@@ -14,6 +14,10 @@
  * @param {Object} options Options object containing settings.
  */
 function TooltipController(options) {
+
+    // Holds on tooltip controller.
+    var back_reference = this;
+
 	var placementCalculator = new PlacementCalculator(),
 		tipElement = $('#' + options.popupId);
 
@@ -89,7 +93,7 @@ function TooltipController(options) {
 		element.trigger('powerTipPreRender');
 
 		// set tooltip content
-		tipContent = getTooltipContent(element);
+		tipContent = getTooltipContent(element, back_reference);
 		if (tipContent) {
 			tipElement.empty().append(tipContent);
 		} else {
@@ -105,13 +109,8 @@ function TooltipController(options) {
 
 		tipElement.data(DATA_MOUSEONTOTIP, options.mouseOnToPopup);
 
-		// set tooltip position
-		if (!options.followMouse) {
-			positionTipOnElement(element);
-			session.isFixedTipOpen = true;
-		} else {
-			positionTipOnCursor();
-		}
+        // set tooltip position
+        back_reference.updatePosition(element);
 
 		// add custom class to tooltip element
 		tipElement.addClass(options.popupClass);
@@ -208,6 +207,22 @@ function TooltipController(options) {
 			element.trigger('powerTipClose');
 		});
 	}
+
+    /**
+     * Updates the position of the tooltip.
+     *
+     * @param {jQuery} element
+     *   The element to update.
+     */
+    this.updatePosition = function(element) {
+        // set tooltip position
+        if (!options.followMouse) {
+            positionTipOnElement(element);
+            session.isFixedTipOpen = true;
+        } else {
+            positionTipOnCursor();
+        }
+    }
 
 	/**
 	 * Moves the tooltip to the users mouse cursor.
