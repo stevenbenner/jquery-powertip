@@ -138,7 +138,7 @@ module.exports = function(grunt) {
 				src: [ 'examples/*' ],
 				dest: '<%= buildpath %>/',
 				options: {
-					processContent: function(content) {
+					process: function(content) {
 						var scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/,
 							builtScriptTag = '<script type="text/javascript" src="../<%= files.cat %>"></script>';
 						return content.replace(scriptsRegex, grunt.template.process(builtScriptTag));
