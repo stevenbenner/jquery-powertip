@@ -93,7 +93,8 @@ module.exports = function(grunt) {
 					'src/tooltipcontroller.js',
 					'src/utility.js'
 				],
-				dest: '<%= temppath %>/core.js'
+				dest: '<%= temppath %>/core.js',
+				nonull: true
 			},
 			dist: {
 				src: [
@@ -104,7 +105,8 @@ module.exports = function(grunt) {
 				dest: '<%= buildpath %>/<%= files.cat %>',
 				options: {
 					banner: '<%= banner %>'
-				}
+				},
+				nonull: true
 			}
 		},
 		indent: {
@@ -147,23 +149,28 @@ module.exports = function(grunt) {
 			},
 			license: {
 				src: [ 'LICENSE.txt' ],
-				dest: '<%= buildpath %>/LICENSE.txt'
+				dest: '<%= buildpath %>/LICENSE.txt',
+				nonull: true
 			},
 			changelog: {
 				src: [ 'CHANGELOG.yml' ],
-				dest: '<%= buildpath %>/CHANGELOG.yml'
+				dest: '<%= buildpath %>/CHANGELOG.yml',
+				nonull: true
 			},
 			index: {
 				src: [ '<%= buildpath %>/index.md' ],
-				dest: 'index.md'
+				dest: 'index.md',
+				nonull: true
 			},
 			zipassets: {
 				src: [ '<%= buildpath %>/<%= files.zip %>' ],
-				dest: 'releases/<%= files.zip %>'
+				dest: 'releases/<%= files.zip %>',
+				nonull: true
 			},
 			jsassets: {
 				src: [ '<%= buildpath %>/<%= files.cat %>' ],
-				dest: 'scripts/<%= files.cat %>'
+				dest: 'scripts/<%= files.cat %>',
+				nonull: true
 			},
 			cssassets: {
 				files: [
