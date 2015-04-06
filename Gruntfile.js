@@ -72,7 +72,6 @@ module.exports = function(grunt) {
 			project: {
 				src: [
 					'package.json',
-					'powertip.jquery.json',
 					'.jscsrc',
 					'.jshintrc',
 					'src/.jshintrc',
