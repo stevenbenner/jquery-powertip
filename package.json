@@ -23,20 +23,20 @@
 	],
 	"devDependencies": {
 		"grunt": "~0.4",
-		"grunt-contrib-watch": "~0.6",
 		"grunt-contrib-clean": "~0.6",
-		"grunt-contrib-jshint": "~0.11",
+		"grunt-contrib-compress": "~0.13",
 		"grunt-contrib-concat": "~0.5",
-		"grunt-contrib-qunit": "~0.7",
-		"grunt-contrib-uglify": "~0.9",
 		"grunt-contrib-copy": "~0.7",
 		"grunt-contrib-csslint": "~0.4",
 		"grunt-contrib-cssmin": "~0.12",
-		"grunt-contrib-compress": "~0.13",
+		"grunt-contrib-jshint": "~0.11",
+		"grunt-contrib-qunit": "~0.7",
+		"grunt-contrib-uglify": "~0.9",
+		"grunt-contrib-watch": "~0.6",
+		"grunt-indent": "~0.1",
 		"grunt-jscs": "1.6",
 		"grunt-jsonlint": "~1.0",
-		"grunt-shell": "~1.1",
-		"grunt-indent": "~0.1"
+		"grunt-shell": "~1.1"
 	},
 	"scripts": {
 		"test": "grunt travis --verbose"
