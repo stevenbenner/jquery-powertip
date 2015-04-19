@@ -21,6 +21,16 @@
 			"url": "https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt"
 		}
 	],
+	"keywords": [
+		"jquery-plugin",
+		"ecosystem:jquery",
+		"powertip",
+		"jquery",
+		"tooltip",
+		"tooltips",
+		"ui",
+		"browser"
+	],
 	"devDependencies": {
 		"grunt": "~0.4",
 		"grunt-contrib-clean": "~0.6",
