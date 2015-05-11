@@ -44,7 +44,7 @@
 		"grunt-contrib-uglify": "~0.9",
 		"grunt-contrib-watch": "~0.6",
 		"grunt-indent": "~0.1",
-		"grunt-jscs": "1.6",
+		"grunt-jscs": "1.8",
 		"grunt-jsonlint": "~1.0",
 		"grunt-shell": "~1.1"
 	},
