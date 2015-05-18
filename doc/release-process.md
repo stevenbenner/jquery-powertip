@@ -27,9 +27,9 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 	The CHANGELOG.yml file is used to generate the release notes seen on the project page.
 
-2. **Bump the version in package.json and jquery.powertip.json**
+2. **Bump the version in package.json**
 
-	The package.json is used when building and the jquery.powertip.json file is used on the [PowerTip jQuery Plugins page](http://plugins.jquery.com/powertip/).
+	The package.json is used when building the project.
 
 3. **Run `grunt build:release`**
 
@@ -40,8 +40,6 @@ The events that fire during the tooltip life cycle are also considered to be par
 	Make sure the changes from steps 1 and 2 have been commited.
 
 	`git tag -a vX.X.X -m "vX.X.X"`
-
-	Don't push the tag yet. Once you push a new semver tag the jQuery plugins site will get a notification via the web hook.
 
 5. **Run `grunt deploy:docs && grunt deploy:assets`**
 
