@@ -4,73 +4,75 @@ $(function() {
 	// set of default options with zero fade time for faster testing
 	var zeroTimeOpts = $.extend({}, $.fn.powerTip.defaults, { fadeInTime: 0, fadeOutTime: 0 });
 
-	module('Tooltip Controller');
+	QUnit.module('Tooltip Controller');
 
-	test('expose methods', function() {
+	QUnit.test('expose methods', function(assert) {
 		var tc = new TooltipController($.fn.powerTip.defaults);
-		strictEqual(typeof tc.showTip, 'function', 'showTip method is defined');
-		strictEqual(typeof tc.hideTip, 'function', 'hideTip method is defined');
-		strictEqual(typeof tc.resetPosition, 'function', 'resetPosition method is defined');
+		assert.strictEqual(typeof tc.showTip, 'function', 'showTip method is defined');
+		assert.strictEqual(typeof tc.hideTip, 'function', 'hideTip method is defined');
+		assert.strictEqual(typeof tc.resetPosition, 'function', 'resetPosition method is defined');
 	});
 
-	asyncTest('custom PowerTip events fire', function() {
-		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+	QUnit.test('custom PowerTip events fire', function(assert) {
+		var done = assert.async(),
+			element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
 			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		expect(9);
+		assert.expect(9);
 
 		element.on({
 			powerTipPreRender: function() {
-				ok(true, 'powerTipPreRender fired');
-				notStrictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has not been inserted yet');
+				assert.ok(true, 'powerTipPreRender fired');
+				assert.notStrictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has not been inserted yet');
 			},
 			powerTipRender: function() {
-				ok(true, 'powerTipRender fired');
-				strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has been inserted');
+				assert.ok(true, 'powerTipRender fired');
+				assert.strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has been inserted');
 			},
 			powerTipOpen: function() {
-				ok(true, 'powerTipClose fired');
-				strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
+				assert.ok(true, 'powerTipClose fired');
+				assert.strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 				tc.hideTip(element);
 			},
 			powerTipClose: function() {
-				ok(true, 'powerTipClose fired');
-				strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content still exists');
-				strictEqual(tipElem.css('display'), 'none', 'display set to none');
-				start();
+				assert.ok(true, 'powerTipClose fired');
+				assert.strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content still exists');
+				assert.strictEqual(tipElem.css('display'), 'none', 'display set to none');
+				done();
 			}
 		});
 
 		tc.showTip(element);
 	});
 
-	asyncTest('showTip opens tooltip and hideTip closes it', function() {
-		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+	QUnit.test('showTip opens tooltip and hideTip closes it', function(assert) {
+		var done = assert.async(),
+			element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
 			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		expect(2);
+		assert.expect(2);
 
 		element.on({
 			powerTipOpen: function() {
-				strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
+				assert.strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 				tc.hideTip(element);
 			},
 			powerTipClose: function() {
-				strictEqual(tipElem.css('display'), 'none', 'display set to none');
-				start();
+				assert.strictEqual(tipElem.css('display'), 'none', 'display set to none');
+				done();
 			}
 		});
 
 		tc.showTip(element);
 	});
 
-	test('TooltipController uses custom id', function() {
+	QUnit.test('TooltipController uses custom id', function(assert) {
 		// let the TooltipController create the element
 		var tc = new TooltipController($.extend({}, zeroTimeOpts, { popupId: 'popupId' }));
 
-		strictEqual($('#popupId').length, 1, 'custom id element created');
+		assert.strictEqual($('#popupId').length, 1, 'custom id element created');
 
 		// clean up
 		$('#popupId').remove();
@@ -79,11 +81,12 @@ $(function() {
 		tc.foo = 0;
 	});
 
-	asyncTest('TooltipController adds placement classes', function() {
-		var placementList = [],
+	QUnit.test('TooltipController adds placement classes', function(assert) {
+		var done = assert.async(),
+			placementList = [],
 			tipElem;
 
-		expect(Object.keys($.fn.powerTip.smartPlacementLists).length);
+		assert.expect(Object.keys($.fn.powerTip.smartPlacementLists).length);
 
 		// function that actually runs a test
 		function testPlacementClass(placement) {
@@ -99,7 +102,7 @@ $(function() {
 
 			element.on({
 				powerTipOpen: function() {
-					strictEqual(tipElem.hasClass(placement), true, placement + ' placement class added');
+					assert.strictEqual(tipElem.hasClass(placement), true, placement + ' placement class added');
 					tc.hideTip(element);
 				},
 				powerTipClose: function() {
@@ -116,7 +119,7 @@ $(function() {
 			if (nextPlacement) {
 				testPlacementClass(nextPlacement);
 			} else {
-				start();
+				done();
 			}
 		}
 
@@ -129,20 +132,21 @@ $(function() {
 		runNextTest();
 	});
 
-	asyncTest('TooltipController adds custom classes', function() {
-		var element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+	QUnit.test('TooltipController adds custom classes', function(assert) {
+		var done = assert.async(),
+			element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
 			tc = new TooltipController($.extend({}, zeroTimeOpts, { popupClass: 'customClass' })),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		expect(1);
+		assert.expect(1);
 
 		element.on({
 			powerTipOpen: function() {
-				strictEqual(tipElem.hasClass('customClass'), true, 'custom class added');
+				assert.strictEqual(tipElem.hasClass('customClass'), true, 'custom class added');
 				tc.hideTip(element);
 			},
 			powerTipClose: function() {
-				start();
+				done();
 			}
 		});
 

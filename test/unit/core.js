@@ -1,64 +1,64 @@
 $(function() {
 	'use strict';
 
-	module('PowerTip Core');
+	QUnit.module('PowerTip Core');
 
-	test('powerTip defined', function() {
+	QUnit.test('powerTip defined', function(assert) {
 		var element = $('<a href="#" title="This is the tooltip text"></a>');
-		strictEqual(typeof element.powerTip, 'function', 'powerTip is defined');
+		assert.strictEqual(typeof element.powerTip, 'function', 'powerTip is defined');
 	});
 
-	test('expose default settings', function() {
-		ok($.fn.powerTip.defaults, 'defaults is defined');
-		ok($.fn.powerTip.defaults.hasOwnProperty('fadeInTime'), 'fadeInTime exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('fadeOutTime'), 'fadeOutTime exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('followMouse'), 'followMouse exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('popupId'), 'popupId exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('intentSensitivity'), 'intentSensitivity exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('intentPollInterval'), 'intentPollInterval exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('closeDelay'), 'closeDelay exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('placement'), 'placement exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('smartPlacement'), 'smartPlacement exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('offset'), 'offset exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('mouseOnToPopup'), 'mouseOnToPopup exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('manual'), 'manual exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('openEvents'), 'openEvents exists');
-		ok($.fn.powerTip.defaults.hasOwnProperty('closeEvents'), 'closeEvents exists');
+	QUnit.test('expose default settings', function(assert) {
+		assert.ok($.fn.powerTip.defaults, 'defaults is defined');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('fadeInTime'), 'fadeInTime exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('fadeOutTime'), 'fadeOutTime exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('followMouse'), 'followMouse exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('popupId'), 'popupId exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('intentSensitivity'), 'intentSensitivity exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('intentPollInterval'), 'intentPollInterval exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('closeDelay'), 'closeDelay exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('placement'), 'placement exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('smartPlacement'), 'smartPlacement exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('offset'), 'offset exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('mouseOnToPopup'), 'mouseOnToPopup exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('manual'), 'manual exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('openEvents'), 'openEvents exists');
+		assert.ok($.fn.powerTip.defaults.hasOwnProperty('closeEvents'), 'closeEvents exists');
 	});
 
-	test('expose smart placement lists', function() {
-		ok($.fn.powerTip.smartPlacementLists, 'smartPlacementLists is defined');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('n'), 'n exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('e'), 'e exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('s'), 's exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('w'), 'w exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('ne'), 'ne exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw'), 'nw exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se'), 'se exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw'), 'sw exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('ne-alt'), 'ne-alt exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw-alt'), 'nw-alt exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se-alt'), 'se-alt exists');
-		ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw-alt'), 'sw-alt exists');
+	QUnit.test('expose smart placement lists', function(assert) {
+		assert.ok($.fn.powerTip.smartPlacementLists, 'smartPlacementLists is defined');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('n'), 'n exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('e'), 'e exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('s'), 's exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('w'), 'w exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('ne'), 'ne exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw'), 'nw exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se'), 'se exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw'), 'sw exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('ne-alt'), 'ne-alt exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('nw-alt'), 'nw-alt exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('se-alt'), 'se-alt exists');
+		assert.ok($.fn.powerTip.smartPlacementLists.hasOwnProperty('sw-alt'), 'sw-alt exists');
 	});
 
-	test('powerTip', function() {
+	QUnit.test('powerTip', function(assert) {
 		var div = $('<div />'),
 			empty = $('#thisDoesntExist'),
 			element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
 
-		deepEqual(div.powerTip(), div, 'original jQuery object returned for matched selector');
-		deepEqual(empty.powerTip(), empty, 'original jQuery object returned for empty selector');
-		deepEqual(div.powerTip('show'), div, 'original jQuery object returned for show');
-		deepEqual(div.powerTip('hide', true), div, 'original jQuery object returned for hide');
-		deepEqual(div.powerTip('toggle'), div, 'original jQuery object returned for toggle');
-		deepEqual(div.powerTip('resetPosition'), div, 'original jQuery object returned for resetPosition');
-		deepEqual(div.powerTip('destroy'), div, 'original jQuery object returned for destroy');
-		ok(!element.attr('title'), 'title attribute was removed');
-		ok(element.data(DATA_DISPLAYCONTROLLER), 'new DisplayController created and added to data');
+		assert.deepEqual(div.powerTip(), div, 'original jQuery object returned for matched selector');
+		assert.deepEqual(empty.powerTip(), empty, 'original jQuery object returned for empty selector');
+		assert.deepEqual(div.powerTip('show'), div, 'original jQuery object returned for show');
+		assert.deepEqual(div.powerTip('hide', true), div, 'original jQuery object returned for hide');
+		assert.deepEqual(div.powerTip('toggle'), div, 'original jQuery object returned for toggle');
+		assert.deepEqual(div.powerTip('resetPosition'), div, 'original jQuery object returned for resetPosition');
+		assert.deepEqual(div.powerTip('destroy'), div, 'original jQuery object returned for destroy');
+		assert.ok(!element.attr('title'), 'title attribute was removed');
+		assert.ok(element.data(DATA_DISPLAYCONTROLLER), 'new DisplayController created and added to data');
 	});
 
-	test('powerTip hooks events', function() {
+	QUnit.test('powerTip hooks events', function(assert) {
 		var openEvents = [ 'mouseenter', 'focus', 'customOpenEvent' ],
 			closeEvents = [ 'mouseleave', 'blur', 'customCloseEvent' ],
 			element = $('<a href="#" title="This is the tooltip text">TEXT</a>').powerTip({
@@ -89,37 +89,37 @@ $(function() {
 		$.each(openEvents, function(idx, eventName) {
 			showTriggered = false;
 			element.trigger(eventName);
-			strictEqual(showTriggered, true, eventName + ' event calls DisplayController.show');
+			assert.strictEqual(showTriggered, true, eventName + ' event calls DisplayController.show');
 		});
 
 		// test close events
 		$.each(closeEvents, function(idx, eventName) {
 			hideTriggered = false;
 			element.trigger('mouseleave');
-			strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
+			assert.strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
 		});
 
 		// test escape key
 		hideTriggered = false;
 		element.trigger($.Event('keydown', { keyCode: 27 }));
-		strictEqual(hideTriggered, true, 'keydown event for key code 27 calls DisplayController.hide');
+		assert.strictEqual(hideTriggered, true, 'keydown event for key code 27 calls DisplayController.hide');
 
 		// cleanup test element
 		element.remove();
 	});
 
-	test('expose API', function() {
-		strictEqual(typeof $.powerTip.show, 'function', 'show is defined');
-		strictEqual(typeof $.powerTip.reposition, 'function', 'reposition is defined');
-		strictEqual(typeof $.powerTip.hide, 'function', 'hide is defined');
-		strictEqual(typeof $.powerTip.toggle, 'function', 'toggle is defined');
-		strictEqual(typeof $.powerTip.destroy, 'function', 'destroy is defined');
+	QUnit.test('expose API', function(assert) {
+		assert.strictEqual(typeof $.powerTip.show, 'function', 'show is defined');
+		assert.strictEqual(typeof $.powerTip.reposition, 'function', 'reposition is defined');
+		assert.strictEqual(typeof $.powerTip.hide, 'function', 'hide is defined');
+		assert.strictEqual(typeof $.powerTip.toggle, 'function', 'toggle is defined');
+		assert.strictEqual(typeof $.powerTip.destroy, 'function', 'destroy is defined');
 		// deprecated
-		strictEqual(typeof $.powerTip.showTip, 'function', 'showTip is defined');
-		strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is defined');
+		assert.strictEqual(typeof $.powerTip.showTip, 'function', 'showTip is defined');
+		assert.strictEqual(typeof $.powerTip.closeTip, 'function', 'closeTip is defined');
 	});
 
-	test('API show method should call DisplayController.show', function() {
+	QUnit.test('API show method should call DisplayController.show', function(assert) {
 		var showCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
@@ -130,10 +130,10 @@ $(function() {
 
 		$.powerTip.show(element);
 
-		ok(showCalled, 'show method was called');
+		assert.ok(showCalled, 'show method was called');
 	});
 
-	test('API reposition method should call DisplayController.resetPosition', function() {
+	QUnit.test('API reposition method should call DisplayController.resetPosition', function(assert) {
 		var resetCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
@@ -147,10 +147,10 @@ $(function() {
 
 		$.powerTip.reposition(element);
 
-		ok(resetCalled, 'reposition method was called');
+		assert.ok(resetCalled, 'reposition method was called');
 	});
 
-	test('API hide method should call DisplayController.hide', function() {
+	QUnit.test('API hide method should call DisplayController.hide', function(assert) {
 		var hideCalled = false,
 			element = $('<span />')
 				.data(DATA_DISPLAYCONTROLLER, new MockDisplayController(
@@ -162,10 +162,10 @@ $(function() {
 
 		$.powerTip.hide(element);
 
-		ok(hideCalled, 'hide method was called');
+		assert.ok(hideCalled, 'hide method was called');
 	});
 
-	test('API toggle method should call DisplayController.show to open and DisplayController.hide to close', function() {
+	QUnit.test('API toggle method should call DisplayController.show to open and DisplayController.hide to close', function(assert) {
 		var showCalled = false,
 			hideCalled = false,
 			element = $('<span />')
@@ -183,14 +183,14 @@ $(function() {
 		$.powerTip.toggle(element); // simulate show
 		$.powerTip.toggle(element); // simulate hide
 
-		ok(showCalled, 'show method was called');
-		ok(hideCalled, 'hide method was called');
+		assert.ok(showCalled, 'show method was called');
+		assert.ok(hideCalled, 'hide method was called');
 
 		// reset activeHover
 		session.activeHover = null;
 	});
 
-	test('API destroy method rolls back PowerTip changes', function() {
+	QUnit.test('API destroy method rolls back PowerTip changes', function(assert) {
 		var element = $('<a href="#" title="This is the tooltip text"></a>').powerTip(),
 			elementDataAttr = $('<a href="#" data-powertip="This is the tooltip text"></a>').powerTip(),
 			showTriggered = false,
@@ -212,33 +212,33 @@ $(function() {
 		elementDataAttr.powerTip('destroy');
 
 		// attributes
-		strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
-		ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
-		strictEqual(elementDataAttr.data(DATA_POWERTIP), 'This is the tooltip text', 'destroy method did not remove manually set powertip data attribute');
+		assert.strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
+		assert.ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
+		assert.strictEqual(elementDataAttr.data(DATA_POWERTIP), 'This is the tooltip text', 'destroy method did not remove manually set powertip data attribute');
 
 		// events
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
-		ok(!showTriggered, 'mouseenter event was unhooked after destroy');
+		assert.ok(!showTriggered, 'mouseenter event was unhooked after destroy');
 		showTriggered = false;
 
 		element.trigger('mouseleave');
-		ok(!hideTriggered, 'mouseleave event was unhooked after destroy');
+		assert.ok(!hideTriggered, 'mouseleave event was unhooked after destroy');
 		hideTriggered = false;
 
 		element.trigger('focus');
-		ok(!showTriggered, 'focus event was unhooked after destroy');
+		assert.ok(!showTriggered, 'focus event was unhooked after destroy');
 		showTriggered = false;
 
 		element.trigger('blur');
-		ok(!hideTriggered, 'blur event was unhooked after destroy');
+		assert.ok(!hideTriggered, 'blur event was unhooked after destroy');
 		hideTriggered = false;
 
 		element.trigger($.Event('keydown', { keyCode: 27 }));
-		ok(!hideTriggered, 'keydown event was unhooked after destroy');
+		assert.ok(!hideTriggered, 'keydown event was unhooked after destroy');
 		hideTriggered = false;
 	});
 
-	test('API destroy method with no arguments rolls back all PowerTip changes', function() {
+	QUnit.test('API destroy method with no arguments rolls back all PowerTip changes', function(assert) {
 		// run PowerTip
 		$('<a href="#" title="This is the tooltip text"></a>').powerTip();
 
@@ -246,12 +246,12 @@ $(function() {
 		$.powerTip.destroy();
 
 		// tooltip element
-		strictEqual($('#' + $.fn.powerTip.defaults.popupId).length, 0, 'tooltip element removed');
+		assert.strictEqual($('#' + $.fn.powerTip.defaults.popupId).length, 0, 'tooltip element removed');
 
 		// document event (mouse tracking)
 		session.currentX = 1;
 		$(document).trigger($.Event('mousemove', { pageX: 2, pageY: 3 }));
-		strictEqual(session.currentX, 1, 'document event removed');
+		assert.strictEqual(session.currentX, 1, 'document event removed');
 	});
 
 	function MockDisplayController(show, hide, cancel, resetPosition) {

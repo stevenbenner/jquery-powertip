@@ -1,14 +1,14 @@
 $(function() {
 	'use strict';
 
-	module('Placement Calculator');
+	QUnit.module('Placement Calculator');
 
-	test('expose methods', function() {
+	QUnit.test('expose methods', function(assert) {
 		var pc = new PlacementCalculator();
-		strictEqual(typeof pc.compute, 'function', 'compute method is defined');
+		assert.strictEqual(typeof pc.compute, 'function', 'compute method is defined');
 	});
 
-	test('return CSSCordinates object', function() {
+	QUnit.test('return CSSCordinates object', function(assert) {
 		var pc = new PlacementCalculator(),
 			element = $('<div>Some Content</div>'),
 			retVal = pc.compute(
@@ -19,10 +19,10 @@ $(function() {
 				$.fn.powerTip.defaults.offset
 			);
 
-		ok(retVal instanceof CSSCoordinates);
+		assert.ok(retVal instanceof CSSCoordinates);
 	});
 
-	test('return expected CSSCordinates properties', function() {
+	QUnit.test('return expected CSSCordinates properties', function(assert) {
 		var pc = new PlacementCalculator(),
 			element = $('<div>Some Content</div>'),
 			coords;
@@ -40,34 +40,34 @@ $(function() {
 			case 'n':
 			case 'ne':
 			case 'nw-alt':
-				strictEqual(coords.top, 'auto', key + ': top property is set to auto');
-				strictEqual($.isNumeric(coords.left), true, key + ': left property is set to a number');
-				strictEqual(coords.right, 'auto', key + ': right property is set to auto');
-				strictEqual($.isNumeric(coords.bottom), true, key + ': bottom property is set to a number');
+				assert.strictEqual(coords.top, 'auto', key + ': top property is set to auto');
+				assert.strictEqual($.isNumeric(coords.left), true, key + ': left property is set to a number');
+				assert.strictEqual(coords.right, 'auto', key + ': right property is set to auto');
+				assert.strictEqual($.isNumeric(coords.bottom), true, key + ': bottom property is set to a number');
 				break;
 			case 'e':
 			case 's':
 			case 'se':
 			case 'sw-alt':
-				strictEqual($.isNumeric(coords.top), true, key + ': top property is set to a number');
-				strictEqual($.isNumeric(coords.left), true, key + ': left property is set to a number');
-				strictEqual(coords.right, 'auto', key + ': right property is set to auto');
-				strictEqual(coords.bottom, 'auto', key + ': bottom property is set to auto');
+				assert.strictEqual($.isNumeric(coords.top), true, key + ': top property is set to a number');
+				assert.strictEqual($.isNumeric(coords.left), true, key + ': left property is set to a number');
+				assert.strictEqual(coords.right, 'auto', key + ': right property is set to auto');
+				assert.strictEqual(coords.bottom, 'auto', key + ': bottom property is set to auto');
 				break;
 			case 'w':
 			case 'sw':
 			case 'se-alt':
-				strictEqual($.isNumeric(coords.top), true, key + ': top property is set to a number');
-				strictEqual(coords.left, 'auto', key + ': left property is set to auto');
-				strictEqual($.isNumeric(coords.right), true, key + ': right property is set to a number');
-				strictEqual(coords.bottom, 'auto', key + ': bottom property is set to auto');
+				assert.strictEqual($.isNumeric(coords.top), true, key + ': top property is set to a number');
+				assert.strictEqual(coords.left, 'auto', key + ': left property is set to auto');
+				assert.strictEqual($.isNumeric(coords.right), true, key + ': right property is set to a number');
+				assert.strictEqual(coords.bottom, 'auto', key + ': bottom property is set to auto');
 				break;
 			case 'nw':
 			case 'ne-alt':
-				strictEqual(coords.top, 'auto', key + ': top property is set to auto');
-				strictEqual(coords.left, 'auto', key + ': left property is set to auto');
-				strictEqual($.isNumeric(coords.right), true, key + ': right property is set to a number');
-				strictEqual($.isNumeric(coords.bottom), true, key + ': bottom property is set to a number');
+				assert.strictEqual(coords.top, 'auto', key + ': top property is set to auto');
+				assert.strictEqual(coords.left, 'auto', key + ': left property is set to auto');
+				assert.strictEqual($.isNumeric(coords.right), true, key + ': right property is set to a number');
+				assert.strictEqual($.isNumeric(coords.bottom), true, key + ': bottom property is set to a number');
 				break;
 			}
 		});
