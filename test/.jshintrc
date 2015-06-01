@@ -14,9 +14,10 @@
 
 	"browser": true,
 	"jquery": true,
-	"qunit": true,
 
 	"globals": {
+		"QUnit": false,
+
 		"DATA_DISPLAYCONTROLLER": false,
 		"DATA_HASACTIVEHOVER": false,
 		"DATA_POWERTIP": false,
