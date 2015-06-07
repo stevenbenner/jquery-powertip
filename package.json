@@ -46,7 +46,8 @@
 		"grunt-indent": "~0.1",
 		"grunt-jscs": "1.8",
 		"grunt-jsonlint": "~1.0",
-		"grunt-shell": "~1.1"
+		"grunt-shell": "~1.1",
+		"time-grunt": "~1.2"
 	},
 	"scripts": {
 		"test": "grunt travis --verbose"
