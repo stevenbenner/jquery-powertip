@@ -122,7 +122,10 @@ module.exports = function(grunt) {
 			}
 		},
 		qunit: {
-			files: [ 'test/index.html' ]
+			files: [
+				'test/index.html',
+				'test/amd.html'
+			]
 		},
 		uglify: {
 			dist: {
