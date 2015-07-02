@@ -192,6 +192,10 @@ function TooltipController(options) {
 
 		// fade out
 		tipElement.fadeOut(options.fadeOutTime, function fadeOutCallback() {
+			if (session.isTipOpen) {
+				return;
+			}
+
 			var coords = new CSSCoordinates();
 
 			// reset session and tooltip element
