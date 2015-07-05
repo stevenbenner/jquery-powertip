@@ -17,7 +17,7 @@ PowerTip is a jQuery tooltip plugin with some advanced features like **hover int
 
 You can find the documentation for the **latest release version** on the [PowerTip web site][projectpage]. You will find the documentation for the **latest in-development version** in the [doc folder][docs] in this repository.
 
-[projectpage]: http://stevenbenner.github.io/jquery-powertip/
+[projectpage]: https://stevenbenner.github.io/jquery-powertip/
 [docs]: https://github.com/stevenbenner/jquery-powertip/tree/master/doc
 
 ## Reporting Bugs

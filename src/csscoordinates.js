@@ -2,7 +2,7 @@
  * PowerTip CSSCoordinates
  *
  * @fileoverview  CSSCoordinates object for describing CSS positions.
- * @link          http://stevenbenner.github.io/jquery-powertip/
+ * @link          https://stevenbenner.github.io/jquery-powertip/
  * @author        Steven Benner (http://stevenbenner.com/)
  * @requires      jQuery 1.7+
  */
