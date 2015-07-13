@@ -77,6 +77,5 @@
 		"checkRedundantParams": true,
 		"requireParamTypes": true
 	},
-	"requireSpaceAfterLineComment": true,
 	"excludeFiles": [ "src/intro.js", "src/outro.js" ]
 }
