@@ -72,7 +72,7 @@
 	"requireDotNotation": true,
 	"disallowYodaConditions": true,
 	"requireSpaceAfterLineComment": true,
-	"validateJSDoc": {
+	"jsDoc": {
 		"checkParamNames": true,
 		"checkRedundantParams": true,
 		"requireParamTypes": true
