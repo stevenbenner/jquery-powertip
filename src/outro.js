@@ -7,4 +7,6 @@
  * @requires      jQuery 1.7+
  */
 
+	// return api for commonjs and amd environments
+	return $.powerTip;
 }));

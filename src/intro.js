@@ -7,11 +7,16 @@
  * @requires      jQuery 1.7+
  */
 
-(function(factory) {
-	// support loading the plugin as an amd module
+(function(root, factory) {
+	// support loading the plugin via common patterns
 	if (typeof define === 'function' && define.amd) {
+		// load the plugin as an amd module
 		define([ 'jquery' ], factory);
+	} else if (typeof module === 'object' && module.exports) {
+		// load the plugin as a commonjs module
+		module.exports = factory(require('jquery'));
 	} else {
-		factory(jQuery);
+		// load the plugin as a global
+		factory(root.jQuery);
 	}
-}(function($) {
+}(this, function($) {
