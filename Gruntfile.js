@@ -24,8 +24,8 @@ module.exports = function(grunt) {
 			' <%= pkg.title %> v<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)',
 			' <%= pkg.homepage %>',
 			' Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).',
-			' Released under <%= _.pluck(pkg.licenses, "type").join(", ") %> license.',
-			' <%= _.pluck(pkg.licenses, "url").join("\\n ") %>',
+			' Released under <%= pkg.license %> license.',
+			' https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt',
 			'*/\n'
 		].join('\n'),
 		clean: {

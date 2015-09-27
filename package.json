@@ -15,12 +15,7 @@
 	"bugs": {
 		"url": "https://github.com/stevenbenner/jquery-powertip/issues"
 	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt"
-		}
-	],
+	"license": "MIT",
 	"keywords": [
 		"jquery-plugin",
 		"ecosystem:jquery",
