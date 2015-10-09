@@ -43,6 +43,7 @@ var session = {
 	previousY: 0,
 	desyncTimeout: null,
 	closeDelayTimeout: null,
+	openDelayTimeout: null,
 	mouseTrackingActive: false,
 	delayInProgress: false,
 	windowWidth: 0,
@@ -134,7 +135,7 @@ $.fn.powerTip = function(opts, arg) {
 				});
 			} else {
 				targetElements.on(evt + EVENT_NAMESPACE, function elementOpen(event) {
-					$.powerTip.show(this, event);
+					$.powerTip.show(this, event, false);
 				});
 			}
 		});
@@ -176,6 +177,7 @@ $.fn.powerTip.defaults = {
 	intentSensitivity: 7,
 	intentPollInterval: 100,
 	closeDelay: 100,
+	openDelay: 100,
 	placement: 'n',
 	smartPlacement: false,
 	offset: 10,
@@ -215,18 +217,19 @@ $.powerTip = {
 	 * @param {jQuery|Element} element The element to open the tooltip for.
 	 * @param {jQuery.Event=} event jQuery event for hover intent and mouse
 	 *     tracking (optional).
+         * @param {Boolean=} disableDelay Disable open delay (Optional)
 	 * @return {jQuery|Element} The original jQuery object or DOM Element.
 	 */
-	show: function apiShowTip(element, event) {
+	show: function apiShowTip(element, event, disableDelay) {
 		// if we were given a mouse event then run the hover intent testing,
 		// otherwise, simply show the tooltip asap
 		if (isMouseEvent(event)) {
 			trackMouse(event);
 			session.previousX = event.pageX;
 			session.previousY = event.pageY;
-			$(element).data(DATA_DISPLAYCONTROLLER).show();
+			$(element).data(DATA_DISPLAYCONTROLLER).show(element, undefined, disableDelay);
 		} else {
-			$(element).first().data(DATA_DISPLAYCONTROLLER).show(true, true);
+			$(element).first().data(DATA_DISPLAYCONTROLLER).show(true, true, disableDelay);
 		}
 		return element;
 	},
@@ -285,7 +288,7 @@ $.powerTip = {
 			$.powerTip.hide(element, !isMouseEvent(event));
 		} else {
 			// tooltip for element is not active, so open it
-			$.powerTip.show(element, event);
+			$.powerTip.show(element, event, true);
 		}
 		return element;
 	},

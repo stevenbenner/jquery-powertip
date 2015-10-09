@@ -17,6 +17,7 @@ $(function() {
 		ok($.fn.powerTip.defaults.hasOwnProperty('intentSensitivity'), 'intentSensitivity exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('intentPollInterval'), 'intentPollInterval exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('closeDelay'), 'closeDelay exists');
+		ok($.fn.powerTip.defaults.hasOwnProperty('openDelay'), 'openDelay exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('placement'), 'placement exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('smartPlacement'), 'smartPlacement exists');
 		ok($.fn.powerTip.defaults.hasOwnProperty('offset'), 'offset exists');

@@ -91,7 +91,7 @@ $(function() {
 			)
 		);
 
-		dc.show(true);
+		dc.show(true, undefined, true);
 
 		ok(showCalled, 'showTip called');
 	});
