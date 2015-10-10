@@ -18,16 +18,23 @@
  */
 function DisplayController(element, options, tipController) {
 	var hoverTimer = null,
-		myCloseDelay = null;
+	myCloseDelay = null,
+        myOpenDelay = null;
 
 	/**
 	 * Begins the process of showing a tooltip.
 	 * @private
 	 * @param {boolean=} immediate Skip intent testing (optional).
 	 * @param {boolean=} forceOpen Ignore cursor position and force tooltip to
+         * @param {boolean=} disableDelay Disable open delay (optional).
 	 *     open (optional).
 	 */
-	function openTooltip(immediate, forceOpen) {
+	function openTooltip(immediate, forceOpen, disableDelay) {
+		// if this instance already has an open delay in progress then halt it
+		if (myOpenDelay) {
+			myOpenDelay = session.openDelayTimeout = clearTimeout(myOpenDelay);
+			session.delayInProgress = false;
+		}
 		cancelTimer();
 		if (!element.data(DATA_HASACTIVEHOVER)) {
 			if (!immediate) {
@@ -44,7 +51,23 @@ function DisplayController(element, options, tipController) {
 					element.data(DATA_FORCEDOPEN, true);
 				}
 				closeAnyDelayed();
-				tipController.showTip(element);
+				if (!disableDelay) {
+					session.delayInProgress = true;
+					session.openDelayTimeout = setTimeout(
+						function openDelay() {
+							session.openDelayTimeout = null;
+							tipController.showTip(element);
+							session.delayInProgress = false;
+							myOpenDelay = null;
+						},
+						options.openDelay
+					);
+					// save internal reference open delay id so we can check if the
+					// active open delay belongs to this instance
+					myOpenDelay = session.openDelayTimeout;
+				} else {
+					tipController.showTip(element);
+				}
 			}
 		} else {
 			// cursor left and returned to this element, cancel close
@@ -123,6 +146,10 @@ function DisplayController(element, options, tipController) {
 		if (session.closeDelayTimeout && myCloseDelay === session.closeDelayTimeout || stopClose) {
 			cancelClose();
 		}
+		// Cancel the current open delay
+		if (myOpenDelay === session.openDelayTimeout) {
+			cancelOpen();
+		}
 	}
 
 	/**
@@ -131,6 +158,14 @@ function DisplayController(element, options, tipController) {
 	 */
 	function cancelClose() {
 		session.closeDelayTimeout = clearTimeout(session.closeDelayTimeout);
+		session.delayInProgress = false;
+	}
+	/**
+	 * Cancels any active open delay timer.
+	 * @private
+	 */
+	function cancelOpen() {
+		session.openDelayTimeout = clearTimeout(session.openDelayTimeout);
 		session.delayInProgress = false;
 	}
 
