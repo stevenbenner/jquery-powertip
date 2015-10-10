@@ -41,9 +41,13 @@ $(function() {
 	});
 	$('#auto-disable-button input').powerTip({ placement: 'e' });
 
-	// Long delay tooltips
-	$('#long-delay #first-button').powerTip({ closeDelay: 2000, mouseOnToPopup: true });
-	$('#long-delay #second-button').powerTip({ closeDelay: 2000 });
+	// Long close delay tooltips
+	$('#long-close-delay #first-button').powerTip({ closeDelay: 2000, mouseOnToPopup: true });
+	$('#long-close-delay #second-button').powerTip({ closeDelay: 2000 });
+
+	// Long open delay tooltips
+	$('#long-open-delay #first-button').powerTip({ openDelay: 2000 });
+	$('#long-open-delay #second-button').powerTip();
 
 	// Manual and interactive tooltips
 	$('#manual-and-interactive #manual-button').on('click', function() {
