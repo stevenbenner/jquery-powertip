@@ -1,5 +1,5 @@
 {
-	"name": "powertip",
+	"name": "jquery-powertip",
 	"title": "PowerTip",
 	"description": "A jQuery plugin that creates hover tooltips.",
 	"version": "1.2.0",
