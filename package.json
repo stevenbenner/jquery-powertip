@@ -28,7 +28,7 @@
 	],
 	"devDependencies": {
 		"grunt": "~0.4",
-		"grunt-contrib-clean": "~0.6",
+		"grunt-contrib-clean": "~0.7",
 		"grunt-contrib-compress": "~0.14",
 		"grunt-contrib-concat": "~0.5",
 		"grunt-contrib-copy": "~0.8",
