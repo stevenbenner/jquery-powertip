@@ -6,7 +6,7 @@ require.config({
 	}
 });
 
-require([ 'jquery', 'qunit', 'jquery.powertip' ], function($, QUnit) {
+require([ 'jquery', 'qunit', 'jquery.powertip' ], function($, QUnit, powerTip) {
 	'use strict';
 
 	QUnit.start();
@@ -24,5 +24,13 @@ require([ 'jquery', 'qunit', 'jquery.powertip' ], function($, QUnit) {
 		assert.strictEqual(typeof $.powerTip.hide, 'function', 'hide is defined');
 		assert.strictEqual(typeof $.powerTip.toggle, 'function', 'toggle is defined');
 		assert.strictEqual(typeof $.powerTip.destroy, 'function', 'destroy is defined');
+	});
+
+	QUnit.test('expose API via AMD parameter', function(assert) {
+		assert.strictEqual(typeof powerTip.show, 'function', 'show is defined');
+		assert.strictEqual(typeof powerTip.reposition, 'function', 'reposition is defined');
+		assert.strictEqual(typeof powerTip.hide, 'function', 'hide is defined');
+		assert.strictEqual(typeof powerTip.toggle, 'function', 'toggle is defined');
+		assert.strictEqual(typeof powerTip.destroy, 'function', 'destroy is defined');
 	});
 });
