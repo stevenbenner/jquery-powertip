@@ -61,6 +61,65 @@
 
 	Tooltip layout and functionality should be simple to modify for your own personal touch. Layout should be done entirely with CSS and the plugin will not attach any inline styles other than to control visibility and positioning.
 
+## Installation
+
+The first step for using this plugin in your project is to include the needed files.
+
+### Manual installation
+
+The most direct way to install this plugin is to download the latest version from the [project page](https://stevenbenner.github.io/jquery-powertip/) and copy the needed file into your project. At the very least you will want one of the js file and one of the css files.
+
+### npm Installation
+
+This plugin has been published to [npm](https://www.npmjs.com/) as [jquery-powertip](https://www.npmjs.com/package/jquery-powertip). This means that if you are using npm as your package manager then you can install PowerTip in your project by simply adding it to your package.json and/or running the following command:
+
+`npm install jquery-powertip --save`
+
+Then you can include it in your pages however you like (HTML tags, browserify, Require.js).
+
+### Including resources
+
+#### HTML
+
+Once the PowerTip files are in your project you can simply include them in your web page with the following HTML tags:
+
+```html
+<script type="text/javascript" src="path/to/jquery.powertip.js"></script>
+<link rel="stylesheet" type="text/css" href="path/to/jquery.powertip.css" />
+```
+
+**Important note:** Make sure you include jQuery before PowerTip in your HTML.
+
+#### Browserify
+
+PowerTip supports the CommonJS loading specification. If you are using npm to manage your packages and [Browserify](http://browserify.org/) to build your project then you can load it and use it with a simple `require('jquery-powertip')`.
+
+The PowerTip API will be loaded into jQuery as well as the return object from the `require()`.
+
+**Important notes:** You will still need to include the CSS in your web page.
+
+#### RequireJS
+
+PowerTip also supports the AMD loading specification used by [RequireJS](http://requirejs.org/). You can load and use it by adding the path to your paths configuration and referencing it in your `define()` call(s).
+
+Example paths configuration:
+
+```javascript
+require.config({
+	paths: {
+		jquery: 'http://code.jquery.com/jquery-1.11.3',
+		'jquery.powertip': '../dist/jquery.powertip'
+	}
+});
+```
+
+The PowerTip API will be loaded into jQuery as well as returned to the PowerTip parameter in your `define()` (`query.powertip` in the example above).
+
+**Important notes:**
+
+* You will still need to include the CSS in your web page.
+* Make sure you have a reference to `jquery` in your paths configuration.
+
 ## Usage
 
 Running the plugin is about as standard as it gets.
