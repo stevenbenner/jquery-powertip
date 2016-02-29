@@ -42,7 +42,7 @@
 		"grunt-jscs": "2.7",
 		"grunt-jsonlint": "~1.0",
 		"grunt-shell": "~1.1",
-		"jit-grunt": "~0.9",
+		"jit-grunt": "~0.10",
 		"time-grunt": "~1.3"
 	},
 	"scripts": {
