@@ -35,7 +35,7 @@
 		"grunt-contrib-csslint": "~1.0",
 		"grunt-contrib-cssmin": "~1.0",
 		"grunt-contrib-jshint": "~1.0",
-		"grunt-contrib-qunit": "~1.0",
+		"grunt-contrib-qunit": "~1.1",
 		"grunt-contrib-uglify": "~1.0",
 		"grunt-contrib-watch": "~0.6",
 		"grunt-indent": "~0.1",
