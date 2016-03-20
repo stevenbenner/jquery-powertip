@@ -37,7 +37,7 @@
 		"grunt-contrib-jshint": "~1.0",
 		"grunt-contrib-qunit": "~1.1",
 		"grunt-contrib-uglify": "~1.0",
-		"grunt-contrib-watch": "~0.6",
+		"grunt-contrib-watch": "~1.0",
 		"grunt-indent": "~0.1",
 		"grunt-jscs": "2.8",
 		"grunt-jsonlint": "~1.0",
