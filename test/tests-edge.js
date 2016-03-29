@@ -114,6 +114,46 @@ $(function() {
 	$('#huge-text-smart .south-west-alt').powerTip({ placement: 'sw-alt', smartPlacement: true });
 	$('#huge-text-smart .south-east-alt').powerTip({ placement: 'se-alt', smartPlacement: true });
 
+	$.each(
+		[
+			'north',
+			'east',
+			'south',
+			'west',
+			'north-west',
+			'north-east',
+			'south-west',
+			'south-east',
+			'north-west-alt',
+			'north-east-alt',
+			'south-west-alt',
+			'south-east-alt'
+		],
+		function(i, val) {
+			$('#huge-text-smart-reposition .' + val).data('powertip', 'small text');
+			$('#huge-text-smart-reposition .' + val).hover(function() {
+				setTimeout(function() {
+					$('#powerTip').html(hugeText);
+					$('#huge-text-smart-reposition .' + val).powerTip('reposition');
+				}, 1000);
+			});
+		}
+	);
+
+	// Huge text with smart placement and reposition
+	$('#huge-text-smart-reposition .north').powerTip({ placement: 'n', smartPlacement: true });
+	$('#huge-text-smart-reposition .east').powerTip({ placement: 'e', smartPlacement: true });
+	$('#huge-text-smart-reposition .south').powerTip({ placement: 's', smartPlacement: true });
+	$('#huge-text-smart-reposition .west').powerTip({ placement: 'w', smartPlacement: true });
+	$('#huge-text-smart-reposition .north-west').powerTip({ placement: 'nw', smartPlacement: true });
+	$('#huge-text-smart-reposition .north-east').powerTip({ placement: 'ne', smartPlacement: true });
+	$('#huge-text-smart-reposition .south-west').powerTip({ placement: 'sw', smartPlacement: true });
+	$('#huge-text-smart-reposition .south-east').powerTip({ placement: 'se', smartPlacement: true });
+	$('#huge-text-smart-reposition .north-west-alt').powerTip({ placement: 'nw-alt', smartPlacement: true });
+	$('#huge-text-smart-reposition .north-east-alt').powerTip({ placement: 'ne-alt', smartPlacement: true });
+	$('#huge-text-smart-reposition .south-west-alt').powerTip({ placement: 'sw-alt', smartPlacement: true });
+	$('#huge-text-smart-reposition .south-east-alt').powerTip({ placement: 'se-alt', smartPlacement: true });
+
 	// SVG elements
 	$('#svg-elements #red-ellipse1').powerTip({ placement: 'n' });
 	$('#svg-elements #red-ellipse2').powerTip({ placement: 'e' });
