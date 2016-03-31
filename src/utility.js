@@ -123,10 +123,11 @@ function isMouseOver(element) {
  * Fetches the tooltip content from the specified element's data attributes.
  * @private
  * @param {jQuery} element The element to get the tooltip content for.
+ * @param {TooltipController} controller The tooltip controller.
  * @return {(string|jQuery|undefined)} The text/HTML string, jQuery object, or
  *     undefined if there was no tooltip content for the element.
  */
-function getTooltipContent(element) {
+function getTooltipContent(element, controller) {
 	var tipText = element.data(DATA_POWERTIP),
 		tipObject = element.data(DATA_POWERTIPJQ),
 		tipTarget = element.data(DATA_POWERTIPTARGET),
@@ -152,7 +153,36 @@ function getTooltipContent(element) {
 		}
 	}
 
-	return content;
+    // Make sure we have a jquery content object.
+    var real_content = $(content);
+
+    // Verify not attach event again.
+    if (!real_content.hasClass('powertip-image-processed')) {
+
+        // Verify content is an image.
+        if (real_content[0].localName === 'img') {
+            // Attach load triger, to update positions after an image was successfully loaded.
+            $(real_content).addClass('powertip-image-processed').on('load', function() {
+                controller.updatePosition(element);
+            });
+        }
+    }
+
+    // Now process all sub images starting, from the content.
+
+    // Process only images which aren't yet.
+    $('img:not(.powertip-image-processed)', real_content).each(function() {
+
+        // Mark image as processed and attach event.
+        $(this).addClass('powertip-image-processed').on('load', function() {
+
+            // Reposition the tooltip after an image is successfully loaded.
+            controller.updatePosition(element);
+        });
+    });
+
+    // Return real content instead of original content.
+    return real_content;
 }
 
 /**
