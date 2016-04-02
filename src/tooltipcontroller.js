@@ -304,6 +304,7 @@ function TooltipController(options) {
 		}
 
 		// add placement as class for CSS arrows
+		tipElement.removeClass('w nw sw e ne se n s w se-alt sw-alt ne-alt nw-alt');
 		tipElement.addClass(finalPlacement);
 	}
 
