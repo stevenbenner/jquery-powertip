@@ -95,7 +95,7 @@ $(function() {
 		// test close events
 		$.each(closeEvents, function(idx, eventName) {
 			hideTriggered = false;
-			element.trigger('mouseleave');
+			element.trigger(eventName);
 			assert.strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
 		});
 
