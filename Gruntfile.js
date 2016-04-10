@@ -121,11 +121,18 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		browserify: {
+			test: {
+				src: [ 'test/browserify.js' ],
+				dest: '<%= temppath %>/bundle.js'
+			}
+		},
 		qunit: {
-			files: [
+			tests: [
 				'test/index.html',
 				'test/amd.html'
-			]
+			],
+			browserify: [ '<%= temppath %>/browserify.html' ]
 		},
 		uglify: {
 			dist: {
@@ -152,6 +159,10 @@ module.exports = function(grunt) {
 						return content.replace(scriptsRegex, grunt.template.process(builtScriptTag));
 					}
 				}
+			},
+			browserify: {
+				src: [ 'test/browserify.html' ],
+				dest: '<%= temppath %>/browserify.html'
 			},
 			license: {
 				src: [ 'LICENSE.txt' ],
@@ -271,9 +282,10 @@ module.exports = function(grunt) {
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'test' ]);
-	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'csslint' ]);
+	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'concat:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'csslint', 'clean:temp' ]);
+	grunt.registerTask('test:browserify', [ 'copy:browserify', 'browserify', 'qunit:browserify' ]);
 	grunt.registerTask('build', [ 'jsonlint', 'build:js', 'build:css', 'build:docs' ]);
-	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint', 'jscs', 'qunit', 'uglify' ]);
+	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'uglify', 'clean:temp' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
