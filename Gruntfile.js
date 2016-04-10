@@ -250,32 +250,6 @@ module.exports = function(grunt) {
 			checkoutmaster: {
 				command: 'git checkout master'
 			}
-		},
-		watch: {
-			grunt: {
-				files: [ 'Gruntfile.js', '.jshintrc' ],
-				tasks: [ 'jshint:grunt',  'jscs:grunt' ]
-			},
-			src: {
-				files: [ 'src/**/*.js' ],
-				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist', 'jscs:js', 'jscs:dist', 'qunit' ]
-			},
-			srcjshint: {
-				files: [ 'src/.jshintrc' ],
-				tasks: [ 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'jshint:dist' ]
-			},
-			tests: {
-				files: [ 'test/**/*.js' ],
-				tasks: [ 'jshint:tests', 'jscs:tests', 'concat:core', 'indent', 'concat:dist', 'clean:temp', 'qunit' ]
-			},
-			testsjshint: {
-				files: [ 'test/.jshintrc' ],
-				tasks: [ 'jshint:tests' ]
-			},
-			css: {
-				files: [ 'css/*.css' ],
-				tasks: [ 'csslint' ]
-			}
 		}
 	});
 
