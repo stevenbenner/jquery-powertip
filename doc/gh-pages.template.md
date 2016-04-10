@@ -10,7 +10,7 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 <span>Zip file with examples, CSS, and script.</span>
 </p>
 
-Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [jsFiddle demo](http://jsfiddle.net/stevenbenner/2baqv/).
+Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
 
 ### Placement examples
 

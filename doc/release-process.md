@@ -57,4 +57,4 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 8. **Update JSFiddle if needed** (it usually will not be needed)
 
-	The [PowerTip JSFiddle](http://jsfiddle.net/stevenbenner/2baqv/) is used by people wanting to quickly play with the plugin before really digging into it. If there were any breaking changes or significant new features then they should be added to the JSFiddle.
+	The [PowerTip JSFiddle](https://jsfiddle.net/stevenbenner/2baqv/) is used by people wanting to quickly play with the plugin before really digging into it. If there were any breaking changes or significant new features then they should be added to the JSFiddle.

@@ -29,7 +29,7 @@ For bug reports, questions, feature requests, or other suggestions the best way 
 
 ## Contributor Guide
 
-Make PowerTip better! Join the [league of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (jsFiddle, pastebin, text file, whatever).
+Make PowerTip better! Join the [league of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (JSFiddle, pastebin, text file, whatever).
 
 [contributors]: https://github.com/stevenbenner/jquery-powertip/graphs/contributors
 [fork]: https://github.com/stevenbenner/jquery-powertip/fork
