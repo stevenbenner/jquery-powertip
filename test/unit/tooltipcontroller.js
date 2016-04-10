@@ -132,6 +132,26 @@ $(function() {
 		runNextTest();
 	});
 
+	QUnit.test('resetPosition removes old placement classes', function(assert) {
+		var placement = 'se',
+			element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
+			tc = new TooltipController($.extend({}, zeroTimeOpts, { placement: placement })),
+			tipElem = $('#' + $.fn.powerTip.defaults.popupId),
+			allClasses = Object.keys($.fn.powerTip.smartPlacementLists),
+			key;
+
+		assert.expect(allClasses.length - 1);
+
+		tipElem.addClass(allClasses.join(' '));
+		tc.resetPosition(element);
+
+		for (key in $.fn.powerTip.smartPlacementLists) {
+			if (key !== placement) {
+				assert.strictEqual(tipElem.hasClass(key), false, 'tooltip element does not have class: ' + key);
+			}
+		}
+	});
+
 	QUnit.test('TooltipController adds custom classes', function(assert) {
 		var done = assert.async(),
 			element = $('<span />').data(DATA_POWERTIP, 'This is the tooltip text.'),
