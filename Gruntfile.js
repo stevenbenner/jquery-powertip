@@ -284,11 +284,12 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', [ 'test' ]);
 	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'concat:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'csslint', 'clean:temp' ]);
 	grunt.registerTask('test:browserify', [ 'copy:browserify', 'browserify', 'qunit:browserify' ]);
-	grunt.registerTask('build', [ 'jsonlint', 'build:js', 'build:css', 'build:docs' ]);
+	grunt.registerTask('build', [ 'jsonlint', 'build:js', 'build:css' ]);
 	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'concat:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'uglify', 'clean:temp' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
-	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'compress' ]);
+	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'build:docs', 'compress' ]);
+	grunt.registerTask('build:npm', [ 'clean:dist', 'build' ]);
 	grunt.registerTask('travis', [ 'test' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
 	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:zipassets', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
