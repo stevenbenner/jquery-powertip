@@ -58,9 +58,9 @@
 		header, section { margin-bottom: 20px; }
 		section { border: 1px solid #CCC; margin: 20px; padding: 20px; }
 		#powerTip { white-space: normal; }
-		#huge-text div, #huge-text-smart div, #huge-text-smart-reposition div  { text-align: center; }
-		#huge-text input, #huge-text-smart input, #huge-text-smart-reposition input { margin: 10px; padding: 10px; }
-		#huge-text .east, #huge-text-smart .east, #huge-text-smart-reposition .east { margin-left: 450px; }
+		#huge-text div, #huge-text-smart div  { text-align: center; }
+		#huge-text input, #huge-text-smart input { margin: 10px; padding: 10px; }
+		#huge-text .east, #huge-text-smart .east { margin-left: 450px; }
 		svg { display: block; margin: 0 auto; }
 		#session { position: fixed; right: 10px; top: 10px; font-size: 10px; width: 160px; background-color: #fff; border: 1px solid #ccc; padding: 10px; overflow: hidden; }
 		#session pre { margin: 0; }
@@ -143,24 +143,6 @@
 	<section id="huge-text-smart">
 		<h2>Huge Text with Smart Placement</h2>
 		<p>The tooltips for the buttons below have a lot of text. The tooltip div is completely elastic for this demo. The tooltips should be properly placed when they render.</p>
-		<div>
-			<input type="button" class="north-west-alt" value="North West Alt" />
-			<input type="button" class="north-west" value="North West" />
-			<input type="button" class="north" value="North" />
-			<input type="button" class="north-east" value="North East" />
-			<input type="button" class="north-east-alt" value="North East Alt" /><br />
-			<input type="button" class="west" value="West" />
-			<input type="button" class="east" value="East" /><br />
-			<input type="button" class="south-west-alt" value="South West Alt" />
-			<input type="button" class="south-west" value="South West" />
-			<input type="button" class="south" value="South" />
-			<input type="button" class="south-east" value="South East" />
-			<input type="button" class="south-east-alt" value="South East Alt" />
-		</div>
-	</section>
-	<section id="huge-text-smart-reposition">
-		<h2>Changing powertip placement after reposition call</h2>
-		<p>The tooltips for the buttons below will have a lot of text inserted into them after 1 second and repositioned with smart placement. In the case that the tooltip placement changes, the tooltip should display correctly. </p>
 		<div>
 			<input type="button" class="north-west-alt" value="North West Alt" />
 			<input type="button" class="north-west" value="North West" />
