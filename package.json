@@ -27,7 +27,6 @@
 		"browser"
 	],
 	"devDependencies": {
-		"browserify": "~13.0",
 		"grunt": "~1.0",
 		"grunt-browserify": "~5.0",
 		"grunt-contrib-clean": "~1.0",
