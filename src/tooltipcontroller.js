@@ -342,7 +342,7 @@ function TooltipController(options) {
 				placement,
 				tipWidth,
 				tipHeight,
-				options.offset
+				options
 			);
 
 			// place the tooltip
