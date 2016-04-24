@@ -29,7 +29,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 2. **Bump the version in package.json**
 
-	The package.json is used when building the project.
+	The package.json is used when building the project and when publishing to npm.
 
 3. **Run `grunt build:release`**
 
@@ -50,6 +50,12 @@ The events that fire during the tooltip life cycle are also considered to be par
 	**POINT OF NO RETURN**
 
 	This is the fail-safe step. Make sure the build looks right. Make sure the commits from steps 1 and 2 are correct. Make sure the commits added to the gh-pages branch look right. If everything looks good then push the commits and the tag. With that the new version is out and available for download.
+
+7. **Publish to npm**
+
+	First, verify that the package to be release to npm contains the expected files in the expected structure. Run `grunt build:npm && npm pack`. This will generate the appropriate dist folder contents and create the tgz package. Look over the tgz package to make sure everything looks good.
+
+	Now publish the new release to the npm repository by running the `npm publish` command. This will automatically run the `grunt build:npm` task via the npm precommit script.
 
 7. **Add new release to GitHub repo**
 
