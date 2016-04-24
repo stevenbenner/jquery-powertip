@@ -1,0 +1,13 @@
+/css
+/doc
+/examples
+/src
+/test
+.editorconfig
+.gitattributes
+.jscsrc
+.jshintrc
+.npmignore
+.travis.yml
+Gruntfile.js
+*.tgz
