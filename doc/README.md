@@ -107,7 +107,7 @@ Example paths configuration:
 ```javascript
 require.config({
 	paths: {
-		jquery: 'http://code.jquery.com/jquery-1.11.3',
+		jquery: 'https://code.jquery.com/jquery-1.11.3',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
 });
