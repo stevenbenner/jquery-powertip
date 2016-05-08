@@ -162,7 +162,8 @@ module.exports = function(grunt) {
 			},
 			browserify: {
 				src: [ 'test/browserify.html' ],
-				dest: '<%= temppath %>/browserify.html'
+				dest: '<%= temppath %>/browserify.html',
+				nonull: true
 			},
 			license: {
 				src: [ 'LICENSE.txt' ],
