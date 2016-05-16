@@ -67,11 +67,11 @@ $(function() {
 
 		session.currentX = 9;
 		session.currentY = 29;
-		assert.ok(!isMouseOver(div), 'no hover detected');
+		assert.notOk(isMouseOver(div), 'no hover detected');
 
 		session.currentX = 81;
 		session.currentY = 31;
-		assert.ok(!isMouseOver(div), 'no hover detected');
+		assert.notOk(isMouseOver(div), 'no hover detected');
 
 		div.remove();
 	});

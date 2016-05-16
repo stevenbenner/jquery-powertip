@@ -54,7 +54,7 @@ $(function() {
 		assert.deepEqual(div.powerTip('toggle'), div, 'original jQuery object returned for toggle');
 		assert.deepEqual(div.powerTip('resetPosition'), div, 'original jQuery object returned for resetPosition');
 		assert.deepEqual(div.powerTip('destroy'), div, 'original jQuery object returned for destroy');
-		assert.ok(!element.attr('title'), 'title attribute was removed');
+		assert.notOk(element.attr('title'), 'title attribute was removed');
 		assert.ok(element.data(DATA_DISPLAYCONTROLLER), 'new DisplayController created and added to data');
 	});
 
@@ -213,28 +213,28 @@ $(function() {
 
 		// attributes
 		assert.strictEqual(element.attr('title'), 'This is the tooltip text', 'destory method rolled back the title attribute');
-		assert.ok(!element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
+		assert.notOk(element.data(DATA_POWERTIP), 'destroy method removed powertip data attribute');
 		assert.strictEqual(elementDataAttr.data(DATA_POWERTIP), 'This is the tooltip text', 'destroy method did not remove manually set powertip data attribute');
 
 		// events
 		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
-		assert.ok(!showTriggered, 'mouseenter event was unhooked after destroy');
+		assert.notOk(showTriggered, 'mouseenter event was unhooked after destroy');
 		showTriggered = false;
 
 		element.trigger('mouseleave');
-		assert.ok(!hideTriggered, 'mouseleave event was unhooked after destroy');
+		assert.notOk(hideTriggered, 'mouseleave event was unhooked after destroy');
 		hideTriggered = false;
 
 		element.trigger('focus');
-		assert.ok(!showTriggered, 'focus event was unhooked after destroy');
+		assert.notOk(showTriggered, 'focus event was unhooked after destroy');
 		showTriggered = false;
 
 		element.trigger('blur');
-		assert.ok(!hideTriggered, 'blur event was unhooked after destroy');
+		assert.notOk(hideTriggered, 'blur event was unhooked after destroy');
 		hideTriggered = false;
 
 		element.trigger($.Event('keydown', { keyCode: 27 }));
-		assert.ok(!hideTriggered, 'keydown event was unhooked after destroy');
+		assert.notOk(hideTriggered, 'keydown event was unhooked after destroy');
 		hideTriggered = false;
 	});
 

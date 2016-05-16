@@ -145,7 +145,7 @@ $(function() {
 			dc.cancel();
 
 			setTimeout(function() {
-				assert.ok(!showCalled, 'showTip was not called');
+				assert.notOk(showCalled, 'showTip was not called');
 				done();
 			}, $.fn.powerTip.defaults.intentPollInterval / 2 + 10);
 		}, $.fn.powerTip.defaults.intentPollInterval / 2);
@@ -177,7 +177,7 @@ $(function() {
 			dc.cancel();
 
 			setTimeout(function() {
-				assert.ok(!hideCalled, 'showTip was not called');
+				assert.notOk(hideCalled, 'showTip was not called');
 				done();
 			}, $.fn.powerTip.defaults.closeDelay / 2 + 10);
 		}, $.fn.powerTip.defaults.closeDelay / 2);
