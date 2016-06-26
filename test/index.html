@@ -4,10 +4,24 @@
 	<meta charset="utf-8" />
 	<title>PowerTip Test Suite</title>
 
-	<!-- Library Resources -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<!-- QUnit Resources -->
 	<script type="text/javascript" src="https://code.jquery.com/qunit/qunit-2.0.0.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://code.jquery.com/qunit/qunit-2.0.0.css" />
+
+	<!-- Dynamic jQuery Version Loader -->
+	<script type="text/javascript">
+		var jqVersions = [ '1.7.0', '1.12.4', '2.2.4', '3.0.0' ],
+			currentJq = QUnit.urlParams.jquery || jqVersions[jqVersions.length - 1];
+
+		QUnit.config.urlConfig.push({
+			id: 'jquery',
+			label: 'jQuery version',
+			value: jqVersions,
+			tooltip: 'Select which version of jQuery to run the test suite on.'
+		});
+
+		document.write('<script src="https://code.jquery.com/jquery-' + currentJq + '.js">\x3C/script>');
+	</script>
 
 	<!-- PowerTip Core Resources -->
 	<script type="text/javascript" src="../src/core.js"></script>
