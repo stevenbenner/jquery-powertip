@@ -180,11 +180,6 @@ module.exports = function(grunt) {
 				dest: 'index.md',
 				nonull: true
 			},
-			zipassets: {
-				src: [ '<%= buildpath %>/<%= files.zip %>' ],
-				dest: 'releases/<%= files.zip %>',
-				nonull: true
-			},
 			jsassets: {
 				src: [ '<%= buildpath %>/<%= files.cat %>' ],
 				dest: 'scripts/<%= files.cat %>',
@@ -253,7 +248,6 @@ module.exports = function(grunt) {
 			},
 			addassets: {
 				command: [
-					'git add releases/<%= files.zip %>',
 					'git add scripts/<%= files.cat %>',
 					'git add styles/jquery.powertip*.css',
 					'git commit -m "Publishing assets."'
@@ -293,5 +287,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:npm', [ 'clean:dist', 'build' ]);
 	grunt.registerTask('travis', [ 'test' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
-	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:zipassets', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
+	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
 };
