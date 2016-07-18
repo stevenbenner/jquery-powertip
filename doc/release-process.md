@@ -39,7 +39,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 	Make sure the changes from steps 1 and 2 have been commited.
 
-	`git tag -a vX.X.X -m "vX.X.X"`
+	`git tag -a vX.X.X -m "version X.X.X"`
 
 5. **Run `grunt deploy:docs && grunt deploy:assets`**
 
