@@ -48,7 +48,7 @@
 		"grunt-shell": "~1.3",
 		"jit-grunt": "~0.10",
 		"qunitjs": "~2.0",
-		"time-grunt": "~1.3"
+		"time-grunt": "~1.4"
 	},
 	"scripts": {
 		"grunt": "grunt",
