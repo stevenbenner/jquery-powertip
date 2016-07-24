@@ -140,7 +140,8 @@ module.exports = function(grunt) {
 				dest: '<%= buildpath %>/<%= files.min %>',
 				options: {
 					banner: '<%= banner %>',
-					report: 'gzip'
+					report: 'gzip',
+					screwIE8: false
 				}
 			}
 		},
