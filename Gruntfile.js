@@ -78,8 +78,7 @@ module.exports = function(grunt) {
 					'package.json',
 					'.jscsrc',
 					'.jshintrc',
-					'src/.jshintrc',
-					'test/.jshintrc'
+					'{src,test}/.jshintrc'
 				]
 			}
 		},
