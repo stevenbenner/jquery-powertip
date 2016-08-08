@@ -59,7 +59,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 7. **Add new release to GitHub repo**
 
-	Since the GitHub releases feature is a fairly recent addition this part of the process is still manual. Add a release for the tag, copy and paste the release notes, and add the zip archive to the release.
+	Add a release for the tag you just created, copy and paste the release notes, and add the zip archive to the release.
 
 8. **Update JSFiddle if needed** (it usually will not be needed)
 
