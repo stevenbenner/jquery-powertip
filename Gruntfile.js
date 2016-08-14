@@ -53,23 +53,17 @@ module.exports = function(grunt) {
 			}
 		},
 		jscs: {
+			options: {
+				config: '.jscsrc'
+			},
 			grunt: {
-				src: [ 'Gruntfile.js' ],
-				options: {
-					config: '.jscsrc'
-				}
+				src: [ 'Gruntfile.js' ]
 			},
 			tests: {
-				src: [ 'test/**/*.js' ],
-				options: {
-					config: '.jscsrc'
-				}
+				src: [ 'test/**/*.js' ]
 			},
 			js: {
-				src: [ 'src/*.js' ],
-				options: {
-					config: '.jscsrc'
-				}
+				src: [ 'src/*.js' ]
 			}
 		},
 		jsonlint: {
