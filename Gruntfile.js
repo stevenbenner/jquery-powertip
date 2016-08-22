@@ -237,14 +237,14 @@ module.exports = function(grunt) {
 			addindex: {
 				command: [
 					'git add index.md',
-					'git commit -m "Publishing docs."'
+					'git commit -m "Publishing docs"'
 				].join(' && ')
 			},
 			addassets: {
 				command: [
 					'git add scripts/<%= files.cat %>',
 					'git add styles/jquery.powertip*.css',
-					'git commit -m "Publishing assets."'
+					'git commit -m "Publishing assets"'
 				].join(' && ')
 			},
 			checkoutmaster: {
