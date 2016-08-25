@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8" />
+	<title>PowerTip Test Suite</title>
+
+	<!-- Library Resources -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+	<!-- PowerTip Core Resources -->
+	<script type="text/javascript" src="../src/core.js"></script>
+	<script type="text/javascript" src="../src/csscoordinates.js"></script>
+	<script type="text/javascript" src="../src/displaycontroller.js"></script>
+	<script type="text/javascript" src="../src/placementcalculator.js"></script>
+	<script type="text/javascript" src="../src/tooltipcontroller.js"></script>
+	<script type="text/javascript" src="../src/utility.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/jquery.powertip.css" />
+
+	<!-- Unit Test Scripts -->
+	<script type="text/javascript" src="tests-bodyoffset.js"></script>
+
+	<!-- Custom Styles For Test Cases -->
+	<style type="text/css">
+		header, section { margin-bottom: 20px; }
+		section { border: 1px solid #CCC; margin: 20px; padding: 20px; }
+		#powerTip { white-space: normal; }
+		#huge-text div, #huge-text-smart div  { text-align: center; }
+		#huge-text input, #huge-text-smart input { margin: 10px; padding: 10px; }
+		#huge-text .east, #huge-text-smart .east { margin-left: 450px; }
+		#session { position: fixed; right: 10px; top: 10px; font-size: 10px; width: 160px; background-color: #fff; border: 1px solid #ccc; padding: 10px; overflow: hidden; }
+		#session pre { margin: 0; }
+	</style>
+</head>
+<body style="position:absolute; left:50px; right:100px; top:25px; bottom:75px;">
+	<section id="huge-text">
+		<h2>Huge Text</h2>
+		<p>The tooltips for the buttons below have a lot of text. The tooltip div is completely elastic for this demo. The tooltips should be properly placed when they render.</p>
+		<div>
+			<input type="button" class="north-west-alt" value="North West Alt" />
+			<input type="button" class="north-west" value="North West" />
+			<input type="button" class="north" value="North" />
+			<input type="button" class="north-east" value="North East" />
+			<input type="button" class="north-east-alt" value="North East Alt" /><br />
+			<input type="button" class="west" value="West" />
+			<input type="button" class="east" value="East" /><br />
+			<input type="button" class="south-west-alt" value="South West Alt" />
+			<input type="button" class="south-west" value="South West" />
+			<input type="button" class="south" value="South" />
+			<input type="button" class="south-east" value="South East" />
+			<input type="button" class="south-east-alt" value="South East Alt" />
+		</div>
+	</section>
+	<section id="huge-text-smart">
+		<h2>Huge Text with Smart Placement</h2>
+		<p>The tooltips for the buttons below have a lot of text. The tooltip div is completely elastic for this demo. The tooltips should be properly placed when they render.</p>
+		<div>
+			<input type="button" class="north-west-alt" value="North West Alt" />
+			<input type="button" class="north-west" value="North West" />
+			<input type="button" class="north" value="North" />
+			<input type="button" class="north-east" value="North East" />
+			<input type="button" class="north-east-alt" value="North East Alt" /><br />
+			<input type="button" class="west" value="West" />
+			<input type="button" class="east" value="East" /><br />
+			<input type="button" class="south-west-alt" value="South West Alt" />
+			<input type="button" class="south-west" value="South West" />
+			<input type="button" class="south" value="South" />
+			<input type="button" class="south-east" value="South East" />
+			<input type="button" class="south-east-alt" value="South East Alt" />
+		</div>
+	</section>
+	<section id="trapped-mousefollow" data-powertip="This is the tooltip text.&lt;br /&gt;It is tall so you can test the padding.">
+		<h2>Trapped mouse following tooltip</h2>
+		<p>This box has a mouse following tooltip.</p>
+		<p>Trap it in the bottom right corner of the viewport. It should flip out of the way. It should not flip if it only hits one edge.</p>
+	</section>
+	<div id="session"><pre /></div>
+</body>
+</html>

@@ -202,8 +202,8 @@ function TooltipController(options) {
 
 			// support mouse-follow and fixed position tips at the same time by
 			// moving the tooltip to the last cursor location after it is hidden
-			coords.set('top', session.currentY + options.offset);
-			coords.set('left', session.currentX + options.offset);
+			coords.set('top', session.currentY + options.offset - session.positionCompensation.top);
+			coords.set('left', session.currentX + options.offset - session.positionCompensation.left);
 			tipElement.css(coords);
 
 			// trigger powerTipClose event
@@ -231,8 +231,8 @@ function TooltipController(options) {
 				collisionCount;
 
 			// grab collisions
-			coords.set('top', session.currentY + options.offset);
-			coords.set('left', session.currentX + options.offset);
+			coords.set('top', session.currentY + options.offset - session.positionCompensation.top);
+			coords.set('left', session.currentX + options.offset - session.positionCompensation.left);
 			collisions = getViewportCollisions(
 				coords,
 				tipWidth,
@@ -246,16 +246,16 @@ function TooltipController(options) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
 					if (collisions === Collision.right) {
-						coords.set('left', session.windowWidth - tipWidth);
+						coords.set('left', session.windowWidth - tipWidth - session.positionCompensation.left);
 					} else if (collisions === Collision.bottom) {
-						coords.set('top', session.scrollTop + session.windowHeight - tipHeight);
+						coords.set('top', session.scrollTop + session.windowHeight - tipHeight - session.positionCompensation.top);
 					}
 				} else {
 					// if the tooltip has more than one collision then it is
 					// trapped in the corner and should be flipped to get it out
 					// of the users way
-					coords.set('left', session.currentX - tipWidth - options.offset);
-					coords.set('top', session.currentY - tipHeight - options.offset);
+					coords.set('left', session.currentX - tipWidth - options.offset - session.positionCompensation.left);
+					coords.set('top', session.currentY - tipHeight - options.offset - session.positionCompensation.top);
 				}
 			}
 

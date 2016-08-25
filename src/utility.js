@@ -60,6 +60,7 @@ function getViewportDimensions() {
 	session.scrollTop = $window.scrollTop();
 	session.windowWidth = $window.width();
 	session.windowHeight = $window.height();
+	session.positionCompensation = computePositionCompensation(session.windowWidth, session.windowHeight);
 }
 
 /**
@@ -69,6 +70,7 @@ function getViewportDimensions() {
 function trackResize() {
 	session.windowWidth = $window.width();
 	session.windowHeight = $window.height();
+	session.positionCompensation = computePositionCompensation(session.windowWidth, session.windowHeight);
 }
 
 /**
@@ -166,8 +168,10 @@ function getTooltipContent(element) {
  * @return {number} Value with the collision flags.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
-	var viewportTop = session.scrollTop,
-		viewportLeft = session.scrollLeft,
+	// adjusting viewport even though it might be negative because coords
+	// comparing with are relative to compensated position
+	var viewportTop = session.scrollTop - session.positionCompensation.top,
+		viewportLeft = session.scrollLeft - session.positionCompensation.left,
 		viewportBottom = viewportTop + session.windowHeight,
 		viewportRight = viewportLeft + session.windowWidth,
 		collisions = Collision.none;
@@ -200,4 +204,42 @@ function countFlags(value) {
 		count++;
 	}
 	return count;
+}
+
+/**
+ * Compute compensating position offsets if body element has non-standard position attribute.
+ * @private
+ * @param {number} windowWidth Window width in pixels.
+ * @param {number} windowHeight Window height in pixels.
+ * @return {Offsets} The top, left, right, bottom offset in pixels
+ */
+function computePositionCompensation(windowWidth, windowHeight) {
+	var bodyWidthWithMargin,
+		bodyHeightWithMargin,
+		offsets,
+		bodyPositionPx;
+
+	switch ($body.css('position')) {
+		case 'absolute':
+		case 'fixed':
+		case 'relative':
+			// jquery offset and position functions return top and left
+			// offset function computes position + margin
+			offsets = $body.offset();
+			bodyPositionPx = $body.position();
+			// because element might be positioned compute right margin using the different between
+			// outerWidth computations and add position offset
+			bodyWidthWithMargin = $body.outerWidth(true);
+			bodyHeightWithMargin = $body.outerHeight(true);
+			// right offset = right margin + body right position
+			offsets.right = (bodyWidthWithMargin - $body.outerWidth() - (offsets.left - bodyPositionPx.left)) + (windowWidth - bodyWidthWithMargin - bodyPositionPx.left);
+			// bottom offset = bottom margin + body bottom position
+			offsets.bottom = (bodyHeightWithMargin - $body.outerHeight() - offsets.top) + (windowHeight - bodyHeightWithMargin - bodyPositionPx.top);
+			break;
+		default:
+			// even though body may have offset, no compensation is required
+			offsets = { top: 0, bottom: 0, left: 0, right: 0 };
+	}
+
+	return offsets;
 }
