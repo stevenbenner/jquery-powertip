@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 			dist: {
 				src: [
 					'src/intro.js',
-					'<%= temppath %>/core.js',
+					'<%= concat.core.dest %>',
 					'src/outro.js'
 				],
 				dest: '<%= buildpath %>/<%= files.cat %>',
@@ -107,8 +107,8 @@ module.exports = function(grunt) {
 		},
 		indent: {
 			js: {
-				src: [ '<%= temppath %>/core.js' ],
-				dest: '<%= temppath %>/core.js',
+				src: [ '<%= concat.core.dest %>' ],
+				dest: '<%= concat.core.dest %>',
 				options: {
 					change: 1
 				}
