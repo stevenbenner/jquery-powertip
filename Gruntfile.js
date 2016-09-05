@@ -125,7 +125,7 @@ module.exports = function(grunt) {
 				'test/index.html',
 				'test/amd.html'
 			],
-			browserify: [ '<%= temppath %>/browserify.html' ]
+			browserify: [ '<%= copy.browserify.dest %>' ]
 		},
 		uglify: {
 			dist: {
