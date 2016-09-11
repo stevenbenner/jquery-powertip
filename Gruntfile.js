@@ -17,7 +17,8 @@ module.exports = function(grunt) {
 		files: {
 			cat: 'jquery.powertip.js',
 			min: 'jquery.powertip.min.js',
-			zip: 'jquery.powertip-<%= pkg.version %>.zip'
+			zip: 'jquery.powertip-<%= pkg.version %>.zip',
+			license: 'LICENSE.txt'
 		},
 		banner: [
 			'/*!',
@@ -25,7 +26,7 @@ module.exports = function(grunt) {
 			' <%= pkg.homepage %>',
 			' Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).',
 			' Released under <%= pkg.license %> license.',
-			' https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt',
+			' https://raw.github.com/stevenbenner/jquery-powertip/master/<%= files.license %>',
 			'*/\n'
 		].join('\n'),
 		clean: {
@@ -160,8 +161,8 @@ module.exports = function(grunt) {
 				nonull: true
 			},
 			license: {
-				src: [ 'LICENSE.txt' ],
-				dest: '<%= buildpath %>/LICENSE.txt',
+				src: [ '<%= files.license %>' ],
+				dest: '<%= buildpath %>/<%= files.license %>',
 				nonull: true
 			},
 			changelog: {
