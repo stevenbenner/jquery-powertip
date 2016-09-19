@@ -18,7 +18,8 @@ module.exports = function(grunt) {
 			cat: 'jquery.powertip.js',
 			min: 'jquery.powertip.min.js',
 			zip: 'jquery.powertip-<%= pkg.version %>.zip',
-			license: 'LICENSE.txt'
+			license: 'LICENSE.txt',
+			changelog: 'CHANGELOG.yml'
 		},
 		banner: [
 			'/*!',
@@ -166,8 +167,8 @@ module.exports = function(grunt) {
 				nonull: true
 			},
 			changelog: {
-				src: [ 'CHANGELOG.yml' ],
-				dest: '<%= buildpath %>/CHANGELOG.yml',
+				src: [ '<%= files.changelog %>' ],
+				dest: '<%= buildpath %>/<%= files.changelog %>',
 				nonull: true
 			},
 			index: {
@@ -260,7 +261,7 @@ module.exports = function(grunt) {
 			data = {
 				pkg: grunt.file.readJSON('package.json'),
 				doc: grunt.file.read('doc/README.md'),
-				changelog: grunt.file.readYAML('CHANGELOG.yml')
+				changelog: grunt.file.readYAML(grunt.template.process('<%= files.changelog %>'))
 			},
 			page = grunt.template.process(template, { data: data });
 		grunt.file.write('dist/index.md', page);
