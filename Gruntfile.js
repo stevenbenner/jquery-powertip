@@ -196,7 +196,8 @@ module.exports = function(grunt) {
 			themes: {
 				src: [ 'css/*.css' ],
 				options: {
-					ids: false
+					ids: false,
+					'order-alphabetical': false
 				}
 			}
 		},
