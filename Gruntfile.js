@@ -12,8 +12,10 @@ module.exports = function(grunt) {
 	// configure grunt
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		buildpath: 'dist',
-		temppath: '<%= buildpath %>/temp',
+		paths: {
+			build: 'dist',
+			temp: '<%= paths.build %>/temp'
+		},
 		files: {
 			cat: 'jquery.powertip.js',
 			min: 'jquery.powertip.min.js',
@@ -31,8 +33,8 @@ module.exports = function(grunt) {
 			'*/\n'
 		].join('\n'),
 		clean: {
-			dist: [ '<%= buildpath %>' ],
-			temp: [ '<%= temppath %>' ]
+			dist: [ '<%= paths.build %>' ],
+			temp: [ '<%= paths.temp %>' ]
 		},
 		jshint: {
 			grunt: {
@@ -48,7 +50,7 @@ module.exports = function(grunt) {
 				}
 			},
 			dist: {
-				src: [ '<%= buildpath %>/<%= files.cat %>' ],
+				src: [ '<%= paths.build %>/<%= files.cat %>' ],
 				options: {
 					jshintrc: 'src/.jshintrc'
 				}
@@ -91,7 +93,7 @@ module.exports = function(grunt) {
 					'src/tooltipcontroller.js',
 					'src/utility.js'
 				],
-				dest: '<%= temppath %>/core.js',
+				dest: '<%= paths.temp %>/core.js',
 				nonull: true
 			},
 			dist: {
@@ -100,7 +102,7 @@ module.exports = function(grunt) {
 					'<%= concat.core.dest %>',
 					'src/outro.js'
 				],
-				dest: '<%= buildpath %>/<%= files.cat %>',
+				dest: '<%= paths.build %>/<%= files.cat %>',
 				options: {
 					banner: '<%= banner %>'
 				},
@@ -119,7 +121,7 @@ module.exports = function(grunt) {
 		browserify: {
 			test: {
 				src: [ 'test/browserify.js' ],
-				dest: '<%= temppath %>/bundle.js'
+				dest: '<%= paths.temp %>/bundle.js'
 			}
 		},
 		qunit: {
@@ -131,8 +133,8 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			dist: {
-				src: [ '<%= buildpath %>/<%= files.cat %>' ],
-				dest: '<%= buildpath %>/<%= files.min %>',
+				src: [ '<%= paths.build %>/<%= files.cat %>' ],
+				dest: '<%= paths.build %>/<%= files.min %>',
 				options: {
 					banner: '<%= banner %>',
 					report: 'gzip',
@@ -143,11 +145,11 @@ module.exports = function(grunt) {
 		copy: {
 			css: {
 				src: [ 'css/*.css' ],
-				dest: '<%= buildpath %>/'
+				dest: '<%= paths.build %>/'
 			},
 			examples: {
 				src: [ 'examples/*' ],
-				dest: '<%= buildpath %>/',
+				dest: '<%= paths.build %>/',
 				options: {
 					process: function(content) {
 						var scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/,
@@ -158,26 +160,26 @@ module.exports = function(grunt) {
 			},
 			browserify: {
 				src: [ 'test/browserify.html' ],
-				dest: '<%= temppath %>/browserify.html',
+				dest: '<%= paths.temp %>/browserify.html',
 				nonull: true
 			},
 			license: {
 				src: [ '<%= files.license %>' ],
-				dest: '<%= buildpath %>/<%= files.license %>',
+				dest: '<%= paths.build %>/<%= files.license %>',
 				nonull: true
 			},
 			changelog: {
 				src: [ '<%= files.changelog %>' ],
-				dest: '<%= buildpath %>/<%= files.changelog %>',
+				dest: '<%= paths.build %>/<%= files.changelog %>',
 				nonull: true
 			},
 			index: {
-				src: [ '<%= buildpath %>/index.md' ],
+				src: [ '<%= paths.build %>/index.md' ],
 				dest: 'index.md',
 				nonull: true
 			},
 			jsassets: {
-				src: [ '<%= buildpath %>/<%= files.cat %>' ],
+				src: [ '<%= paths.build %>/<%= files.cat %>' ],
 				dest: 'scripts/<%= files.cat %>',
 				nonull: true
 			},
@@ -185,7 +187,7 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: '<%= buildpath %>/css/',
+						cwd: '<%= paths.build %>/css/',
 						src: [ '*.css', '!*.min.css' ],
 						dest: 'styles/'
 					}
@@ -208,7 +210,7 @@ module.exports = function(grunt) {
 						expand: true,
 						cwd: 'css/',
 						src: [ '*.css' ],
-						dest: '<%= buildpath %>/css/',
+						dest: '<%= paths.build %>/css/',
 						rename: function(dest, matchedSrcPath) {
 							return dest + matchedSrcPath.replace('.css', '.min.css');
 						}
@@ -222,12 +224,12 @@ module.exports = function(grunt) {
 		compress: {
 			zip: {
 				options: {
-					archive: '<%= buildpath %>/<%= files.zip %>'
+					archive: '<%= paths.build %>/<%= files.zip %>'
 				},
 				files: [
 					{
 						expand: true,
-						cwd: '<%= buildpath %>/',
+						cwd: '<%= paths.build %>/',
 						src: [ '**/*' ]
 					}
 				]
