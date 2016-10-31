@@ -1,4 +1,4 @@
-function runTests() {
+(function runTests() {
 	'use strict';
 
 	var QUnit = require('qunitjs'),
@@ -27,6 +27,4 @@ function runTests() {
 		assert.strictEqual(typeof powerTip.toggle, 'function', 'toggle is defined');
 		assert.strictEqual(typeof powerTip.destroy, 'function', 'destroy is defined');
 	});
-}
-
-runTests();
+})();
