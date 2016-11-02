@@ -203,13 +203,17 @@ function countFlags(value) {
 }
 
 /**
- * Conditionally insert reference element for use in Chrome zoomed offset patch
+ * Conditionally make reference for Chrome zoomed offset patch
+ *
  * Reference https://bugs.chromium.org/p/chromium/issues/detail?id=489206
+ * Suggested patch calls for inserting an absolutely positioned element at 0,0.
+ * However, it appears that document.body serves equally well as a references
+ * and avoid needing to manipulate DOM. Beware offset behavior when body is not
+ * positioned at 0,0.
  */
-function injectChromePatchReferenceElement() {
-	if (/Chrome\/[.0-9]*/.test(navigator.userAgent) && !document.getElementById(PATCH_DUMMY_ELEMENT_ID)) {
-		session.chromePatchRefElement = $('<div id="' + PATCH_DUMMY_ELEMENT_ID +
-			'" style="position: absolute; left: 0px; top: 0px; width: 1px; height: 1px; visibility: hidden"></div>').prependTo(document.body);
+function activateChromeZoomedOffsetPatch() {
+	if (/Chrome\/[.0-9]*/.test(navigator.userAgent)) {
+		session.chromePatchRefElement = $(document.body);
 	}
 }
 
@@ -222,10 +226,10 @@ function injectChromePatchReferenceElement() {
 function getCompensatedOffset(element) {
 	if (session.chromePatchRefElement) {
 		var offset = element.offset();
-		var rd = session.chromePatchRefElement[0].getBoundingClientRect();
+		var r = session.chromePatchRefElement.offset();
 		return {
-			left: offset.left - (rd.left + window.pageXOffset),
-			top: offset.top - (rd.top + window.pageYOffset)
+			left: offset.left - r.left,
+			top: offset.top - r.top
 		};
 	}
 	return element.offset();

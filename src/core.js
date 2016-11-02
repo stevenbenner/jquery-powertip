@@ -35,8 +35,7 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
 		'mouseenter',
 		'mouseleave',
 		'contextmenu'
-	],
-	PATCH_DUMMY_ELEMENT_ID = 'chromeBugOffsetRef';
+	];
 
 /**
  * Session data
@@ -99,7 +98,7 @@ $.fn.powerTip = function(opts, arg) {
 		return $.powerTip[opts].call(targetElements, targetElements, arg);
 	}
 
-	injectChromePatchReferenceElement();
+	activateChromeZoomedOffsetPatch();
 
 	// extend options
 	options = $.extend({}, $.fn.powerTip.defaults, opts);
