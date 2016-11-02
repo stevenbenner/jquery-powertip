@@ -99,7 +99,7 @@ function PlacementCalculator() {
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getHtmlPlacement(element, placement) {
-		var objectOffset = element.offset(),
+		var objectOffset = getCompensatedOffset(element),
 			objectWidth = element.outerWidth(),
 			objectHeight = element.outerHeight(),
 			left,

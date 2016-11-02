@@ -109,7 +109,7 @@ function isMouseOver(element) {
 	// methods do not work with SVG elements
 	// compute width/height because those properties do not exist on the object
 	// returned by getBoundingClientRect() in older versions of IE
-	var elementPosition = element.offset(),
+	var elementPosition = getCompensatedOffset(element),
 		elementBox = element[0].getBoundingClientRect(),
 		elementWidth = elementBox.right - elementBox.left,
 		elementHeight = elementBox.bottom - elementBox.top;
@@ -200,4 +200,33 @@ function countFlags(value) {
 		count++;
 	}
 	return count;
+}
+
+/**
+ * Conditionally insert reference element for use in Chrome zoomed offset patch
+ * Reference https://bugs.chromium.org/p/chromium/issues/detail?id=489206
+ */
+function injectChromePatchReferenceElement() {
+	if (/Chrome\/[.0-9]*/.test(navigator.userAgent) && !document.getElementById(PATCH_DUMMY_ELEMENT_ID)) {
+		session.chromePatchRefElement = $('<div id="' + PATCH_DUMMY_ELEMENT_ID +
+			'" style="position: absolute; left: 0px; top: 0px; width: 1px; height: 1px; visibility: hidden"></div>').prependTo(document.body);
+	}
+}
+
+/**
+ * Compensate for the Chrome getBoundingClientRect bug when zoomed.
+ * Reference https://bugs.chromium.org/p/chromium/issues/detail?id=489206
+ * @param {jQuery} element The element that the tooltip should target.
+ * @return {Offsets} The top, left offsets relative to the document.
+ */
+function getCompensatedOffset(element) {
+	if (session.chromePatchRefElement) {
+		var offset = element.offset();
+		var rd = session.chromePatchRefElement[0].getBoundingClientRect();
+		return {
+			left: offset.left - (rd.left + window.pageXOffset),
+			top: offset.top - (rd.top + window.pageYOffset)
+		};
+	}
+	return element.offset();
 }
