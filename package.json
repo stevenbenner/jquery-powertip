@@ -45,7 +45,7 @@
 		"grunt-indent": "~0.1",
 		"grunt-jscs": "3.0",
 		"grunt-jsonlint": "~1.1",
-		"grunt-shell": "~2.0",
+		"grunt-shell": "~2.1",
 		"jit-grunt": "~0.10",
 		"qunitjs": "~2.0",
 		"time-grunt": "~1.4"
