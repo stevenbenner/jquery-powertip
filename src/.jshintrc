@@ -6,10 +6,8 @@
 	"latedef": "nofunc",
 	"noarg": true,
 	"nonew": true,
-	"regexp": true,
 	"undef": true,
 	"unused": true,
-	"trailing": true,
 
 	"browser": true,
 	"jquery": true,
