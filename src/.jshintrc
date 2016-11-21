@@ -1,10 +1,13 @@
 {
 	"curly": true,
 	"eqeqeq": true,
+	"esversion": 3,
 	"forin": true,
 	"freeze": true,
+	"futurehostile": true,
 	"latedef": "nofunc",
 	"noarg": true,
+	"nonbsp": true,
 	"nonew": true,
 	"undef": true,
 	"unused": true,
