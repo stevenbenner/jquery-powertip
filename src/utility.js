@@ -212,8 +212,20 @@ function countFlags(value) {
  * positioned at 0,0.
  */
 function activateChromeZoomedOffsetPatch() {
+	var style;
 	if (/Chrome\/[.0-9]*/.test(navigator.userAgent)) {
 		session.chromePatchRefElement = $(document.body);
+		style = {
+			top: 0,
+			left: 0,
+			position: 'absolute',
+			display: 'hidden',
+			height: '1px',
+			margin: 0,
+			width: '1px',
+			zIndex: -1
+		};
+		session.chromePatchRefElement = $('<div/>').css(style).appendTo($(document.body));
 	}
 }
 
