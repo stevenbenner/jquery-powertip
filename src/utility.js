@@ -207,38 +207,51 @@ function countFlags(value) {
 }
 
 /**
- * Compute compensating position offsets if body element has non-standard position attribute.
+ * Compute compensating position offsets if body or html element has non-static position attribute.
  * @private
  * @param {number} windowWidth Window width in pixels.
  * @param {number} windowHeight Window height in pixels.
  * @return {Offsets} The top, left, right, bottom offset in pixels
  */
 function computePositionCompensation(windowWidth, windowHeight) {
-	var bodyWidthWithMargin,
-		bodyHeightWithMargin,
-		offsets,
-		bodyPositionPx;
+	// Check if the element is "positioned". A "positioned" element has a CSS
+	// position value other than static. Whether the element is positioned is
+	// relevant because absolutely positioned elements are positioned relative
+	// to the first positioned ancestor rather than relative to the doc origin.
+	var isPositioned = function(el) {
+		return el.css('position') !== 'static';
+	};
 
-	switch ($body.css('position')) {
-		case 'absolute':
-		case 'fixed':
-		case 'relative':
-			// jquery offset and position functions return top and left
-			// offset function computes position + margin
-			offsets = $body.offset();
-			bodyPositionPx = $body.position();
-			// because element might be positioned compute right margin using the different between
-			// outerWidth computations and add position offset
-			bodyWidthWithMargin = $body.outerWidth(true);
-			bodyHeightWithMargin = $body.outerHeight(true);
-			// right offset = right margin + body right position
-			offsets.right = (bodyWidthWithMargin - $body.outerWidth() - (offsets.left - bodyPositionPx.left)) + (windowWidth - bodyWidthWithMargin - bodyPositionPx.left);
-			// bottom offset = bottom margin + body bottom position
-			offsets.bottom = (bodyHeightWithMargin - $body.outerHeight() - offsets.top) + (windowHeight - bodyHeightWithMargin - bodyPositionPx.top);
-			break;
-		default:
-			// even though body may have offset, no compensation is required
-			offsets = { top: 0, bottom: 0, left: 0, right: 0 };
+	var getElementOffsets = function(el) {
+		var elWidthWithMargin,
+			elHeightWithMargin,
+			elPositionPx,
+			offsets;
+		// jquery offset and position functions return top and left
+		// offset function computes position + margin
+		offsets = el.offset();
+		elPositionPx = el.position();
+
+		// Compute the far margins based off the outerWidth values.
+		elWidthWithMargin = el.outerWidth(true);
+		elHeightWithMargin = el.outerHeight(true);
+
+		// right offset = right margin + body right position
+		offsets.right = (elWidthWithMargin - el.outerWidth() - (offsets.left - elPositionPx.left)) + (windowWidth - elWidthWithMargin - elPositionPx.left);
+		// bottom offset = bottom margin + body bottom position
+		offsets.bottom = (elHeightWithMargin - el.outerHeight() - offsets.top) + (windowHeight - elHeightWithMargin - elPositionPx.top);
+		return offsets;
+	};
+
+	var offsets;
+
+	if (isPositioned($body)) {
+		offsets = getElementOffsets($body);
+	} else if (isPositioned($html)) {
+		offsets = getElementOffsets($html);
+	} else {
+		// even though body may have offset, no compensation is required
+		offsets = { top: 0, bottom: 0, left: 0, right: 0 };
 	}
 
 	return offsets;

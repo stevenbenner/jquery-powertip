@@ -10,6 +10,7 @@
 // useful private variables
 var $document = $(document),
 	$window = $(window),
+	$html = $(document.documentElement),
 	$body = $('body');
 
 // constants
