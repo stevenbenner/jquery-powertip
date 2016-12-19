@@ -53,9 +53,11 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 7. **Publish to npm**
 
+	*Prefer npm version 4.0.0 or greater to for prepublishOnly script*
+
 	First, verify that the package to be release to npm contains the expected files in the expected structure. Run `grunt build:npm && npm pack`. This will generate the appropriate dist folder contents and create the tgz package. Look over the tgz package to make sure everything looks good.
 
-	Now publish the new release to the npm repository by running the `npm publish` command. This will **NOT** automatically run the `grunt build:npm`, **make sure that is run before publish!** ([npm#10074](https://github.com/npm/npm/issues/10074)).
+	Now publish the new release to the npm repository by running the `npm publish` command.
 
 7. **Add new release to GitHub repo**
 
