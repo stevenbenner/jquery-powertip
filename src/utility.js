@@ -213,7 +213,7 @@ function countFlags(value) {
  */
 function activateChromeZoomedOffsetPatch() {
 	var style;
-	if (/Chrome\/[.0-9]*/.test(navigator.userAgent)) {
+	if (!session.chromePatchRefElement && /Chrome\/[.0-9]*/.test(navigator.userAgent)) {
 		session.chromePatchRefElement = $(document.body);
 		style = {
 			top: 0,
