@@ -1,4 +1,10 @@
-/* PowerTip Plugin */
+/**
+ * PowerTip
+ * https://stevenbenner.github.io/jquery-powertip/
+ *
+ * Stylesheet for the monochrome (default) theme.
+ */
+
 #powerTip {
 	cursor: default;
 	background-color: #333;

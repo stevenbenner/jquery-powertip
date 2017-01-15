@@ -1,4 +1,10 @@
-/* PowerTip Plugin */
+/**
+ * PowerTip
+ * https://stevenbenner.github.io/jquery-powertip/
+ *
+ * Stylesheet for the red theme.
+ */
+
 #powerTip {
 	cursor: default;
 	background-color: #ffc8c3;
