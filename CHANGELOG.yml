@@ -1,6 +1,6 @@
 v1.3.0:
-  date: TBD
-  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...master
+  date: 2017-01-15
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...v1.3.0
   description: API enhancements, new options, and several bug fixes
   changes:
     - section: Features & Improvements
