@@ -6,11 +6,11 @@ description: "PowerTip is a jQuery plugin for creating smooth, modern tooltips."
 PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips, has APIs for developers, and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
 
 <p id="buttons">
-<a href="releases/jquery.powertip-1.2.0.zip" class="button" id="download-link">Download v1.2.0</a>
+<a href="https://github.com/stevenbenner/jquery-powertip/releases/download/v1.3.0/jquery.powertip-1.3.0.zip" class="button" id="download-link">Download v1.3.0</a>
 <span>Zip file with examples, CSS, and script.</span>
 </p>
 
-Here are some basic examples of PowerTip in actions. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
+Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
 
 ### Placement examples
 
@@ -71,11 +71,14 @@ The PowerTip for this box will appear on the right and you will be able to inter
 * Multiple instances
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
+* Supports custom open and close event handlers
 * Actively maintained
 
 ### Requirements
 
 * jQuery 1.7 or later
+
+**Important note:** The `<body>` tag must use the default CSS `position`.
 
 ## Design Goals
 
@@ -106,6 +109,65 @@ The PowerTip for this box will appear on the right and you will be able to inter
 * **Easy to customize**
 
 	Tooltip layout and functionality should be simple to modify for your own personal touch. Layout should be done entirely with CSS and the plugin will not attach any inline styles other than to control visibility and positioning.
+
+## Installation
+
+The first step for using this plugin in your project is to include the needed files.
+
+### Manual installation
+
+The most direct way to install this plugin is to download the latest version from the [project page](https://stevenbenner.github.io/jquery-powertip/) and copy the needed file into your project. At the very least you will want one of the js file and one of the css files.
+
+### npm Installation
+
+This plugin has been published to [npm](https://www.npmjs.com/) as [jquery-powertip](https://www.npmjs.com/package/jquery-powertip). This means that if you are using npm as your package manager then you can install PowerTip in your project by simply adding it to your package.json and/or running the following command:
+
+`npm install jquery-powertip --save`
+
+Then you can include it in your pages however you like (HTML tags, browserify, Require.js).
+
+### Including resources
+
+#### HTML
+
+Once the PowerTip files are in your project you can simply include them in your web page with the following HTML tags:
+
+{% highlight html %}
+<script type="text/javascript" src="path/to/jquery.powertip.js"></script>
+<link rel="stylesheet" type="text/css" href="path/to/jquery.powertip.css" />
+{% endhighlight %}
+
+**Important note:** Make sure you include jQuery before PowerTip in your HTML.
+
+#### Browserify
+
+PowerTip supports the CommonJS loading specification. If you are using npm to manage your packages and [Browserify](http://browserify.org/) to build your project then you can load it and use it with a simple `require('jquery-powertip')`.
+
+The PowerTip API will be loaded into jQuery as well as the return object from the `require()`.
+
+**Important notes:** You will still need to include the CSS in your web page.
+
+#### RequireJS
+
+PowerTip also supports the AMD loading specification used by [RequireJS](http://requirejs.org/). You can load and use it by adding the path to your paths configuration and referencing it in your `define()` call(s).
+
+Example paths configuration:
+
+{% highlight javascript %}
+require.config({
+	paths: {
+		jquery: 'https://code.jquery.com/jquery-1.11.3',
+		'jquery.powertip': '../dist/jquery.powertip'
+	}
+});
+{% endhighlight %}
+
+The PowerTip API will be loaded into jQuery as well as returned to the PowerTip parameter in your `define()` (`query.powertip` in the example above).
+
+**Important notes:**
+
+* You will still need to include the CSS in your web page.
+* Make sure you have a reference to `jquery` in your paths configuration.
 
 ## Usage
 
@@ -196,6 +258,22 @@ You can specify the ID of an element in the DOM to pull the content from. PowerT
 $('#element').data('powertiptarget', 'myToolTip');
 {% endhighlight %}
 
+### Changing the tooltip content
+
+After you invoke `powerTip()` on an element the title attribute will be deleted and the HTML data attributes will be cached internally by jQuery. This means that if you want to change the tooltip for any element that you have already run PowerTip on then you must use the `.data()` method provided by jQuery. Changing the markup attributes will have no effect.
+
+Tooltips that are created using the HTML `title` attribute will have their content saved as "powertip" in the data collection. If you want to change the content of a tooltip after setting it with the `title` attribute then you must change the "powertip" data attribute.
+
+Example:
+
+{% highlight javascript %}
+$('#element').data('powertip', 'new tooltip content');
+{% endhighlight %}
+
+### Security considerations
+
+It should be noted that PowerTip uses jQuery's [append()](https://api.jquery.com/append/) method for placing content in the tooltip. This method can potentially execute code. Do not attempt to show tooltips with content from untrusted sources without sanitizing the input or you may introduce an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability on your web page.
+
 ## Options
 
 The tooltip behavior is determined by a series of options that you can override. You can pass the options as an object directly to the plugin as an argument when you call it. For example:
@@ -229,22 +307,27 @@ Of course those defaults will be overridden with any options you pass directly t
 
 ### List of options
 
-| Name | Default | Type | Description |
-| ----- | ----- | ----- | ----- |
-| `followMouse` | `false` | Boolean | If set to `true` the tooltip will follow the users mouse cursor. |
-| `mouseOnToPopup` | `false` | Boolean | Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only works if `followMouse` is set to `false`. |
-| `placement` | `'n'` | String | Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
-| `smartPlacement` | `false` | Boolean | When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if `followMouse` is set to `false`. |
-| `popupId` | `'powerTip'` | String | HTML id attribute for the tooltip div. |
-| `offset` | `10` | Number | Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
-| `fadeInTime` | `200` | Number | Tooltip fade-in time in milliseconds. |
-| `fadeOutTime` | `100` | Number | Tooltip fade-out time in milliseconds. |
-| `closeDelay` | `100` | Number | Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
-| `intentPollInterval` | `100` | Number | Hover intent polling interval in milliseconds. |
-| `intentSensitivity` | `7` | Number | Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
-| `manual` | `false` | Boolean | If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
+| Name | Type | Description |
+| ----- | ----- | ----- |
+| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the users mouse cursor. |
+| `mouseOnToPopup` | Boolean | (default: `false`) Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only applies if `followMouse` is set to `false` and `manual` is set to `false`. |
+| `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
+| `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if `followMouse` is set to `false`. |
+| `popupId` | String | (default: `'powerTip'`) HTML id attribute for the tooltip div. |
+| `popupClass` | String | (default: `''`) Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
+| `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
+| `fadeInTime` | Number | (default: `200`) Tooltip fade-in time in milliseconds. |
+| `fadeOutTime` | Number | (default: `100`) Tooltip fade-out time in milliseconds. |
+| `closeDelay` | Number | (default: `100`) Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
+| `intentPollInterval` | Number | (default: `100`) Hover intent polling interval in milliseconds. |
+| `intentSensitivity` | Number | (default: `7`) Hover intent sensitivity. The tooltip will not open unless the number of pixels the mouse has moved within the `intentPollInterval` is less than this value. These default values mean that if the mouse cursor has moved 7 or more pixels in 100 milliseconds the tooltip will not open. |
+| `manual` | Boolean | (default: `false`) If set to `true` then PowerTip will not hook up its event handlers, letting you create your own event handlers to control when tooltips are shown (using the API to open and close tooltips). |
+| `openEvents` | Array of Strings | (default: `[ 'mouseenter', 'focus' ]`) Specifies which jQuery events should cause the tooltip to open. Only applies if `manual` is set to `false`. |
+| `closeEvents` | Array of Strings | (default: `[ 'mouseleave', 'blur' ]`) Specifies which jQuery events should cause the tooltip to close. Only applies if `manual` is set to `false`. |
 
 ## Tooltip CSS
+
+**If you use one of the included CSS files then you do not need to add any other CSS to get PowerTip running.**
 
 PowerTip includes some base CSS that you can just add to your site and be done with it, but you may want to change the styles or even craft your own styles to match your design. PowerTip is specifically designed to give you full control of your tooltips with CSS, with just a few basic requirements.
 
@@ -314,8 +397,9 @@ There are times when you may need to open or close a tooltip manually. To make t
 | ----- | ----- |
 | `show(element, event)` | This function will force the tooltip for the specified element to open. You pass it a jQuery object with the element that you want to show the tooltip for. If the jQuery object you pass to this function has more than one matched elements then only the first element will show its tooltip. You can also pass it the event (a `$.Event`) with the pageX and pageY properties for mouse tracking. |
 | `hide(element, immediate)` | Closes any open tooltip. You do not need to specify which tooltip you would like to close (because there can be only one). If you set immediate to `true` there will be no close delay. |
+| `toggle(element, event)` | This will toggle the tooltip, opening a closed tooltip or closing an open tooltip. The event argument is optional. If a mouse event is passed then this function will enable hover intent testing when opening a tooltip, or enable a close delay when closing a tooltip. Non-mouse events are ignored. |
 | `reposition(element)` | Repositions an open tooltip on the specified element. Use this if the tooltip or the element it opened for has changed its size or position. |
-| `destroy(element)` | This will destroy and roll back any PowerTip instance attached to the matched elements. |
+| `destroy(element)` | This will destroy and roll back any PowerTip instance attached to the matched elements. If no element is specified then all PowerTip instances will be destroyed, including the document events and tooltip elements. |
 
 You can also pass the API method names as strings to the `powerTip()` function. For example `$('#element').powerTip('show');` will cause the matched element to show its tooltip.
 
@@ -391,11 +475,11 @@ Smart placement is a feature that will attempt to keep non-mouse-follow tooltips
 
 **Without smart placement:**
 
-![Example without smart placement](http://stevenbenner.github.com/jquery-powertip/images/without-smart-placement.png)
+![Example without smart placement](https://stevenbenner.github.io/jquery-powertip/images/without-smart-placement.png)
 
 **With smart placement:**
 
-![Example with smart placement](http://stevenbenner.github.com/jquery-powertip/images/with-smart-placement.png)
+![Example with smart placement](https://stevenbenner.github.io/jquery-powertip/images/with-smart-placement.png)
 
 It does this by detecting that a tooltip would appear outside of the view port, then trying a series of other placement options until it finds one that isn't going to be outside of the view port. You can define the placement fall backs and priorities yourself by overriding them in the `$.fn.powerTip.smartPlacementLists` object.
 
@@ -403,18 +487,18 @@ These are the default smart placement priority lists:
 
 {% highlight javascript %}
 $.fn.powerTip.smartPlacementLists = {
-	n: ['n', 'ne', 'nw', 's'],
-	e: ['e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e'],
-	s: ['s', 'se', 'sw', 'n'],
-	w: ['w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w'],
-	nw: ['nw', 'w', 'sw', 'n', 's', 'se', 'nw'],
-	ne: ['ne', 'e', 'se', 'n', 's', 'sw', 'ne'],
-	sw: ['sw', 'w', 'nw', 's', 'n', 'ne', 'sw'],
-	se: ['se', 'e', 'ne', 's', 'n', 'nw', 'se'],
-	'nw-alt': ['nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e'],
-	'ne-alt': ['ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w'],
-	'sw-alt': ['sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e'],
-	'se-alt': ['se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w']
+	n: [ 'n', 'ne', 'nw', 's' ],
+	e: [ 'e', 'ne', 'se', 'w', 'nw', 'sw', 'n', 's', 'e' ],
+	s: [ 's', 'se', 'sw', 'n' ],
+	w: [ 'w', 'nw', 'sw', 'e', 'ne', 'se', 'n', 's', 'w' ],
+	nw: [ 'nw', 'w', 'sw', 'n', 's', 'se', 'nw' ],
+	ne: [ 'ne', 'e', 'se', 'n', 's', 'sw', 'ne' ],
+	sw: [ 'sw', 'w', 'nw', 's', 'n', 'ne', 'sw' ],
+	se: [ 'se', 'e', 'ne', 's', 'n', 'nw', 'se' ],
+	'nw-alt': [ 'nw-alt', 'n', 'ne-alt', 'sw-alt', 's', 'se-alt', 'w', 'e' ],
+	'ne-alt': [ 'ne-alt', 'n', 'nw-alt', 'se-alt', 's', 'sw-alt', 'e', 'w' ],
+	'sw-alt': [ 'sw-alt', 's', 'se-alt', 'nw-alt', 'n', 'ne-alt', 'w', 'e' ],
+	'se-alt': [ 'se-alt', 's', 'sw-alt', 'ne-alt', 'n', 'nw-alt', 'e', 'w' ]
 };
 {% endhighlight %}
 
@@ -424,7 +508,7 @@ You can override these default placement priority lists before you call `powerTi
 
 {% highlight javascript %}
 // define custom smart placement order
-$.fn.powerTip.smartPlacementLists.n = ['n', 's', 'e', 'w'];
+$.fn.powerTip.smartPlacementLists.n = [ 'n', 's', 'e', 'w' ];
 
 // these tips will use the custom 'north' smart placement list
 $('.tips').powerTip({
@@ -441,19 +525,19 @@ If you need to use PowerTip in a non-standard way, that is to say, if you need t
 
 This is actually quite easy, you just tell PowerTip not to hook the default mouse and keyboard events when you run the plugin by setting the `manual` option to `true`, then use the API to open and close tooltips. While this is a bit more technical then just using the default behavior it works just as well. In fact, PowerTip uses this same public API internally.
 
-### Disable the event hooking
+### Disable event binding
 
-To disable the events that are normally attached when you run `powerTip()` just set the `manual` option to `true`.
+To disable binding of the events that are normally attached when you run `powerTip()` just set the `manual` option to `true`.
 
 {% highlight javascript %}
 $('.tooltips').powerTip({ manual: true });
 {% endhighlight %}
 
-Now PowerTip has hooked itself to the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
+Now PowerTip has initialized and set up the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
 
 ### Building your own event handlers
 
-Here is an example of a click-to-open tooltip to show you how it's done:
+Here is an example of a manually implemented click-to-open tooltip to show you how it's done:
 
 {% highlight javascript %}
 // run PowerTip - but disable the default event hooks
@@ -461,19 +545,18 @@ $('.tooltips').powerTip({ manual: true });
 
 // hook custom onclick function
 $('.tooltips').on('click', function() {
-	// hide any open tooltips
-	// this is optional, but recommended in case we optimize away the sanity
-	// checks in the API at some point.
-	$.powerTip.hide();
-
-	// show the tooltip for the element that received the click event
-	$.powerTip.show(this);
+	// toggle the tooltip for the element that received the click event
+	$.powerTip.toggle(this);
 });
+
+// Note: this is just for example - for click-to-open you should probably just
+// use the openEvents/closeEvents options, like this:
+// $('.tooltips').powerTip({ openEvents: [ 'click' ], closeEvents: [ 'click' ] });
 {% endhighlight %}
 
-That's pretty simple, right? This code will open a tooltip when the element is clicked and close it when the element is clicked again, or when another of the `.tooltips` elements gets clicked.
+This code will open a tooltip when the element is clicked and close it when the element is clicked again, or when another one of the `.tooltips` elements gets clicked.
 
-Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `show()` method.
+Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `toggle()` method.
 
 So let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
 
@@ -500,11 +583,38 @@ $('.tooltips').on({
 
 And there you have it. If you want to enable the hover intent testing then you will need to pass the mouse event to the `show()` method and if you want to enable the close delay feature then you have to pass that element to the `hide()` method.
 
-Note that *only* mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`) have the required properties (`pageX`, and `pageY`) to do hover intent testing. Click events and keyboard events will not work (and will likely cause an error).
+### Additional notes
+
+* Only mouse events (`mouseenter`, `mouseleave`, `hover`, `mousemove`) have the required properties (`pageX`, and `pageY`) to do hover intent testing. Click events and keyboard events will not work.
+* You should not use the `destroy()` method while your custom handlers are hooked up, it may cause unexpected things to happen (like mouse position tracking not working).
+* In most cases you should probably be using the `openEvents` and `closeEvents` options to bind tooltips to non-default events.
 
 
 ## Change Log
 
+
+### [v1.3.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...v1.3.0) - API enhancements, new options, and several bug fixes (January 15, 2017)
+
+* **Features & Improvements**
+	* Added openEvents and closeEvents options.
+	* Added popupClass option for custom tooltip classes.
+	* Added CommonJS/Browserify support.
+* **API**
+	* The destroy() API method elements argument is now optional. When omitted all instances will be destroyed.
+	* Added toggle() method to the API.
+* **Bug Fixes**
+	* The closeDelay timer is now correctly shared between all tooltips.
+	* Browser dimensions cache is now initialized as soon as PowerTip loads.
+	* Fixed queuing issue when the API hide() method is called immediately after show().
+	* Fixed error when an element with an open tooltip is deleted.
+	* The mouseOnToPopup option will now be ignored (forced false) when the manual option is enabled.
+	* Fixed possible repeated event hooks when mouseOnToPopup is enabled.
+	* Fixed mouseOnToPopup events being applied to other instances where manual is enabled.
+	* Fixed old placement classes remaining on tip element when using reposition API and smart placement.
+* **Miscellaneous**
+	* Fixed script url in the examples HTML file incuded in the release.
+	* Documented the caching quirks for changing tooltip content.
+	* PowerTip is now officially available on npm (as "jquery-powertip").
 
 ### [v1.2.0](https://github.com/stevenbenner/jquery-powertip/compare/v1.1.0...v1.2.0) - Major release with lots of improvements and a significant code rewrite (April 3, 2013)
 
