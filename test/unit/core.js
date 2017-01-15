@@ -88,14 +88,14 @@ $(function() {
 		// test open events
 		$.each(openEvents, function(idx, eventName) {
 			showTriggered = false;
-			element.trigger(eventName);
+			element.triggerHandler(eventName);
 			assert.strictEqual(showTriggered, true, eventName + ' event calls DisplayController.show');
 		});
 
 		// test close events
 		$.each(closeEvents, function(idx, eventName) {
 			hideTriggered = false;
-			element.trigger(eventName);
+			element.triggerHandler(eventName);
 			assert.strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
 		});
 
