@@ -105,6 +105,9 @@ function TooltipController(options) {
 
 		tipElement.data(DATA_MOUSEONTOTIP, options.mouseOnToPopup);
 
+		// add custom class to tooltip element
+		tipElement.addClass(options.popupClass);
+
 		// set tooltip position
 		if (!options.followMouse) {
 			positionTipOnElement(element);
@@ -112,9 +115,6 @@ function TooltipController(options) {
 		} else {
 			positionTipOnCursor();
 		}
-
-		// add custom class to tooltip element
-		tipElement.addClass(options.popupClass);
 
 		// close tooltip when clicking anywhere on the page, with the exception
 		// of the tooltip's trigger element and any elements that are within a
