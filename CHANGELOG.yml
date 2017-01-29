@@ -1,3 +1,11 @@
+v1.3.1:
+  date: TBD
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.0...master
+  description: Several bug fixes
+  changes:
+    - section: Bug Fixes
+      changes:
+        - Apply popupClass before tooltip positioning.
 v1.3.0:
   date: 2017-01-15
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...v1.3.0
