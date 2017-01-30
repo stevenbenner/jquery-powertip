@@ -207,48 +207,51 @@ function countFlags(value) {
 }
 
 /**
+ * Check whether element has CSS position attribute other than static
+ * @private
+ * @param {jQuery} element Element to check
+ * @return {boolean} indicating whether position attribute is non-static.
+ */
+function isPositionNotStatic(element) {
+	return element.css('position') !== 'static';
+}
+
+/**
+ * Get element offsets
+ * @private
+ * @param {jQuery} el Element to check
+ * @param {number} windowWidth Window width in pixels.
+ * @param {number} windowHeight Window height in pixels.
+ * @return {Object} The top, left, right, bottom offset in pixels
+ */
+function getElementOffsets(el, windowWidth, windowHeight) {
+	// jquery offset returns top and left relative to document in pixels.
+	var offsets = el.offset();
+	// right and bottom offset relative to window width/height
+	offsets.right = windowWidth - el.outerWidth() - offsets.left;
+	offsets.bottom = windowHeight - el.outerHeight() - offsets.top;
+	return offsets;
+}
+
+/**
  * Compute compensating position offsets if body or html element has non-static position attribute.
  * @private
  * @param {number} windowWidth Window width in pixels.
  * @param {number} windowHeight Window height in pixels.
- * @return {Offsets} The top, left, right, bottom offset in pixels
+ * @return {Object} The top, left, right, bottom offset in pixels
  */
 function computePositionCompensation(windowWidth, windowHeight) {
 	// Check if the element is "positioned". A "positioned" element has a CSS
 	// position value other than static. Whether the element is positioned is
 	// relevant because absolutely positioned elements are positioned relative
 	// to the first positioned ancestor rather than relative to the doc origin.
-	var isPositioned = function(el) {
-		return el.css('position') !== 'static';
-	};
-
-	var getElementOffsets = function(el) {
-		var elWidthWithMargin,
-			elHeightWithMargin,
-			elPositionPx,
-			offsets;
-		// jquery offset and position functions return top and left
-		// offset function computes position + margin
-		offsets = el.offset();
-		elPositionPx = el.position();
-
-		// Compute the far margins based off the outerWidth values.
-		elWidthWithMargin = el.outerWidth(true);
-		elHeightWithMargin = el.outerHeight(true);
-
-		// right offset = right margin + body right position
-		offsets.right = (elWidthWithMargin - el.outerWidth() - (offsets.left - elPositionPx.left)) + (windowWidth - elWidthWithMargin - elPositionPx.left);
-		// bottom offset = bottom margin + body bottom position
-		offsets.bottom = (elHeightWithMargin - el.outerHeight() - offsets.top) + (windowHeight - elHeightWithMargin - elPositionPx.top);
-		return offsets;
-	};
 
 	var offsets;
 
-	if (isPositioned($body)) {
-		offsets = getElementOffsets($body);
-	} else if (isPositioned($html)) {
-		offsets = getElementOffsets($html);
+	if (isPositionNotStatic($body)) {
+		offsets = getElementOffsets($body, windowWidth, windowHeight);
+	} else if (isPositionNotStatic($html)) {
+		offsets = getElementOffsets($html, windowWidth, windowHeight);
 	} else {
 		// even though body may have offset, no compensation is required
 		offsets = { top: 0, bottom: 0, left: 0, right: 0 };
