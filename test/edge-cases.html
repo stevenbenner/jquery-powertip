@@ -29,11 +29,54 @@
 				$('#powertip-css').attr('href', '../css/jquery.powertip' + theme + '.css');
 			}
 
+			// css position switcher allows testing html and body CSS position values that
+			// changes the origin from which the tooltip is positioned.
+			function setCssPosition() {
+				var attributeSets = {
+					// default positioning is static
+					static:   { position: '',         left: '',     right: '',      top: '',     bottom: '' },
+					absolute: { position: 'absolute', left: '50px', right: '100px', top: '25px', bottom: '75px' },
+					relative: { position: 'relative', left: '50px', right: '100px', top: '25px', bottom: '75px' },
+					fixed:    { position: 'fixed',    left: '50px', right: '100px', top: '25px', bottom: '75px' },
+				};
+				var posType = $('#position-switcher').val();
+				var $html = $(document.documentElement);
+				var $body = $(document.body);
+				$html.css(attributeSets['static']);
+				$body.css(attributeSets['static']);
+				switch(posType) {
+					case 'html-relative':
+						$html.css(attributeSets['relative']);
+						break;
+					case 'html-fixed':
+						$html.css(attributeSets['fixed']);
+						break;
+					case 'html-absolute':
+						$html.css(attributeSets['absolute']);
+						break;
+					case 'body-relative':
+						$body.css(attributeSets['relative']);
+						break;
+					case 'body-fixed':
+						$body.css(attributeSets['fixed']);
+						break;
+					case 'body-absolute':
+						$body.css(attributeSets['absolute']);
+						break;
+					default:
+						// attributes clear above
+						break;
+				}
+				// Trigger resize to force recalculation of position compensation
+				window.dispatchEvent(new Event('resize'));
+			}
+
 			// run theme switcher on page load
 			setTheme();
 
-			// hook theme switcher to select change
+			// hook theme and position switcher to select change
 			$('#theme-switcher').on('change', setTheme);
+			$('#position-switcher').on('change', setCssPosition);
 
 			// session debug info box
 			var debugOutput = $('#session pre');
@@ -81,6 +124,16 @@
 				<option value="purple">Purple</option>
 				<option value="red">Red</option>
 				<option value="yellow">Yellow</option>
+			</select>
+			Tooltip Ancestor CSS Position:
+			<select id="position-switcher">
+				<option value="">Default</option>
+				<option value="html-relative">HTML relative</option>
+				<option value="html-fixed">HTML fixed</option>
+				<option value="html-absolute">HTML absolute</option>
+				<option value="body-relative">BODY relative</option>
+				<option value="body-fixed">BODY fixed</option>
+				<option value="body-absolute">BODY absolute</option>
 			</select>
 		</p>
 	</header>
