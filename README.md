@@ -43,7 +43,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 * JSDoc comments: Use [closure compiler annotations][jsdoc].
 * Method chaining: Avoid long chained method statements, two or three max.
 
-[styleguide]: https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+[styleguide]: https://google.github.io/styleguide/javascriptguide.xml
 [jsdoc]: https://developers.google.com/closure/compiler/docs/js-for-compiler
 
 ## License
