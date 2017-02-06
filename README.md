@@ -22,10 +22,9 @@ You can find the documentation for the **latest release version** on the [PowerT
 
 ## Reporting Bugs
 
-For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub. If you don't want to use GitHub please feel free to contact me via twitter at [@stevenbenner][twitter]. As with all open source projects: pull request > bug report > tweet.
+For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub.
 
 [newissue]: https://github.com/stevenbenner/jquery-powertip/issues/new
-[twitter]: https://twitter.com/stevenbenner
 
 ## Contributor Guide
 
