@@ -101,7 +101,7 @@ $(function() {
 
 		// test escape key
 		hideTriggered = false;
-		element.trigger($.Event('keydown', { keyCode: 27 }));
+		element.trigger(new $.Event('keydown', { keyCode: 27 }));
 		assert.strictEqual(hideTriggered, true, 'keydown event for key code 27 calls DisplayController.hide');
 
 		// cleanup test element
@@ -217,7 +217,7 @@ $(function() {
 		assert.strictEqual(elementDataAttr.data(DATA_POWERTIP), 'This is the tooltip text', 'destroy method did not remove manually set powertip data attribute');
 
 		// events
-		element.trigger($.Event('mouseenter', { pageX: 10, pageY: 10 }));
+		element.trigger(new $.Event('mouseenter', { pageX: 10, pageY: 10 }));
 		assert.notOk(showTriggered, 'mouseenter event was unhooked after destroy');
 		showTriggered = false;
 
@@ -233,7 +233,7 @@ $(function() {
 		assert.notOk(hideTriggered, 'blur event was unhooked after destroy');
 		hideTriggered = false;
 
-		element.trigger($.Event('keydown', { keyCode: 27 }));
+		element.trigger(new $.Event('keydown', { keyCode: 27 }));
 		assert.notOk(hideTriggered, 'keydown event was unhooked after destroy');
 		hideTriggered = false;
 	});
@@ -250,7 +250,7 @@ $(function() {
 
 		// document event (mouse tracking)
 		session.currentX = 1;
-		$(document).trigger($.Event('mousemove', { pageX: 2, pageY: 3 }));
+		$(document).trigger(new $.Event('mousemove', { pageX: 2, pageY: 3 }));
 		assert.strictEqual(session.currentX, 1, 'document event removed');
 	});
 

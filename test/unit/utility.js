@@ -12,8 +12,8 @@ $(function() {
 	});
 
 	QUnit.test('isMouseEvent', function(assert) {
-		var mouseEnterEvent = $.Event('mouseenter', { pageX: 2, pageY: 3 }),
-			emptyEvent = $.Event();
+		var mouseEnterEvent = new $.Event('mouseenter', { pageX: 2, pageY: 3 }),
+			emptyEvent = new $.Event();
 
 		assert.strictEqual(isMouseEvent(mouseEnterEvent), true, 'The mouseenter event with coordinates is a mouse event');
 		assert.strictEqual(isMouseEvent(emptyEvent), false, 'Empty event is not a mouse event');
@@ -26,7 +26,7 @@ $(function() {
 
 		initTracking();
 
-		$(document).trigger($.Event('mousemove', { pageX: 2, pageY: 3 }));
+		$(document).trigger(new $.Event('mousemove', { pageX: 2, pageY: 3 }));
 
 		assert.strictEqual(session.currentX, 2, 'currentX updated with correct value on mousemove');
 		assert.strictEqual(session.currentY, 3, 'currentY updated with correct value on mousemove');
@@ -36,7 +36,7 @@ $(function() {
 		session.currentX = 1;
 		session.currentY = 1;
 
-		trackMouse($.Event('mousemove', { pageX: 4, pageY: 5 }));
+		trackMouse(new $.Event('mousemove', { pageX: 4, pageY: 5 }));
 
 		assert.strictEqual(session.currentX, 4, 'currentX updated with correct value on mousemove');
 		assert.strictEqual(session.currentY, 5, 'currentY updated with correct value on mousemove');
