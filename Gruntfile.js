@@ -2,9 +2,9 @@
  * PowerTip Grunt Config
  */
 
-module.exports = function(grunt) {
-	'use strict';
+'use strict';
 
+module.exports = function(grunt) {
 	// include grunt enhancements
 	require('time-grunt')(grunt);
 	require('jit-grunt')(grunt);
