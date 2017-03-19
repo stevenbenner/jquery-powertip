@@ -85,8 +85,14 @@ $.fn.powerTip = function(opts, arg) {
 		return $.powerTip[opts].call(targetElements, targetElements, arg);
 	}
 
-	// extend options and instantiate TooltipController
+	// extend options
 	options = $.extend({}, $.fn.powerTip.defaults, opts);
+
+	// handle repeated powerTip calls on the same element by destroying any
+	// original instance hooked to it and replacing it with this call
+	$.powerTip.destroy(targetElements);
+
+	// instantiate the TooltipController for this instance
 	tipController = new TooltipController(options);
 
 	// hook mouse and viewport dimension tracking
@@ -98,18 +104,11 @@ $.fn.powerTip = function(opts, arg) {
 			dataPowertip = $this.data(DATA_POWERTIP),
 			dataElem = $this.data(DATA_POWERTIPJQ),
 			dataTarget = $this.data(DATA_POWERTIPTARGET),
-			title;
-
-		// handle repeated powerTip calls on the same element by destroying the
-		// original instance hooked to it and replacing it with this call
-		if ($this.data(DATA_DISPLAYCONTROLLER)) {
-			$.powerTip.destroy($this);
-		}
+			title = $this.attr('title');
 
 		// attempt to use title attribute text if there is no data-powertip,
 		// data-powertipjq or data-powertiptarget. If we do use the title
 		// attribute, delete the attribute so the browser will not show it
-		title = $this.attr('title');
 		if (!dataPowertip && !dataTarget && !dataElem && title) {
 			$this.data(DATA_POWERTIP, title);
 			$this.data(DATA_ORIGINALTITLE, title);
