@@ -1,6 +1,6 @@
 require.config({
 	paths: {
-		jquery: 'https://code.jquery.com/jquery-3.1.1',
+		jquery: 'https://code.jquery.com/jquery-3.2.0',
 		qunit: 'https://code.jquery.com/qunit/qunit-2.2.0',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
