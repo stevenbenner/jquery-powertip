@@ -67,7 +67,7 @@ The first step for using this plugin in your project is to include the needed fi
 
 ### Manual installation
 
-The most direct way to install this plugin is to download the latest version from the [project page](https://stevenbenner.github.io/jquery-powertip/) and copy the needed file into your project. At the very least you will want one of the js file and one of the css files.
+The most direct way to install this plugin is to download the latest version from the [project page](https://stevenbenner.github.io/jquery-powertip/) and copy the necessary files into your project. At the very least you will want one of the js file and one of the css files.
 
 ### npm Installation
 
