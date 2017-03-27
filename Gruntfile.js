@@ -104,7 +104,8 @@ module.exports = function(grunt) {
 				],
 				dest: '<%= paths.build %>/<%= files.cat %>',
 				options: {
-					banner: '<%= banner %>'
+					banner: '<%= banner %>',
+					separator: ''
 				},
 				nonull: true
 			}
