@@ -71,7 +71,7 @@ The most direct way to install this plugin is to download the latest version fro
 
 ### npm Installation
 
-This plugin has been published to [npm](https://www.npmjs.com/) as [jquery-powertip](https://www.npmjs.com/package/jquery-powertip). This means that if you are using npm as your package manager then you can install PowerTip in your project by simply adding it to your package.json and/or running the following command:
+This plugin has been published to npm as [jquery-powertip](https://www.npmjs.com/package/jquery-powertip). This means that if you are using npm as your package manager then you can install PowerTip in your project by simply adding it to your package.json and/or running the following command:
 
 `npm install jquery-powertip --save`
 
