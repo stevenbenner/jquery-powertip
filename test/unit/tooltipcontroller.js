@@ -19,26 +19,31 @@ $(function() {
 			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		assert.expect(9);
+		assert.expect(14);
 
 		element.on({
 			powerTipPreRender: function() {
+				assert.step('powerTipPreRender');
 				assert.ok(true, 'powerTipPreRender fired');
 				assert.notStrictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has not been inserted yet');
 			},
 			powerTipRender: function() {
+				assert.step('powerTipRender');
 				assert.ok(true, 'powerTipRender fired');
 				assert.strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content has been inserted');
 			},
 			powerTipOpen: function() {
+				assert.step('powerTipOpen');
 				assert.ok(true, 'powerTipClose fired');
 				assert.strictEqual(tipElem.css('opacity'), '1', 'tooltip is faded in');
 				tc.hideTip(element);
 			},
 			powerTipClose: function() {
+				assert.step('powerTipClose');
 				assert.ok(true, 'powerTipClose fired');
 				assert.strictEqual(tipElem.text(), 'This is the tooltip text.', 'tooltip content still exists');
 				assert.strictEqual(tipElem.css('display'), 'none', 'display set to none');
+				assert.verifySteps([ 'powerTipPreRender', 'powerTipRender', 'powerTipOpen', 'powerTipClose' ]);
 				done();
 			}
 		});
