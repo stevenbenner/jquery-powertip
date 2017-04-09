@@ -101,7 +101,7 @@ function trackMouse(event) {
  * Tests if the mouse is currently over the specified element.
  * @private
  * @param {jQuery} element The element to check for hover.
- * @return {boolean}
+ * @return {boolean} True if the mouse is over the element, otherwise false.
  */
 function isMouseOver(element) {
 	// use getBoundingClientRect() because jQuery's width() and height()
