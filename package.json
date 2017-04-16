@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"grunt": "~1.0",
 		"grunt-browserify": "~5.0",
-		"grunt-contrib-clean": "~1.0",
+		"grunt-contrib-clean": "~1.1",
 		"grunt-contrib-compress": "~1.4",
 		"grunt-contrib-concat": "~1.0",
 		"grunt-contrib-copy": "~1.0",
