@@ -166,7 +166,7 @@ function getTooltipContent(element) {
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
 	var viewportTop = session.scrollTop,
-		viewportLeft =  session.scrollLeft,
+		viewportLeft = session.scrollLeft,
 		viewportBottom = viewportTop + session.windowHeight,
 		viewportRight = viewportLeft + session.windowWidth,
 		collisions = Collision.none;
