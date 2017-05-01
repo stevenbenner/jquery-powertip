@@ -170,6 +170,10 @@ function PlacementCalculator() {
 			steps,
 			x;
 
+		/**
+		 * Transform and append the current points to the placements list.
+		 * @private
+		 */
 		function pushPlacement() {
 			placements.push(point.matrixTransform(matrix));
 		}
