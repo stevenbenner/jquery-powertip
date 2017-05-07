@@ -292,9 +292,7 @@ function TooltipController(options) {
 				finalPlacement = pos;
 
 				// break if there were no collisions
-				if (collisions === Collision.none) {
-					return false;
-				}
+				return collisions !== Collision.none;
 			});
 		} else {
 			// if we're not going to use the smart placement feature then just
