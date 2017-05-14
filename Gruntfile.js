@@ -139,7 +139,7 @@ module.exports = function(grunt) {
 				options: {
 					banner: '<%= banner %>',
 					report: 'gzip',
-					screwIE8: false
+					ie8: true
 				}
 			}
 		},
