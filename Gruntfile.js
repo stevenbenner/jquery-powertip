@@ -153,7 +153,7 @@ module.exports = function(grunt) {
 				dest: '<%= paths.build %>/',
 				options: {
 					process: function(content) {
-						var scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/,
+						let scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/,
 							builtScriptTag = '<script type="text/javascript" src="../<%= files.cat %>"></script>';
 						return content.replace(scriptsRegex, grunt.template.process(builtScriptTag));
 					}
@@ -261,7 +261,7 @@ module.exports = function(grunt) {
 
 	// custom task to build the gh-pages index.md file
 	grunt.registerTask('build:gh-pages', 'Create the gh-pages markdown.', function() {
-		var template = grunt.file.read('doc/gh-pages.template.md'),
+		let template = grunt.file.read('doc/gh-pages.template.md'),
 			data = {
 				pkg: grunt.file.readJSON('package.json'),
 				doc: grunt.file.read('doc/README.md'),
