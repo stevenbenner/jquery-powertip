@@ -26,6 +26,7 @@
 		"DATA_POWERTIP": false,
 		"DATA_POWERTIPJQ": false,
 		"DATA_POWERTIPTARGET": false,
+		"DATA_FORCEDOPEN": false,
 		"session": true,
 		"Collision": false,
 

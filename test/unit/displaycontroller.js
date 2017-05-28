@@ -98,6 +98,21 @@ $(function() {
 		assert.ok(showCalled, 'showTip called');
 	});
 
+	QUnit.test('show method adds the DATA_FORCEDOPEN flag when forceOpen is set to true', function(assert) {
+		var element = $('<span />'),
+			dc;
+
+		dc = new DisplayController(
+			element,
+			$.fn.powerTip.defaults,
+			new MockTipController()
+		);
+
+		dc.show(true, true);
+
+		assert.strictEqual(element.data(DATA_FORCEDOPEN), true, 'DATA_FORCEDOPEN is true');
+	});
+
 	QUnit.test('hide method does not delay when disableDelay is set to true', function(assert) {
 		var element = $('<span />'),
 			hideCalled = false,
