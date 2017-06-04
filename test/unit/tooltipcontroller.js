@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	// set of default options with zero fade time for faster testing
 	var zeroTimeOpts = $.extend({}, $.fn.powerTip.defaults, { fadeInTime: 0, fadeOutTime: 0 });
 

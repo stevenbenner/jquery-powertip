@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	QUnit.module('Utility Functions');
 
 	QUnit.test('isSvgElement', function(assert) {

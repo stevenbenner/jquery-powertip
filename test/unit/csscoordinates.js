@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	QUnit.module('CSS Coordinates');
 
 	QUnit.test('expose properties', function(assert) {

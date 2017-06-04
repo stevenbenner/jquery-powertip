@@ -1,3 +1,5 @@
+'use strict';
+
 require.config({
 	paths: {
 		jquery: 'https://code.jquery.com/jquery-3.2.1',
@@ -7,8 +9,6 @@ require.config({
 });
 
 require([ 'jquery', 'qunit', 'jquery.powertip' ], function($, QUnit, powerTip) {
-	'use strict';
-
 	QUnit.start();
 
 	QUnit.module('AMD');

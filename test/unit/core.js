@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	QUnit.module('PowerTip Core');
 
 	QUnit.test('powerTip defined', function(assert) {

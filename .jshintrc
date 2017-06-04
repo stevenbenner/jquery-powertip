@@ -13,7 +13,7 @@
 	"singleGroups": true,
 	"undef": true,
 	"unused": true,
-	"strict": true,
+	"strict": "global",
 
 	"node": true
 }

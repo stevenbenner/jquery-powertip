@@ -12,7 +12,7 @@
 	"singleGroups": true,
 	"undef": true,
 	"unused": true,
-	"strict": true,
+	"strict": "global",
 
 	"browser": true,
 	"jquery": true,

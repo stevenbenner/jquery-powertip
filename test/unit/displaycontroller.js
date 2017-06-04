@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	QUnit.module('Display Controller');
 
 	QUnit.test('expose methods', function(assert) {

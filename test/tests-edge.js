@@ -1,6 +1,6 @@
-$(function() {
-	'use strict';
+'use strict';
 
+$(function() {
 	// Open on load
 	$('#open-on-load input').powerTip({ placement: 'ne' }).powerTip('show');
 
