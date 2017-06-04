@@ -59,11 +59,19 @@ $(function() {
 	});
 
 	QUnit.test('powerTip hooks events', function(assert) {
-		var openEvents = [ 'mouseenter', 'focus', 'customOpenEvent' ],
-			closeEvents = [ 'mouseleave', 'blur', 'customCloseEvent' ],
+		var openEvents = {
+				mouseenter: { pageX: 14, pageY: 14 },
+				focus: null,
+				customOpenEvent: null
+			},
+			closeEvents = {
+				mouseleave: { pageX: 14, pageY: 14 },
+				blur: null,
+				customCloseEvent: null
+			},
 			element = $('<a href="#" title="This is the tooltip text">TEXT</a>').powerTip({
-				openEvents: openEvents,
-				closeEvents: closeEvents
+				openEvents: Object.keys(openEvents),
+				closeEvents: Object.keys(closeEvents)
 			}),
 			showTriggered = false,
 			hideTriggered = false;
@@ -86,16 +94,16 @@ $(function() {
 		$('body').prepend(element);
 
 		// test open events
-		$.each(openEvents, function(idx, eventName) {
+		$.each(openEvents, function(eventName, eventData) {
 			showTriggered = false;
-			element.triggerHandler(eventName);
+			element.triggerHandler(new $.Event(eventName, eventData));
 			assert.strictEqual(showTriggered, true, eventName + ' event calls DisplayController.show');
 		});
 
 		// test close events
-		$.each(closeEvents, function(idx, eventName) {
+		$.each(closeEvents, function(eventName, eventData) {
 			hideTriggered = false;
-			element.triggerHandler(eventName);
+			element.triggerHandler(new $.Event(eventName, eventData));
 			assert.strictEqual(hideTriggered, true, eventName + ' event calls DisplayController.hide');
 		});
 
