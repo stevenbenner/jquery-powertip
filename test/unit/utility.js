@@ -13,9 +13,11 @@ $(function() {
 
 	QUnit.test('isMouseEvent', function(assert) {
 		var mouseEnterEvent = new $.Event('mouseenter', { pageX: 2, pageY: 3 }),
+			mouseEventWithoutData = new $.Event('mouseenter'),
 			emptyEvent = new $.Event();
 
 		assert.strictEqual(isMouseEvent(mouseEnterEvent), true, 'The mouseenter event with coordinates is a mouse event');
+		assert.strictEqual(isMouseEvent(mouseEventWithoutData), false, 'The mouseenter event without coordinates is not a mouse event');
 		assert.strictEqual(isMouseEvent(emptyEvent), false, 'Empty event is not a mouse event');
 		assert.strictEqual(isMouseEvent(), false, 'Undefined argument is not a mouse event');
 	});
