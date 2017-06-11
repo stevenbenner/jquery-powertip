@@ -23,7 +23,19 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
 	DATA_POWERTIPJQ = 'powertipjq',
 	DATA_POWERTIPTARGET = 'powertiptarget',
 	EVENT_NAMESPACE = '.powertip',
-	RAD2DEG = 180 / Math.PI;
+	RAD2DEG = 180 / Math.PI,
+	MOUSE_EVENTS = [
+		'click',
+		'dblclick',
+		'mousedown',
+		'mouseup',
+		'mousemove',
+		'mouseover',
+		'mouseout',
+		'mouseenter',
+		'mouseleave',
+		'contextmenu'
+	];
 
 /**
  * Session data

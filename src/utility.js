@@ -24,7 +24,8 @@ function isSvgElement(element) {
  * @return {boolean} True if there is mouse data, otherwise false.
  */
 function isMouseEvent(event) {
-	return Boolean(event && typeof event.pageX === 'number');
+	return Boolean(event && $.inArray(event.type, MOUSE_EVENTS) > -1 &&
+		typeof event.pageX === 'number');
 }
 
 /**
