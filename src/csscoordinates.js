@@ -15,6 +15,26 @@
 function CSSCoordinates() {
 	var me = this;
 
+	function compensated(val, comp) {
+		return val === 'auto' ? val : val - comp;
+	}
+
+	/**
+	 * Return positioned element's origin with respect to the viewport home
+	 * @private
+	 * @param {object} el The positioned element to measure
+	 */
+	function positionedParentViewportHomeOffset(el) {
+		var originX = el[0].getBoundingClientRect().left,
+			originY = el[0].getBoundingClientRect().top,
+			borderTopWidth = parseFloat(el.css('borderTopWidth')),
+			borderLeftWidth = parseFloat(el.css('borderLeftWidth'));
+		return {
+			top: originY + borderTopWidth + $document.scrollTop(),
+			left: originX + borderLeftWidth + $document.scrollLeft()
+		};
+	}
+
 	// initialize object properties
 	me.top = 'auto';
 	me.left = 'auto';
@@ -32,4 +52,85 @@ function CSSCoordinates() {
 			me[property] = Math.round(value);
 		}
 	};
+
+	me.getCompensated = function() {
+		return {
+			top: me.topCompensated,
+			left: me.leftCompensated,
+			right: me.rightCompensated,
+			bottom: me.bottomCompensated
+		};
+	};
+
+	me.fromViewportHome = function() {
+		// Coordinates with respect to viewport origin when scrolled to (0,0).
+		var coords = me.getCompensated(),
+			originOffset;
+
+		// For the cases where there is a positioned ancestor, compensate for offset of
+		// ancestor origin. Note that bounding rect includes border, if any.
+		if (isPositionNotStatic($body)) {
+			originOffset = positionedParentViewportHomeOffset($body);
+			if (coords.top !== 'auto') {
+				coords.top = coords.top + originOffset.top;
+			}
+			if (coords.left !== 'auto') {
+				coords.left = coords.left + originOffset.left;
+			}
+			if (coords.right !== 'auto') {
+				coords.right = originOffset.left + $body.width() - coords.right;
+			}
+			if (coords.bottom !== 'auto') {
+				coords.bottom = originOffset.top + $body.height() - coords.bottom;
+			}
+		} else if (isPositionNotStatic($html)) {
+			originOffset = positionedParentViewportHomeOffset($html);
+			if (coords.top !== 'auto') {
+				coords.top = coords.top + originOffset.top;
+			}
+			if (coords.left !== 'auto') {
+				coords.left = coords.left + originOffset.left;
+			}
+			if (coords.right !== 'auto') {
+				coords.right = originOffset.left + $body.width() - coords.right;
+			}
+			if (coords.bottom !== 'auto') {
+				coords.bottom = originOffset.top + $body.height() - coords.bottom;
+			}
+		} else {
+			// Change origin of right, bottom measurement to viewport (0,0) and invert sign
+			if (coords.right !== 'auto') {
+				coords.right = session.windowWidth - coords.right;
+			}
+			if (coords.bottom !== 'auto') {
+				coords.bottom = session.windowHeight - coords.bottom;
+			}
+		}
+
+		return coords;
+	};
+
+	Object.defineProperty(me, 'topCompensated', {
+		get: function() {
+			return compensated(me.top, session.positionCompensation.top);
+		}
+	});
+
+	Object.defineProperty(me, 'bottomCompensated', {
+		get: function() {
+			return compensated(me.bottom, session.positionCompensation.bottom);
+		}
+	});
+
+	Object.defineProperty(me, 'leftCompensated', {
+		get: function() {
+			return compensated(me.left, session.positionCompensation.left);
+		}
+	});
+
+	Object.defineProperty(me, 'rightCompensated', {
+		get: function() {
+			return compensated(me.right, session.positionCompensation.right);
+		}
+	});
 }

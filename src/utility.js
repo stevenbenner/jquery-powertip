@@ -170,22 +170,23 @@ function getTooltipContent(element) {
 function getViewportCollisions(coords, elementWidth, elementHeight) {
 	// adjusting viewport even though it might be negative because coords
 	// comparing with are relative to compensated position
-	var viewportTop = session.scrollTop - session.positionCompensation.top,
-		viewportLeft = session.scrollLeft - session.positionCompensation.left,
+	var viewportTop = session.scrollTop,
+		viewportLeft = session.scrollLeft,
 		viewportBottom = viewportTop + session.windowHeight,
 		viewportRight = viewportLeft + session.windowWidth,
+		coordsFromViewport = coords.fromViewportHome(),
 		collisions = Collision.none;
 
-	if (coords.top < viewportTop || Math.abs(coords.bottom - session.windowHeight) - elementHeight < viewportTop) {
+	if (coordsFromViewport.top < viewportTop || coordsFromViewport.bottom - elementHeight < viewportTop) {
 		collisions |= Collision.top;
 	}
-	if (coords.top + elementHeight > viewportBottom || Math.abs(coords.bottom - session.windowHeight) > viewportBottom) {
+	if (coordsFromViewport.top + elementHeight > viewportBottom || coordsFromViewport.bottom > viewportBottom) {
 		collisions |= Collision.bottom;
 	}
-	if (coords.left < viewportLeft || coords.right + elementWidth > viewportRight) {
+	if (coordsFromViewport.left < viewportLeft || coordsFromViewport.right - elementWidth < viewportLeft) {
 		collisions |= Collision.left;
 	}
-	if (coords.left + elementWidth > viewportRight || coords.right < viewportLeft) {
+	if (coordsFromViewport.left + elementWidth > viewportRight || coordsFromViewport.right > viewportRight) {
 		collisions |= Collision.right;
 	}
 
@@ -220,16 +221,27 @@ function isPositionNotStatic(element) {
  * Get element offsets
  * @private
  * @param {jQuery} el Element to check
- * @param {number} windowWidth Window width in pixels.
- * @param {number} windowHeight Window height in pixels.
  * @return {Object} The top, left, right, bottom offset in pixels
  */
-function getElementOffsets(el, windowWidth, windowHeight) {
+function getElementOffsets(el) {
 	// jquery offset returns top and left relative to document in pixels.
-	var offsets = el.offset();
-	// right and bottom offset relative to window width/height
-	offsets.right = windowWidth - el.outerWidth() - offsets.left;
-	offsets.bottom = windowHeight - el.outerHeight() - offsets.top;
+	var offsets = el.offset(),
+		borderLeftWidth = parseFloat(el.css('border-left-width')),
+		borderTopWidth = parseFloat(el.css('border-top-width')),
+		right,
+		bottom;
+
+	// right and bottom offset were relative to where screen.width,
+	// screen.height fell in document.  Change reference point to inner-bottom,
+	// inner-right of element.  Compensate for border which is outside
+	// measurement area. Avoid updating any measurement set to 'auto' which will
+	// result in a computed result of NaN.
+	right = session.windowWidth - el.innerWidth() - offsets.left - borderLeftWidth;
+	bottom = session.windowHeight - el.innerHeight() - offsets.top - borderTopWidth;
+	offsets.top = offsets.top + borderTopWidth;
+	offsets.left = offsets.left + borderLeftWidth;
+	offsets.right = right ? right : 0;
+	offsets.bottom = bottom ? bottom : 0;
 	return offsets;
 }
 

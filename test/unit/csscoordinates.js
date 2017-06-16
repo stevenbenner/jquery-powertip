@@ -14,6 +14,7 @@ $(function() {
 	QUnit.test('expose methods', function(assert) {
 		var coords = new CSSCoordinates();
 		assert.strictEqual(typeof coords.set, 'function', 'set method is defined');
+		assert.strictEqual(typeof coords.getCompensated, 'function', 'getCompensated method is defined');
 	});
 
 	QUnit.test('decimal values are rounded', function(assert) {

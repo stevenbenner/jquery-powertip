@@ -38,52 +38,52 @@ function PlacementCalculator() {
 		// calculate the appropriate x and y position in the document
 		switch (placement) {
 			case 'n':
-				coords.set('left', position.left - (tipWidth / 2) - session.positionCompensation.left);
-				coords.set('bottom', session.windowHeight - position.top + offset - session.positionCompensation.bottom);
+				coords.set('left', position.left - (tipWidth / 2));
+				coords.set('bottom', session.windowHeight - position.top + offset);
 				break;
 			case 'e':
-				coords.set('left', position.left + offset - session.positionCompensation.left);
-				coords.set('top', position.top - (tipHeight / 2) - session.positionCompensation.top);
+				coords.set('left', position.left + offset);
+				coords.set('top', position.top - (tipHeight / 2));
 				break;
 			case 's':
-				coords.set('left', position.left - (tipWidth / 2) - session.positionCompensation.left);
-				coords.set('top', position.top + offset - session.positionCompensation.top);
+				coords.set('left', position.left - (tipWidth / 2));
+				coords.set('top', position.top + offset);
 				break;
 			case 'w':
-				coords.set('top', position.top - (tipHeight / 2) - session.positionCompensation.top);
-				coords.set('right', session.windowWidth - position.left + offset - session.positionCompensation.right);
+				coords.set('top', position.top - (tipHeight / 2));
+				coords.set('right', session.windowWidth - position.left + offset);
 				break;
 			case 'nw':
-				coords.set('bottom', session.windowHeight - position.top + offset - session.positionCompensation.bottom);
-				coords.set('right', session.windowWidth - position.left - session.positionCompensation.right - 20);
+				coords.set('bottom', session.windowHeight - position.top + offset);
+				coords.set('right', session.windowWidth - position.left - 20);
 				break;
 			case 'nw-alt':
-				coords.set('left', position.left - session.positionCompensation.left);
-				coords.set('bottom', session.windowHeight - position.top + offset - session.positionCompensation.bottom);
+				coords.set('left', position.left);
+				coords.set('bottom', session.windowHeight - position.top + offset);
 				break;
 			case 'ne':
-				coords.set('left', position.left - session.positionCompensation.left - 20);
-				coords.set('bottom', session.windowHeight - position.top + offset - session.positionCompensation.bottom);
+				coords.set('left', position.left - 20);
+				coords.set('bottom', session.windowHeight - position.top + offset);
 				break;
 			case 'ne-alt':
-				coords.set('bottom', session.windowHeight - position.top + offset - session.positionCompensation.bottom);
-				coords.set('right', session.windowWidth - position.left - session.positionCompensation.right);
+				coords.set('bottom', session.windowHeight - position.top + offset);
+				coords.set('right', session.windowWidth - position.left);
 				break;
 			case 'sw':
-				coords.set('top', position.top + offset - session.positionCompensation.top);
-				coords.set('right', session.windowWidth - position.left - session.positionCompensation.right - 20);
+				coords.set('top', position.top + offset);
+				coords.set('right', session.windowWidth - position.left - 20);
 				break;
 			case 'sw-alt':
-				coords.set('left', position.left - session.positionCompensation.left);
-				coords.set('top', position.top + offset - session.positionCompensation.top);
+				coords.set('left', position.left);
+				coords.set('top', position.top + offset);
 				break;
 			case 'se':
-				coords.set('left', position.left - session.positionCompensation.left - 20);
-				coords.set('top', position.top + offset - session.positionCompensation.top);
+				coords.set('left', position.left - 20);
+				coords.set('top', position.top + offset);
 				break;
 			case 'se-alt':
-				coords.set('top', position.top + offset - session.positionCompensation.top);
-				coords.set('right', session.windowWidth - position.left - session.positionCompensation.right);
+				coords.set('top', position.top + offset);
+				coords.set('right', session.windowWidth - position.left);
 				break;
 		}
 
