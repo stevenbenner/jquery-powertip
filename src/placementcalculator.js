@@ -217,10 +217,10 @@ function PlacementCalculator() {
 			}
 		}
 
-		return {
+		return compensateForZoomBug({
 			top: coords.y + session.scrollTop,
 			left: coords.x + session.scrollLeft
-		};
+		});
 	}
 
 	// expose methods

@@ -236,13 +236,20 @@ function activateChromeZoomedOffsetPatch() {
  * @return {Offsets} The top, left offsets relative to the document.
  */
 function getCompensatedOffset(element) {
+	return compensateForZoomBug(element.offset());
+}
+
+/**
+ * Compensate for the Chrome measurement bug when zoomed.
+ * @param {object} coords Coordinates to compensate for if zoomed on chrome
+ * @return {Offsets} The top, left offsets relative to the document.
+ */
+function compensateForZoomBug(coords) {
 	if (session.chromePatchRefElement) {
-		var offset = element.offset();
 		var r = session.chromePatchRefElement.offset();
-		return {
-			left: offset.left - r.left,
-			top: offset.top - r.top
-		};
+		coords.top -= r.top;
+		coords.left -= r.left;
+		return coords;
 	}
-	return element.offset();
+	return coords;
 }
