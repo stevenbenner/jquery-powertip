@@ -109,7 +109,9 @@ function TooltipController(options) {
 		tipElement.addClass(options.popupClass);
 
 		// set tooltip position
-		if (!options.followMouse) {
+		// revert to static placement when the "force open" flag was set because
+		// that flag means that we do not have accurate mouse position info
+		if (!options.followMouse || element.data(DATA_FORCEDOPEN)) {
 			positionTipOnElement(element);
 			session.isFixedTipOpen = true;
 		} else {
@@ -119,7 +121,9 @@ function TooltipController(options) {
 		// close tooltip when clicking anywhere on the page, with the exception
 		// of the tooltip's trigger element and any elements that are within a
 		// tooltip that has 'mouseOnToPopup' option enabled
-		if (!element.data(DATA_FORCEDOPEN)) {
+		// always enable this feature when the "force open" flag is set on a
+		// followMouse tooltip because we reverted to static placement above
+		if (!element.data(DATA_FORCEDOPEN) && !options.followMouse) {
 			$document.on('click' + EVENT_NAMESPACE, function documentClick(event) {
 				var target = event.target;
 				if (target !== element[0]) {
@@ -274,7 +278,10 @@ function TooltipController(options) {
 		var priorityList,
 			finalPlacement;
 
-		if (options.smartPlacement) {
+		// when the followMouse option is enabled and the "force open" flag is
+		// set we revert to static positioning. since the developer may not have
+		// considered this scenario we should use smart placement
+		if (options.smartPlacement || (options.followMouse && element.data(DATA_FORCEDOPEN))) {
 			priorityList = $.fn.powerTip.smartPlacementLists[options.placement];
 
 			// iterate over the priority list and use the first placement option
