@@ -4,6 +4,9 @@ $(function() {
 	// Open on load
 	$('#open-on-load input').powerTip({ placement: 'ne' }).powerTip('show');
 
+	// Tab change
+	$('#tab-change input').powerTip({ followMouse: true });
+
 	// Click toggle
 	$('#click-toggle input').powerTip({
 		openEvents: [ 'click' ],
