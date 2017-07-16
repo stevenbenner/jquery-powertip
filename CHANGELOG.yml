@@ -3,6 +3,9 @@ v1.3.1:
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.0...master
   description: Several bug fixes
   changes:
+    - section: Features & Improvements
+      changes:
+        - Mouse-follow tooltips will now fall back to static placement when opened via a non-mouse event.
     - section: Bug Fixes
       changes:
         - Apply popupClass before tooltip positioning.
