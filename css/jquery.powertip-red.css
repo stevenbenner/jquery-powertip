@@ -12,6 +12,7 @@
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #f5aa9b inset;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(255, 255, 255, 0.5) inset, 0 -2px 2px #f5aa9b inset;
 	border: 1px solid #eb5037;
+	border-color: #eb5037;
 	border-radius: 6px;
 	color: #000000;
 	display: none;
@@ -39,21 +40,25 @@
 #powerTip.n:before {
 	border-top: 10px solid #eb5037;
 	border-top: 10px solid rgba(235, 80, 55, 0.8);
+	border-top-color: inherit;
 	bottom: -10px;
 }
 #powerTip.e:before {
 	border-right: 10px solid #eb5037;
 	border-right: 10px solid rgba(235, 80, 55, 0.8);
+	border-right-color: inherit;
 	left: -10px;
 }
 #powerTip.s:before {
 	border-bottom: 10px solid #eb5037;
 	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+	border-bottom-color: inherit;
 	top: -10px;
 }
 #powerTip.w:before {
 	border-left: 10px solid #eb5037;
 	border-left: 10px solid rgba(235, 80, 55, 0.8);
+	border-left-color: inherit;
 	right: -10px;
 }
 #powerTip.ne:before, #powerTip.se:before {
@@ -69,17 +74,20 @@
 #powerTip.ne:before, #powerTip.nw:before {
 	border-top: 10px solid #eb5037;
 	border-top: 10px solid rgba(235, 80, 55, 0.8);
+	border-top-color: inherit;
 	bottom: -10px;
 }
 #powerTip.se:before, #powerTip.sw:before {
 	border-bottom: 10px solid #eb5037;
 	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+	border-bottom-color: inherit;
 	top: -10px;
 }
 #powerTip.nw-alt:before, #powerTip.ne-alt:before,
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
 	border-top: 10px solid #eb5037;
 	border-top: 10px solid rgba(235, 80, 55, 0.8);
+	border-top-color: inherit;
 	bottom: -10px;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
@@ -93,6 +101,7 @@
 	border-top: none;
 	border-bottom: 10px solid #eb5037;
 	border-bottom: 10px solid rgba(235, 80, 55, 0.8);
+	border-bottom-color: inherit;
 	bottom: auto;
 	top: -10px;
 }
