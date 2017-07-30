@@ -113,7 +113,7 @@ require.config({
 });
 ```
 
-The PowerTip API will be loaded into jQuery as well as returned to the PowerTip parameter in your `define()` (`query.powertip` in the example above).
+The PowerTip API will be loaded into jQuery as well as returned to the PowerTip parameter in your `define()` (`jquery.powertip` in the example above).
 
 **Important notes:**
 
