@@ -140,7 +140,7 @@ $('.info').powerTip({
 
 ### Setting tooltip content
 
-Generally, if your tooltips are just plain text then you probably want to set your tooltip text with the HTML title attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
+Generally, if your tooltips are just plain text then you probably want to set your tooltip text with the HTML `title` attribute on the elements themselves. This approach is very intuitive and backwards compatible. But there are several ways to specify the content.
 
 #### Title attribute
 
@@ -152,7 +152,7 @@ The simplest method, as well as the only one that will continue to work for user
 
 #### data-powertip
 
-Basically the same as setting the title attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup. This will also accept a function that returns a string.
+Basically the same as setting the `title` attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup. This will also accept a function that returns a string.
 
 ```javascript
 $('#element').data('powertip', 'This will be the <b>tooltip text</b>.');
@@ -211,7 +211,7 @@ $('#element').data('powertiptarget', 'myToolTip');
 
 ### Changing the tooltip content
 
-After you invoke `powerTip()` on an element the title attribute will be deleted and the HTML data attributes will be cached internally by jQuery. This means that if you want to change the tooltip for any element that you have already run PowerTip on then you must use the `.data()` method provided by jQuery. Changing the markup attributes will have no effect.
+After you invoke `powerTip()` on an element the `title` attribute will be deleted and the HTML data attributes will be cached internally by jQuery. This means that if you want to change the tooltip for any element that you have already run PowerTip on then you must use the `.data()` method provided by jQuery. Changing the markup attributes will have no effect.
 
 Tooltips that are created using the HTML `title` attribute will have their content saved as "powertip" in the data collection. If you want to change the content of a tooltip after setting it with the `title` attribute then you must change the "powertip" data attribute.
 
