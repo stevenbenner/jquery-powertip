@@ -152,7 +152,7 @@ The simplest method, as well as the only one that will continue to work for user
 
 #### data-powertip
 
-Basically the same as setting the `title` attribute, but using an HTML5 data attribute. You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup. This will also accept a function that returns a string.
+Basically the same as setting the `title` attribute, but using an HTML5 [custom data attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*). You can set this in the markup or with JavaScript at any time. It only accepts a simple string, but that string can contain markup. This will also accept a function that returns a string.
 
 ```javascript
 $('#element').data('powertip', 'This will be the <b>tooltip text</b>.');
