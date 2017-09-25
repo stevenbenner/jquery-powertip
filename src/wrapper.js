@@ -1,12 +1,10 @@
-/**
- * PowerTip Intro
- *
- * @fileoverview  Opening lines for dist version.
- * @link          https://stevenbenner.github.io/jquery-powertip/
- * @author        Steven Benner (http://stevenbenner.com/)
- * @requires      jQuery 1.7+
- */
-
+/*!
+ <%= pkg.title %> v<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)
+ <%= pkg.homepage %>
+ Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).
+ Released under <%= pkg.license %> license.
+ https://raw.github.com/stevenbenner/jquery-powertip/master/<%= files.license %>
+*/
 (function(root, factory) {
 	// support loading the plugin via common patterns
 	if (typeof define === 'function' && define.amd) {
@@ -20,3 +18,7 @@
 		factory(root.jQuery);
 	}
 }(this, function($) {
+	/* [POWERTIP CODE] */
+	// return api for commonjs and amd environments
+	return $.powerTip;
+}));
