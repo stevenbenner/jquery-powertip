@@ -49,7 +49,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 	**POINT OF NO RETURN**
 
-	This is the fail-safe step. Make sure the build looks right. Make sure the commits from steps 1 and 2 are correct. Make sure the commits added to the gh-pages branch look right. If everything looks good then push the commits and the tag. With that the new version is out and available for download.
+	This is the fail-safe step. Make sure the build looks right. Make sure the commits from steps 1 and 2 are correct. Make sure the commits added to the gh-pages branch look right. If everything looks good then push the commits and the tag.
 
 7. **Publish to npm**
 
