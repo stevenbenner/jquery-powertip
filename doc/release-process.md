@@ -53,7 +53,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 7. **Publish to npm**
 
-	*Prefer npm version 4.0.0 or greater to for prepublishOnly script*
+	*Prefer npm version 4.0.0 or greater for prepublishOnly script*
 
 	First, verify that the package to be release to npm contains the expected files in the expected structure. Run `grunt build:npm && npm pack`. This will generate the appropriate dist folder contents and create the tgz package. Look over the tgz package to make sure everything looks good.
 
