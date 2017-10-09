@@ -318,6 +318,17 @@ $.powerTip = {
 			return element;
 		}
 
+		// if a tooltip is currently open for an element we are being asked to
+		// destroy then it should be forced to close
+		if (session.isTipOpen && !session.isClosing && $element.filter(session.activeHover).length > 0) {
+			// if the tooltip is waiting to close then cancel that delay timer
+			if (session.delayInProgress) {
+				session.activeHover.data(DATA_DISPLAYCONTROLLER).cancel();
+			}
+			// hide the tooltip, immediately
+			$.powerTip.hide(session.activeHover, true);
+		}
+
 		// unhook events and destroy plugin changes to each element
 		$element.off(EVENT_NAMESPACE).each(function destroy() {
 			var $this = $(this),
