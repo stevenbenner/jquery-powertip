@@ -262,6 +262,24 @@ $(function() {
 		assert.strictEqual(session.currentX, 1, 'document event removed');
 	});
 
+	QUnit.test('API destroy hides a tooltip that is currently open', function(assert) {
+		var done = assert.async(),
+			element = $('<a href="#" title="This is the tooltip text"></a>').powerTip();
+
+		element.on('powerTipOpen', function() {
+			// destroy the tooltip
+			$.powerTip.destroy(element);
+
+			assert.notOk(session.isTipOpen, 'session.isTipOpen is false');
+			assert.notOk(session.desyncTimeout, 'session.desyncTimeout is not active');
+
+			done();
+		});
+
+		// open the tooltip
+		$.powerTip.show(element);
+	});
+
 	function MockDisplayController(show, hide, cancel, resetPosition) {
 		this.show = show || $.noop;
 		this.hide = hide || $.noop;
