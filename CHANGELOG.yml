@@ -11,6 +11,7 @@ v1.3.1:
         - Apply popupClass before tooltip positioning.
         - Fixed non-functional tooltips on even number repeated powerTip() calls on the same element(s).
         - Fixed issue with non-mouse events tracking invalid coordinates on Firefox with jQuery 3.
+        - Fixed destroy() API method not cleaning up a currently open tooltip.
 v1.3.0:
   date: 2017-01-15
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...v1.3.0
