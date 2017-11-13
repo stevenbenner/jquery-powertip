@@ -220,6 +220,12 @@ function TooltipController(options) {
 	 * @private
 	 */
 	function positionTipOnCursor() {
+		var tipWidth,
+			tipHeight,
+			coords,
+			collisions,
+			collisionCount;
+
 		// to support having fixed tooltips on the same page as cursor tooltips,
 		// where both instances are referencing the same tooltip element, we
 		// need to keep track of the mouse position constantly, but we should
@@ -228,11 +234,9 @@ function TooltipController(options) {
 		// have a mouse-follow using it.
 		if (!session.isFixedTipOpen && (session.isTipOpen || (session.tipOpenImminent && tipElement.data(DATA_HASMOUSEMOVE)))) {
 			// grab measurements
-			var tipWidth = tipElement.outerWidth(),
-				tipHeight = tipElement.outerHeight(),
-				coords = new CSSCoordinates(),
-				collisions,
-				collisionCount;
+			tipWidth = tipElement.outerWidth();
+			tipHeight = tipElement.outerHeight();
+			coords = new CSSCoordinates();
 
 			// grab collisions
 			coords.set('top', session.currentY + options.offset);
