@@ -254,7 +254,7 @@ function TooltipController(options) {
 					// if there is only one collision (bottom or right) then
 					// simply constrain the tooltip to the view port
 					if (collisions === Collision.right) {
-						coords.set('left', session.windowWidth - tipWidth);
+						coords.set('left', session.scrollLeft + session.windowWidth - tipWidth);
 					} else if (collisions === Collision.bottom) {
 						coords.set('top', session.scrollTop + session.windowHeight - tipHeight);
 					}
