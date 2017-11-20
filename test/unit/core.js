@@ -1,7 +1,11 @@
 'use strict';
 
 $(function() {
-	QUnit.module('PowerTip Core');
+	QUnit.module('PowerTip Core', {
+		afterEach: function() {
+			$.powerTip.destroy();
+		}
+	});
 
 	QUnit.test('powerTip defined', function(assert) {
 		var element = $('<a href="#" title="This is the tooltip text"></a>');
