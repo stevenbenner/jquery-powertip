@@ -74,13 +74,13 @@ $(function() {
 	});
 
 	QUnit.test('TooltipController uses custom id', function(assert) {
-		// let the TooltipController create the element
-		var tc = new TooltipController($.extend({}, zeroTimeOpts, { popupId: 'popupId' }));
+		var customPopupId = 'myPopupId',
+			tc = new TooltipController($.extend({}, zeroTimeOpts, { popupId: customPopupId }));
 
-		assert.strictEqual($('#popupId').length, 1, 'custom id element created');
+		assert.strictEqual($('#' + customPopupId).length, 1, 'custom id element created');
 
 		// clean up
-		$('#popupId').remove();
+		$('#' + customPopupId).remove();
 
 		// this is solely to make the linter happy
 		tc.foo = 0;
