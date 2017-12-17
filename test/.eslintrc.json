@@ -1,26 +1,19 @@
 {
-	"curly": true,
-	"eqeqeq": true,
-	"esversion": 3,
-	"forin": true,
-	"freeze": true,
-	"futurehostile": true,
-	"latedef": "nofunc",
-	"noarg": true,
-	"nonbsp": true,
-	"nonew": true,
-	"singleGroups": true,
-	"undef": true,
-	"unused": true,
-	"strict": "global",
-
-	"browser": true,
-	"jquery": true,
-
+	"parserOptions": {
+		"ecmaVersion": 3
+	},
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"jquery": true,
+		"qunit": true,
+		"node": false
+	},
+	"rules": {
+		"require-jsdoc": "off",
+		"no-var": "off"
+	},
 	"globals": {
-		"QUnit": false,
-		"require": false,
-
 		"DATA_DISPLAYCONTROLLER": false,
 		"DATA_HASACTIVEHOVER": false,
 		"DATA_POWERTIP": false,

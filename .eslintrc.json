@@ -1,0 +1,13 @@
+{
+	"root": true,
+	"extends": [
+		"eslint:recommended",
+		"@stevenbenner/eslint-config"
+	],
+	"parserOptions": {
+		"ecmaVersion": 6
+	},
+	"env": {
+		"node": true
+	}
+}

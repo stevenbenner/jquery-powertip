@@ -27,29 +27,9 @@ module.exports = function(grunt) {
 			dist: [ '<%= paths.build %>' ],
 			temp: [ '<%= paths.temp %>' ]
 		},
-		jshint: {
-			grunt: {
-				src: [ 'Gruntfile.js' ],
-				options: {
-					jshintrc: '.jshintrc'
-				}
-			},
-			tests: {
-				src: [ 'test/**/*.js' ],
-				options: {
-					jshintrc: 'test/.jshintrc'
-				}
-			},
-			dist: {
-				src: [ '<%= paths.build %>/<%= files.cat %>' ],
-				options: {
-					jshintrc: 'src/.jshintrc'
-				}
-			}
-		},
-		jscs: {
+		eslint: {
 			options: {
-				config: '.jscsrc'
+				format: 'codeframe'
 			},
 			grunt: {
 				src: [ 'Gruntfile.js' ]
@@ -58,16 +38,18 @@ module.exports = function(grunt) {
 				src: [ 'test/**/*.js' ]
 			},
 			js: {
-				src: [ 'src/*.js' ]
+				options: {
+					configFile: 'src/.eslintrc.json'
+				},
+				src: [ '<%= paths.build %>/<%= files.cat %>' ]
 			}
 		},
 		jsonlint: {
 			project: {
 				src: [
 					'package.json',
-					'.jscsrc',
-					'.jshintrc',
-					'{src,test}/.jshintrc'
+					'.eslintrc.json',
+					'{src,test}/.eslintrc.json'
 				]
 			}
 		},
@@ -268,10 +250,10 @@ module.exports = function(grunt) {
 
 	// register grunt tasks
 	grunt.registerTask('default', [ 'test' ]);
-	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'copy:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'csslint', 'clean:temp' ]);
+	grunt.registerTask('test', [ 'jsonlint', 'concat:core', 'indent', 'copy:dist', 'eslint', 'qunit:tests', 'test:browserify', 'csslint', 'clean:temp' ]);
 	grunt.registerTask('test:browserify', [ 'copy:browserify', 'browserify', 'qunit:browserify' ]);
 	grunt.registerTask('build', [ 'jsonlint', 'build:js', 'build:css' ]);
-	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'copy:dist', 'jshint', 'jscs', 'qunit:tests', 'test:browserify', 'uglify', 'clean:temp' ]);
+	grunt.registerTask('build:js', [ 'concat:core', 'indent', 'copy:dist', 'eslint', 'qunit:tests', 'test:browserify', 'uglify', 'clean:temp' ]);
 	grunt.registerTask('build:css', [ 'csslint', 'copy:css', 'cssmin' ]);
 	grunt.registerTask('build:docs', [ 'copy:examples', 'copy:license', 'copy:changelog' ]);
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'build:docs', 'compress' ]);

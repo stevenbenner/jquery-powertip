@@ -1,0 +1,19 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 3
+	},
+	"env": {
+		"amd": true,
+		"browser": true,
+		"commonjs": true,
+		"jquery": true,
+		"node": false
+	},
+	"rules": {
+		"strict": [
+			"error",
+			"never"
+		],
+		"no-var": "off"
+	}
+}

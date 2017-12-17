@@ -4,9 +4,8 @@
 /src
 /test
 .editorconfig
+.eslintrc.json
 .gitattributes
-.jscsrc
-.jshintrc
 .npmignore
 .travis.yml
 Gruntfile.js
