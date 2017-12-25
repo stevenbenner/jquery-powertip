@@ -41,7 +41,7 @@
 		"grunt-contrib-csslint": "~2.0",
 		"grunt-contrib-cssmin": "~2.2",
 		"grunt-contrib-qunit": "~2.0",
-		"grunt-contrib-uglify": "~3.2",
+		"grunt-contrib-uglify": "~3.3",
 		"grunt-eslint": "~20.1",
 		"grunt-indent": "~1.0",
 		"grunt-jsonlint": "~1.1",
