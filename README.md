@@ -50,7 +50,7 @@ These are general guidelines, not rules. I won't refuse a pull request just beca
 
 *(This project is released under the [MIT license](https://raw.github.com/stevenbenner/jquery-powertip/master/LICENSE.txt).)*
 
-Copyright (c) 2017 Steven Benner (http://stevenbenner.com/)
+Copyright (c) 2018 Steven Benner (http://stevenbenner.com/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
