@@ -30,6 +30,7 @@ function CSSCoordinates() {
 	 * Return positioned element's origin with respect to the viewport home
 	 * @private
 	 * @param {object} el The positioned element to measure
+	 * @returns {object} The top and left coordinates of the element relative to the viewport.
 	 */
 	function positionedParentViewportHomeOffset(el) {
 		var originX = el[0].getBoundingClientRect().left,
