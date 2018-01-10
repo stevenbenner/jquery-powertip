@@ -15,8 +15,15 @@
 function CSSCoordinates() {
 	var me = this;
 
-	function compensated(val, comp) {
-		return val === 'auto' ? val : val - comp;
+	/**
+	 * Return value the compensated value allowing for the special value of 'auto'.
+	 * @private
+	 * @param {number} value The value to be compensated.
+	 * @param {number} comp The amount by which the value should be adjusted.
+	 * @returns {number} The value less comp unless 'auto'
+	 */
+	function compensated(value, comp) {
+		return value === 'auto' ? value : value - comp;
 	}
 
 	/**
