@@ -1,7 +1,7 @@
 'use strict';
 
 (function runTests() {
-	var QUnit = require('qunitjs'),
+	var QUnit = require('qunit'),
 		$ = require('jquery'),
 		powerTip = require('./../dist/jquery.powertip.js');
 
