@@ -37,7 +37,7 @@ The events that fire during the tooltip life cycle are also considered to be par
 
 4. **Tag the version**
 
-	Make sure the changes from steps 1 and 2 have been commited.
+	Make sure the changes from steps 1 and 2 have been committed.
 
 	`git tag -a vX.X.X -m "version X.X.X"`
 
