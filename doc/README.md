@@ -130,7 +130,7 @@ $('.tooltips').powerTip(options);
 
 Where `options` is an object with the various settings you want to override (all defined below).
 
-For example, if you want to attach tooltips to all elements with the "info" class, and have those tooltip appear above and to the right of those elements you would use the following code:
+For example, if you want to attach tooltips to all elements with the "info" class, and have those tooltips appear above and to the right of those elements you would use the following code:
 
 ```javascript
 $('.info').powerTip({
