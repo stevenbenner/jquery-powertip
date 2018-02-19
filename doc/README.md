@@ -2,7 +2,7 @@
 
 * **Checks for hover intent**
 
-	Testing for hover intent makes it so that tooltips don't open the moment your mouse happens to cross an element with a tooltip. Users have to hover over the element for a moment before the tooltip will open. This provides a much smoother user experience.
+	Testing for hover intent makes it so that tooltips don't open the moment your mouse happens to cross an element with a tooltip. Users must hover over the element for a moment before the tooltip will open. This provides a much smoother user experience.
 
 * **Tooltip queuing**
 
@@ -484,7 +484,7 @@ To disable binding of the events that are normally attached when you run `powerT
 $('.tooltips').powerTip({ manual: true });
 ```
 
-Now PowerTip has initialized and set up the `.tooltips` elements, but it will not open tooltips for those elements automatically. You have to manually open the tooltips using the API.
+Now PowerTip has initialized and set up the `.tooltips` elements, but it will not open tooltips for those elements automatically. You must manually open the tooltips using the API.
 
 ### Building your own event handlers
 
