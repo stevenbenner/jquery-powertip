@@ -18,7 +18,7 @@
 * Easy customization
 * Works with keyboard navigation
 * Smooth fade-ins and fade-outs
-* Smart placement that (when enabled) will try to keep tooltips inside of the view port
+* Smart placement that (when enabled) will try to keep tooltips inside of the viewport
 * Multiple instances
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
@@ -263,7 +263,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the users mouse cursor. Note that if a tooltip with `followMouse` enabled is opened by an event without mouse data (like "focus" via keyboard navigation) then it will revert to static placement with smart positioning enabled. So you may wish to set `placement` as well. |
 | `mouseOnToPopup` | Boolean | (default: `false`) Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only applies if `followMouse` is set to `false` and `manual` is set to `false`. |
 | `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
-| `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser view port. If a tooltip would extend outside of the view port then its placement will be changed to an orientation that would be entirely within the current view port. Only applies if `followMouse` is set to `false`. |
+| `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser viewport. If a tooltip would extend outside of the viewport then its placement will be changed to an orientation that would be entirely within the current viewport. Only applies if `followMouse` is set to `false`. |
 | `popupId` | String | (default: `'powerTip'`) HTML id attribute for the tooltip div. |
 | `popupClass` | String | (default: `''`) Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
 | `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
@@ -422,7 +422,7 @@ The context (the `this` keyword) of these functions will be the element that the
 
 ## About smart placement
 
-Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser view port. When it is enabled PowerTip will automatically change the placement of any tooltip that would appear outside of the view port, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
+Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser viewport. When it is enabled PowerTip will automatically change the placement of any tooltip that would appear outside of the viewport, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
 
 **Without smart placement:**
 
@@ -432,7 +432,7 @@ Smart placement is a feature that will attempt to keep non-mouse-follow tooltips
 
 ![Example with smart placement](https://stevenbenner.github.io/jquery-powertip/images/with-smart-placement.png)
 
-It does this by detecting that a tooltip would appear outside of the view port, then trying a series of other placement options until it finds one that isn't going to be outside of the view port. You can define the placement fall backs and priorities yourself by overriding them in the `$.fn.powerTip.smartPlacementLists` object.
+It does this by detecting that a tooltip would appear outside of the viewport, then trying a series of other placement options until it finds one that isn't going to be outside of the viewport. You can define the placement fall backs and priorities yourself by overriding them in the `$.fn.powerTip.smartPlacementLists` object.
 
 These are the default smart placement priority lists:
 
@@ -453,7 +453,7 @@ $.fn.powerTip.smartPlacementLists = {
 };
 ```
 
-As you can see, each placement option has an array of placement options that it can fall back on. The first item in the array is the highest priority placement, the last is the lowest priority. The last item in the array is also the default. If none of the placement options can be fully displayed within the view port then the last item in the array is the placement used to show the tooltip.
+As you can see, each placement option has an array of placement options that it can fall back on. The first item in the array is the highest priority placement, the last is the lowest priority. The last item in the array is also the default. If none of the placement options can be fully displayed within the viewport then the last item in the array is the placement used to show the tooltip.
 
 You can override these default placement priority lists before you call `powerTip()` and define your own smart placement fall back order. Like so:
 
