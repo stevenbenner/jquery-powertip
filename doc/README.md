@@ -266,7 +266,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser viewport. If a tooltip would extend outside of the viewport then its placement will be changed to an orientation that would be entirely within the current viewport. Only applies if `followMouse` is set to `false`. |
 | `popupId` | String | (default: `'powerTip'`) HTML id attribute for the tooltip div. |
 | `popupClass` | String | (default: `''`) Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
-| `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from from mouse cursor if `followMouse` is `true`. |
+| `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from the mouse cursor if `followMouse` is `true`. |
 | `fadeInTime` | Number | (default: `200`) Tooltip fade-in time in milliseconds. |
 | `fadeOutTime` | Number | (default: `100`) Tooltip fade-out time in milliseconds. |
 | `closeDelay` | Number | (default: `100`) Time in milliseconds to wait after mouse cursor leaves the element before closing the tooltip. This serves two purposes: first, it is the mechanism that lets the mouse cursor reach the tooltip (cross the gap between the element and the tooltip div) for `mouseOnToPopup` tooltips. And, second, it lets the cursor briefly leave the element and return without causing the whole fade-out, intent test, and fade-in cycle to happen. |
