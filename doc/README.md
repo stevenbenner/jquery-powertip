@@ -55,7 +55,7 @@
 
 * **Easy to use**
 
-	Despite all of the complexity involved (timers, animations, multiple instances) the plugin will be dead simple to use, requiring little to no configuration to get running.
+	Despite all of the complexity involved (timers, animations, multiple instances), the plugin will be dead simple to use, requiring little to no configuration to get running.
 
 * **Easy to customize**
 
@@ -92,7 +92,7 @@ Once the PowerTip files are in your project you can simply include them in your 
 
 #### Browserify
 
-PowerTip supports the CommonJS loading specification. If you are using npm to manage your packages and [Browserify](http://browserify.org/) to build your project then you can load it and use it with a simple `require('jquery-powertip')`.
+PowerTip supports the CommonJS loading specification. If you are using npm to manage your packages and [Browserify](http://browserify.org/) to build your project, then you can load it and use it with a simple `require('jquery-powertip')`.
 
 The PowerTip API will be loaded into jQuery as well as the return object from the `require()`.
 
@@ -213,7 +213,7 @@ $('#element').data('powertiptarget', 'myToolTip');
 
 After you invoke `powerTip()` on an element the `title` attribute will be deleted and the HTML data attributes will be cached internally by jQuery. This means that if you want to change the tooltip for any element that you have already run PowerTip on then you must use the `.data()` method provided by jQuery. Changing the markup attributes will have no effect.
 
-Tooltips that are created using the HTML `title` attribute will have their content saved as "powertip" in the data collection. If you want to change the content of a tooltip after setting it with the `title` attribute then you must change the "powertip" data attribute.
+Tooltips that are created using the HTML `title` attribute will have their content saved as "powertip" in the data collection. If you want to change the content of a tooltip after setting it with the `title` attribute, then you must change the "powertip" data attribute.
 
 Example:
 
@@ -278,7 +278,7 @@ Of course those defaults will be overridden with any options you pass directly t
 
 ## Tooltip CSS
 
-**If you use one of the included CSS files then you do not need to add any other CSS to get PowerTip running.**
+**If you use one of the included CSS files, then you do not need to add any other CSS to get PowerTip running.**
 
 PowerTip includes some base CSS that you can just add to your site and be done with it, but you may want to change the styles or even craft your own styles to match your design. PowerTip is specifically designed to give you full control of your tooltips with CSS, with just a few basic requirements.
 
@@ -324,7 +324,7 @@ It is important to note that if you increase the size of the tooltip arrows and 
 
 #### Fixed width
 
-It is recommended, but not required, that tooltips have a static width. PowerTip is designed to work with elastic tooltips, but it can look odd if you have huge tooltips so it is probably best for you to set a width on the tooltip element or (if you have short tooltip text) disable text wrapping. For example:
+It is recommended, but not required, that tooltips have a static width. PowerTip is designed to work with elastic tooltips, but it can look odd if you have huge tooltips, so it is probably best for you to set a width on the tooltip element or (if you have short tooltip text) disable text wrapping. For example:
 
 ```css
 #powerTip {
@@ -346,8 +346,8 @@ There are times when you may need to open or close a tooltip manually. To make t
 
 | Method | Description |
 | ----- | ----- |
-| `show(element, event)` | This function will force the tooltip for the specified element to open. You pass it a jQuery object with the element that you want to show the tooltip for. If the jQuery object you pass to this function has more than one matched elements then only the first element will show its tooltip. You can also pass it the event (a `$.Event`) with the pageX and pageY properties for mouse tracking. |
-| `hide(element, immediate)` | Closes any open tooltip. You do not need to specify which tooltip you would like to close (because there can be only one). If you set immediate to `true` there will be no close delay. |
+| `show(element, event)` | This function will force the tooltip for the specified element to open. You pass it a jQuery object with the element that you want to show the tooltip for. If the jQuery object you pass to this function has more than one matched elements, then only the first element will show its tooltip. You can also pass it the event (a `$.Event`) with the pageX and pageY properties for mouse tracking. |
+| `hide(element, immediate)` | Closes any open tooltip. You do not need to specify which tooltip you would like to close (because there can be only one). If you set immediate to `true`, there will be no close delay. |
 | `toggle(element, event)` | This will toggle the tooltip, opening a closed tooltip or closing an open tooltip. The event argument is optional. If a mouse event is passed then this function will enable hover intent testing when opening a tooltip, or enable a close delay when closing a tooltip. Non-mouse events are ignored. |
 | `reposition(element)` | Repositions an open tooltip on the specified element. Use this if the tooltip or the element it opened for has changed its size or position. |
 | `destroy(element)` | This will destroy and roll back any PowerTip instance attached to the matched elements. If no element is specified then all PowerTip instances will be destroyed, including the document events and tooltip elements. |
@@ -509,7 +509,7 @@ This code will open a tooltip when the element is clicked and close it when the 
 
 Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `toggle()` method.
 
-So let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
+So, let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
 
 ```javascript
 // run PowerTip - but disable the default event hooks
