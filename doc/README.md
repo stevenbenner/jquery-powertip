@@ -509,7 +509,7 @@ This code will open a tooltip when the element is clicked and close it when the 
 
 Now it's worth noting that this example doesn't take advantage of the hover intent feature or the tooltip delays because the mouse position was not passed to the `toggle()` method.
 
-So, let's take a look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
+So, let's look at a more complex situation. In the following example we hook up mouse events just like PowerTip would internally (open on mouse enter, close on mouse leave).
 
 ```javascript
 // run PowerTip - but disable the default event hooks
