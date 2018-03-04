@@ -265,7 +265,7 @@ Of course those defaults will be overridden with any options you pass directly t
 | `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
 | `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser viewport. If a tooltip would extend outside of the viewport then its placement will be changed to an orientation that would be entirely within the current viewport. Only applies if `followMouse` is set to `false`. |
 | `popupId` | String | (default: `'powerTip'`) HTML id attribute for the tooltip div. |
-| `popupClass` | String | (default: `''`) Space separated custom HTML class(es) for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
+| `popupClass` | String | (default: `''`) Space separated custom HTML classes for the tooltip div. Since this plugs directly into jQuery's `addClass()` method it will also accept a function that returns a string. |
 | `offset` | Number | (default: `10`) Pixel offset of the tooltip. This will be the offset from the element the tooltip is open for, or from the mouse cursor if `followMouse` is `true`. |
 | `fadeInTime` | Number | (default: `200`) Tooltip fade-in time in milliseconds. |
 | `fadeOutTime` | Number | (default: `100`) Tooltip fade-out time in milliseconds. |
