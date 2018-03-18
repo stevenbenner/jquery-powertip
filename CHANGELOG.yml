@@ -6,6 +6,7 @@ v1.3.1:
     - section: Features & Improvements
       changes:
         - Mouse-follow tooltips will now fall back to static placement when opened via a non-mouse event.
+        - CSS border color for tooltip arrows are now set to inherit, making it easier to override colors.
     - section: Bug Fixes
       changes:
         - Apply popupClass before tooltip positioning.
