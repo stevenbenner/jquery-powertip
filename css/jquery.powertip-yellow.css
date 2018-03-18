@@ -37,27 +37,27 @@
 	top: 50%;
 }
 #powerTip.n:before {
-	border-top: 10px solid #fafa50;
-	border-top: 10px solid rgba(250, 250, 80, 0.8);
 	border-top-color: inherit;
+	border-top-style: solid;
+	border-top-width: 10px;
 	bottom: -10px;
 }
 #powerTip.e:before {
-	border-right: 10px solid #fafa50;
-	border-right: 10px solid rgba(250, 250, 80, 0.8);
 	border-right-color: inherit;
+	border-right-style: solid;
+	border-right-width: 10px;
 	left: -10px;
 }
 #powerTip.s:before {
-	border-bottom: 10px solid #fafa50;
-	border-bottom: 10px solid rgba(250, 250, 80, 0.8);
 	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 10px;
 	top: -10px;
 }
 #powerTip.w:before {
-	border-left: 10px solid #fafa50;
-	border-left: 10px solid rgba(250, 250, 80, 0.8);
 	border-left-color: inherit;
+	border-left-style: solid;
+	border-left-width: 10px;
 	right: -10px;
 }
 #powerTip.ne:before, #powerTip.se:before {
@@ -71,22 +71,22 @@
 	right: 10px;
 }
 #powerTip.ne:before, #powerTip.nw:before {
-	border-top: 10px solid #fafa50;
-	border-top: 10px solid rgba(250, 250, 80, 0.8);
 	border-top-color: inherit;
+	border-top-style: solid;
+	border-top-width: 10px;
 	bottom: -10px;
 }
 #powerTip.se:before, #powerTip.sw:before {
-	border-bottom: 10px solid #fafa50;
-	border-bottom: 10px solid rgba(250, 250, 80, 0.8);
 	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 10px;
 	top: -10px;
 }
 #powerTip.nw-alt:before, #powerTip.ne-alt:before,
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
-	border-top: 10px solid #fafa50;
-	border-top: 10px solid rgba(250, 250, 80, 0.8);
 	border-top-color: inherit;
+	border-top-style: solid;
+	border-top-width: 10px;
 	bottom: -10px;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
@@ -98,9 +98,9 @@
 }
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
 	border-top: none;
-	border-bottom: 10px solid #fafa50;
-	border-bottom: 10px solid rgba(250, 250, 80, 0.8);
 	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 10px;
 	bottom: auto;
 	top: -10px;
 }
