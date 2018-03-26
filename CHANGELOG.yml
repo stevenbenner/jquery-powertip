@@ -14,6 +14,7 @@ v1.3.1:
         - Fixed issue with non-mouse events tracking invalid coordinates on Firefox with jQuery 3.
         - Fixed destroy() API method not cleaning up a currently open tooltip.
         - Fixed mouse follow tooltip placement when corner trapped on a horizontally scrolled page.
+        - Fixed CSS arrows not rendering on Internet Explorer 8.
 v1.3.0:
   date: 2017-01-15
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.2.0...v1.3.0
