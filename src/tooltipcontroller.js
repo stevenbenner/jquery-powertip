@@ -375,7 +375,7 @@ function TooltipController(options) {
 			hasDesyncableCloseEvent = $.grep(
 				[ 'mouseleave', 'mouseout', 'blur', 'focusout' ],
 				function(eventType) {
-					return $.inArray(options.closeEvents, eventType) !== -1;
+					return $.inArray(eventType, options.closeEvents) !== -1;
 				}
 			).length > 0;
 
