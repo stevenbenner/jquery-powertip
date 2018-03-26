@@ -21,8 +21,12 @@
 	z-index: 2147483647;
 }
 #powerTip:before {
-	content: "";
+	content: attr(class) " ";
 	position: absolute;
+	height: 0;
+	width: 0;
+	text-indent: 100%;
+	overflow: hidden;
 }
 #powerTip.n:before, #powerTip.s:before {
 	border-right: 5px solid transparent;
