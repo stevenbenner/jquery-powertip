@@ -1,7 +1,7 @@
 v1.3.1:
   date: TBD
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.0...master
-  description: Several bug fixes
+  description: Minor bug fixing release with a couple functionality improvements
   changes:
     - section: Features & Improvements
       changes:
