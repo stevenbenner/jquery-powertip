@@ -21,8 +21,12 @@
 	z-index: 2147483647;
 }
 #powerTip:before {
-	content: "";
+	content: attr(class) " ";
 	position: absolute;
+	height: 0;
+	width: 0;
+	text-indent: 100%;
+	overflow: hidden;
 }
 #powerTip.n:before, #powerTip.s:before {
 	border-right: 5px solid transparent;
@@ -36,24 +40,38 @@
 	margin-top: -5px;
 	top: 50%;
 }
-#powerTip.n:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
+#powerTip.n:before,
+#powerTip.ne:before, #powerTip.nw:before {
 	bottom: -10px;
 }
+#powerTip.n:before,
+#powerTip.ne:before, #powerTip.nw:before ,
+#powerTip.nw-alt:before, #powerTip.ne-alt:before {
+	border-top-color: inherit;
+	border-top-style: solid;
+	border-top-width: 10px;
+}
 #powerTip.e:before {
-	border-right: 10px solid #acacac;
-	border-right: 10px solid rgba(172, 172, 172, 0.8);
+	border-right-color: inherit;
+	border-right-style: solid;
+	border-right-width: 10px;
 	left: -10px;
 }
-#powerTip.s:before {
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
+#powerTip.s:before,
+#powerTip.se:before, #powerTip.sw:before {
 	top: -10px;
 }
+#powerTip.s:before,
+#powerTip.se:before, #powerTip.sw:before ,
+#powerTip.sw-alt:before, #powerTip.se-alt:before {
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-bottom-width: 10px;
+}
 #powerTip.w:before {
-	border-left: 10px solid #acacac;
-	border-left: 10px solid rgba(172, 172, 172, 0.8);
+	border-left-color: inherit;
+	border-left-style: solid;
+	border-left-width: 10px;
 	right: -10px;
 }
 #powerTip.ne:before, #powerTip.se:before {
@@ -66,20 +84,8 @@
 	border-right: 0;
 	right: 10px;
 }
-#powerTip.ne:before, #powerTip.nw:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
-	bottom: -10px;
-}
-#powerTip.se:before, #powerTip.sw:before {
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
-	top: -10px;
-}
 #powerTip.nw-alt:before, #powerTip.ne-alt:before,
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
-	border-top: 10px solid #acacac;
-	border-top: 10px solid rgba(172, 172, 172, 0.8);
 	bottom: -10px;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
@@ -91,8 +97,6 @@
 }
 #powerTip.sw-alt:before, #powerTip.se-alt:before {
 	border-top: none;
-	border-bottom: 10px solid #acacac;
-	border-bottom: 10px solid rgba(172, 172, 172, 0.8);
 	bottom: auto;
 	top: -10px;
 }
