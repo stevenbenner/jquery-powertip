@@ -2,7 +2,7 @@
 	"name": "jquery-powertip",
 	"title": "PowerTip",
 	"description": "A jQuery plugin that creates hover tooltips.",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"main": "dist/jquery.powertip.js",
 	"homepage": "https://stevenbenner.github.io/jquery-powertip/",
 	"author": {
