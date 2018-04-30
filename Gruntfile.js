@@ -259,6 +259,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('build:release', [ 'clean:dist', 'build', 'build:docs', 'compress' ]);
 	grunt.registerTask('build:npm', [ 'clean:dist', 'build' ]);
 	grunt.registerTask('travis', [ 'test' ]);
+	grunt.registerTask('deploy', [ 'deploy:docs', 'deploy:assets' ]);
 	grunt.registerTask('deploy:docs', [ 'build:gh-pages', 'shell:checkoutpages', 'copy:index', 'shell:addindex', 'shell:checkoutmaster' ]);
 	grunt.registerTask('deploy:assets', [ 'build:release', 'shell:checkoutpages', 'copy:jsassets', 'copy:cssassets', 'shell:addassets', 'shell:checkoutmaster' ]);
 };
