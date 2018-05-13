@@ -4,7 +4,7 @@
 
 ## Version Format
 
-PowerTip uses [Semantic Versioning](http://semver.org/) and the version is in the format of [MAJOR].[MINOR].[PATCH]. Versioning is dictated by the exposed API that PowerTip users consume when using the plugin.
+PowerTip uses [Semantic Versioning](https://semver.org/) and the version is in the format of [MAJOR].[MINOR].[PATCH]. Versioning is dictated by the exposed API that PowerTip users consume when using the plugin.
 
 This includes anything in the following namespaces:
 
