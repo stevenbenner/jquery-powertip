@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 				src: [ 'src/wrapper.js' ],
 				dest: '<%= paths.build %>/<%= files.cat %>',
 				options: {
-					process: function(content) {
+					process: (content) => {
 						let replaceRegex = /\s\/\* \[POWERTIP CODE\] \*\//,
 							coreFile = grunt.file.read(grunt.template.process('<%= concat.core.dest %>'));
 						return grunt.template.process(content).replace(replaceRegex, coreFile);
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
 				src: [ 'examples/*' ],
 				dest: '<%= paths.build %>/',
 				options: {
-					process: function(content) {
+					process: (content) => {
 						let scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/,
 							builtScriptTag = '<script type="text/javascript" src="../<%= files.cat %>"></script>';
 						return content.replace(scriptsRegex, grunt.template.process(builtScriptTag));
@@ -185,9 +185,7 @@ module.exports = function(grunt) {
 						cwd: 'css/',
 						src: [ '*.css' ],
 						dest: '<%= paths.build %>/css/',
-						rename: function(dest, matchedSrcPath) {
-							return dest + matchedSrcPath.replace('.css', '.min.css');
-						}
+						rename: (dest, matchedSrcPath) => (dest + matchedSrcPath.replace('.css', '.min.css'))
 					}
 				],
 				options: {
@@ -233,7 +231,7 @@ module.exports = function(grunt) {
 	});
 
 	// custom task to build the gh-pages index.md file
-	grunt.registerTask('build:gh-pages', 'Create the gh-pages markdown.', function() {
+	grunt.registerTask('build:gh-pages', 'Create the gh-pages markdown.', () => {
 		let template = grunt.file.read('doc/gh-pages.template.md'),
 			data = {
 				pkg: grunt.file.readJSON('package.json'),
