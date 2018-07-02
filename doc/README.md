@@ -260,7 +260,7 @@ Of course those defaults will be overridden with any options you pass directly t
 
 | Name | Type | Description |
 | ----- | ----- | ----- |
-| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the users mouse cursor. Note that if a tooltip with `followMouse` enabled is opened by an event without mouse data (like "focus" via keyboard navigation) then it will revert to static placement with smart positioning enabled. So you may wish to set `placement` as well. |
+| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the user's mouse cursor. Note that if a tooltip with `followMouse` enabled is opened by an event without mouse data (like "focus" via keyboard navigation) then it will revert to static placement with smart positioning enabled. So you may wish to set `placement` as well. |
 | `mouseOnToPopup` | Boolean | (default: `false`) Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only applies if `followMouse` is set to `false` and `manual` is set to `false`. |
 | `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
 | `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser viewport. If a tooltip would extend outside of the viewport then its placement will be changed to an orientation that would be entirely within the current viewport. Only applies if `followMouse` is set to `false`. |
@@ -524,7 +524,7 @@ $('.tooltips').on({
 	},
 	mouseleave: function() {
 		// note that we pass the element to the hide() method
-		// this lets PowerTip wait before closing the tooltip, if the users
+		// this lets PowerTip wait before closing the tooltip, if the user's
 		// mouse cursor returns to this element before the tooltip closes then
 		// the close will be canceled
 		$.powerTip.hide(this);
