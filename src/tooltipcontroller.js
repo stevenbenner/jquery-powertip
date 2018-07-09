@@ -216,7 +216,7 @@ function TooltipController(options) {
 	}
 
 	/**
-	 * Moves the tooltip to the users mouse cursor.
+	 * Moves the tooltip to the user's mouse cursor.
 	 * @private
 	 */
 	function positionTipOnCursor() {
@@ -261,7 +261,7 @@ function TooltipController(options) {
 				} else {
 					// if the tooltip has more than one collision then it is
 					// trapped in the corner and should be flipped to get it out
-					// of the users way
+					// of the user's way
 					coords.set('left', session.currentX - tipWidth - options.offset);
 					coords.set('top', session.currentY - tipHeight - options.offset);
 				}
