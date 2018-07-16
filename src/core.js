@@ -367,5 +367,6 @@ $.powerTip = {
 };
 
 // API aliasing
+// for backwards compatibility with versions earlier than 1.2.0
 $.powerTip.showTip = $.powerTip.show;
 $.powerTip.closeTip = $.powerTip.hide;
