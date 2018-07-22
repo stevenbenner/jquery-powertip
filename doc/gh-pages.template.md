@@ -8,6 +8,7 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 <p id="buttons">
 <a href="https://github.com/stevenbenner/jquery-powertip/releases/download/v<%= pkg.version %>/jquery.powertip-<%= pkg.version %>.zip" class="button" id="download-link">Download v<%= pkg.version %></a>
 <span>Zip file with examples, CSS, and script.</span>
+<span>For older versions, see the <a href="https://github.com/stevenbenner/jquery-powertip/releases">releases page</a> on GitHub.</span>
 </p>
 
 Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
