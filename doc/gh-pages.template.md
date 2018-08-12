@@ -11,6 +11,8 @@ PowerTip features a very flexible design that is easy to customize, gives you a 
 <span>For older versions, see the <a href="https://github.com/stevenbenner/jquery-powertip/releases">releases page</a> on GitHub.</span>
 </p>
 
+## Examples
+
 Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
 
 ### Placement examples
