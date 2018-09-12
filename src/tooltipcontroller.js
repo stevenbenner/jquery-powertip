@@ -142,7 +142,7 @@ function TooltipController(options) {
 		// attach hover events to the tooltip that will cancel a close request
 		// on mouseenter and start a new close request on mouseleave
 		// only hook these listeners if we're not in manual mode
-		if (options.mouseOnToPopup && !options.manual) {
+		if (options.mouseOnToPopup && !options.manual && $.inArray('mouseleave', options.closeEvents) > -1) {
 			tipElement.on('mouseenter' + EVENT_NAMESPACE, function tipMouseEnter() {
 				// check activeHover in case the mouse cursor entered the
 				// tooltip during the fadeOut and close cycle
