@@ -1,3 +1,11 @@
+v1.4.0:
+  date: TBA
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.1...master
+  description: TBA
+  changes:
+    - section: Bug Fixes
+      changes:
+        - Fixed mouse close event being set when mouseOnToPopup is enabled but closeEvents option doesn't include mouseleave.
 v1.3.1:
   date: 2018-04-15
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.0...v1.3.1
