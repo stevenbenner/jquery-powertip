@@ -90,7 +90,12 @@ module.exports = function(grunt) {
 				'test/index.html',
 				'test/amd.html'
 			],
-			browserify: [ '<%= copy.browserify.dest %>' ]
+			browserify: [ '<%= copy.browserify.dest %>' ],
+			options: {
+				puppeteer: {
+					args: [ '--no-sandbox' ]
+				}
+			}
 		},
 		uglify: {
 			dist: {
