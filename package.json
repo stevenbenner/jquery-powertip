@@ -47,7 +47,7 @@
 		"grunt-jsonlint": "~1.1",
 		"grunt-shell": "~2.1",
 		"jit-grunt": "~0.10",
-		"qunit": "~2.6",
+		"qunit": "~2.7",
 		"time-grunt": "~1.4"
 	},
 	"scripts": {
