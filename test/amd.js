@@ -3,7 +3,7 @@
 require.config({
 	paths: {
 		jquery: 'https://code.jquery.com/jquery-3.3.1',
-		qunit: 'https://code.jquery.com/qunit/qunit-2.7.0',
+		qunit: 'https://code.jquery.com/qunit/qunit-2.7.1',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
 });
