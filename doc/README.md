@@ -344,7 +344,7 @@ or
 
 ## API
 
-There are times when you may need to open or close a tooltip manually. To make this possible PowerTip exposes a couple of API methods on the `$.powerTip` object.
+There are some scenarios where you may want to manually open/close or update/remove tooltips via JavaScript. To make this possible, PowerTip exposes several API methods on the `$.powerTip` object.
 
 | Method | Description |
 | ----- | ----- |
