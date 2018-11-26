@@ -424,7 +424,7 @@ The context (the `this` keyword) of these functions will be the element that the
 
 ## About smart placement
 
-Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser viewport. When it is enabled PowerTip will automatically change the placement of any tooltip that would appear outside of the viewport, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
+Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser viewport. When it is enabled, PowerTip will automatically change the placement of any tooltip that would appear outside of the viewport, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
 
 **Without smart placement:**
 
