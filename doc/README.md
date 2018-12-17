@@ -8,7 +8,7 @@
 
 * **Tooltip queuing**
 
-	The tooltip queue makes it a fundamental rule of the system that there will only ever be one tooltip visible on the screen. When the user moves their cursor to another element with a tooltip, the last tooltip will close gracefully before the next tooltip opens.
+	The tooltip queue makes it a fundamental rule of the system that there will only ever be one tooltip visible on the screen. When the user moves their cursor from one element with a tooltip to another element with a tooltip, the previous tooltip will close gracefully before the new tooltip opens.
 
 ### Features
 
