@@ -11,6 +11,7 @@
 	},
 	"rules": {
 		"require-jsdoc": "off",
+		"no-prototype-builtins": "off",
 		"no-var": "off"
 	},
 	"globals": {
