@@ -25,7 +25,6 @@
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
 * Supports custom open and close event handlers
-* Actively maintained
 
 ### Requirements
 
