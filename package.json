@@ -33,7 +33,7 @@
 	"devDependencies": {
 		"@stevenbenner/eslint-config": "~2.0",
 		"grunt": "~1.3",
-		"grunt-browserify": "~5.3",
+		"grunt-browserify": "~6.0",
 		"grunt-contrib-clean": "~2.0",
 		"grunt-contrib-compress": "~2.0",
 		"grunt-contrib-concat": "~1.0",
