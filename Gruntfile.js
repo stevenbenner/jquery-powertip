@@ -28,9 +28,6 @@ module.exports = function(grunt) {
 			temp: [ '<%= paths.temp %>' ]
 		},
 		eslint: {
-			options: {
-				format: 'codeframe'
-			},
 			grunt: {
 				src: [ 'Gruntfile.js' ]
 			},
@@ -39,7 +36,7 @@ module.exports = function(grunt) {
 			},
 			js: {
 				options: {
-					configFile: 'src/.eslintrc.json'
+					overrideConfigFile: 'src/.eslintrc.json'
 				},
 				src: [ '<%= paths.build %>/<%= files.cat %>' ]
 			}
