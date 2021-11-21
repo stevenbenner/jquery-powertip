@@ -52,7 +52,7 @@
 	},
 	"scripts": {
 		"grunt": "grunt",
-		"test": "grunt travis --verbose",
+		"test": "grunt test --verbose",
 		"prepublishOnly": "grunt build:npm"
 	}
 }

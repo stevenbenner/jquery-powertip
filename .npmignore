@@ -7,6 +7,5 @@
 .eslintrc.json
 .gitattributes
 .npmignore
-.travis.yml
 Gruntfile.js
 *.tgz
