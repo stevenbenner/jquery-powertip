@@ -19,7 +19,7 @@ $(function() {
 	// mouse-on examples
 	$('#mouseon-examples div').data('powertipjq', $([
 		'<p><b>Here is some content</b></p>',
-		'<p><a href="http://stevenbenner.com/">Maybe a link</a></p>',
+		'<p><a href="https://stevenbenner.com/">Maybe a link</a></p>',
 		'<p>{ placement: \'e\', mouseOnToPopup: true }</p>'
 	].join('\n')));
 	$('#mouseon-examples div').powerTip({
