@@ -322,6 +322,13 @@ $(function() {
 		$.powerTip.show(element);
 	});
 
+	QUnit.test('API destroy method with no arguments succeeds when there are no bound elements', function(assert) {
+		// destroy everything, or in this case, nothing
+		$.powerTip.destroy();
+
+		assert.ok(true, 'no error');
+	});
+
 	function MockDisplayController(show, hide, cancel, resetPosition) {
 		this.show = show || $.noop;
 		this.hide = hide || $.noop;
