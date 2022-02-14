@@ -42,7 +42,7 @@ var DATA_DISPLAYCONTROLLER = 'displayController',
  * Private properties global to all powerTip instances
  */
 var session = {
-	elements: null,
+	elements: [],
 	tooltips: null,
 	isTipOpen: false,
 	isFixedTipOpen: false,
@@ -170,7 +170,7 @@ $.fn.powerTip = function(opts, arg) {
 	}
 
 	// remember elements that the plugin is attached to
-	session.elements = session.elements ? session.elements.add(targetElements) : targetElements;
+	session.elements.push(targetElements);
 
 	return targetElements;
 };
@@ -310,12 +310,58 @@ $.powerTip = {
 	 *     Element, if one was specified.
 	 */
 	destroy: function apiDestroy(element) {
-		var $element = element ? $(element) : session.elements;
+		var $element,
+			foundPowerTip = false,
+			runTipCheck = true,
+			i;
 
 		// if the plugin is not hooked to any elements then there is no point
 		// trying to destroy anything, or dealing with the possible errors
-		if (!session.elements || session.elements.length === 0) {
+		if (session.elements.length === 0) {
 			return element;
+		}
+
+		if (element) {
+			// make sure we're working with a jQuery object
+			$element = $(element);
+		} else {
+			// if we are being asked to destroy all instances, then iterate the
+			// array of jQuery objects that we've been tracking and call destroy
+			// for each group
+			$.each(session.elements, function cleanElsTracking(idx, els) {
+				$.powerTip.destroy(els);
+			});
+
+			// reset elements list
+			// if a dev calls .remove() on an element before calling this
+			// destroy() method then jQuery will have deleted all of the .data()
+			// information, so it will not be recognized as a PowerTip element,
+			// which could leave dangling references in this array - causing
+			// future destroy() (no param) invocations to not fully clean up -
+			// so make sure the array is empty and set a flag to skip the
+			// element check before proceeding
+			session.elements = [];
+			runTipCheck = false;
+
+			// set $element to an empty jQuery object to proceed
+			$element = $();
+		}
+
+		// check if PowerTip has been set on any of the elements - if PowerTip
+		// has not been found then return early to skip the slow .not()
+		// operation below - only if we did not reset the elements list above
+		if (runTipCheck) {
+			$element.each(function checkForPowerTip() {
+				var $this = $(this);
+				if ($this.data(DATA_DISPLAYCONTROLLER)) {
+					foundPowerTip = true;
+					return false;
+				}
+				return true;
+			});
+			if (!foundPowerTip) {
+				return element;
+			}
 		}
 
 		// if a tooltip is currently open for an element we are being asked to
@@ -350,7 +396,15 @@ $.powerTip = {
 		});
 
 		// remove destroyed element from active elements collection
-		session.elements = session.elements.not($element);
+		for (i = session.elements.length - 1; i >= 0; i--) {
+			session.elements[i] = session.elements[i].not($element);
+
+			// check if there are any more elements left in this collection, if
+			// there is not then remove it from the elements array
+			if (session.elements[i].length === 0) {
+				session.elements.splice(i, 1);
+			}
+		}
 
 		// if there are no active elements left then we will unhook all of the
 		// events that we've bound code to and remove the tooltip elements
@@ -358,8 +412,10 @@ $.powerTip = {
 			$window.off(EVENT_NAMESPACE);
 			$document.off(EVENT_NAMESPACE);
 			session.mouseTrackingActive = false;
-			session.tooltips.remove();
-			session.tooltips = null;
+			if (session.tooltips) {
+				session.tooltips.remove();
+				session.tooltips = null;
+			}
 		}
 
 		return element;
