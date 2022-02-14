@@ -117,7 +117,7 @@ $(function() {
 		assert.strictEqual(hideTriggered, true, 'keydown event for key code 27 calls DisplayController.hide');
 
 		// cleanup test element
-		element.remove();
+		element.detach();
 	});
 
 	QUnit.test('expose API', function(assert) {
@@ -271,6 +271,26 @@ $(function() {
 		$('<a href="#1" title="This is the tooltip text"></a>').powerTip();
 		$('<a href="#2" title="This is the tooltip text"></a>').powerTip();
 		$('<a href="#3" title="This is the tooltip text"></a>').powerTip();
+
+		// destroy everything
+		$.powerTip.destroy();
+
+		// tooltip element
+		assert.strictEqual($('#' + $.fn.powerTip.defaults.popupId).length, 0, 'tooltip element removed');
+
+		// document event (mouse tracking)
+		session.currentX = 1;
+		$(document).trigger(new $.Event('mousemove', { pageX: 2, pageY: 3 }));
+		assert.strictEqual(session.currentX, 1, 'document event removed');
+	});
+
+	QUnit.test('API destroy method with no arguments rolls back removed elements', function(assert) {
+		var element = $('<a href="#" title="This is the tooltip text"></a>');
+		// run PowerTip
+		element.powerTip();
+
+		// remove element
+		element.remove();
 
 		// destroy everything
 		$.powerTip.destroy();
