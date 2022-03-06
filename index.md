@@ -3,12 +3,15 @@ layout: default
 description: "PowerTip is a jQuery plugin for creating smooth, modern tooltips."
 ---
 
-PowerTip features a very flexible design that is easy to customize, gives you a number of different ways to use the tooltips, has APIs for developers, and supports adding complex data to tooltips. It is being actively developed and maintained, and provides a very fluid user experience.
+PowerTip is a jQuery tooltip plugin with a smooth user experience that features a very flexible design which is easy to customize, gives you a variety of different ways to create tooltips, supports adding complex data to tooltips, and has a robust API for developers seeking greater integration with their web applications.
 
 <p id="buttons">
-<a href="https://github.com/stevenbenner/jquery-powertip/releases/download/v1.3.1/jquery.powertip-1.3.1.zip" class="button" id="download-link">Download v1.3.1</a>
+<a href="https://github.com/stevenbenner/jquery-powertip/releases/download/v1.3.2/jquery.powertip-1.3.2.zip" class="button" id="download-link">Download v1.3.2</a>
 <span>Zip file with examples, CSS, and script.</span>
+<span>For older versions, see the <a href="https://github.com/stevenbenner/jquery-powertip/releases">releases page</a> on GitHub.</span>
 </p>
+
+## Examples
 
 Here are some basic examples of PowerTip in action. You can also fiddle with PowerTip on the official [JSFiddle demo](https://jsfiddle.net/stevenbenner/2baqv/).
 
@@ -47,6 +50,8 @@ The PowerTip for this box will appear on the right and you will be able to inter
 </div>
 </div>
 
+## Overview
+
 ### Unique Features
 
 * **Checks for hover intent**
@@ -55,7 +60,7 @@ The PowerTip for this box will appear on the right and you will be able to inter
 
 * **Tooltip queuing**
 
-	The tooltip queue makes it a fundamental rule of the system that there will only ever be one tooltip visible on the screen. When the user moves their cursor to another element with a tooltip, the last tooltip will close gracefully before the next tooltip opens.
+	The tooltip queue makes it a fundamental rule of the system that there will only ever be one tooltip visible on the screen. When the user moves their cursor from one element with a tooltip to another element with a tooltip, the previous tooltip will close gracefully before the new tooltip opens.
 
 ### Features
 
@@ -72,7 +77,6 @@ The PowerTip for this box will appear on the right and you will be able to inter
 * Works on any type of element
 * Supports complex content (markup with behavior & events)
 * Supports custom open and close event handlers
-* Actively maintained
 
 ### Requirements
 
@@ -84,31 +88,31 @@ The PowerTip for this box will appear on the right and you will be able to inter
 
 * **Tooltips that behave like they would in desktop applications**
 
-	Tooltips should not flicker or be difficult to interact with. Only one tooltip should be visible on the screen at a time. When the cursor moves to another item with a tooltip then the last tooltip should close gracefully before the new one opens.
+	Tooltips should not flicker or be difficult to interact with. Only one tooltip should be visible on the screen at a time. When the cursor moves to another item with a tooltip, then the last tooltip should close gracefully before the new one opens.
 
 * **Fade-in and fade-out**
 
-	The tooltips will have smooth fade-in and out cycles instead of abruptly appearing a disappearing. The fade effects will not conflict with any other effects in the document.
+	The tooltips will have smooth fade-in and out cycles instead of abruptly appearing a disappearing. The fade effects should not conflict with any other effects in the document.
 
 * **Check for hover intent**
 
-	Tooltips should not suddenly appear as soon as your mouse happens to cross the object. They should only open when the cursor hovers over an element for a moment indicating that the user is actively focused on that element.
+	Tooltips should not suddenly appear as soon as the mouse cursor happens to cross the element. They should only open when the cursor hovers over an element for a moment indicating that the user is actively focused on that element.
 
 * **Support multiple instances**
 
-	Have various kinds of tooltips in one document, each with their own settings and content, even with different tooltip divs and styling. All while still preserving the one-tooltip rule and behaving like one instance.
+	Support various kinds of tooltips in one document, each with their own settings and content, even with different tooltip divs and styling. All while still preserving the one-tooltip rule and behaving like one instance.
 
 * **Totally portable**
 
-	The plugin does not require any other plugins or extensions to function. There will be no dependencies other than the core jQuery library. The plugin does not require any images, all layout will be entirely CSS based.
+	The plugin will not require any other plugins or extensions to function. There will be no dependencies other than the core jQuery library. The plugin will not require any images, all layout will be entirely CSS based.
 
 * **Easy to use**
 
-	Despite all of the complexity involved (timers, animations, multiple instances), the plugin will be dead simple to use, requiring little to no configuration to get running.
+	Despite all of the complexity involved (timers, animations, multiple instances), the plugin should be very simple to use, requiring little to no configuration to get running.
 
 * **Easy to customize**
 
-	Tooltip layout and functionality should be simple to modify for your own personal touch. Layout should be done entirely with CSS and the plugin will not attach any inline styles other than to control visibility and positioning.
+	Tooltip layout and functionality should be extensible and simple for developers to adapt to match their web sites. Layout will be done entirely with CSS and the plugin will not attach any inline styles other than to control visibility and positioning.
 
 ## Installation
 
@@ -156,7 +160,7 @@ Example paths configuration:
 {% highlight javascript %}
 require.config({
 	paths: {
-		jquery: 'https://code.jquery.com/jquery-1.11.3',
+		jquery: 'https://code.jquery.com/jquery-3.6.0',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
 });
@@ -309,7 +313,7 @@ Of course those defaults will be overridden with any options you pass directly t
 
 | Name | Type | Description |
 | ----- | ----- | ----- |
-| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the users mouse cursor. Note that if a tooltip with `followMouse` enabled is opened by an event without mouse data (like "focus" via keyboard navigation) then it will revert to static placement with smart positioning enabled. So you may wish to set `placement` as well. |
+| `followMouse` | Boolean | (default: `false`) If set to `true` the tooltip will follow the user's mouse cursor. Note that if a tooltip with `followMouse` enabled is opened by an event without mouse data (like "focus" via keyboard navigation) then it will revert to static placement with smart positioning enabled. So you may wish to set `placement` as well. |
 | `mouseOnToPopup` | Boolean | (default: `false`) Allow the mouse to hover on the tooltip. This lets users interact with the content in the tooltip. Only applies if `followMouse` is set to `false` and `manual` is set to `false`. |
 | `placement` | String | (default: `'n'`) Placement location of the tooltip relative to the element it is open for. Values can be `n`, `e`, `s`, `w`, `nw`, `ne`, `sw`, `se`, `nw-alt`, `ne-alt`, `sw-alt`, or `se-alt` (as in north, east, south, and west). This only matters if `followMouse` is set to `false`. |
 | `smartPlacement` | Boolean | (default: `false`) When enabled the plugin will try to keep tips inside the browser viewport. If a tooltip would extend outside of the viewport then its placement will be changed to an orientation that would be entirely within the current viewport. Only applies if `followMouse` is set to `false`. |
@@ -391,7 +395,7 @@ or
 
 ## API
 
-There are times when you may need to open or close a tooltip manually. To make this possible PowerTip exposes a couple of API methods on the `$.powerTip` object.
+There are some scenarios where you may want to manually open/close or update/remove tooltips via JavaScript. To make this possible, PowerTip exposes several API methods on the `$.powerTip` object.
 
 | Method | Description |
 | ----- | ----- |
@@ -471,7 +475,7 @@ The context (the `this` keyword) of these functions will be the element that the
 
 ## About smart placement
 
-Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser viewport. When it is enabled PowerTip will automatically change the placement of any tooltip that would appear outside of the viewport, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
+Smart placement is a feature that will attempt to keep non-mouse-follow tooltips within the browser viewport. When it is enabled, PowerTip will automatically change the placement of any tooltip that would appear outside of the viewport, such as a tooltip that would push outside the left or right bounds of the window, or a tooltip that would be hidden below the fold.
 
 **Without smart placement:**
 
@@ -523,7 +527,7 @@ Smart placement is **disabled** by default because I believe that the world woul
 
 If you need to use PowerTip in a non-standard way, that is to say, if you need tooltips to open and close in some way other than the default mouse-on/mouse-off behavior then you can create your own event handlers and tell PowerTip when it should open and close tooltips.
 
-This is actually quite easy, you just tell PowerTip not to hook the default mouse and keyboard events when you run the plugin by setting the `manual` option to `true`, then use the API to open and close tooltips. While this is a bit more technical then just using the default behavior it works just as well. In fact, PowerTip uses this same public API internally.
+This is actually quite easy, you just tell PowerTip not to hook the default mouse and keyboard events when you run the plugin by setting the `manual` option to `true`, then use the API to open and close tooltips. While this is a bit more technical then just using the default behavior, it works just as well. In fact, PowerTip uses this same public API internally.
 
 ### Disable event binding
 
@@ -573,7 +577,7 @@ $('.tooltips').on({
 	},
 	mouseleave: function() {
 		// note that we pass the element to the hide() method
-		// this lets PowerTip wait before closing the tooltip, if the users
+		// this lets PowerTip wait before closing the tooltip, if the user's
 		// mouse cursor returns to this element before the tooltip closes then
 		// the close will be canceled
 		$.powerTip.hide(this);
@@ -592,6 +596,12 @@ And there you have it. If you want to enable the hover intent testing then you w
 
 ## Change Log
 
+
+### [v1.3.2](https://github.com/stevenbenner/jquery-powertip/compare/v1.3.1...v1.3.2) - Maintenance release with a couple of bug fixes (March 6, 2022)
+
+* **Bug Fixes**
+	* Fixed mouse close event being set when mouseOnToPopup is enabled but closeEvents option doesn't include mouseleave.
+	* Fixed performance regression when setting up a very large number of tooltips with repeated powerTip() calls.
 
 ### [v1.3.1](https://github.com/stevenbenner/jquery-powertip/compare/v1.3.0...v1.3.1) - Minor bug fixing release with a couple functionality improvements (April 15, 2018)
 
