@@ -1,7 +1,7 @@
 v1.3.2:
-  date: TBA
-  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.1...master
-  description: TBA
+  date: 2022-03-06
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.1...v1.3.2
+  description: Maintenance release with a couple of bug fixes
   changes:
     - section: Bug Fixes
       changes:
