@@ -11,8 +11,6 @@ body {
 	background-color: #E7E7E7;
 }
 pre {
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
 	tab-size: 4;
 }
 a, a:link, a:active, a:visited {
@@ -142,8 +140,6 @@ p code, li code {
 	text-shadow: -1px -1px 0 #222;
 	line-height: 47px;
 	transition-duration: .35s;
-	-webkit-transition-duration: .35s;
-	-moz-transition-duration: .35s;
 	text-decoration: none !important;
 	font-weight: bold;
 }
