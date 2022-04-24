@@ -32,11 +32,6 @@ $(function() {
 	$('#download-link').powerTip({ placement: 'e' });
 	$('#footer a').powerTip();
 
-	// ga download event
-	$('#download-link').on('click', function() {
-		_gaq.push(['_trackEvent', 'Download', 'PowerTip', this.href]);
-	});
-
 	// add contributors list
 	var contribList = $('#contributors');
 	$.ajax({
