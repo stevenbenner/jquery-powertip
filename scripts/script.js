@@ -28,8 +28,8 @@ $(function() {
 	});
 
 	// project page tooltips
-	$('#buttons a').data('powertip', 'Everything you need!');
-	$('#buttons a').powerTip({ placement: 'e' });
+	$('#download-link').data('powertip', 'Everything you need!');
+	$('#download-link').powerTip({ placement: 'e' });
 	$('#footer a').powerTip();
 
 	// ga download event
