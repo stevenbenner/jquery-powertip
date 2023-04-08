@@ -9,8 +9,8 @@ jobs:
 
     strategy:
       matrix:
-        os: ubuntu-latest
-        node: 18.x
+        os: [ ubuntu-latest ]
+        node: [ 18.x ]
 
     runs-on: ${{matrix.os}}
 
