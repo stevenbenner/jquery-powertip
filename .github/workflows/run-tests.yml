@@ -1,0 +1,30 @@
+name: Run tests
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    name: Node ${{matrix.node}} on ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: ubuntu-latest
+        node: 18.x
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{matrix.node}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node}}
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Test
+        run: npm test
