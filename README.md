@@ -4,9 +4,11 @@ PowerTip is a jQuery tooltip plugin with some advanced features like **hover int
 
 This software is licensed under the [MIT license][license].
 
-[![Release Version](https://img.shields.io/github/release/stevenbenner/jquery-powertip.svg?style=flat-square)][projectpage] [![NPM Version](https://img.shields.io/npm/v/jquery-powertip.svg?style=flat-square)][npmpage]
+[![Release Version][releasebadge]][projectpage] [![NPM Version][npmbadge]][npmpage]
 
 [license]: LICENSE.txt
+[releasebadge]: https://img.shields.io/github/release/stevenbenner/jquery-powertip.svg?style=flat-square
+[npmbadge]: https://img.shields.io/npm/v/jquery-powertip.svg?style=flat-square
 
 ## Getting Started
 
