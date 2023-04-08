@@ -1,7 +1,7 @@
 /*!
  <%= pkg.title %> v<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)
  <%= pkg.homepage %>
- Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).
+ Copyright (c) 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).
  Released under <%= pkg.license %> license.
  https://raw.github.com/stevenbenner/jquery-powertip/master/<%= files.license %>
 */
