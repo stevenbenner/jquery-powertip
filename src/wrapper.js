@@ -3,7 +3,7 @@
  <%= pkg.homepage %>
  Copyright (c) 2012-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %> (<%= pkg.author.url %>).
  Released under <%= pkg.license %> license.
- https://raw.github.com/stevenbenner/jquery-powertip/master/<%= files.license %>
+ https://github.com/stevenbenner/jquery-powertip/blob/master/<%= files.license %>
 */
 (function(root, factory) {
 	// support loading the plugin via common patterns
