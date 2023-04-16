@@ -45,7 +45,7 @@
 		"grunt-eslint": "~24.0",
 		"grunt-indent": "~1.0",
 		"grunt-jsonlint": "~2.1",
-		"grunt-shell": "~3.0",
+		"grunt-shell": "~4.0",
 		"jit-grunt": "~0.10",
 		"qunit": "~2.19",
 		"time-grunt": "~2.0"
