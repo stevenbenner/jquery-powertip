@@ -39,7 +39,7 @@
 		"grunt-contrib-concat": "~2.1",
 		"grunt-contrib-copy": "~1.0",
 		"grunt-contrib-csslint": "~2.0",
-		"grunt-contrib-cssmin": "~4.0",
+		"grunt-contrib-cssmin": "~5.0",
 		"grunt-contrib-qunit": "~7.0",
 		"grunt-contrib-uglify": "~5.2",
 		"grunt-eslint": "~24.0",
