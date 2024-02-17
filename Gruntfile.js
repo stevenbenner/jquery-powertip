@@ -100,7 +100,7 @@ module.exports = function gruntConfig(grunt) {
 				dest: '<%= paths.build %>/<%= files.min %>',
 				options: {
 					output: {
-						comments: /^!/
+						comments: /^!/u
 					},
 					report: 'gzip',
 					ie8: true
@@ -113,7 +113,7 @@ module.exports = function gruntConfig(grunt) {
 				dest: '<%= paths.build %>/<%= files.cat %>',
 				options: {
 					process: (content) => {
-						const replaceRegex = /\s\/\* \[POWERTIP CODE\] \*\//;
+						const replaceRegex = /\s\/\* \[POWERTIP CODE\] \*\//u;
 						const coreFile = grunt.file.read(grunt.template.process('<%= concat.core.dest %>'));
 						return grunt.template.process(content).replace(replaceRegex, coreFile);
 					}
@@ -128,7 +128,7 @@ module.exports = function gruntConfig(grunt) {
 				dest: '<%= paths.build %>/',
 				options: {
 					process: (content) => {
-						const scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/;
+						const scriptsRegex = /<!-- begin-scripts -->(?:.*\r?\n\s)*<!-- end-scripts -->/u;
 						const builtScriptTag = '<script type="text/javascript" src="../<%= files.cat %>"></script>';
 						return content.replace(scriptsRegex, grunt.template.process(builtScriptTag));
 					}
