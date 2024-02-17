@@ -4,7 +4,7 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function gruntConfig(grunt) {
 	// include grunt enhancements
 	require('time-grunt')(grunt);
 	require('jit-grunt')(grunt);
