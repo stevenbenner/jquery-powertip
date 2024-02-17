@@ -12,7 +12,8 @@
 	"rules": {
 		"require-jsdoc": "off",
 		"no-prototype-builtins": "off",
-		"no-var": "off"
+		"no-var": "off",
+		"prefer-template": "off"
 	},
 	"globals": {
 		"DATA_DISPLAYCONTROLLER": false,
