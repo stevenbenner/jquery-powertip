@@ -31,7 +31,7 @@
 		"jquery": ">=1.7 <4.0"
 	},
 	"devDependencies": {
-		"@stevenbenner/eslint-config": "~2.0",
+		"@stevenbenner/eslint-config": "~3.0",
 		"grunt": "~1.6",
 		"grunt-browserify": "~6.0",
 		"grunt-contrib-clean": "~2.0",
