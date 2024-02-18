@@ -10,7 +10,6 @@
 		"node": false
 	},
 	"rules": {
-		"require-jsdoc": "off",
 		"no-prototype-builtins": "off",
 		"no-var": "off",
 		"prefer-template": "off"
