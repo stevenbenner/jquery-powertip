@@ -60,7 +60,8 @@ function DisplayController(element, options, tipController) {
 	function closeTooltip(disableDelay) {
 		// if this instance already has a close delay in progress then halt it
 		if (myCloseDelay) {
-			myCloseDelay = session.closeDelayTimeout = clearTimeout(myCloseDelay);
+			session.closeDelayTimeout = clearTimeout(myCloseDelay);
+			myCloseDelay = session.closeDelayTimeout;
 			session.delayInProgress = false;
 		}
 		cancelTimer();
