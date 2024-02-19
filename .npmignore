@@ -10,3 +10,4 @@
 .npmignore
 Gruntfile.js
 *.tgz
+*.zip
