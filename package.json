@@ -28,7 +28,7 @@
 		"browser"
 	],
 	"dependencies": {
-		"jquery": ">=1.7 <4.0"
+		"jquery": "1.7 - 4"
 	},
 	"devDependencies": {
 		"@stevenbenner/eslint-config": "~3.0",
