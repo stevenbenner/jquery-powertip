@@ -28,7 +28,7 @@ function CSSCoordinates() {
 	 * @param {number} value The value of the property.
 	 */
 	me.set = function(property, value) {
-		if ($.isNumeric(value)) {
+		if (typeof value === 'number') {
 			me[property] = Math.round(value);
 		}
 	};
