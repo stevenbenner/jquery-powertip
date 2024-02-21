@@ -93,7 +93,7 @@ $.fn.powerTip = function(opts, arg) {
 	}
 
 	// handle api method calls on the plugin, e.g. powerTip('hide')
-	if ($.type(opts) === 'string' && $.powerTip[opts]) {
+	if (typeof opts === 'string' && $.powerTip[opts]) {
 		return $.powerTip[opts].call(targetElements, targetElements, arg);
 	}
 
