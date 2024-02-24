@@ -1,3 +1,11 @@
+v1.4.0:
+  date: TBA
+  diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.2...master
+  description: TBA
+  changes:
+    - section: Features & Improvements
+      changes:
+        - Added support for jQuery version 4.
 v1.3.2:
   date: 2022-03-06
   diff: https://github.com/stevenbenner/jquery-powertip/compare/v1.3.1...v1.3.2
