@@ -109,7 +109,7 @@ function isMouseOver(element) {
 	// methods do not work with SVG elements
 	// compute width/height because those properties do not exist on the object
 	// returned by getBoundingClientRect() in older versions of IE
-	var elementPosition = element.offset(),
+	var elementPosition = getCompensatedOffset(element),
 		elementBox = element[0].getBoundingClientRect(),
 		elementWidth = elementBox.right - elementBox.left,
 		elementHeight = elementBox.bottom - elementBox.top;
@@ -200,4 +200,56 @@ function countFlags(value) {
 		count++;
 	}
 	return count;
+}
+
+/**
+ * Conditionally make reference for Chrome zoomed offset patch
+ *
+ * Reference https://bugs.chromium.org/p/chromium/issues/detail?id=489206
+ * Suggested patch calls for inserting an absolutely positioned element at 0,0.
+ * However, it appears that document.body serves equally well as a references
+ * and avoid needing to manipulate DOM. Beware offset behavior when body is not
+ * positioned at 0,0.
+ */
+function activateChromeZoomedOffsetPatch() {
+	var style;
+	if (!session.chromePatchRefElement && /Chrome\/[.0-9]*/.test(navigator.userAgent)) {
+		session.chromePatchRefElement = $(document.body);
+		style = {
+			top: 0,
+			left: 0,
+			position: 'absolute',
+			display: 'hidden',
+			height: '1px',
+			margin: 0,
+			width: '1px',
+			zIndex: -1
+		};
+		session.chromePatchRefElement = $('<div/>').css(style).appendTo($(document.body));
+	}
+}
+
+/**
+ * Compensate for the Chrome getBoundingClientRect bug when zoomed.
+ * Reference https://bugs.chromium.org/p/chromium/issues/detail?id=489206
+ * @param {jQuery} element The element that the tooltip should target.
+ * @return {Offsets} The top, left offsets relative to the document.
+ */
+function getCompensatedOffset(element) {
+	return compensateForZoomBug(element.offset());
+}
+
+/**
+ * Compensate for the Chrome measurement bug when zoomed.
+ * @param {object} coords Coordinates to compensate for if zoomed on chrome
+ * @return {Offsets} The top, left offsets relative to the document.
+ */
+function compensateForZoomBug(coords) {
+	if (session.chromePatchRefElement) {
+		var r = session.chromePatchRefElement.offset();
+		coords.top -= r.top;
+		coords.left -= r.left;
+		return coords;
+	}
+	return coords;
 }

@@ -99,7 +99,7 @@ function PlacementCalculator() {
 	 * @return {Object} An object with the top,left position values.
 	 */
 	function getHtmlPlacement(element, placement) {
-		var objectOffset = element.offset(),
+		var objectOffset = getCompensatedOffset(element),
 			objectWidth = element.outerWidth(),
 			objectHeight = element.outerHeight(),
 			left,
@@ -217,10 +217,10 @@ function PlacementCalculator() {
 			}
 		}
 
-		return {
+		return compensateForZoomBug({
 			top: coords.y + session.scrollTop,
 			left: coords.x + session.scrollLeft
-		};
+		});
 	}
 
 	// expose methods
