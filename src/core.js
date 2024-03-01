@@ -10,6 +10,7 @@
 // useful private variables
 var $document = $(document),
 	$window = $(window),
+	$html = $(document.documentElement),
 	$body = $('body');
 
 // constants
@@ -60,7 +61,8 @@ var session = {
 	windowWidth: 0,
 	windowHeight: 0,
 	scrollTop: 0,
-	scrollLeft: 0
+	scrollLeft: 0,
+	positionCompensation: { top: 0, bottom: 0, left: 0, right: 0 }
 };
 
 /**

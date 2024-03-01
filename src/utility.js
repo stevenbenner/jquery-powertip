@@ -60,6 +60,7 @@ function getViewportDimensions() {
 	session.scrollTop = $window.scrollTop();
 	session.windowWidth = $window.width();
 	session.windowHeight = $window.height();
+	session.positionCompensation = computePositionCompensation(session.windowWidth, session.windowHeight);
 }
 
 /**
@@ -69,6 +70,7 @@ function getViewportDimensions() {
 function trackResize() {
 	session.windowWidth = $window.width();
 	session.windowHeight = $window.height();
+	session.positionCompensation = computePositionCompensation(session.windowWidth, session.windowHeight);
 }
 
 /**
@@ -166,22 +168,25 @@ function getTooltipContent(element) {
  * @return {number} Value with the collision flags.
  */
 function getViewportCollisions(coords, elementWidth, elementHeight) {
+	// adjusting viewport even though it might be negative because coords
+	// comparing with are relative to compensated position
 	var viewportTop = session.scrollTop,
 		viewportLeft = session.scrollLeft,
 		viewportBottom = viewportTop + session.windowHeight,
 		viewportRight = viewportLeft + session.windowWidth,
+		coordsFromViewport = coords.fromViewportHome(),
 		collisions = Collision.none;
 
-	if (coords.top < viewportTop || Math.abs(coords.bottom - session.windowHeight) - elementHeight < viewportTop) {
+	if (coordsFromViewport.top < viewportTop || coordsFromViewport.bottom - elementHeight < viewportTop) {
 		collisions |= Collision.top;
 	}
-	if (coords.top + elementHeight > viewportBottom || Math.abs(coords.bottom - session.windowHeight) > viewportBottom) {
+	if (coordsFromViewport.top + elementHeight > viewportBottom || coordsFromViewport.bottom > viewportBottom) {
 		collisions |= Collision.bottom;
 	}
-	if (coords.left < viewportLeft || coords.right + elementWidth > viewportRight) {
+	if (coordsFromViewport.left < viewportLeft || coordsFromViewport.right - elementWidth < viewportLeft) {
 		collisions |= Collision.left;
 	}
-	if (coords.left + elementWidth > viewportRight || coords.right < viewportLeft) {
+	if (coordsFromViewport.left + elementWidth > viewportRight || coordsFromViewport.right > viewportRight) {
 		collisions |= Collision.right;
 	}
 
@@ -200,4 +205,69 @@ function countFlags(value) {
 		count++;
 	}
 	return count;
+}
+
+/**
+ * Check whether element has CSS position attribute other than static
+ * @private
+ * @param {jQuery} element Element to check
+ * @return {boolean} indicating whether position attribute is non-static.
+ */
+function isPositionNotStatic(element) {
+	return element.css('position') !== 'static';
+}
+
+/**
+ * Get element offsets
+ * @private
+ * @param {jQuery} el Element to check
+ * @return {Object} The top, left, right, bottom offset in pixels
+ */
+function getElementOffsets(el) {
+	// jquery offset returns top and left relative to document in pixels.
+	var offsets = el.offset(),
+		borderLeftWidth = parseFloat(el.css('border-left-width')),
+		borderTopWidth = parseFloat(el.css('border-top-width')),
+		right,
+		bottom;
+
+	// right and bottom offset were relative to where screen.width,
+	// screen.height fell in document.  Change reference point to inner-bottom,
+	// inner-right of element.  Compensate for border which is outside
+	// measurement area. Avoid updating any measurement set to 'auto' which will
+	// result in a computed result of NaN.
+	right = session.windowWidth - el.innerWidth() - offsets.left - borderLeftWidth;
+	bottom = session.windowHeight - el.innerHeight() - offsets.top - borderTopWidth;
+	offsets.top = offsets.top + borderTopWidth;
+	offsets.left = offsets.left + borderLeftWidth;
+	offsets.right = right ? right : 0;
+	offsets.bottom = bottom ? bottom : 0;
+	return offsets;
+}
+
+/**
+ * Compute compensating position offsets if body or html element has non-static position attribute.
+ * @private
+ * @param {number} windowWidth Window width in pixels.
+ * @param {number} windowHeight Window height in pixels.
+ * @return {Object} The top, left, right, bottom offset in pixels
+ */
+function computePositionCompensation(windowWidth, windowHeight) {
+	// Check if the element is "positioned". A "positioned" element has a CSS
+	// position value other than static. Whether the element is positioned is
+	// relevant because absolutely positioned elements are positioned relative
+	// to the first positioned ancestor rather than relative to the doc origin.
+
+	var offsets;
+
+	if (isPositionNotStatic($body)) {
+		offsets = getElementOffsets($body, windowWidth, windowHeight);
+	} else if (isPositionNotStatic($html)) {
+		offsets = getElementOffsets($html, windowWidth, windowHeight);
+	} else {
+		// even though body may have offset, no compensation is required
+		offsets = { top: 0, bottom: 0, left: 0, right: 0 };
+	}
+
+	return offsets;
 }
