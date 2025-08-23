@@ -28,9 +28,3 @@ You can find the documentation for the **latest release version** on the [PowerT
 
 [projectpage]: https://stevenbenner.github.io/jquery-powertip/
 [docs]: https://github.com/stevenbenner/jquery-powertip/tree/master/doc
-
-## Reporting bugs
-
-For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub.
-
-[newissue]: https://github.com/stevenbenner/jquery-powertip/issues/new
