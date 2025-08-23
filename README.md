@@ -34,23 +34,3 @@ You can find the documentation for the **latest release version** on the [PowerT
 For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub.
 
 [newissue]: https://github.com/stevenbenner/jquery-powertip/issues/new
-
-## Contributor guide
-
-Make PowerTip better! Join the [league of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (JSFiddle, pastebin, text file, whatever).
-
-[contributors]: https://github.com/stevenbenner/jquery-powertip/graphs/contributors
-[fork]: https://github.com/stevenbenner/jquery-powertip/fork
-
-### Style guide
-
-These are general guidelines, not rules. I won't refuse a pull request just because it isn't the style that I use.
-
-* Style guide: In general, follow the [Google JavaScript Style Guide][styleguide].
-* Line wrap: Soft-wrap at 80 characters (go further if wrapping makes code less readable).
-* Indentation: Use tabs for indentation.
-* JSDoc comments: Use [closure compiler annotations][jsdoc].
-* Method chaining: Avoid long chained method statements, two or three max.
-
-[styleguide]: https://google.github.io/styleguide/javascriptguide.xml
-[jsdoc]: https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler
