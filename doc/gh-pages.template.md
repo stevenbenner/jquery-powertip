@@ -57,7 +57,7 @@ The PowerTip for this box will appear on the right and you will be able to inter
 	)
 %>
 
-## Change Log
+## Change log
 <%
 	_.each(changelog, function(details, version) {
 		var date = details.date;

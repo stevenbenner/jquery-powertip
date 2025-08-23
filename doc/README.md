@@ -1,6 +1,6 @@
 ## Overview
 
-### Unique Features
+### Unique features
 
 * **Checks for hover intent**
 
@@ -32,7 +32,7 @@
 
 **Important note:** The `<body>` tag must use the default CSS `position`.
 
-## Design Goals
+## Design goals
 
 * **Tooltips that behave like they would in desktop applications**
 
@@ -70,7 +70,7 @@ The first step for using this plugin in your project is to include the needed fi
 
 The most direct way to install this plugin is to download the latest version from the [project page](https://stevenbenner.github.io/jquery-powertip/) and copy the necessary files into your project. At the very least you will want one of the js files and one of the css files.
 
-### npm Installation
+### npm installation
 
 This plugin has been published to npm as [jquery-powertip](https://www.npmjs.com/package/jquery-powertip). This means that if you are using npm as your package manager then you can install PowerTip in your project by simply adding it to your package.json and/or running the following command:
 
@@ -373,7 +373,7 @@ $.powerTip.hide();
 * Remember that one of the rules for PowerTip is that only one tooltip will be visible at a time, so any open tooltips will be closed before a new tooltip is shown.
 * Forcing a tooltip to open via the `show()` method does not disable the normal hover tooltips for any other elements. If the user moves their cursor to another element with a tooltip after you call `show()` then the tooltip you opened will be closed so that the tooltip for the user's current hover target can open.
 
-## PowerTip Events
+## PowerTip events
 
 PowerTip will trigger several events during operation that you can bind custom code to. These events make it much easier to extend the plugin and work with tooltips during their life cycle. Using events should not be needed in most cases, they are provided for developers who need a deeper level of integration with the tooltip system.
 
@@ -471,7 +471,7 @@ $('.tips').powerTip({
 
 Smart placement is **disabled** by default because I believe that the world would be a better place if features that override explicit configuration values were disabled by default.
 
-## Custom PowerTip Integration
+## Custom PowerTip integration
 
 If you need to use PowerTip in a non-standard way, that is to say, if you need tooltips to open and close in some way other than the default mouse-on/mouse-off behavior then you can create your own event handlers and tell PowerTip when it should open and close tooltips.
 

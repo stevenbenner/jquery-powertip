@@ -13,7 +13,7 @@ This software is licensed under the [MIT license][license].
 [npmbadge]: https://img.shields.io/npm/v/jquery-powertip.svg?style=flat-square
 [testbadge]: https://img.shields.io/github/actions/workflow/status/stevenbenner/jquery-powertip/run-tests.yml?style=flat-square
 
-## Getting Started
+## Getting started
 
 * Download the latest stable release from the [PowerTip web site][projectpage] or install [jquery-powertip][npmpage] from npm.
 * Add the JavaScript and CSS file references to your web site.
@@ -29,20 +29,20 @@ You can find the documentation for the **latest release version** on the [PowerT
 [projectpage]: https://stevenbenner.github.io/jquery-powertip/
 [docs]: https://github.com/stevenbenner/jquery-powertip/tree/master/doc
 
-## Reporting Bugs
+## Reporting bugs
 
 For bug reports, questions, feature requests, or other suggestions the best way to contact me is to [create an issue][newissue] on GitHub.
 
 [newissue]: https://github.com/stevenbenner/jquery-powertip/issues/new
 
-## Contributor Guide
+## Contributor guide
 
 Make PowerTip better! Join the [league of awesome][contributors] today by submitting a patch! The best way to submit patches is to [fork this project][fork] on GitHub and submit a pull request. But if you are unwilling or unable to use GitHub I will accept patches in any way you can get them to me (JSFiddle, pastebin, text file, whatever).
 
 [contributors]: https://github.com/stevenbenner/jquery-powertip/graphs/contributors
 [fork]: https://github.com/stevenbenner/jquery-powertip/fork
 
-### Style Guide
+### Style guide
 
 These are general guidelines, not rules. I won't refuse a pull request just because it isn't the style that I use.
 

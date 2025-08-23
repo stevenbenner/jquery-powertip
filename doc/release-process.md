@@ -1,8 +1,8 @@
-# PowerTip Release Process
+# PowerTip release process
 
 **THIS DOCUMENT IS FOR INTERNAL REFERENCE ONLY** - I am documenting the release process so that I have a nice checklist to go over when releasing a new version of PowerTip. You probably don't care how PowerTip is built and released unless you plan on maintaining your own fork.
 
-## Version Format
+## Version format
 
 PowerTip uses [Semantic Versioning](https://semver.org/) and the version is in the format of [MAJOR].[MINOR].[PATCH]. Versioning is dictated by the exposed API that PowerTip users consume when using the plugin.
 
@@ -15,13 +15,13 @@ This includes anything in the following namespaces:
 
 The events that fire during the tooltip life cycle are also considered to be part of the API for versioning purposes.
 
-### Semantic Versioning Requirements
+### Semantic versioning requirements
 
 > * MAJOR version when you make incompatible API changes,
 > * MINOR version when you add functionality in a backwards-compatible manner, and
 > * PATCH version when you make backwards-compatible bug fixes.
 
-## The Release Process
+## The release process
 
 1. **Update the date and diff for the release in CHANGELOG.yml**
 
