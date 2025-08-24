@@ -17,7 +17,7 @@ This software is licensed under the [MIT license][license].
 
 * Download the latest stable release from the [PowerTip web site][projectpage] or install [jquery-powertip][npmpage] from npm.
 * Add the JavaScript and CSS file references to your web site.
-* Add a title or data-powertip attribute to the elements you want to show tooltips for.
+* Add a `title` or `data-powertip` attribute to the elements you want to show tooltips for.
 * Run the `powerTip()` method on those elements.
 
 [npmpage]: https://www.npmjs.com/package/jquery-powertip
