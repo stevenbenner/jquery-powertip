@@ -53,6 +53,7 @@
 	"scripts": {
 		"grunt": "grunt",
 		"test": "grunt test --verbose --stack",
+		"build": "grunt build:release",
 		"prepublishOnly": "grunt build:npm"
 	}
 }
