@@ -208,7 +208,7 @@ function TooltipController(options) {
 			// moving the tooltip to the last cursor location after it is hidden
 			coords.set('top', session.currentY + options.offset);
 			coords.set('left', session.currentX + options.offset);
-			tipElement.css(coords);
+			tipElement.css(coords.getCompensated());
 
 			// trigger powerTipClose event
 			element.trigger('powerTipClose');
@@ -268,7 +268,7 @@ function TooltipController(options) {
 			}
 
 			// position the tooltip
-			tipElement.css(coords);
+			tipElement.css(coords.getCompensated());
 		}
 	}
 
@@ -336,7 +336,7 @@ function TooltipController(options) {
 		// set the tip to 0,0 to get the full expanded width
 		coords.set('top', 0);
 		coords.set('left', 0);
-		tipElement.css(coords);
+		tipElement.css(coords.getCompensated());
 
 		// to support elastic tooltips we need to check for a change in the
 		// rendered dimensions after the tooltip has been positioned
@@ -355,7 +355,7 @@ function TooltipController(options) {
 			);
 
 			// place the tooltip
-			tipElement.css(coords);
+			tipElement.css(coords.getCompensated());
 		} while (
 			// sanity check: limit to 5 iterations, and...
 			++iterationCount <= 5 &&
