@@ -40,7 +40,7 @@
 		"grunt-contrib-copy": "~1.0",
 		"grunt-contrib-csslint": "~2.0",
 		"grunt-contrib-cssmin": "~5.0",
-		"grunt-contrib-qunit": "~8.0",
+		"grunt-contrib-qunit": "~10.1",
 		"grunt-contrib-uglify": "~5.2",
 		"grunt-eslint": "~24.3",
 		"grunt-indent": "~1.0",

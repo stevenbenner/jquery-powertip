@@ -1,14 +1,15 @@
 'use strict';
 
+QUnit.config.autostart = false;
+
 require.config({
 	paths: {
 		jquery: 'https://code.jquery.com/jquery-3.7.1',
-		qunit: 'https://code.jquery.com/qunit/qunit-2.24.1',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
 });
 
-require([ 'jquery', 'qunit', 'jquery.powertip' ], function($, QUnit, powerTip) {
+require([ 'jquery', 'jquery.powertip' ], function($, powerTip) {
 	QUnit.start();
 
 	QUnit.module('AMD');
