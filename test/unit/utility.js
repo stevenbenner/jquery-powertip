@@ -143,29 +143,48 @@ $(function() {
 			assert.strictEqual(countFlags(topLeft), 2, 'exactly two collisions detected for top-left test');
 		}
 
+		function makeCoords(val) {
+			var coords = new CSSCoordinates();
+			assert.ok(coords);
+			assert.ok(coords.getCompensated);
+			if ('top' in val) {
+				coords.set('top', val.top);
+			}
+			if ('left' in val) {
+				coords.set('left', val.left);
+			}
+			if ('right' in val) {
+				coords.set('right', val.right);
+			}
+			if ('bottom' in val) {
+				coords.set('bottom', val.bottom);
+			}
+			return coords;
+		}
+
 		// need to make sure initTracking() has been invoked to populate the
 		// viewport dimensions cache
 		initTracking();
 
 		// top/left placement
-		none = getViewportCollisions({ top: 0, left: 0 }, 200, 100);
-		right = getViewportCollisions({ top: 0, left: windowWidth - 199 }, 200, 100);
-		bottom = getViewportCollisions({ top: windowHeight - 99, left: 0 }, 200, 100);
-		bottomRight = getViewportCollisions({ top: windowHeight - 99, left: windowWidth - 199 }, 200, 100);
-		top = getViewportCollisions({ top: -1, left: 0 }, 200, 100);
-		left = getViewportCollisions({ top: 0, left: -1 }, 200, 100);
-		topLeft = getViewportCollisions({ top: -1, left: -1 }, 200, 100);
+		none = getViewportCollisions(makeCoords({ top: 0, left: 0 }), 200, 100);
+		right = getViewportCollisions(makeCoords({ top: 0, left: windowWidth - 199 }), 200, 100);
+		bottom = getViewportCollisions(makeCoords({ top: windowHeight - 99, left: 0 }), 200, 100);
+		bottomRight = getViewportCollisions(makeCoords({ top: windowHeight - 99, left: windowWidth - 199 }), 200, 100);
+		top = getViewportCollisions(makeCoords({ top: -1, left: 0 }), 200, 100);
+		left = getViewportCollisions(makeCoords({ top: 0, left: -1 }), 200, 100);
+		topLeft = getViewportCollisions(makeCoords({ top: -1, left: -1 }), 200, 100);
 
 		doTests();
 
 		// bottom/right placement
-		none = getViewportCollisions({ bottom: 0, right: 0 }, 200, 100);
-		right = getViewportCollisions({ bottom: 0, right: -1 }, 200, 100);
-		bottom = getViewportCollisions({ bottom: -1, right: 0 }, 200, 100);
-		bottomRight = getViewportCollisions({ bottom: -1, right: -1 }, 200, 100);
-		top = getViewportCollisions({ bottom: windowHeight - 99, right: 0 }, 200, 100);
-		left = getViewportCollisions({ bottom: 0, right: windowWidth - 199 }, 200, 100);
-		topLeft = getViewportCollisions({ bottom: windowHeight - 99, right: windowWidth - 199 }, 200, 100);
+		none = getViewportCollisions(makeCoords({ bottom: 0, right: 0 }), 200, 100);
+		right = getViewportCollisions(makeCoords({ bottom: 0, right: -1 }), 200, 100);
+		bottom = getViewportCollisions(makeCoords({ bottom: -1, right: 0 }), 200, 100);
+		bottomRight = getViewportCollisions(makeCoords({ bottom: -1, right: -1 }), 200, 100);
+		top = getViewportCollisions(makeCoords({ bottom: windowHeight - 99, right: 0 }), 200, 100);
+		left = getViewportCollisions(makeCoords({ bottom: 0, right: windowWidth - 199 }), 200, 100);
+		topLeft = getViewportCollisions(makeCoords({ bottom: windowHeight - 99, right: windowWidth - 199 }), 200, 100);
 
 		doTests();
 	});
