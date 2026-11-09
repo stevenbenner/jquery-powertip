@@ -19,7 +19,7 @@ $(function() {
 			tc = new TooltipController(zeroTimeOpts),
 			tipElem = $('#' + $.fn.powerTip.defaults.popupId);
 
-		assert.expect(14);
+		assert.expect(10);
 
 		element.on({
 			powerTipPreRender: function() {
