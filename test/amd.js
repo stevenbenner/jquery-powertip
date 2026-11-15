@@ -4,7 +4,7 @@ QUnit.config.autostart = false;
 
 require.config({
 	paths: {
-		jquery: 'https://code.jquery.com/jquery-3.7.1',
+		jquery: 'https://code.jquery.com/jquery-4.0.0',
 		'jquery.powertip': '../dist/jquery.powertip'
 	}
 });
